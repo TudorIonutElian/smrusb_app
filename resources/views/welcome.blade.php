@@ -10,8 +10,9 @@
     </head>
     <body class="antialiased">
         <div id="app">
-            <example-component></example-component>
+            <home />
         </div>
         <script src="{{ asset('/js/app.js')}}"></script>
+        <script src="{{ asset('/js/bootstrapJavascript.js')}}"></script>
     </body>
 </html>

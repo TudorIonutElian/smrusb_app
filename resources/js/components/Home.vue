@@ -18,8 +18,20 @@
 <script>
     import TopNav from './Menus/TopNav.vue'
     export default {
-        mounted() {
-            console.log('Component mounted.')
+        async mounted() {
+            await axios.get('/sanctum/csrf-cookie').then(response =>{
+                console.log(response)
+            })
+            await axios.post('/login', {
+                email: "lind.lia@example.net",
+                password: "passwor"
+            }).then(response => {
+                console.log(response)
+            })
+
+            await axios.get('/user').then(response => {
+                console.log(response)
+            })
         },
         components:{
             TopNav
