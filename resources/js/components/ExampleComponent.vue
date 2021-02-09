@@ -1,5 +1,6 @@
 <template>
-    <div class="container">
+    <div class="container-fluid">
+        <top-nav></top-nav>
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
@@ -15,9 +16,13 @@
 </template>
 
 <script>
+    import TopNav from './Menus/TopNav.vue'
     export default {
         mounted() {
             console.log('Component mounted.')
+        },
+        components:{
+            TopNav
         }
     }
 </script>
