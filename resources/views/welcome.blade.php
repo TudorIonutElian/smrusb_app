@@ -10,7 +10,7 @@
     </head>
     <body class="antialiased">
         <div id="app">
-            <home />
+            <router-view></router-view>
         </div>
         <script src="{{ asset('/js/app.js')}}"></script>
         <script src="{{ asset('/js/bootstrapJavascript.js')}}"></script>

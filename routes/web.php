@@ -1,5 +1,9 @@
 <?php
+namespace App\Http\Controllers;
 
+use App\Http\Controllers\Auth\LoginController;
+
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -13,8 +17,15 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::post('/login', [\App\Http\Controllers\AuthController::class, 'login']);
-Route::get('/user', [\App\Http\Controllers\AuthController::class, 'userLogIn']);
+
+
+Route::post('login', [LoginController::class, 'login']);
+Route::post('logout', [LoginController::class, 'logout']);
+
+Route::get('/user', function (Request $request) {
+    return $request->user();
+})->middleware('auth:sanctum');
+
 
 Route::get('/{any}', function () {
     return view('welcome');

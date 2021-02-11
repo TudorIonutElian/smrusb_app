@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div id="topNavArea">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container">
                 <a class="navbar-brand ml-auto" href="#">SMRUSB</a>
@@ -32,11 +32,28 @@
                             <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
                         </li>
                     </ul>
-                    <form class="d-flex">
+                    <div class="d-flex">
+                        <div v-if="user">
+                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Welcome {{ this.user.name}}
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <li><a class="dropdown-item" href="#">Notificari <span>(0)</span></a></li>
+                                        <li><a class="dropdown-item" href="#">Panou de control</a></li>
+                                        <li><a class="dropdown-item" href="#">Schimbare parola</a></li>
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li v-if="this.user.isAdmin === true"><a class="dropdown-item" href="#">Admin Dashboard</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
 
-                        <button class="btn btn-outline-success" type="submit">Login</button>
-                        <button class="btn btn-outline-success" type="submit">Logout</button>
-                    </form>
+                        </div>
+                        <a v-if="!isLoggedIn" href="/login" class="btn btn-outline-success">Login</a>
+                        <a v-if="!isLoggedIn" class="btn btn-outline-danger ml-1" @click.prevent="logout">Inregistrare</a>
+                        <a v-if="isLoggedIn" class="btn btn-outline-danger ml-1" @click.prevent="logout">Logout</a>
+                    </div>
                 </div>
             </div>
         </nav>
@@ -44,5 +61,52 @@
 </template>
 
 <script>
+    import router from "../../router/router";
 
+    export default {
+        data(){
+            return{
+                isLoggedIn: localStorage.getItem('isLoggedIn'),
+                user: null
+            }
+        },
+        props: {
+            email: String
+        },
+        created() {
+            this.checkLoggedIn();
+        },
+
+        methods:{
+            checkLoggedIn(){
+                const isLoggedIn = localStorage.getItem('isLoggedIn');
+                if(isLoggedIn === 'true'){
+                    this.user = JSON.parse(localStorage.getItem('user'));
+                }
+            },
+            async logout(){
+                const token = localStorage.getItem('token');
+                await axios.post('/logout',{}, {
+                    headers:{
+                        ContentType: 'application/json',
+                        Authorization : 'Bearer ' + token
+                    }
+                });
+
+                this.$store.dispatch('setAdminLoggedOut', false);
+                router.push('/login');
+            }
+        }
+    }
 </script>
+
+<style scoped>
+#topNavArea{
+    width: 100vw;
+    height: 5vh;
+}
+.dropdown-item span{
+    font-weight: bold;
+    color: #1abc9c;
+}
+</style>
