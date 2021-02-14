@@ -18,7 +18,7 @@ const store = new Vuex.Store({
         },
         setUser(state, payload){
             state.user = payload
-        }
+        },
     },
     actions:{
         setLoggedIn({commit, dispatch}, payload){

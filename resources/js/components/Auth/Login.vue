@@ -1,23 +1,25 @@
 <template>
     <div class="container-fluid">
         <top-nav></top-nav>
-        <div id="loginArea">
-            <div id="loginArea_details">
-                <img src="/images/login.png" alt="">
-            </div>
-            <div id="loginArea_form">
-                <form>
-                    <div class="mb-3">
-                        <label class="form-label">Adresa de email</label>
-                        <input type="email" class="form-control w-100" v-model="user.email">
-                        <div>Resetarea parolei poate fi facuta accesand formularul de aici</div>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Parola</label>
-                        <input type="password" class="form-control" v-model="user.password">
-                    </div>
-                    <button @click.prevent="login" class="btn btn-primary btn-block">Submit</button>
-                </form>
+        <div>
+            <div id="loginArea">
+                <div id="loginArea_details">
+                    <img src="/images/login.png" alt="">
+                </div>
+                <div id="loginArea_form">
+                    <form>
+                        <div class="mb-3">
+                            <label class="form-label">Adresa de email</label>
+                            <input type="email" class="form-control w-100" v-model="user.email">
+                            <div>Resetarea parolei poate fi facuta accesand formularul de aici</div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Parola</label>
+                            <input type="password" class="form-control" v-model="user.password">
+                        </div>
+                        <button @click.prevent="login" class="btn btn-primary btn-block">Submit</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
@@ -40,7 +42,8 @@ export default {
                 userData: {}
             },
             device: 'device-browser',
-            token: ""
+            token: "",
+            loginError: null
         }
     },
     async created() {
@@ -95,7 +98,8 @@ export default {
                             this.$store.dispatch('setAdminLoggedIn', false);
                             router.push({name: 'user-dashboard'})
                         }
-
+                        console.log(response)
+                        this.$store.commit('setUser', response.data);
 
                     })
                 }

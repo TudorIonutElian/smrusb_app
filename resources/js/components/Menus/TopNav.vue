@@ -2,30 +2,30 @@
     <div id="topNavArea">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container">
-                <a class="navbar-brand ml-auto" href="#">SMRUSB</a>
+                <a class="navbar-brand ml-auto" href="/">SMRUSB</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto mb-2 mb-lg-0 ">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Acasa</a>
+                            <a class="nav-link active" aria-current="page" href="/">Acasa</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Despre</a>
+                            <a class="nav-link" href="/despre">Despre</a>
                         </li>
-                        <li class="nav-item dropdown">
+                        <li class="nav-item dropdown" v-if="user != null && user.isAdmin === 1">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Nomenclator
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">Regiuni</a></li>
-                                <li><a class="dropdown-item" href="#">Judete</a></li>
-                                <li><a class="dropdown-item" href="#">Localitati</a></li>
-                                <li><a class="dropdown-item" href="#">Ordonatori</a></li>
-                                <li><a class="dropdown-item" href="#">Institutii</a></li>
-                                <li><a class="dropdown-item" href="#">Angajati</a></li>
-                                <li><a class="dropdown-item" href="#">Functii</a></li>
+                                <li><a class="dropdown-item" href="/regiuni">Regiuni</a></li>
+                                <li><a class="dropdown-item" href="/judete">Judete</a></li>
+                                <li><a class="dropdown-item" href="/localitati">Localitati</a></li>
+                                <li><a class="dropdown-item" href="/ordonatori">Ordonatori</a></li>
+                                <li><a class="dropdown-item" href="/institutii">Institutii</a></li>
+                                <li><a class="dropdown-item" href="/angajati">Angajati</a></li>
+                                <li><a class="dropdown-item" href="/functii">Functii</a></li>
                             </ul>
                         </li>
                         <li class="nav-item">
@@ -40,18 +40,19 @@
                                         Welcome {{ this.user.name}}
                                     </a>
                                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <li><a class="dropdown-item" href="#">Notificari <span>(0)</span></a></li>
-                                        <li><a class="dropdown-item" href="#">Panou de control</a></li>
-                                        <li><a class="dropdown-item" href="#">Schimbare parola</a></li>
+                                        <li><a class="dropdown-item" href="#">{{ user.email }}</a></li>
                                         <li><hr class="dropdown-divider"></li>
-                                        <li v-if="this.user.isAdmin === true"><a class="dropdown-item" href="#">Admin Dashboard</a></li>
+                                        <li><a class="dropdown-item" href="#">Notificari <span>(0)</span></a></li>
+                                        <li><a class="dropdown-item" :href="'/api/user/profile/' + user.id">Panou de control</a></li>
+                                        <li><a class="dropdown-item" :href="'/api/user/changepassword/' + user.id">Schimbare parola</a></li>
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li v-if="this.user.isAdmin === 1"><a class="dropdown-item" href="#">Admin Dashboard</a></li>
                                     </ul>
                                 </li>
                             </ul>
-
                         </div>
-                        <a v-if="!isLoggedIn" href="/login" class="btn btn-outline-success">Login</a>
-                        <a v-if="!isLoggedIn" class="btn btn-outline-danger ml-1" @click.prevent="logout">Inregistrare</a>
+                        <a v-if="isLoggedIn === false" href="/login" class="btn btn-outline-success">Login</a>
+                        <a v-if="isLoggedIn === false" class="btn btn-outline-danger ml-1" @click.prevent="logout">Inregistrare</a>
                         <a v-if="isLoggedIn" class="btn btn-outline-danger ml-1" @click.prevent="logout">Logout</a>
                     </div>
                 </div>
@@ -62,16 +63,15 @@
 
 <script>
     import router from "../../router/router";
+    import {checkIfIsAdmin, checkIfLoggedIn} from "../../functions/auth/authFunctions";
 
     export default {
-        data(){
-            return{
-                isLoggedIn: localStorage.getItem('isLoggedIn'),
+        data: function () {
+            return {
+                isLoggedIn: checkIfLoggedIn(),
+                isAdmin: checkIfIsAdmin(),
                 user: null
             }
-        },
-        props: {
-            email: String
         },
         created() {
             this.checkLoggedIn();

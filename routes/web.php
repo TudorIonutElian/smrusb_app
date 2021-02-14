@@ -17,18 +17,22 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-
 Route::post('login', [LoginController::class, 'login']);
 Route::post('logout', [LoginController::class, 'logout']);
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
+
+Route::middleware('auth:sanctum')->group(function (){
+    Route::get('/user', function (Request $request) {
+        return $request->user();
+    });
+});
+
+
 
 
 Route::get('/{any}', function () {
     return view('welcome');
 })->where('any', '.*');
+
 
 

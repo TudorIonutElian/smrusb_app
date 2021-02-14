@@ -15,6 +15,8 @@ const router = new VueRouter({
 
         // Route Home
         {path: '/', component: Home, name: 'home'},
+
+        {path: '/despre', component: Home, name: 'despre'},
         // Route Login
         {path: '/login', component: Login, name: 'login'},
         // Route Admin Dashboard

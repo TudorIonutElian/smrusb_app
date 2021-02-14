@@ -20,8 +20,17 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
-            $table->timestamps();
             $table->boolean('isAdmin')->default(false);
+            $table->unsignedSmallInteger('regiune')->nullable();
+            $table->unsignedSmallInteger('judet')->nullable();
+            $table->unsignedSmallInteger('localitate')->nullable();
+            $table->unsignedSmallInteger('strada')->nullable();
+            $table->integer('numar')->nullable();
+            $table->integer('bloc')->nullable();
+            $table->string('scara', 3)->nullable();
+            $table->integer('etaj')->nullable();
+            $table->integer('apartament')->nullable();
+            $table->integer('cod_postal')->nullable();
         });
     }
 

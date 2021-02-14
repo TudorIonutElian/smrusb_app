@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Models\Judet;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,3 +19,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/users', [AdminController::class, 'showUsers'])->middleware('auth:sanctum');
+
+Route::get('/judete', function (){
+   return Judet::all();
+});
