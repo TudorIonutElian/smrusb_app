@@ -9,3 +9,8 @@ export function checkIfIsAdmin(){
 export function getUser(){
     return  JSON.parse(localStorage.getItem('user')) || null;
 }
+export function getUserEmail(){
+    if(JSON.parse(localStorage.getItem('user') !== null)){
+        return JSON.parse(localStorage.getItem('user'));
+    }
+}

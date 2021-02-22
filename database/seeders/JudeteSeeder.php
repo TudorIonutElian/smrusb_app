@@ -27,7 +27,7 @@ class JudeteSeeder extends Seeder
 
                 // Inserare judete Regiunea Sud Est
                 ['denumire' => 'Braila', 'regiune'=> 2],
-                ['denumire' => ' Buzau', 'regiune'=> 2],
+                ['denumire' => 'Buzau', 'regiune'=> 2],
                 ['denumire' => 'Constanta', 'regiune'=> 2],
                 ['denumire' => 'Galati', 'regiune'=> 2],
                 ['denumire' => 'Tulcea', 'regiune'=> 2],

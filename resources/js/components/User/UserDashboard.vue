@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <top-nav></top-nav>
         <div class="row">
-            <div class="container mt-4">
+            <div class="container mt-4 container-angajati">
                 <div class="row">
                     <div class="col-12 d-flex mb-2">
                         <input class="form-control me-2" type="search" placeholder="Introduceti numele angajatului ..." aria-label="Search">
@@ -62,7 +62,6 @@
 
 <script>
 import TopNav from "../Menus/TopNav";
-import UserPannel from "../Panels/UserPannel";
 
 export default {
     data(){
@@ -73,7 +72,6 @@ export default {
         }
     },
     components:{
-        UserPannel,
         TopNav
     },
     methods:{

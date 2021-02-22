@@ -6,6 +6,7 @@ import VueRouter from 'vue-router';
 
 import Home from '../components/Home.vue';
 import Login from '../components/Auth/Login';
+import Register from '../components/Auth/Register';
 import Admin from '../components/Admin/AdminDashboard';
 import User from '../components/User/UserDashboard';
 
@@ -19,6 +20,12 @@ const router = new VueRouter({
         {path: '/despre', component: Home, name: 'despre'},
         // Route Login
         {path: '/login', component: Login, name: 'login'},
+
+        // Route Register
+        {path: '/inregistrare', component: Register, name: 'register'},
+
+
+
         // Route Admin Dashboard
         {path: '/admin/dashboard', component: Admin, name: 'admin-dashboard'},
         // Route User Dashboard

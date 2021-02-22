@@ -14,12 +14,12 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/despre">Despre</a>
                         </li>
-                        <li class="nav-item dropdown" v-if="user != null && user.isAdmin === 1">
+                        <li class="nav-item dropdown" v-if="user != null && user.userType === 1">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Nomenclator
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="/regiuni">Regiuni</a></li>
+                                <li><a class="dropdown-item" href="/#v-pills-regiuni">Regiuni</a></li>
                                 <li><a class="dropdown-item" href="/judete">Judete</a></li>
                                 <li><a class="dropdown-item" href="/localitati">Localitati</a></li>
                                 <li><a class="dropdown-item" href="/ordonatori">Ordonatori</a></li>
@@ -28,8 +28,15 @@
                                 <li><a class="dropdown-item" href="/functii">Functii</a></li>
                             </ul>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                        <li class="nav-item dropdown" v-if="user != null && user.userType !== 1">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbaruserSearch" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Cauta
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="#" @click.prevent="setSearch('localitati')">Localitati</a></li>
+                                <li><a class="dropdown-item" href="#" @click.prevent="setSearch('institutii')">Institutii</a></li>
+                                <li><a class="dropdown-item" href="#" @click.prevent="setSearch('angajati')">Angajati</a></li>
+                            </ul>
                         </li>
                     </ul>
                     <div class="d-flex">
@@ -52,7 +59,7 @@
                             </ul>
                         </div>
                         <a v-if="isLoggedIn === false" href="/login" class="btn btn-outline-success">Login</a>
-                        <a v-if="isLoggedIn === false" class="btn btn-outline-danger ml-1" @click.prevent="logout">Inregistrare</a>
+                        <a v-if="isLoggedIn === false" href="/inregistrare" class="btn btn-outline-danger ml-1">Inregistrare</a>
                         <a v-if="isLoggedIn" class="btn btn-outline-danger ml-1" @click.prevent="logout">Logout</a>
                     </div>
                 </div>
@@ -70,7 +77,8 @@
             return {
                 isLoggedIn: checkIfLoggedIn(),
                 isAdmin: checkIfIsAdmin(),
-                user: null
+                user: null,
+                searchComponent: 'angajati'
             }
         },
         created() {
@@ -102,7 +110,7 @@
 
 <style scoped>
 #topNavArea{
-    width: 100vw;
+    width: 100%;
     height: 5vh;
 }
 .dropdown-item span{

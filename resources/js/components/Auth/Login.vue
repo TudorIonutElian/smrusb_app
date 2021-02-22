@@ -82,7 +82,7 @@ export default {
                             Authorization : 'Bearer ' + this.token
                         }
                     }).then(response=>{
-                        const isAdmin = response.data.isAdmin;
+                        const isAdmin = response.data.userType;
                         this.user.isLoggedIn = true;
                         this.$store.dispatch('setLoggedIn', true);
 

@@ -19,6 +19,7 @@ class CreateIstoricRegiuniTable extends Migration
             $table->date('data')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->string('detalii', 100);
             $table->string('denumire_istoric', 100)->nullable();
+            $table->string('denumire_actual', 100)->nullable();
             $table->integer('tip');
 
             $table->foreign('regiune')->references('id')->on('regiuni');
@@ -33,11 +34,13 @@ class CreateIstoricRegiuniTable extends Migration
                                 regiune,
                                 detalii,
                                 tip,
-                                denumire_istoric)
+                                denumire_istoric,
+                                denumire_actual)
                             VALUES (
                                 new.id,
-                                "Regiunea a fost creata.",
+                                CONCAT("Regiunea ", new.denumire, " a fost creata."),
                                 new.stare,
+                                new.denumire,
                                 new.denumire);
                         END
                 ');
@@ -52,11 +55,13 @@ class CreateIstoricRegiuniTable extends Migration
                                     regiune,
                                     detalii,
                                     tip,
-                                    denumire_istoric)
+                                    denumire_istoric,
+                                    denumire_actual)
                                 VALUES (
                                     new.id,
-                                    "Regiunea a fost suspendata.",
+                                    CONCAT("Regiunea ", new.denumire, " a fost suspendata."),
                                     new.stare,
+                                    old.denumire,
                                     new.denumire);
                             END IF;
                             IF NEW.STARE = 1 && OLD.STARE = 0 THEN
@@ -64,11 +69,27 @@ class CreateIstoricRegiuniTable extends Migration
                                     regiune,
                                     detalii,
                                     tip,
-                                    denumire_istoric)
+                                    denumire_istoric,
+                                    denumire_actual)
                                 VALUES (
                                     new.id,
-                                    "Regiunea a fost reactivata.",
+                                    CONCAT("Regiunea ", new.denumire, " a fost reactivata."),
                                     new.stare,
+                                    old.denumire,
+                                    new.denumire);
+                            END IF;
+                            IF NEW.STARE = 1 && OLD.STARE = 1 || NEW.STARE = 0 && OLD.STARE = 0  THEN
+                                INSERT INTO istoric_regiuni(
+                                    regiune,
+                                    detalii,
+                                    tip,
+                                    denumire_istoric,
+                                    denumire_actual)
+                                VALUES (
+                                    new.id,
+                                    CONCAT("Denumirea regiunii ", old.denumire, " a fost schimbata in ", new.denumire, "."),
+                                    new.stare,
+                                    old.denumire,
                                     new.denumire);
                             END IF;
                         END

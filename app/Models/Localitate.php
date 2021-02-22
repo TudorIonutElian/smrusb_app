@@ -4,17 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Judet;
 
-class Regiune extends Model
+class Localitate extends Model
 {
     use HasFactory;
 
-    protected $table="regiuni";
+    protected $table="localitati";
 
     // Anulare coloane created_at si updated_at
     public $timestamps = false;
 
-    public function judete(){
-        return $this->hasMany(Judet::class, 'regiune');
+    public function getJudet(){
+        return $this->belongsTo('App\Models\Judet', 'judet');
     }
 }

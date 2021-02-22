@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\LocalitatiController;
 use App\Models\Judet;
 use Illuminate\Support\Facades\Route;
 
@@ -15,11 +16,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
-
-
+Route::get('/data', [AdminController::class, 'loadData'])->middleware('auth:sanctum');
 Route::get('/users', [AdminController::class, 'showUsers'])->middleware('auth:sanctum');
 
-Route::get('/judete', function (){
-   return Judet::all();
-});
+
+Route::post('/users/suspenda', [AdminController::class, 'suspendaCont'])->middleware('auth:sanctum');
+Route::post('/users/activeaza', [AdminController::class, 'activeazaCont'])->middleware('auth:sanctum');
+
+
+Route::get('/localitati', [LocalitatiController::class, 'index']);
+
+
+
+
