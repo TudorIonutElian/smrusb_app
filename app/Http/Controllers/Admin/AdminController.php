@@ -81,6 +81,9 @@ class AdminController extends Controller
                 ]);
             }
         }
+    }
 
+    public function showInactiveUsers(){
+        return User::where('isActive', '=', 0)->get();
     }
 }

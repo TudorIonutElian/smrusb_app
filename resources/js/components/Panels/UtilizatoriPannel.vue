@@ -102,7 +102,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 
 .user-active {
     padding: 7px;
@@ -133,6 +133,12 @@ export default {
 .angajat-class {
     padding: 5px;
     color: #039fe7;
+    border-radius: 5px;
+}
+.faraRol-class{
+    padding: 7px;
+    color: #ffffff;
+    background-color: #a9a4a4;
     border-radius: 5px;
 }
 

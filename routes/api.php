@@ -22,9 +22,10 @@ Route::get('/users', [AdminController::class, 'showUsers'])->middleware('auth:sa
 
 Route::post('/users/suspenda', [AdminController::class, 'suspendaCont'])->middleware('auth:sanctum');
 Route::post('/users/activeaza', [AdminController::class, 'activeazaCont'])->middleware('auth:sanctum');
-
+Route::get('/users/activare', [AdminController::class, 'showInactiveUsers']);
 
 Route::get('/localitati', [LocalitatiController::class, 'index']);
+
 
 
 

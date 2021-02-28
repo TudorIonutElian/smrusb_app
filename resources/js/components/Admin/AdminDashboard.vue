@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="container-fluid">
-            <top-nav></top-nav>
+            <top-nav :utilizatoriInactivi="generalData.utilizatoriInactivi"></top-nav>
             <div class="row">
                 <div class="container-fluid mt-4 p-3">
                     <div class="row">
@@ -114,7 +114,8 @@ export default {
             generalData:{
                 users: [],
                 regiuni: [],
-                judete: []
+                judete: [],
+                utilizatoriInactivi: []
             },
             adminData:{
                 email: getUserEmail(),
@@ -145,9 +146,10 @@ export default {
                 }
             }).then(
                 response => {
-                    this.generalData.users      = response.data.users;
-                    this.generalData.regiuni    = response.data.regiuni;
-                    this.generalData.judete    = response.data.judete;
+                    this.generalData.users                  = response.data.users;
+                    this.generalData.regiuni                = response.data.regiuni;
+                    this.generalData.judete                 = response.data.judete;
+                    this.generalData.utilizatoriInactivi    = this.generalData.users.length ? this.generalData.users.length: 0
                 }
             );
         }

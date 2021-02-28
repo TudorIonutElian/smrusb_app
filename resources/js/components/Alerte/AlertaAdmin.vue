@@ -1,20 +1,6 @@
 <template>
-    <div>
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    ...
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
-            </div>
-        </div>
+    <div class="alerta-success">
+        Operatiune Ok
     </div>
 </template>
 
@@ -29,5 +15,34 @@ export default {
 </script>
 
 <style scoped>
+.alerta-success{
+    position: fixed;
+    width: 200px;
+    padding: 15px;
+    background-color: #2ecc71;
+    bottom: 3%;
+    right: 3%;
+    color: #ffffff;
+    border-radius: 5%;
+    text-align: center;
+    animation-name: example;
+    animation-duration: 0.5s;
+    cursor: pointer;
+}
 
+@keyframes example {
+    0%{
+        opacity: .9;
+        display: block;
+    }
+    50%{
+        opacity: .7;
+    }
+    80%{
+        opacity: 0;
+    }
+    100%{
+        display: none;
+    }
+}
 </style>

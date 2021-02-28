@@ -49,7 +49,7 @@
                                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                         <li><a class="dropdown-item" href="#">{{ user.email }}</a></li>
                                         <li><hr class="dropdown-divider"></li>
-                                        <li><a class="dropdown-item" href="#">Notificari <span>(0)</span></a></li>
+                                        <li><a class="dropdown-item" href="/utilizatori/activare">Solicitari Activare Conturi <span> ({{ this.utilizatoriInactivi}})</span></a></li>
                                         <li><a class="dropdown-item" :href="'/api/user/profile/' + user.id">Panou de control</a></li>
                                         <li><a class="dropdown-item" :href="'/api/user/changepassword/' + user.id">Schimbare parola</a></li>
                                         <li><hr class="dropdown-divider"></li>
@@ -104,7 +104,8 @@
                 this.$store.dispatch('setAdminLoggedOut', false);
                 router.push('/login');
             }
-        }
+        },
+        props: ['utilizatori-inactivi']
     }
 </script>
 
