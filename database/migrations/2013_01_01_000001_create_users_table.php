@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->boolean('isActive')->default(false)->nullable();
             $table->unsignedBigInteger('userType')->nullable();
+            $table->unsignedBigInteger('userLevel')->nullable();
         });
     }
 

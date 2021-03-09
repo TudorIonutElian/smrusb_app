@@ -47,7 +47,7 @@
             </div>
         </div>
         <div v-if="showAnimation === true">
-            <alerta-admin></alerta-admin>
+            <alerta-admin mesajAlerta="Activare Utilizator"></alerta-admin>
         </div>
     </div>
 </template>

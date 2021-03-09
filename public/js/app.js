@@ -2139,7 +2139,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
 
 
 
@@ -2156,7 +2155,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       },
       adminData: {
         email: (0,_functions_auth_authFunctions__WEBPACK_IMPORTED_MODULE_3__.getUserEmail)(),
-        isAdmin: localStorage.getItem('isAdmin') || false,
+        isAdmin: localStorage.getItem('isAdmin') || 'false',
         user: (0,_functions_auth_authFunctions__WEBPACK_IMPORTED_MODULE_3__.getUser)(),
         token: ""
       }
@@ -2229,8 +2228,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
-    return {};
-  }
+    return {
+      mesajAlerta: this.mesaj - alerta
+    };
+  },
+  props: ['mesaj-alerta']
 });
 
 /***/ }),
@@ -7794,7 +7796,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.alerta-success[data-v-413814cf]{\n    position: fixed;\n    width: 200px;\n    padding: 15px;\n    background-color: #2ecc71;\n    bottom: 3%;\n    right: 3%;\n    color: #ffffff;\n    border-radius: 5%;\n    text-align: center;\n    -webkit-animation-name: example-data-v-413814cf;\n            animation-name: example-data-v-413814cf;\n    -webkit-animation-duration: 0.5s;\n            animation-duration: 0.5s;\n    cursor: pointer;\n}\n@-webkit-keyframes example-data-v-413814cf {\n0%{\n        opacity: .9;\n        display: block;\n}\n50%{\n        opacity: .7;\n}\n80%{\n        opacity: 0;\n}\n100%{\n        display: none;\n}\n}\n@keyframes example-data-v-413814cf {\n0%{\n        opacity: .9;\n        display: block;\n}\n50%{\n        opacity: .7;\n}\n80%{\n        opacity: 0;\n}\n100%{\n        display: none;\n}\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.alerta-success[data-v-413814cf]{\n    position: fixed;\n    bottom: 10px;\n    right: 30px;\n    display: block;\n    width: 200px;\n    padding: 15px;\n    background-color: #2ecc71;\n    bottom: 3%;\n    right: 3%;\n    color: #ffffff;\n    border-radius: 4%;\n    text-align: center;\n    cursor: pointer;\n    -webkit-animation: example-data-v-413814cf 4s;\n            animation: example-data-v-413814cf 4s;\n    -webkit-animation-fill-mode: forwards;\n            animation-fill-mode: forwards;\n}\n@-webkit-keyframes example-data-v-413814cf {\n0%{\n        opacity: .9;\n        bottom: 30px;\n        right: -100px;\n}\n5%{\n        opacity: .9;\n        bottom: 30px;\n        right: -70px;\n}\n15%{\n        opacity: .9;\n        bottom: 30px;\n        right: -10px;\n}\n25%{\n        opacity: .9;\n        bottom: 30px;\n        right: -26px;\n}\n100%{\n         opacity: .9;\n         bottom: 30px;\n         right: -1000px;\n}\n}\n@keyframes example-data-v-413814cf {\n0%{\n        opacity: .9;\n        bottom: 30px;\n        right: -100px;\n}\n5%{\n        opacity: .9;\n        bottom: 30px;\n        right: -70px;\n}\n15%{\n        opacity: .9;\n        bottom: 30px;\n        right: -10px;\n}\n25%{\n        opacity: .9;\n        bottom: 30px;\n        right: -26px;\n}\n100%{\n         opacity: .9;\n         bottom: 30px;\n         right: -1000px;\n}\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -7890,7 +7892,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.user-active {\n    padding: 7px;\n    background-color: #38c172;\n    color: #ffffff;\n    border-radius: 5px;\n}\n.user-inactive {\n    padding: 7px;\n    background-color: #e74c3c;\n    color: #ffffff;\n    border-radius: 3px;\n}\n.admin-class {\n    padding: 5px;\n    color: #38c172;\n    border-radius: 5px;\n}\n.specialist-class {\n    padding: 5px;\n    color: #2be9e9;\n    border-radius: 5px;\n}\n.angajat-class {\n    padding: 5px;\n    color: #039fe7;\n    border-radius: 5px;\n}\n.faraRol-class{\n    padding: 7px;\n    color: #ffffff;\n    background-color: #a9a4a4;\n    border-radius: 5px;\n}\n\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.user-active {\n    padding: 7px;\n    background-color: #38c172;\n    color: #ffffff;\n    border-radius: 5px;\n}\n.user-inactive {\n    padding: 7px;\n    background-color: #e74c3c;\n    color: #ffffff;\n    border-radius: 3px;\n}\n.admin-class {\n    padding: 5px;\n    color: #ffffff;\n    border-radius: 5px;\n    background-color: #065ef1;\n}\n.specialist-class {\n    padding: 5px;\n    color: #2be9e9;\n    border-radius: 5px;\n}\n.angajat-class {\n    padding: 5px;\n    color: #039fe7;\n    border-radius: 5px;\n}\n.faraRol-class{\n    padding: 7px;\n    color: #ffffff;\n    background-color: #a9a4a4;\n    border-radius: 5px;\n}\n\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -41180,7 +41182,17 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _vm.showAnimation === true ? _c("div", [_c("alerta-admin")], 1) : _vm._e()
+      _vm.showAnimation === true
+        ? _c(
+            "div",
+            [
+              _c("alerta-admin", {
+                attrs: { mesajAlerta: "Activare Utilizator" }
+              })
+            ],
+            1
+          )
+        : _vm._e()
     ],
     1
   )
@@ -41229,128 +41241,126 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c(
-      "div",
-      { staticClass: "container-fluid" },
-      [
-        _c("top-nav", {
-          attrs: { utilizatoriInactivi: _vm.generalData.utilizatoriInactivi }
-        }),
-        _vm._v(" "),
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "container-fluid mt-4 p-3" }, [
+  return _c(
+    "div",
+    [
+      _c("top-nav", {
+        attrs: { utilizatoriInactivi: _vm.generalData.utilizatoriInactivi }
+      }),
+      _vm._v(" "),
+      _vm.adminData.isAdmin !== "false"
+        ? _c("div", { staticClass: "container-fluid" }, [
             _c("div", { staticClass: "row" }, [
-              _c(
-                "div",
-                { staticClass: "col-12 bg-success text-white p-3 mb-2" },
-                [
-                  _vm._v(
-                    "\n                        Bine ai venit, " +
-                      _vm._s(_vm.adminData.user.name) +
-                      "\n                    "
+              _c("div", { staticClass: "container-fluid mt-4 p-3" }, [
+                _c("div", { staticClass: "row" }, [
+                  _c(
+                    "div",
+                    { staticClass: "col-12 bg-success text-white p-3 mb-2" },
+                    [
+                      _vm._v(
+                        "\n                        Bine ai venit, " +
+                          _vm._s(_vm.adminData.user.name) +
+                          "\n                    "
+                      )
+                    ]
                   )
-                ]
-              )
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "row" }, [
-              _vm._m(0),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-9" }, [
-                _c(
-                  "div",
-                  {
-                    staticClass: "tab-content",
-                    attrs: { id: "v-pills-tabContent" }
-                  },
-                  [
-                    _vm._m(1),
-                    _vm._v(" "),
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "row" }, [
+                  _vm._m(0),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-9" }, [
                     _c(
                       "div",
                       {
-                        staticClass: "tab-pane fade",
-                        attrs: {
-                          id: "v-pills-utilizatori",
-                          role: "tabpanel",
-                          "aria-labelledby": "v-pills-utilizatori-tab"
-                        }
+                        staticClass: "tab-content",
+                        attrs: { id: "v-pills-tabContent" }
                       },
                       [
-                        _c("utilizatori-pannel", {
-                          attrs: { "utilizatori-data": _vm.generalData.users },
-                          on: {
-                            suspendaUtilizator: _vm.loadGeneralData,
-                            activeazaUtilizator: _vm.loadGeneralData
-                          }
-                        })
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      {
-                        staticClass: "tab-pane fade",
-                        attrs: {
-                          id: "v-pills-regiuni",
-                          role: "tabpanel",
-                          "aria-labelledby": "v-pills-regiuni-tab"
-                        }
-                      },
-                      [
-                        _c("regiuni-pannel", {
-                          attrs: { "regiuni-data": _vm.generalData.regiuni }
-                        })
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      {
-                        staticClass: "tab-pane fade",
-                        attrs: {
-                          id: "v-pills-judete",
-                          role: "tabpanel",
-                          "aria-labelledby": "v-pills-judete-tab"
-                        }
-                      },
-                      [
-                        _c("judete-pannel", {
-                          attrs: { "judete-data": _vm.generalData.judete }
-                        })
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _vm._m(2),
-                    _vm._v(" "),
-                    _vm._m(3),
-                    _vm._v(" "),
-                    _vm._m(4),
-                    _vm._v(" "),
-                    _vm._m(5)
-                  ]
-                )
+                        _vm._m(1),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            staticClass: "tab-pane fade",
+                            attrs: {
+                              id: "v-pills-utilizatori",
+                              role: "tabpanel",
+                              "aria-labelledby": "v-pills-utilizatori-tab"
+                            }
+                          },
+                          [
+                            _c("utilizatori-pannel", {
+                              attrs: {
+                                "utilizatori-data": _vm.generalData.users
+                              },
+                              on: {
+                                suspendaUtilizator: _vm.loadGeneralData,
+                                activeazaUtilizator: _vm.loadGeneralData
+                              }
+                            })
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            staticClass: "tab-pane fade",
+                            attrs: {
+                              id: "v-pills-regiuni",
+                              role: "tabpanel",
+                              "aria-labelledby": "v-pills-regiuni-tab"
+                            }
+                          },
+                          [
+                            _c("regiuni-pannel", {
+                              attrs: { "regiuni-data": _vm.generalData.regiuni }
+                            })
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            staticClass: "tab-pane fade",
+                            attrs: {
+                              id: "v-pills-judete",
+                              role: "tabpanel",
+                              "aria-labelledby": "v-pills-judete-tab"
+                            }
+                          },
+                          [
+                            _c("judete-pannel", {
+                              attrs: { "judete-data": _vm.generalData.judete }
+                            })
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _vm._m(2),
+                        _vm._v(" "),
+                        _vm._m(3),
+                        _vm._v(" "),
+                        _vm._m(4),
+                        _vm._v(" "),
+                        _vm._m(5)
+                      ]
+                    )
+                  ])
+                ])
               ])
             ])
           ])
-        ])
-      ],
-      1
-    ),
-    _vm._v(" "),
-    _vm.adminData.isAdmin !== null && _vm.adminData.isAdmin === false
-      ? _c(
-          "div",
-          { staticClass: "container-fluid" },
-          [_c("top-nav"), _vm._v(" "), _vm._m(6)],
-          1
-        )
-      : _vm._e()
-  ])
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.adminData.isAdmin === "false"
+        ? _c("div", { staticClass: "container-fluid" }, [_vm._m(6)])
+        : _vm._e()
+    ],
+    1
+  )
 }
 var staticRenderFns = [
   function() {
@@ -41683,7 +41693,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "alerta-success" }, [
-    _vm._v("\n    Operatiune Ok\n")
+    _c("p", [_vm._v(_vm._s(_vm.mesajAlerta))])
   ])
 }
 var staticRenderFns = []
@@ -42179,7 +42189,11 @@ var render = function() {
                                     _c("span", [
                                       _vm._v(
                                         " (" +
-                                          _vm._s(this.utilizatoriInactivi) +
+                                          _vm._s(
+                                            this.utilizatoriInactivi
+                                              ? this.utilizatoriInactivi
+                                              : 0
+                                          ) +
                                           ")"
                                       )
                                     ])

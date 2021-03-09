@@ -1,7 +1,7 @@
 <template>
     <div>
-        <div class="container-fluid">
-            <top-nav :utilizatoriInactivi="generalData.utilizatoriInactivi"></top-nav>
+        <top-nav :utilizatoriInactivi="generalData.utilizatoriInactivi"></top-nav>
+        <div class="container-fluid" v-if="adminData.isAdmin !== 'false'">
             <div class="row">
                 <div class="container-fluid mt-4 p-3">
                     <div class="row">
@@ -86,8 +86,7 @@
                 </div>
             </div>
         </div>
-        <div class="container-fluid" v-if="adminData.isAdmin !== null && adminData.isAdmin === false">
-            <top-nav></top-nav>
+        <div class="container-fluid" v-if="adminData.isAdmin === 'false'">
             <div class="row">
                 <div class="container mt-2">
                     <div class="row">
@@ -119,7 +118,7 @@ export default {
             },
             adminData:{
                 email: getUserEmail(),
-                isAdmin: localStorage.getItem('isAdmin') || false,
+                isAdmin: localStorage.getItem('isAdmin') || 'false',
                 user: getUser(),
                 token: ""
             }

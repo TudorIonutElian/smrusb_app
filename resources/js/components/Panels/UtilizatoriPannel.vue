@@ -120,8 +120,9 @@ export default {
 
 .admin-class {
     padding: 5px;
-    color: #38c172;
+    color: #ffffff;
     border-radius: 5px;
+    background-color: #065ef1;
 }
 
 .specialist-class {
