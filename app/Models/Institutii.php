@@ -12,4 +12,12 @@ class Institutii extends Model
 
     // Anulare coloane created_at si updated_at
     public $timestamps = false;
+
+    public function showMinister(){
+        return $this->belongsTo(Minister::class, 'institutie_minister_id', 'id');
+    }
+
+    public function get_istoric_institutie(){
+        return $this->hasMany('App\Models\IstoricInstitutie', 'id');
+    }
 }

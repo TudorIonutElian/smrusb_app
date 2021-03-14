@@ -1,40 +1,32 @@
 <template>
     <div class="container-fluid">
-        <top-nav :utilizatori-inactivi="utilizatoriInactivi.length"></top-nav>
-        <div class="container">
+        <top-nav
+            :utilizatori-inactivi="utilizatoriInactivi.length"
+            :este-administrator="isAdmin">
+        </top-nav>
+        <div class="container" v-if="isAdmin === true">
             <div class="row mt-3">
                 <div class="col-12">
                     <table class="table">
                         <thead>
-                        <tr class="bg-success text-white">
+                        <tr class="bg-success-head-row">
                             <th scope="col">#</th>
+                            <th scope="col">Username</th>
                             <th scope="col">Nume</th>
                             <th scope="col">Email</th>
-                            <th scope="col">Tip</th>
                             <th scope="col">Stare</th>
                             <th scope="col">Actiune</th>
                         </tr>
                         </thead>
                         <tbody class="angajati">
-                        <tr v-if="utilizatoriInactivi.length > 0" v-for="utilizator in utilizatoriInactivi" :key="utilizatoriInactivi.id">
+                         <tr v-if="utilizatoriInactivi.length > 0" v-for="utilizator in utilizatoriInactivi" :key="utilizatoriInactivi.id">
                             <th scope="row">{{ utilizator.id }}</th>
-                            <td>{{ utilizator.name }}</td>
-                            <td>{{ utilizator.email }}</td>
-                            <!-- Admin -->
-                            <td v-if="utilizator.userType=== 1"><span
-                                class="admin-class">{{ checkRoleName(utilizator.userType) }}</span></td>
-                            <!-- Specialist Resurse Umane -->
-                            <td v-if="utilizator.userType=== 3"><span
-                                class="specialist-class">{{ checkRoleName(utilizator.userType) }}</span></td>
-                            <!-- Angajat -->
-                            <td v-if="utilizator.userType=== 2"><span
-                                class="angajat-class">{{ checkRoleName(utilizator.userType) }}</span></td>
-                            <!-- Fara rol -->
-                            <td v-if="utilizator.userType=== null"><span
-                                class="faraRol-class">{{ checkRoleName(utilizator.userType) }}</span></td>
-                            <td>Inactiv</td>
+                             <td>{{ utilizator.user_username }}</td>
+                            <td>{{ utilizator.user_name }}</td>
+                            <td>{{ utilizator.user_email }}</td>
+                            <td class="td-inactiv">Inactiv</td>
                             <td>
-                                <button class="btn btn-success btn-sm" @click="activeazaCont(utilizator.id)">Activeaza Cont
+                                <button class="btn btn-success-activate btn-sm" @click="activeazaCont(utilizator.id)">Activeaza Cont
                                 </button>
                             </td>
                         </tr>
@@ -46,8 +38,11 @@
                 </div>
             </div>
         </div>
+        <div v-else class="container">
+            <no-acces></no-acces>
+        </div>
         <div v-if="showAnimation === true">
-            <alerta-admin mesajAlerta="Activare Utilizator"></alerta-admin>
+            <alerta-admin mesajAlerta="Utlizator Activ"></alerta-admin>
         </div>
     </div>
 </template>
@@ -55,13 +50,15 @@
 <script>
 import TopNav from "../Menus/TopNav";
 import AlertaAdmin from "../Alerte/AlertaAdmin";
+import NoAcces from './NoAcces';
 export default {
     data(){
         return{
             utilizatoriInactivi: [],
             utilizator: JSON.parse(localStorage.getItem('user')),
             token: localStorage.getItem('token'),
-            showAnimation: false
+            showAnimation: false,
+            isAdmin: (JSON.parse(localStorage.getItem('isAdmin')))
         }
     },
     created(){
@@ -106,6 +103,7 @@ export default {
         }
     },
     components:{
+        NoAcces,
         AlertaAdmin,
         TopNav
     }
@@ -113,5 +111,27 @@ export default {
 </script>
 
 <style scoped>
-
+.bg-success-head-row{
+    color: #44bd32;
+}
+.td-inactiv{
+    color: #eb4d4b;
+    border-radius: 5px;
+    font-weight: bold;
+}
+table{
+    text-align: center;
+}
+tbody.angajati{
+    text-align: center;
+}
+.btn-success-activate{
+    background-color: #44bd32;
+    color: #ffffff;
+}
+.btn-success-activate:hover{
+    background-color: #ffffff;
+    color: #44bd32;
+    border: 1px solid #44bd32;
+}
 </style>

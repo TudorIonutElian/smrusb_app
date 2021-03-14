@@ -1,6 +1,9 @@
 <template>
     <div>
-        <top-nav :utilizatoriInactivi="generalData.utilizatoriInactivi"></top-nav>
+        <top-nav
+            :utilizatoriInactivi="generalData.utilizatoriInactivi"
+            :este-administrator="adminData.isAdmin"
+        ></top-nav>
         <div class="container-fluid" v-if="adminData.isAdmin !== 'false'">
             <div class="row">
                 <div class="container-fluid mt-4 p-3">
@@ -17,7 +20,6 @@
                                 <a class="nav-link" id="v-pills-utilizatori-tab" data-toggle="pill" href="#v-pills-utilizatori" role="tab" aria-controls="v-pills-utilizatori" aria-selected="false">Utilizatori</a>
                                 <a class="nav-link" id="v-pills-regiuni-tab" data-toggle="pill" href="#v-pills-regiuni" role="tab" aria-controls="v-pills-regiuni" aria-selected="false">Regiuni</a>
                                 <a class="nav-link" id="v-pills-judete-tab" data-toggle="pill" href="#v-pills-judete" role="tab" aria-controls="v-pills-judete" aria-selected="false">Judete</a>
-                                <a class="nav-link" id="v-pills-localitati-tab" data-toggle="pill" href="#v-pills-localitati" role="tab" aria-controls="v-pills-localitati" aria-selected="false">Localitati</a>
                                 <a class="nav-link" id="v-pills-institutii-tab" data-toggle="pill" href="#v-pills-institutii" role="tab" aria-controls="v-pills-institutii" aria-selected="false">Institutii</a>
                                 <a class="nav-link" id="v-pills-angajati-tab" data-toggle="pill" href="#v-pills-angajati" role="tab" aria-controls="v-pills-angajati" aria-selected="false">Angajati</a>
                                 <a class="nav-link" id="v-pills-functii-tab" data-toggle="pill" href="#v-pills-functii" role="tab" aria-controls="v-pills-functii" aria-selected="false">Functii</a>
@@ -51,13 +53,6 @@
                                 <!-- Meniu Partea Dreapta - Judete -->
                                 <div class="tab-pane fade" id="v-pills-judete" role="tabpanel" aria-labelledby="v-pills-judete-tab">
                                     <judete-pannel :judete-data="generalData.judete"></judete-pannel>
-                                </div>
-                                <div class="tab-pane fade" id="v-pills-localitati" role="tabpanel" aria-labelledby="v-pills-localitati-tab">
-                                    <div class="container-fluid">
-                                        <div class="row">
-                                            <div class="col-12 bg-primary p-2 text-white">Lista Localitati</div>
-                                        </div>
-                                    </div>
                                 </div>
                                 <div class="tab-pane fade" id="v-pills-institutii" role="tabpanel" aria-labelledby="v-pills-institutii-tab">
                                     <div class="container-fluid">
@@ -114,6 +109,7 @@ export default {
                 users: [],
                 regiuni: [],
                 judete: [],
+                localitati: [],
                 utilizatoriInactivi: []
             },
             adminData:{
@@ -145,9 +141,11 @@ export default {
                 }
             }).then(
                 response => {
+                    console.log(response)
                     this.generalData.users                  = response.data.users;
                     this.generalData.regiuni                = response.data.regiuni;
                     this.generalData.judete                 = response.data.judete;
+                    this.generalData.localitati             = response.data.localitati;
                     this.generalData.utilizatoriInactivi    = this.generalData.users.length ? this.generalData.users.length: 0
                 }
             );

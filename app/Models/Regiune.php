@@ -14,7 +14,7 @@ class Regiune extends Model
     // Anulare coloane created_at si updated_at
     public $timestamps = false;
 
-    public function judete(){
+    public function get_numar_judete(){
         return $this->hasMany(Judet::class, 'regiune');
     }
 }

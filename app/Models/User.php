@@ -19,9 +19,9 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        'user_name',
+        'user_email',
+        'user_password',
     ];
 
     /**
@@ -30,7 +30,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password',
+        'user_password',
         'remember_token',
     ];
 
@@ -42,4 +42,11 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function get_istoric_user(){
+        return $this->hasMany('App\Models\IstoricUser', 'iu_user', 'id');
+    }
+    public function get_user_acces(){
+        return $this->hasMany('App\Models\UserAccessLevel', 'ua_user');
+    }
 }

@@ -3,15 +3,21 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\LocalitatiCollection;
+use App\Models\Institutii;
 use App\Models\Judet;
+use App\Models\Localitate;
 use App\Models\Regiune;
 use App\Models\User;
+use App\Models\UserAccessLevel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class AdminController extends Controller
 {
     public function showUsers(Request $request){
-        if($request->user()->userType === 1){
+        if($request->user()->user_type === 1){
             return User::all();
         }else{
             return response()->json([
@@ -25,12 +31,14 @@ class AdminController extends Controller
         $users                      = User::all();
         $regiuni                    = Regiune::withCount('judete')->get();
         $judete                     = Judet::with('regiuni')->get();
+        $localitati                 = Localitate::all();
 
-        if($request->user()->userType === 1){
+        if($request->user()->user_type === 1){
             return response()->json([
                 'users'             => $users,
                 'regiuni'           => $regiuni,
                 'judete'            => $judete,
+                'localitati'        => LocalitatiCollection::collection(Localitate::all()),
                 'status'            => 200
             ]);
         }else{
@@ -43,13 +51,13 @@ class AdminController extends Controller
 
     public function suspendaCont(Request $request){
         $user = User::find($request->contID);
-        if($user->userType === 1){
+        if($user->user_type === 1){
             return response()->json([
                 'error' =>'Nu puteti suspenda administratorul!',
                 'status'  => 401
             ]);
         }else{
-            $user->isActive = 0;
+            $user->user_is_active = 0;
             $user->save();
 
             return response()->json([
@@ -61,7 +69,7 @@ class AdminController extends Controller
 
     public function activeazaCont(Request $request){
         $user = User::find($request->contID);
-        if($user->userType === 1){
+        if($user->user_type === 1){
             return response()->json([
                 'error' =>'Nu puteti suspenda administratorul!',
                 'status'  => 401
@@ -73,7 +81,7 @@ class AdminController extends Controller
                     'status'  => 201
                 ]);
             }else{
-                $user->isActive = 1;
+                $user->user_is_active = 1;
                 $user->save();
                 return response()->json([
                     'message' =>'Contul a fost activat!',
@@ -84,6 +92,31 @@ class AdminController extends Controller
     }
 
     public function showInactiveUsers(){
-        return User::where('isActive', '=', 0)->get();
+        return User::where('user_is_active', '=', 0)->get();
+    }
+
+    public function inregistrareCont(Request $request){
+        // Aici creez user
+        $user = new User();
+        $user->user_first_name        = $request->user_first_name;
+        $user->user_last_name         = $request->user_last_name;
+        $user->user_email             = $request->user_email;
+        $user->user_username          = $request->user_username;
+        $user->user_password          = Hash::make($request->user_password);
+        $user->remember_token         = Str::random(10);
+
+        if($user->save()){
+            $userAcces = new UserAccessLevel();
+            $userAcces->ua_user     = $user->id;
+            $userAcces->ua_level    = $request->user_acces_level;
+            $userAcces->ua_denumire = Institutii::find($request->user_acces_level)->institutie_denumire;
+
+            if($userAcces->save()){
+                return response()->json([
+                    'mesaj' =>'Utilizator creat!',
+                    'status'  => 200
+                ]);
+            }
+        }
     }
 }

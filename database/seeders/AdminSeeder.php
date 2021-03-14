@@ -18,12 +18,14 @@ class AdminSeeder extends Seeder
     {
         DB::table('users')->insert(
             [
-                'name'                          => 'Administrator SMRUSB',
-                'email'                         => 'admin@smrusb.ro',
-                'password'                      => Hash::make("password"),
-                'remember_token'                => Str::random(10),
-                'isActive'                      => 1,
-                'userType'                      => 1
+                'user_first_name'                    => 'Administrator',
+                'user_last_name'                     => 'System',
+                'user_username'                      => 'system.admin',
+                'user_email'                         => 'admin@smrusb.ro',
+                'user_password'                      => Hash::make("password"),
+                'remember_token'                     => Str::random(10),
+                'user_is_active'                     => 1,
+                'user_type'                          => 1
             ]
         );
     }

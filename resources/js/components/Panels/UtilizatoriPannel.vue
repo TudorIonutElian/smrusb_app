@@ -9,34 +9,29 @@
                     <thead>
                     <tr>
                         <th>#</th>
+                        <th>Username</th>
+                        <th>Prenume</th>
                         <th>Nume</th>
                         <th>Email</th>
                         <th>Status</th>
-                        <th>Rol</th>
                         <th>Actiune</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr v-for="utilizator in this.utilizatoriData">
                         <th>{{ utilizator.id }}</th>
-                        <td>{{ utilizator.name }}</td>
-                        <td>{{ utilizator.email }}</td>
-                        <td v-if="utilizator.isActive === 1"><span class="user-active">Cont Activ</span></td>
-                        <td v-if="utilizator.isActive === 0"><span class="user-inactive">Cont Inactiv</span></td>
+                        <td>{{ utilizator.user_username }}</td>
+                        <td>{{ utilizator.user_first_name }}</td>
+                        <td>{{ utilizator.user_last_name }}</td>
+                        <td>{{ utilizator.user_email }}</td>
+                        <td v-if="utilizator.user_is_active === 1"><span class="user-active">Cont Activ</span></td>
+                        <td v-if="utilizator.user_is_active === 0"><span class="user-inactive">Cont Inactiv</span></td>
 
-                        <td v-if="utilizator.userType=== 1"><span
-                            class="admin-class">{{ checkRoleName(utilizator.userType) }}</span></td>
-                        <td v-if="utilizator.userType=== 3"><span
-                            class="specialist-class">{{ checkRoleName(utilizator.userType) }}</span></td>
-                        <td v-if="utilizator.userType=== 2"><span
-                            class="angajat-class">{{ checkRoleName(utilizator.userType) }}</span></td>
-                        <td v-if="utilizator.userType=== null"><span
-                            class="faraRol-class">{{ checkRoleName(utilizator.userType) }}</span></td>
-                        <td v-if="utilizator.isActive === 1">
+                        <td v-if="utilizator.user_is_active === 1">
                             <button class="btn btn-danger btn-sm" @click="suspendaCont(utilizator.id)">Suspenda Cont
                             </button>
                         </td>
-                        <td v-if="utilizator.isActive === 0">
+                        <td v-if="utilizator.user_is_active === 0">
                             <button class="btn btn-success btn-sm" @click="activeazaCont(utilizator.id)">Activeaza Cont
                             </button>
                         </td>
@@ -62,17 +57,6 @@ export default {
     methods: {
         getProps() {
             //console.log(this.props.utilizatoriData)
-        },
-        checkRoleName(role) {
-            if (role === 1) {
-                return 'Administrator'
-            } else if (role === 2) {
-                return 'Angajat'
-            } else if (role === 3) {
-                return 'Specialist Resurse Umane'
-            } else if (role === null) {
-                return 'Far rol'
-            }
         },
         async suspendaCont(id){
             await axios.post('/api/users/suspenda', {

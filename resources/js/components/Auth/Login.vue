@@ -10,7 +10,7 @@
                     <form>
                         <div class="mb-3">
                             <label class="form-label">Adresa de email</label>
-                            <input type="email" class="form-control w-100" v-model="user.email">
+                            <input type="email" class="form-control w-100" v-model="user.username">
                             <div>Resetarea parolei poate fi facuta accesand formularul de aici</div>
                         </div>
                         <div class="mb-3">
@@ -35,7 +35,7 @@ export default {
     data(){
         return{
             user:{
-                email: null,
+                username: null,
                 password: null,
                 isLoggedIn: false,
                 isAdmin: false,
@@ -54,7 +54,7 @@ export default {
             const isLoggedIn = localStorage.getItem('isLoggedIn');
             if(isLoggedIn === 'true'){
                 const user = JSON.parse(localStorage.getItem('user'));
-                this.user.email = user.email;
+                this.user.username = user.email;
                 this.user.isAdmin = user.isAdmin;
                 this.user.isLoggedIn = true;
             }
@@ -62,7 +62,7 @@ export default {
         async login(){
             // Incercare login utilizator
             await axios.post('/login', {
-                email: this.user.email,
+                username: this.user.username,
                 password: this.user.password,
                 device_name: this.device
             }).then(async (response) =>{
@@ -82,7 +82,7 @@ export default {
                             Authorization : 'Bearer ' + this.token
                         }
                     }).then(response=>{
-                        const isAdmin = response.data.userType;
+                        const isAdmin = response.data.user_type;
                         this.user.isLoggedIn = true;
                         this.$store.dispatch('setLoggedIn', true);
 
@@ -98,7 +98,6 @@ export default {
                             this.$store.dispatch('setAdminLoggedIn', false);
                             router.push({name: 'user-dashboard'})
                         }
-                        console.log(response)
                         this.$store.commit('setUser', response.data);
 
                     })

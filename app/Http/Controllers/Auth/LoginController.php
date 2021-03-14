@@ -14,20 +14,28 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         $request->validate([
-            'email' => 'required|email',
+            'username' => 'required',
             'password' => 'required',
             'device_name' => 'required',
         ]);
 
-        $user = User::where('email', $request->email)->first();
+        $user = User::where('user_username', $request->username)->first();
 
-        if (! $user || ! Hash::check($request->password, $user->password)) {
-            throw ValidationException::withMessages([
-                'email' => ['The provided credentials are incorrect.'],
+        if($user->user_is_active === 1){
+            if (! $user || ! Hash::check($request->password, $user->user_password)) {
+                throw ValidationException::withMessages([
+                    'autentificare' => ['Datele de autentificare sunt incorecte.'],
+                ]);
+            }
+            return $user->createToken($request->device_name)->plainTextToken;
+        }else{
+            return response()->json([
+                'message'   => 'Contul nu este activat',
+                'status'    => 401
             ]);
         }
 
-        return $user->createToken($request->device_name)->plainTextToken;
+
     }
 
     public function logout(Request $request){
@@ -43,6 +51,21 @@ class LoginController extends Controller
                 'message'   => 'Eroare, nu sunteti autentificat!',
                 'status'    => 451
             ]);
+        }
+    }
+
+    public function checkPassword(Request $request){
+        // Preluare parola veche a utilizatorului
+
+        $user = User::find($request->user_id);
+
+        if(Hash::check($request->user_password, $user->user_password)){
+            $user->user_password = Hash::make($request->user_password_new);
+            $user->save();
+            return 'parola actualizata';
+
+        }else{
+            return 'parola eronata';
         }
     }
 

@@ -8,7 +8,7 @@
 export default {
     data(){
         return{
-            mesajAlerta: this.mesaj-alerta
+
         }
     },
     props:['mesaj-alerta']

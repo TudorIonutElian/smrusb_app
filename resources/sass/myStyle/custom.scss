@@ -23,3 +23,25 @@
     //border: 1px solid #f00 !important;
     box-sizing: border-box;
 }
+
+.bg-primary-blue{
+    color: #04ccf6;
+    font-weight: bold;
+}
+.dropdown-item-flex{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+.dropdown-item-flex img{
+    width: 20%;
+}
+.dropdown-item-flex span{
+    font-weight: normal;
+    color: #000000;
+}
+.dropdown-item-flex span:hover{
+    color: #04ccf6;
+    font-weight: bold;
+}

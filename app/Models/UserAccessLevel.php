@@ -12,4 +12,12 @@ class UserAccessLevel extends Model
     public $timestamps = false;
 
     protected $table = 'user_access';
+
+    public function get_users(){
+        return $this->hasMany('App\Models\User', 'iu_user', 'id');
+    }
+
+    public function get_user_acces_denumire_institutie(){
+        return $this->hasMany('App\Models\Institutii', 'ua_level');
+    }
 }

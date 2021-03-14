@@ -275,6 +275,31 @@ class InstitutiiSeeder extends Seeder
                     'institutie_este_ordonator'  => true,
                     'institutie_ordonator_id'  => 1
                 ],
+                // Institutii ale Ministerului Afacerilor Interne
+                [
+                    'institutie_minister_id'  => 2,
+                    'institutie_denumire'  => 'Ministerul Afacerilor Interne - Aparat Central',
+                    'institutie_este_ordonator'  => true,
+                    'institutie_ordonator_id'  => 1
+                ],
+                [
+                    'institutie_minister_id'  => 2,
+                    'institutie_denumire'  => 'Inspectoratul General al Politiei Romane',
+                    'institutie_este_ordonator'  => true,
+                    'institutie_ordonator_id'  => 1
+                ],
+                [
+                    'institutie_minister_id'  => 2,
+                    'institutie_denumire'  => 'Inspectoratul General al Politiei de Frontiera Romane',
+                    'institutie_este_ordonator'  => true,
+                    'institutie_ordonator_id'  => 1
+                ],
+                [
+                    'institutie_minister_id'  => 2,
+                    'institutie_denumire'  => 'Inspectoratul General al Jandarmeriei Romane',
+                    'institutie_este_ordonator'  => true,
+                    'institutie_ordonator_id'  => 1
+                ],
             )
         );
     }
