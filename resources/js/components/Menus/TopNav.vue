@@ -11,9 +11,6 @@
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="/">Acasa</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/despre">Despre</a>
-                        </li>
                         <li class="nav-item dropdown" v-if="user != null && user.user_type === 1">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Nomenclator
@@ -29,7 +26,7 @@
                         </li>
                         <li class="nav-item dropdown" v-if="user != null && user.user_type === 0">
                             <a class="nav-link dropdown-toggle" href="#" id="optiuniUser" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Management Resurse
+                                Angajati
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li>
@@ -64,14 +61,110 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="nav-item dropdown" v-if="user != null && user.user_type !== 1">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbaruserSearch" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Cauta
+                        <li class="nav-item dropdown" v-if="user != null && user.user_type === 0">
+                            <a class="nav-link dropdown-toggle" href="#" id="optiuniEvaluare" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Evaluare profesionala
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#" @click.prevent="setSearch('localitati')">Localitati</a></li>
-                                <li><a class="dropdown-item" href="#" @click.prevent="setSearch('institutii')">Institutii</a></li>
-                                <li><a class="dropdown-item" href="#" @click.prevent="setSearch('angajati')">Angajati</a></li>
+                                <li>
+                                    <a class="dropdown-item dropdown-item-flex" href="/user/adauga_angajat">
+                                        <img class="mr-2" src="/images/evaluare.png" alt="">
+                                        <span>Vizualizare</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item dropdown-item-flex" href="/user/adauga_angajat">
+                                        <img class="mr-2" src="/images/evaluare_adaugare.png" alt="">
+                                        <span>Adaugare</span>
+                                    </a>
+                                </li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <a class="dropdown-item dropdown-item-flex" href="/user/adauga_angajat">
+                                        <img class="mr-2" src="/images/evaluare_cautare.png" alt="">
+                                        <span>Recompense</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item dropdown-item-flex" href="/user/adauga_angajat">
+                                        <img class="mr-2" src="/images/evaluare_cautare.png" alt="">
+                                        <span>Sanctiuni</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown" v-if="user != null && user.user_type === 0">
+                            <a class="nav-link dropdown-toggle" href="#" id="optiuniStat" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Stat Organizare
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li>
+                                    <a class="dropdown-item dropdown-item-flex" href="/user/stat/vizualizare">
+                                        <span>Vizualizare</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item dropdown-item-flex" href="/">
+                                        <span>Suplimentare</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item dropdown-item-flex" href="/">
+                                        <span>Radiere</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item dropdown-item-flex" href="/">
+                                        <span>Istoric</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item dropdown-item-flex" href="/">
+                                        <span>Posturi Vacante</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown" v-if="user != null && user.user_type !== 1">
+                            <a class="nav-link dropdown-toggle" href="#" id="situatiiProfesionale" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Situatii
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="#" >Incetari contracte de munca</a></li>
+                                <li><a class="dropdown-item" href="#" >Situatie mutari de personal</a></li>
+                                <li><a class="dropdown-item" href="#" >Situatie detasari de personal</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="#" >Situatii salarii lunare</a></li>
+                                <li><a class="dropdown-item" href="#" >Situatii salarii trimestriale</a></li>
+                                <li><a class="dropdown-item" href="#" >Situatii salarii semestriale</a></li>
+                                <li><a class="dropdown-item" href="#" >Situatii salarii anuale</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="#" >Plati CASS</a></li>
+                                <li><a class="dropdown-item" href="#" >Plati Impozit venit</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown" v-if="user != null && user.user_type !== 1">
+                            <a class="nav-link dropdown-toggle" href="#" id="pontaj" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Pontaj
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="#" >Vizualizare </a></li>
+                                <li><a class="dropdown-item" href="#" >Aprobare </a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="#" >Salvare PDF </a></li>
+                                <li><a class="dropdown-item" href="#" >Listare salarii</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown" v-if="user != null && user.user_type !== 1">
+                            <a class="nav-link dropdown-toggle" href="#" id="documente" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Documente
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="#" >Adeverinta angajat </a></li>
+                                <li><a class="dropdown-item" href="#" >Adeverinta asigurat </a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="#" >Adeverinta dosar pensie</a></li>
+                                <li><a class="dropdown-item" href="#" >Adeverinta salarii</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -97,10 +190,23 @@
                                                 <span> ({{ this.utilizatoriInactivi ? this.utilizatoriInactivi : 0}})</span>
                                             </a>
                                         </li>
+                                        <li v-if="this.esteAdministrator">
+                                            <a class="dropdown-item" href="/utilizatori/activare">
+                                                <img src="/images/accounts.png" alt="">
+                                                Solicitari Acces Institutii
+                                                <span> (0) </span>
+                                            </a>
+                                        </li>
                                         <li>
                                             <a class="dropdown-item" :href="'/user/changepassword/' + user.id">
                                                 <img src="/images/password.png" alt="">
                                                 Schimbare parola
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" :href="'/user/solicitare_acces/' + user.id">
+                                                <img src="/images/acces_solicitare.png" alt="">
+                                                Solicitare Acces
                                             </a>
                                         </li>
                                         <li v-if="this.user.isAdmin === 1"><a class="dropdown-item" href="#">Admin Dashboard</a></li>
@@ -163,5 +269,8 @@
 #topNavArea{
     width: 100%;
     height: 5vh;
+}
+.dropdown-item{
+    margin-right: 10px;
 }
 </style>

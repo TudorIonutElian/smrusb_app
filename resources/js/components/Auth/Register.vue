@@ -21,8 +21,9 @@
                             <div>Va rugam sa introduceti numele dumneavoastra, asa cum apare pe contractul de munca!</div>
                         </div>
                         <div class="mb-3">
+                            <label class="form-label">Nivel de acces solicitat </label>
                             <select class="form-control form-select" id="angajat_judet_domiciliu" v-model="user.user_acces_level">
-                                <option v-for="institutie in institutii" :key="institutii.id" :value="institutie.id" >{{ institutie.institutie_denumire }}</option>
+                                <option v-for="institutie in institutii" :key="institutii.id" :value="institutie.institutie_cod_acces" >{{ institutie.institutie_denumire }}</option>
                             </select>
                         </div>
                         <div class="mb-3">

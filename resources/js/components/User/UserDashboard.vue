@@ -16,7 +16,6 @@
                             <tr class="bg-success text-white">
                                 <th scope="col">#</th>
                                 <th scope="col">Nume</th>
-                                <th scope="col">Tata</th>
                                 <th scope="col">Prenume</th>
                                 <th scope="col">Gradul</th>
                                 <th scope="col">CNP</th>
@@ -27,29 +26,16 @@
                             </tr>
                             </thead>
                             <tbody class="angajati">
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>@mdo</td>
-                                <td>@mdo</td>
-                                <td>@mdo</td>
-                                <td>@mdo</td>
-                                <td>@mdo</td>
-                                <td><a href="/" class="btn btn-sm btn-secondary btn-show">Vezi Angajat</a></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>@mdo</td>
-                                <td>@mdo</td>
-                                <td>@mdo</td>
-                                <td>@mdo</td>
-                                <td>@mdo</td>
-                                <td><a :href="'/angajati/id'" class="btn btn-sm btn-secondary btn-show">Vezi Angajat</a></td>
+                            <tr v-for="(angajat, index) in lista_angajati">
+                                <th scope="row">{{ index+1}}</th>
+                                <td>{{ angajat.angajat_nume }}</td>
+                                <td>{{ angajat.angajat_prenume }}</td>
+                                <td>-</td>
+                                <td>{{ angajat.angajat_cnp }}</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td><a :href="'/angajat/' + angajat.id" class="btn btn-sm btn-secondary btn-show">Vezi Angajat</a></td>
                             </tr>
                             </tbody>
                         </table>
@@ -66,16 +52,32 @@ import TopNav from "../Menus/TopNav";
 export default {
     data(){
         return{
+            token: localStorage.getItem('token'),
             adminData:{
                 email: JSON.parse(localStorage.getItem('user')).email
-            }
+            },
+            lista_angajati: [],
+            user_id: JSON.parse(localStorage.getItem('user')).id,
+            lista_acces: []
         }
     },
     components:{
         TopNav
     },
+    created(){
+        this.preluareAngajati();
+    },
     methods:{
-
+        async preluareAngajati(){
+            axios.get(`/api/angajati/${this.user_id}`, {
+                headers:{
+                    ContentType: 'application/json',
+                    Authorization : 'Bearer ' + localStorage.getItem('token')
+                }
+            }).then(async (response) => {
+                this.lista_angajati = response.data
+            })
+        }
     }
 }
 </script>

@@ -18,7 +18,7 @@ class Judet extends Model
         return $this->belongsTo(Regiune::class, 'regiune');
     }
 
-    public function getLocalitati(){
-        return $this->hasMany('App\Models\Localitate', 'judet', 'id');
+    public function get_numar_localitati(){
+        return $this->hasMany('App\Models\Localitate', 'judet');
     }
 }

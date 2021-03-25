@@ -21,17 +21,22 @@ class LoginController extends Controller
 
         $user = User::where('user_username', $request->username)->first();
 
-        if($user->user_is_active === 1){
-            if (! $user || ! Hash::check($request->password, $user->user_password)) {
-                throw ValidationException::withMessages([
-                    'autentificare' => ['Datele de autentificare sunt incorecte.'],
+        if($user){
+            if($user->user_is_active === 1){
+                if (! $user || ! Hash::check($request->password, $user->user_password)) {
+                    throw ValidationException::withMessages([
+                        'autentificare' => ['Datele de autentificare sunt incorecte.'],
+                    ]);
+                }
+                return $user->createToken($request->device_name)->plainTextToken;
+            }else{
+                return response()->json([
+                    'return_code'   => 2003,
                 ]);
             }
-            return $user->createToken($request->device_name)->plainTextToken;
         }else{
             return response()->json([
-                'message'   => 'Contul nu este activat',
-                'status'    => 401
+                'return_code' => 2000
             ]);
         }
 

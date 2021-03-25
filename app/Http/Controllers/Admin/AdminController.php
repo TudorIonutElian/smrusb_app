@@ -10,6 +10,8 @@ use App\Models\Localitate;
 use App\Models\Regiune;
 use App\Models\User;
 use App\Models\UserAccessLevel;
+use App\Models\UserAdress;
+use App\Models\UserProfile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -29,8 +31,8 @@ class AdminController extends Controller
 
     public function loadData(Request $request){
         $users                      = User::all();
-        $regiuni                    = Regiune::withCount('judete')->get();
-        $judete                     = Judet::with('regiuni')->get();
+        $regiuni                    = Regiune::withCount('get_numar_judete')->get();
+        $judete                     = Judet::withCount('get_numar_localitati')->get();
         $localitati                 = Localitate::all();
 
         if($request->user()->user_type === 1){
@@ -82,6 +84,7 @@ class AdminController extends Controller
                 ]);
             }else{
                 $user->user_is_active = 1;
+                $user->user_type      = 0;
                 $user->save();
                 return response()->json([
                     'message' =>'Contul a fost activat!',
@@ -105,18 +108,25 @@ class AdminController extends Controller
         $user->user_password          = Hash::make($request->user_password);
         $user->remember_token         = Str::random(10);
 
+        $cod_acces = $request->user_acces_level;
+        $institutie_cod_acces = Institutii::where('institutie_cod_acces', '=', $cod_acces)->first();
+
+
         if($user->save()){
+            // Creare nivel de acces solicitat
             $userAcces = new UserAccessLevel();
             $userAcces->ua_user     = $user->id;
             $userAcces->ua_level    = $request->user_acces_level;
-            $userAcces->ua_denumire = Institutii::find($request->user_acces_level)->institutie_denumire;
+            $userAcces->ua_denumire = $institutie_cod_acces->institutie_denumire;
+            $userAcces->ua_status   = true;
+            $userAcces->save();
 
-            if($userAcces->save()){
-                return response()->json([
-                    'mesaj' =>'Utilizator creat!',
-                    'status'  => 200
-                ]);
-            }
+            // Creare
+
+            return response()->json([
+                'mesaj' =>'Utilizator creat!',
+                'status'  => 200
+            ]);
         }
     }
 }

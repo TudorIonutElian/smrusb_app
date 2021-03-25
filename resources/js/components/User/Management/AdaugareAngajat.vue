@@ -15,55 +15,133 @@
                 </div>
                 <!-- Numele Angajatului-->
                 <div class="row p-1">
-                    <div class="col-12 col-12-flexed">
+                    <div class="col-12 col-12-flexed" >
                         <label for="angajat_nume" class="form-label">Nume</label>
-                        <input type="text" class="form-control" id="angajat_nume" placeholder="Numele">
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="angajat_nume"
+                            placeholder="Numele"
+                            v-model="angajat_nou.nume"
+                            @blur="validareNume"
+                        >
+
+                    </div>
+                    <div class="col-12 col-12-flexed" v-if="erori.nume">
+                        <label for="eroare_nume" class="form-label"></label>
+                        <div id="eroare_nume" class="eroare error">Numele trebuie sa aiba cel putin 3 caractere!</div>
                     </div>
                 </div>
                 <!-- Prenumele Tatalui-->
                 <div class="row p-1">
                     <div class="col-12 col-12-flexed">
                         <label for="angajat_prenume_tata" class="form-label">Prenume tatal</label>
-                        <input type="text" class="form-control" id="angajat_prenume_tata" placeholder="Prenumele tatalui">
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="angajat_prenume_tata"
+                            placeholder="Prenumele tatalui"
+                            v-model="angajat_nou.prenume_tata"
+                            @blur="validarePrenumeTata"
+                        >
+                    </div>
+                    <div class="col-12 col-12-flexed" v-if="erori.prenume_tata">
+                        <label for="eroare_prenume_tata" class="form-label"></label>
+                        <div id="eroare_prenume_tata" class="eroare error">Prenumele tatalui trebuie sa aiba cel putin 3 caractere!</div>
                     </div>
                 </div>
                 <!-- Prenumele Mamei-->
                 <div class="row p-1">
                     <div class="col-12 col-12-flexed">
                         <label for="angajat_prenume_mama" class="form-label">Prenume mama</label>
-                        <input type="text" class="form-control" id="angajat_prenume_mama" placeholder="Prenumele mamei">
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="angajat_prenume_mama"
+                            placeholder="Prenumele mamei"
+                            v-model="angajat_nou.prenume_mama"
+                            @blur="validarePrenumeMama"
+                        >
+                    </div>
+                    <div class="col-12 col-12-flexed" v-if="erori.prenume_mama">
+                        <label for="eroare_prenume_mama" class="form-label"></label>
+                        <div id="eroare_prenume_mama" class="eroare error">Prenumele mamei trebuie sa aiba cel putin 3 caractere!</div>
                     </div>
                 </div>
                 <!-- Prenumele Angajatului-->
                 <div class="row p-1">
                     <div class="col-12 col-12-flexed">
                         <label for="angajat_prenume" class="form-label">Prenume</label>
-                        <input type="text" class="form-control" id="angajat_prenume" placeholder="Prenumele">
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="angajat_prenume"
+                            placeholder="Prenumele"
+                            v-model="angajat_nou.prenume"
+                            @blur="validarePrenume"
+                        >
+                    </div>
+                    <div class="col-12 col-12-flexed" v-if="erori.prenume">
+                        <label for="eroare_prenume_angajat" class="form-label"></label>
+                        <div id="eroare_prenume_angajat" class="eroare error">Prenumele trebuie sa aiba cel putin 3 caractere!</div>
+                    </div>
+                </div>
+                <!-- Cod Numeric Personal -->
+                <div class="row p-1">
+                    <div class="col-12 col-12-flexed">
+                        <label for="angajat_cnp" class="form-label">CNP</label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="angajat_cnp"
+                            placeholder="Codul numeric personal"
+                            v-model="angajat_nou.cnp"
+                            @blur="validareCNP"
+                        >
+                    </div>
+                    <div class="col-12 col-12-flexed" v-if="erori.cnp">
+                        <label for="eroare_cnp" class="form-label"></label>
+                        <div id="eroare_cnp" class="eroare error">CNP-ul trebuie sa aiba 13 cifre!</div>
                     </div>
                 </div>
                 <!-- Nume anterior -->
                 <div class="row p-1">
                     <div class="col-12 col-12-flexed">
                         <label for="angajat_nume_anterior" class="form-label">Numele anterior</label>
-                        <input type="text" class="form-control" id="angajat_nume_anterior" placeholder="Nume anterior">
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="angajat_nume_anterior"
+                            placeholder="Nume anterior"
+                            v-model="angajat_nou.nume_anterior"
+                        >
                     </div>
                 </div>
                 <!-- Data nasterii -->
                 <div class="row p-1">
                     <div class="col-12 col-12-flexed">
                         <label for="angajat_data_nastere" class="form-label">Data Nasterii</label>
-                        <input type="date" class="form-control" id="angajat_data_nastere">
+                        <input
+                            type="date"
+                            class="form-control"
+                            id="angajat_data_nastere"
+                            v-model="angajat_nou.data_nasterii"
+                        >
                     </div>
                 </div>
                 <!-- Starea Civila -->
                 <div class="row p-1">
                     <div class="col-12 col-12-flexed form-group">
                         <label for="angajat_starea_civila" class="form-label">Starea civila</label>
-                        <select class="form-control form-select" id="angajat_starea_civila">
-                            <option selected>Nespecificat</option>
+                        <select
+                            class="form-control form-select"
+                            id="angajat_starea_civila"
+                            v-model="angajat_nou.stare_civila"
+                        >
+                            <option value="0" selected>Nespecificat</option>
                             <option value="1">Necasatorit(a)</option>
-                            <option value="1">Casatorit(a)</option>
-                            <option value="2">Divortat(a)</option>
+                            <option value="2">Casatorit(a)</option>
+                            <option value="3">Divortat(a)</option>
                         </select>
                     </div>
                 </div>
@@ -71,8 +149,12 @@
                 <div class="row p-1">
                     <div class="col-12 col-12-flexed form-group">
                         <label for="angajat_judet_nastere" class="form-label">Judetul nasterii</label>
-                        <select class="form-control form-select" id="angajat_judet_nastere">
-                            <option selected>Arad</option>
+                        <select
+                            class="form-control form-select"
+                            id="angajat_judet_nastere"
+                            v-model="angajat_nou.judet_nastere"
+                        >
+                            <option value="1">Arad</option>
                         </select>
                     </div>
                 </div>
@@ -80,8 +162,25 @@
                 <div class="row p-1">
                     <div class="col-12 col-12-flexed form-group">
                         <label for="angajat_localitate_nastere" class="form-label">Localitatea nasterii</label>
-                        <select class="form-control form-select" id="angajat_localitate_nastere">
-                            <option selected>Arad</option>
+                        <select
+                            class="form-control form-select"
+                            id="angajat_localitate_nastere"
+                            v-model="angajat_nou.localitate_nastere"
+                        >
+                            <option value="1">Arad</option>
+                        </select>
+                    </div>
+                </div>
+                <!-- Institutia angajarii-->
+                <div class="row p-1">
+                    <div class="col-12 col-12-flexed form-group">
+                        <label for="angajat_institutie" class="form-label">Institutie</label>
+                        <select
+                            class="form-control form-select"
+                            id="angajat_institutie"
+                            v-model="angajat_nou.acces_level"
+                        >
+                            <option v-for="institutie in user_institutii_acces" :value="institutie.ua_level">{{ institutie.ua_denumire}}</option>
                         </select>
                     </div>
                 </div>
@@ -96,8 +195,12 @@
                 <div class="row p-1">
                     <div class="col-12 col-12-flexed form-group">
                         <label for="angajat_judet_domiciliu" class="form-label">Judetul</label>
-                        <select class="form-control form-select" id="angajat_judet_domiciliu">
-                            <option selected>Arad</option>
+                        <select
+                            class="form-control form-select"
+                            id="angajat_judet_domiciliu"
+                            v-model="angajat_nou.judet_domiciliu"
+                        >
+                            <option value="1">Arad</option>
                         </select>
                     </div>
                 </div>
@@ -105,8 +208,12 @@
                 <div class="row p-1">
                     <div class="col-12 col-12-flexed form-group">
                         <label for="angajat_localitate_domiciliu" class="form-label">Localitatea</label>
-                        <select class="form-control form-select" id="angajat_localitate_domiciliu">
-                            <option selected>Arad</option>
+                        <select
+                            class="form-control form-select"
+                            id="angajat_localitate_domiciliu"
+                            v-model="angajat_nou.localitate_domiciliu"
+                        >
+                            <option value="1">Arad</option>
                         </select>
                     </div>
                 </div>
@@ -115,56 +222,109 @@
                 <div class="row p-1">
                     <div class="col-12 col-12-flexed">
                         <label for="angajat_strada_domiciliu" class="form-label">Strada</label>
-                        <input type="text" class="form-control" id="angajat_strada_domiciliu" placeholder="Numele strazii">
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="angajat_strada_domiciliu"
+                            placeholder="Numele strazii"
+                            v-model="angajat_nou.nume_strada"
+                            @blur="validareNumeleStrazii"
+                        >
+                    </div>
+                    <div class="col-12 col-12-flexed" v-if="erori.nume_strada">
+                        <label for="eroare_nume_strada" class="form-label"></label>
+                        <div id="eroare_nume_strada" class="eroare error">Numele strazii trebuie sa aiba cel putin 3 caractere!</div>
                     </div>
                 </div>
                 <!-- Numarul Strazii -->
                 <div class="row p-1">
                     <div class="col-12 col-12-flexed">
                         <label for="angajat_nr_domiciliu" class="form-label">Numarul</label>
-                        <input type="text" class="form-control" id="angajat_nr_domiciliu" placeholder="Numarul">
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="angajat_nr_domiciliu"
+                            placeholder="Numarul"
+                            v-model="angajat_nou.numar_strada"
+                        >
                     </div>
                 </div>
                 <!-- Blocul -->
                 <div class="row p-1">
                     <div class="col-12 col-12-flexed">
                         <label for="angajat_bloc_domiciliu" class="form-label">Bloc</label>
-                        <input type="text" class="form-control" id="angajat_bloc_domiciliu" placeholder="Bloc">
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="angajat_bloc_domiciliu"
+                            placeholder="Bloc"
+                            v-model="angajat_nou.bloc_domiciliu"
+                        >
                     </div>
                 </div>
                 <!-- Scara -->
                 <div class="row p-1">
                     <div class="col-12 col-12-flexed">
                         <label for="angajat_scara_domiciliu" class="form-label">Scara</label>
-                        <input type="text" class="form-control" id="angajat_scara_domiciliu" placeholder="Scara">
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="angajat_scara_domiciliu"
+                            placeholder="Scara"
+                            v-model="angajat_nou.scara_domiciliu"
+                        >
                     </div>
                 </div>
                 <!-- Etaj -->
                 <div class="row p-1">
                     <div class="col-12 col-12-flexed">
                         <label for="angajat_etaj_domiciliu" class="form-label">Etaj</label>
-                        <input type="text" class="form-control" id="angajat_etaj_domiciliu" placeholder="Etaj">
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="angajat_etaj_domiciliu"
+                            placeholder="Etaj"
+                            v-model="angajat_nou.etaj_domiciliu"
+                        >
                     </div>
                 </div>
                 <!-- Apartament -->
                 <div class="row p-1">
                     <div class="col-12 col-12-flexed">
                         <label for="angajat_apartament_domiciliu" class="form-label">Apartament</label>
-                        <input type="text" class="form-control" id="angajat_apartament_domiciliu" placeholder="Apartament">
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="angajat_apartament_domiciliu"
+                            placeholder="Apartament"
+                            v-model="angajat_nou.apartament_domiciliu"
+                        >
                     </div>
                 </div>
                 <!-- Numar de telefon mobil -->
                 <div class="row p-1">
                     <div class="col-12 col-12-flexed">
                         <label for="angajat_mobil_domiciliu" class="form-label">Telefon mobil</label>
-                        <input type="text" class="form-control" id="angajat_mobil_domiciliu" placeholder="Telefon mobil">
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="angajat_mobil_domiciliu"
+                            placeholder="Telefon mobil"
+                            v-model="angajat_nou.telefon_mobil"
+                        >
                     </div>
                 </div>
                 <!-- Numar de telefon fix -->
                 <div class="row p-1">
                     <div class="col-12 col-12-flexed">
                         <label for="angajat_fix_domiciliu" class="form-label">Telefon fix</label>
-                        <input type="text" class="form-control" id="angajat_fix_domiciliu" placeholder="Telefon fix">
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="angajat_fix_domiciliu"
+                            placeholder="Telefon fix"
+                            v-model="angajat_nou.telefon_fix"
+                        >
                     </div>
                 </div>
                 <div class="row row-pink mt-2">
@@ -179,7 +339,12 @@
                             <img class="mr-2" src="/images/facebook.png" alt="">
                         </label>
 
-                        <input type="text" class="form-control" placeholder="Link Facebook">
+                        <input
+                            type="text"
+                            class="form-control"
+                            placeholder="Link Facebook"
+                            v-model="angajat_nou.link_facebook"
+                        >
                     </div>
                 </div>
                 <!-- Twitter Link -->
@@ -189,7 +354,12 @@
                             <img class="mr-2" src="/images/twitter.png" alt="">
                         </label>
 
-                        <input type="text" class="form-control" placeholder="Link Twitter">
+                        <input
+                            type="text"
+                            class="form-control"
+                            placeholder="Link Twitter"
+                            v-model="angajat_nou.link_twitter"
+                        >
                     </div>
                 </div>
                 <!-- Google Link -->
@@ -199,7 +369,13 @@
                             <img class="mr-2" src="/images/google-plus.png" alt="">
                         </label>
 
-                        <input type="text" class="form-control" placeholder="Link Google Plus">
+                        <input
+                            type="text"
+                            class="form-control"
+                            placeholder="Link Google Plus"
+                            v-model="angajat_nou.link_google"
+                        >
+
                     </div>
                 </div>
                 <!-- Youtube Link -->
@@ -209,16 +385,23 @@
                             <img class="mr-2" src="/images/youtube.png" alt="">
                         </label>
 
-                        <input type="text" class="form-control" placeholder="Link Youtube">
+                        <input
+                            type="text"
+                            class="form-control"
+                            placeholder="Link Youtube"
+                            v-model="angajat_nou.link_youtube"
+                        >
                     </div>
                 </div>
                 <div class="row my-2">
                     <div class="col-12">
-                        <button type="button" class="btn btn-adauga-angajat btn-block">
+                        <button @click.prevent="adaugaAngajat()"
+                                type="button" class="btn btn-adauga-angajat btn-block">
                             Adauga Angajat Nou
                         </button>
                     </div>
                 </div>
+                <notifications group="angajat" position="bottom right"/>
             </div>
         </div>
     </div>
@@ -230,14 +413,178 @@ import TopNav from "../../Menus/TopNav";
 export default {
     data(){
         return{
-
+            user_institutii_acces: [],
+            token: localStorage.getItem('token'),
+            angajat_nou: {
+                nume: "",
+                prenume_tata: "",
+                prenume_mama: "",
+                prenume: "",
+                nume_anterior: "",
+                cnp: "",
+                data_nasterii: "",
+                stare_civila: "",
+                judet_nastere: "",
+                localitate_nastere: "",
+                judet_domiciliu: "",
+                localitate_domiciliu: "",
+                nume_strada: "",
+                numar_strada: "",
+                bloc_domiciliu: "",
+                scara_domiciliu: "",
+                etaj_domiciliu: "",
+                apartament_domiciliu: "",
+                telefon_mobil: "",
+                telefon_fix: "",
+                link_facebook: "",
+                link_twitter: "",
+                link_google: "",
+                link_youtube: "",
+                acces_level: 0
+            },
+            erori:{
+                nume: false,
+                prenume_tata: false,
+                prenume_mama: false,
+                prenume: false,
+                data_nasterii: false,
+                nume_strada: false,
+                cnp: false
+            },
+            lista_erori: [],
         }
     },
     components:{
         TopNav
     },
+    computed:{
+        angajatValid(){
+            return this.lista_erori.length === 0
+        }
+    },
+    async created() {
+       await this.preluareInstitutiiAcces();
+    },
     methods:{
+        async preluareInstitutiiAcces(){
+            const user_id = JSON.parse(localStorage.getItem('user')).id;
+            await axios.get("/api/users/institutii/acces/" + user_id, {
+                ContentType: 'application/json',
+                Authorization : 'Bearer ' + this.token
+            }).then(response => {
+                    this.user_institutii_acces = response.data
+                }
+            )
+        },
+        async preluareJudete(){
 
+        },
+        async adaugaAngajat(){
+            this.validareAngajatNou()
+        },
+
+        // Validari
+        validareNume(){
+            if(this.angajat_nou.nume.length < 3){
+                this.erori.nume = true
+            }else{
+                this.erori.nume = false;
+            }
+        },
+        validarePrenumeTata(){
+            if(this.angajat_nou.prenume_tata.length < 3){
+                this.erori.prenume_tata = true
+            }else{
+                this.erori.prenume_tata = false;
+            }
+        },
+        validarePrenumeMama(){
+            if(this.angajat_nou.prenume_mama.length < 3){
+                this.erori.prenume_mama = true
+            }else{
+                this.erori.prenume_mama = false;
+            }
+        },
+        validarePrenume(){
+            if(this.angajat_nou.prenume.length < 3){
+                this.erori.prenume = true
+            }else{
+                this.erori.prenume = false;
+            }
+        },
+        validareCNP(){
+            if(this.angajat_nou.cnp.length !== 13){
+                this.erori.cnp = true
+            }else{
+                this.erori.cnp = false;
+            }
+        },
+        validareNumeleStrazii(){
+            if(this.angajat_nou.nume_strada.length < 3){
+                this.erori.nume_strada = true
+            }else{
+                this.erori.nume_strada = false;
+            }
+        },
+        async validareAngajatNou(){
+            this.lista_erori = [];
+
+            // Verificare stringuri minim 3 caractere
+            Object.keys(this.angajat_nou).forEach(proprietate_angajat => {
+                if(proprietate_angajat === "nume" && this.angajat_nou[proprietate_angajat].length < 3){
+                    this.erori[proprietate_angajat] = true
+                }
+
+                if(proprietate_angajat === "prenume_tata" && this.angajat_nou[proprietate_angajat].length < 3){
+                    this.erori[proprietate_angajat] = true
+                }
+                if(proprietate_angajat === "prenume_mama" && this.angajat_nou[proprietate_angajat].length < 3){
+                    this.erori[proprietate_angajat] = true
+                }
+
+                if(proprietate_angajat === "prenume" && this.angajat_nou[proprietate_angajat].length < 3){
+                    this.erori[proprietate_angajat] = true
+                }
+
+                if(proprietate_angajat === "nume_strada" && this.angajat_nou[proprietate_angajat].length < 3){
+                    this.erori[proprietate_angajat] = true
+                }
+            });
+
+            for (const eroare in this.erori) {
+                if(this.erori[eroare] === true){
+                    this.lista_erori.push(eroare)
+                }
+            }
+
+            if(this.angajatValid){
+                await axios.post('/api/angajati/adaugare', {
+                    angajat: this.angajat_nou
+                }, {
+                    headers:{
+                        ContentType: 'application/json',
+                        Authorization : 'Bearer ' + this.token
+                    }
+                }).then(response => {
+                    console.log(response)
+                    if(response.data.cod === '001'){
+                        this.$notify({
+                            group: 'angajat',
+                            title: 'Angajat Adaugat',
+                            text: 'Angajatul a fost salvat in baza de date!',
+                            type: 'success'
+                        });
+                    }else if(response.data.cod === '000'){
+                        this.$notify({
+                            group: 'angajat',
+                            title: 'Eroare',
+                            text: 'CNP duplicat! Angajatul exista deja',
+                            type: 'warn'
+                        });
+                    }
+                })
+            }
+        }
     }
 }
 </script>
@@ -273,6 +620,9 @@ export default {
 .col-12-flexed div {
     width: 20%;
 }
+.col-12-flexed div.error {
+    width: 80%;
+}
 .row.row-blue .col-12 span{
     padding: 8px;
     background-color: #273c75;
@@ -300,5 +650,10 @@ export default {
     color: #fff;
     border-radius: 5px;
     font-weight: bold;
+}
+
+.eroare{
+    font-weight: bold;
+    color: #e74c3c;
 }
 </style>

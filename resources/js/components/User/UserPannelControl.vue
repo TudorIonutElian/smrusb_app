@@ -9,7 +9,7 @@
             </div>
             <!-- row profil utilizator -->
             <div class="row mt-2">
-                <div class="col-4 col-profile">
+                <div class="col-3 col-profile">
                     <div class="row-profile">
                         <div class="row-profile-template-full p-2">Date personale Utilizator</div>
                     </div>
@@ -38,7 +38,7 @@
                         <div class="row-profile-info">{{ this.user_data.user_is_admin === 1 ? 'DA': 'NU'}}</div>
                     </div>
                 </div>
-                <div class="col-8">
+                <div class="col-9">
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-12 col-info p-2">
@@ -70,7 +70,7 @@
             </div>
             <!-- row profil adresa -->
             <div class="row mt-4">
-                <div class="col-4 col-profile">
+                <div class="col-3 col-profile">
                     <div class="row-profile">
                         <div class="row-profile-template-full p-2">Adresa Utilizator</div>
                     </div>
@@ -107,7 +107,7 @@
                         <div class="row-profile-info"> - </div>
                     </div>
                 </div>
-                <div class="col-8">
+                <div class="col-9">
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-12 col-info p-2">
@@ -144,7 +144,6 @@
                                             <td>2020-01-01</td>
                                             <td>2020-01-01</td>
                                         </tr>
-
                                     </tbody>
                                 </table>
                             </div>
@@ -155,12 +154,12 @@
 
             <!-- row nivel de acces -->
             <div class="row mt-4">
-                <div class="col-4 col-profile">
+                <div class="col-3 col-profile">
                     <div class="row-profile">
                         <div class="row-profile-template-full p-2">Acces Utilizator</div>
                     </div>
                 </div>
-                <div class="col-8">
+                <div class="col-9">
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-12 col-info p-2">
@@ -175,6 +174,7 @@
                                         <th scope="col">De la </th>
                                         <th scope="col">Pana la </th>
                                         <th scope="col">Activ </th>
+                                        <th scope="col">Anuleaza </th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -184,6 +184,7 @@
                                             <td>{{ acces.ua_start_date }}</td>
                                             <td>{{ acces.ua_end_date ? acces.ua_end_date : 'Prezent' }}</td>
                                             <td>{{ acces.ua_end_date ? 'NU' : 'DA' }}</td>
+                                            <td><button class="btn btn-outline-danger btn-sm">Anuleaza</button></td>
                                         </tr>
                                     </tbody>
                                 </table>

@@ -20,6 +20,7 @@
                         <button @click.prevent="login" class="btn btn-primary btn-block">Submit</button>
                     </form>
                 </div>
+                <notifications group="login" position="bottom right"/>
             </div>
         </div>
     </div>
@@ -66,41 +67,52 @@ export default {
                 password: this.user.password,
                 device_name: this.device
             }).then(async (response) =>{
-                // verificare daca status este 200
-                if(response.status === 200){
-
-                    // preluare token in constanta token
-                    this.token = response.data;
-
-                    // salvare token in local storage
-                    localStorage.setItem('token', this.token);
-
-                    // preluare date utilizator
-                    axios.get('/user', {
-                        headers:{
-                            ContentType: 'application/json',
-                            Authorization : 'Bearer ' + this.token
-                        }
-                    }).then(response=>{
-                        const isAdmin = response.data.user_type;
-                        this.user.isLoggedIn = true;
-                        this.$store.dispatch('setLoggedIn', true);
-
-                        this.user.userData = response.data;
-                        localStorage.setItem('user', JSON.stringify(response.data));
-
-                        if(isAdmin === 1){
-                            this.user.isAdmin = true;
-                            this.$store.dispatch('setAdminLoggedIn', true);
-                            router.push({name: 'admin-dashboard'})
-                        }else{
-                            this.user.isAdmin = false;
-                            this.$store.dispatch('setAdminLoggedIn', false);
-                            router.push({name: 'user-dashboard'})
-                        }
-                        this.$store.commit('setUser', response.data);
-
-                    })
+                if(response.data.return_code === 2000){
+                    this.$notify({
+                        group: 'login',
+                        title: 'Autentificare esuata!',
+                        text: 'Utilizatorul nu exista',
+                        type: 'error'
+                    });
+                }else if(response.data.return_code === 2003){
+                    this.$notify({
+                        group: 'login',
+                        title: 'Autentificare esuata!',
+                        text: 'Utilizatorul nu este activ',
+                        type: 'warn'
+                    });
+                }
+                else{
+                    // verificare daca status este 200
+                    if(response.status === 200){
+                        // preluare token in constanta token
+                        this.token = response.data;
+                        // salvare token in local storage
+                        localStorage.setItem('token', this.token);
+                        // preluare date utilizator
+                        axios.get('/user', {
+                            headers:{
+                                ContentType: 'application/json',
+                                Authorization : 'Bearer ' + this.token
+                            }
+                        }).then(response=>{
+                            const isAdmin = response.data.user_type;
+                            this.user.isLoggedIn = true;
+                            this.$store.dispatch('setLoggedIn', true);
+                            this.user.userData = response.data;
+                            localStorage.setItem('user', JSON.stringify(response.data));
+                            if(isAdmin === 1){
+                                this.user.isAdmin = true;
+                                this.$store.dispatch('setAdminLoggedIn', true);
+                                router.push({name: 'admin-dashboard'})
+                            }else{
+                                this.user.isAdmin = false;
+                                this.$store.dispatch('setAdminLoggedIn', false);
+                                router.push({name: 'user-dashboard'})
+                            }
+                            this.$store.commit('setUser', response.data);
+                        })
+                    }
                 }
 
             });

@@ -47,6 +47,12 @@ class RouteServiceProvider extends ServiceProvider
                 ->namespace($this->namespace)
                 ->group(base_path('routes/web.php'));
         });
+
+        $this->mapAdminRoutes();
+        $this->mapUserRoutes();
+        $this->mapLocalitatiRoutes();
+        $this->mapDataRoutes();
+        $this->mapAngajatiRoutes();
     }
 
     /**
@@ -59,5 +65,35 @@ class RouteServiceProvider extends ServiceProvider
         RateLimiter::for('api', function (Request $request) {
             return Limit::perMinute(60)->by(optional($request->user())->id ?: $request->ip());
         });
+    }
+
+    protected function mapAdminRoutes()
+    {
+        Route::prefix('/api/')
+            ->group(base_path('routes/admin.php'));
+    }
+
+    protected function mapUserRoutes()
+    {
+        Route::prefix('/api/')
+            ->group(base_path('routes/user.php'));
+    }
+
+    protected function mapLocalitatiRoutes()
+    {
+        Route::prefix('/api/')
+            ->group(base_path('routes/localitati.php'));
+    }
+
+    private function mapDataRoutes()
+    {
+        Route::prefix('/api/')
+            ->group(base_path('routes/data.php'));
+    }
+
+    private function mapAngajatiRoutes()
+    {
+        Route::prefix('/api/')
+            ->group(base_path('routes/angajati.php'));
     }
 }

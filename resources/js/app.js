@@ -16,6 +16,10 @@ Vue.use(VueRouter)
 import Vuex from 'vuex'
 Vue.use(Vuex)
 
+import Notifications from 'vue-notification';
+Vue.use(Notifications)
+
+
 import store from './vuex/store';
 
 const app = new Vue({
