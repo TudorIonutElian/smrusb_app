@@ -14,7 +14,7 @@ class Judet extends Model
     // Anulare coloane created_at si updated_at
     public $timestamps = false;
 
-    public function regiuni(){
+    public function regiune(){
         return $this->belongsTo(Regiune::class, 'regiune');
     }
 

@@ -53,6 +53,10 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapLocalitatiRoutes();
         $this->mapDataRoutes();
         $this->mapAngajatiRoutes();
+        $this->mapPozitiiRoutes();
+        $this->mapStatRoutes();
+        $this->mapJudeteRoutes();
+        $this->mapInstitutiiRoutes();
     }
 
     /**
@@ -95,5 +99,28 @@ class RouteServiceProvider extends ServiceProvider
     {
         Route::prefix('/api/')
             ->group(base_path('routes/angajati.php'));
+    }
+
+    private function mapPozitiiRoutes()
+    {
+        Route::prefix('/api/')
+            ->group(base_path('routes/pozitii.php'));
+    }
+
+    private function mapStatRoutes()
+    {
+        Route::prefix('/api/')
+            ->group(base_path('routes/stat.php'));
+    }
+
+    private function mapJudeteRoutes()
+    {
+        Route::prefix('/api/')
+            ->group(base_path('routes/judete.php'));
+    }
+    private function mapInstitutiiRoutes()
+    {
+        Route::prefix('/api/')
+            ->group(base_path('routes/institutii.php'));
     }
 }

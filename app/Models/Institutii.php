@@ -20,4 +20,12 @@ class Institutii extends Model
     public function get_istoric_institutie(){
         return $this->hasMany('App\Models\IstoricInstitutie', 'id');
     }
+
+    public function stat(){
+        return $this->hasOne(StatOrganizare::class, 'so_institutie_id', 'id');
+    }
+
+    public function mutatii(){
+        return $this->hasMany(MutatiiProfesionale::class, 'id');
+    }
 }

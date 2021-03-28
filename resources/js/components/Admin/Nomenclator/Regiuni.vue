@@ -134,5 +134,16 @@ export default {
 </script>
 
 <style scoped>
+tr:hover{
+    background-color: #c8d6e5;
+}
+tr:hover > td button.btn-outline-danger{
+    background-color: #ee5253;
+    color: #ffffff;
+}
+tr:hover > td button.btn-outline-success{
+    background-color: #1dd1a1;
+    color: #ffffff;
+}
 
 </style>

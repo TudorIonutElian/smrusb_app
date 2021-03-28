@@ -21,4 +21,14 @@ class Angajat extends Model
     public function profile(){
         return $this->hasMany(AngajatProfileSociale::class, 'aps_angajat');
     }
+
+    // returnare pozitie
+    public function pozitie(){
+        return $this->hasOne(PozitiiOrganizare::class, 'ps_angajat', 'id');
+    }
+
+    // returnare pozitie
+    public function mutatii(){
+        return $this->hasMany(MutatiiProfesionale::class, 'mp_angajat_id');
+    }
 }

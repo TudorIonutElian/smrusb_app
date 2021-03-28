@@ -23,9 +23,8 @@ class CreateAngajatiTable extends Migration
             $table->string('angajat_nume_anterior', 50)->nullable();
             $table->date('angajat_data_nasterii');
             $table->integer('angajat_stare_civila');
-            $table->unsignedBigInteger('angajat_acces_level')->nullable();
+            $table->unsignedInteger('angajat_cod_acces')->nullable();
 
-            $table->foreign('angajat_acces_level')->references('id')->on('institutii')->onDelete('set null');
         });
 
         // Setare trigger pentru creare angajat->adrese

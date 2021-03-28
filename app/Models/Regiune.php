@@ -17,4 +17,8 @@ class Regiune extends Model
     public function get_numar_judete(){
         return $this->hasMany(Judet::class, 'regiune');
     }
+
+    public function judete(){
+        return $this->hasMany(Judet::class, 'regiune');
+    }
 }

@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\FisaEvidentaAngajat;
+use App\Http\Resources\MutatiiAngajat;
 use App\Models\Angajat;
+use App\Models\MutatiiProfesionale;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -33,7 +36,7 @@ class AngajatiController extends Controller
             $angajat->angajat_nume_anterior                             = $request->angajat['nume_anterior'];
             $angajat->angajat_data_nasterii                             = $request->angajat['data_nasterii'];
             $angajat->angajat_stare_civila                              = $request->angajat['stare_civila'];
-            $angajat->angajat_acces_level                               = $request->angajat['acces_level'];
+            $angajat->angajat_cod_acces                                 = $request->angajat['acces_level'];
 
             if($angajat->save()){
                 return response()->json([
@@ -47,15 +50,27 @@ class AngajatiController extends Controller
     }
 
     public function preluare($id){
-        $user_acces  = User::find($id)->get_user_acces;
+        $user = User::find($id);
 
+        $user_acces = $user->get_user_acces;
         $lista_acces = [];
         foreach ($user_acces as $acces_level){
-            array_push($lista_acces, $acces_level->ua_level);
+            if($acces_level->ua_status === 1){
+                array_push($lista_acces, $acces_level->ua_level);
+            }
         }
 
         // Identificare angajati
-        $angajati = Angajat::whereIn('angajat_acces_level', $lista_acces)->get();
+        $angajati = Angajat::whereIn('angajat_cod_acces', $lista_acces)->get();
         return $angajati;
+    }
+
+    public function fisaEvidenta($id){
+        $fisa_evidenta_angajat_date     = FisaEvidentaAngajat::collection(Angajat::where('id', '=', $id)->get());
+        $fisa_evidenta_angajat_mutatii  = MutatiiAngajat::collection(MutatiiProfesionale::where('mp_angajat_id', '=', $id)->get());
+        return [
+            'date_personale'        => $fisa_evidenta_angajat_date,
+            'date_mutatii'          => $fisa_evidenta_angajat_mutatii,
+        ];
     }
 }

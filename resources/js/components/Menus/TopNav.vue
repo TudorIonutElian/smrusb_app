@@ -24,6 +24,15 @@
                                 <li><a class="dropdown-item" href="/admin/nomenclator/functii">Functii</a></li>
                             </ul>
                         </li>
+                        <li class="nav-item dropdown" v-if="user != null && user.user_type === 1">
+                            <a class="nav-link dropdown-toggle" href="#" id="stat" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Stat de Organizare
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="/admin/stat/creare">Creeaza Stat</a></li>
+                                <li><a class="dropdown-item" href="/admin/stat/modificare">Modifica Posturi</a></li>
+                            </ul>
+                        </li>
                         <li class="nav-item dropdown" v-if="user != null && user.user_type === 0">
                             <a class="nav-link dropdown-toggle" href="#" id="optiuniUser" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Angajati
@@ -42,7 +51,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item dropdown-item-flex" href="/">
+                                    <a class="dropdown-item dropdown-item-flex" href="/user/mutare_angajat">
                                         <img class="mr-2" src="/images/usermove.png" alt="">
                                         <span>Mutare angajat</span>
                                     </a>
@@ -104,7 +113,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item dropdown-item-flex" href="/">
+                                    <a class="dropdown-item dropdown-item-flex" href="/user/stat/suplimentare">
                                         <span>Suplimentare</span>
                                     </a>
                                 </li>
@@ -191,7 +200,7 @@
                                             </a>
                                         </li>
                                         <li v-if="this.esteAdministrator">
-                                            <a class="dropdown-item" href="/utilizatori/activare">
+                                            <a class="dropdown-item" href="/admin/utilizatori/access">
                                                 <img src="/images/accounts.png" alt="">
                                                 Solicitari Acces Institutii
                                                 <span> (0) </span>

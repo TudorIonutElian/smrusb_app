@@ -13,8 +13,8 @@ class UserAccessLevel extends Model
 
     protected $table = 'user_access';
 
-    public function get_users(){
-        return $this->hasMany('App\Models\User', 'iu_user', 'id');
+    public function get_user(){
+        return $this->belongsTo('App\Models\User', 'ua_user', 'id');
     }
 
     public function get_user_acces_denumire_institutie(){

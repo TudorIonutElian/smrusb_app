@@ -47,6 +47,6 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\IstoricUser', 'iu_user', 'id');
     }
     public function get_user_acces(){
-        return $this->hasMany('App\Models\UserAccessLevel', 'ua_user');
+        return $this->hasMany('App\Models\UserAccessLevel', 'ua_user', 'id');
     }
 }

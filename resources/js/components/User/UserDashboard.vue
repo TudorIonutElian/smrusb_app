@@ -22,7 +22,7 @@
                                 <th scope="col">Ordonator</th>
                                 <th scope="col">Institutia</th>
                                 <th scope="col">Functia</th>
-                                <th scope="col">Mergi la ...</th>
+                                <th scope="col">Fisa Evidenta</th>
                             </tr>
                             </thead>
                             <tbody class="angajati">
@@ -75,6 +75,7 @@ export default {
                     Authorization : 'Bearer ' + localStorage.getItem('token')
                 }
             }).then(async (response) => {
+                console.log(response)
                 this.lista_angajati = response.data
             })
         }

@@ -59,6 +59,13 @@ class UserController extends Controller
     public function accesInstitutii($id){
         $user = User::find($id);
         $institutii_acces = $user->get_user_acces;
-        return $institutii_acces;
+
+        $lista_acces = [];
+        foreach ($institutii_acces as $acces){
+            if($acces->ua_status === 1){
+                array_push($lista_acces, $acces);
+            }
+        }
+        return $lista_acces;
     }
 }

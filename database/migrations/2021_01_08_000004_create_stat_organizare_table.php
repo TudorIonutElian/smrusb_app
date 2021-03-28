@@ -17,6 +17,7 @@ class CreateStatOrganizareTable extends Migration
             $table->id();
             $table->unsignedBigInteger('so_institutie_id');
             $table->integer('so_numar_posturi_aprobate');
+            $table->bolean('so_status');
 
             $table->foreign('so_institutie_id', 'fk_stat_institutie')->references('id')->on('institutii')->onDelete('cascade');
         });

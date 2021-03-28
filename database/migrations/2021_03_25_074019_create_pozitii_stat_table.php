@@ -21,6 +21,8 @@ class CreatePozitiiStatTable extends Migration
             $table->unsignedBigInteger('ps_functie');
             $table->unsignedBigInteger('ps_angajat');
             $table->date('ps_data_numire');
+
+            $table->foreign('ps_stat', 'fk_pozitie_stat')->references('id')->on('stat_organizare');
         });
     }
 

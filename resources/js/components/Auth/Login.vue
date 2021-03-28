@@ -48,6 +48,15 @@ export default {
         }
     },
     async created() {
+        console.log(this.$route.query)
+        if(this.$route.query.status){
+            this.$notify({
+                group: 'login',
+                title: 'Inregistrare Ok!',
+                text: 'Contul a fost creat!',
+                type: 'success'
+            });
+        }
         await this.checkUserLoggedIn();
     },
     methods:{

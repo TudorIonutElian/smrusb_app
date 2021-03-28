@@ -82,7 +82,7 @@ export default {
                     user_acces_level: this.user.user_acces_level
                 }).then(response =>{
                     if(response.data.status === 200){
-                        router.push('login')
+                        router.push({ name: 'login', query:{status: 'succes'}} )
                     }
                 })
             }

@@ -1,7 +1,7 @@
 <template>
     <div class="container-fluid">
         <top-nav></top-nav>
-        <div class="row">
+        <div class="row" v-show="showLoadingAnimation">
             <div class="container mt-4">
                 <div class="row row-bordered p-2">
                     <div class="col-12 p-1 text-center">
@@ -35,7 +35,7 @@
                 <!-- Prenumele Tatalui-->
                 <div class="row p-1">
                     <div class="col-12 col-12-flexed">
-                        <label for="angajat_prenume_tata" class="form-label">Prenume tatal</label>
+                        <label for="angajat_prenume_tata" class="form-label">Prenume tata</label>
                         <input
                             type="text"
                             class="form-control"
@@ -153,8 +153,9 @@
                             class="form-control form-select"
                             id="angajat_judet_nastere"
                             v-model="angajat_nou.judet_nastere"
+                            @change="filtrareLocalitatiNastere()"
                         >
-                            <option value="1">Arad</option>
+                            <option v-for="judet in judete_nastere" :value="judet.judet_id">{{ judet.judet_denumire }}</option>
                         </select>
                     </div>
                 </div>
@@ -167,7 +168,8 @@
                             id="angajat_localitate_nastere"
                             v-model="angajat_nou.localitate_nastere"
                         >
-                            <option value="1">Arad</option>
+                            <option v-for="localitate_nastere in localitati_nastere_validate" :value="localitate_nastere.localitate_id">
+                                {{ localitate_nastere.localitate_denumire }}</option>
                         </select>
                     </div>
                 </div>
@@ -199,8 +201,9 @@
                             class="form-control form-select"
                             id="angajat_judet_domiciliu"
                             v-model="angajat_nou.judet_domiciliu"
+                            @change="filtrareLocalitatiDomiciuliu()"
                         >
-                            <option value="1">Arad</option>
+                            <option v-for="judet in this.lista_judete" :value="judet.judet_id">{{ judet.judet_denumire }}</option>
                         </select>
                     </div>
                 </div>
@@ -213,7 +216,10 @@
                             id="angajat_localitate_domiciliu"
                             v-model="angajat_nou.localitate_domiciliu"
                         >
-                            <option value="1">Arad</option>
+                            <option
+                                v-for="localitate_domiciliu in localitati_domiciliu_validate"
+                                :value="localitate_domiciliu.localitate_id"
+                                >{{ localitate_domiciliu.localitate_denumire }}</option>
                         </select>
                     </div>
                 </div>
@@ -404,16 +410,21 @@
                 <notifications group="angajat" position="bottom right"/>
             </div>
         </div>
+        <loading-component v-show="!showLoadingAnimation"></loading-component>
     </div>
 </template>
 
 <script>
 import TopNav from "../../Menus/TopNav";
+import LoadingComponent from "../../HelperComponents/LoadingComponent";
+import router from "../../../router/router";
 
 export default {
     data(){
         return{
             user_institutii_acces: [],
+            lista_judete: [],
+            lista_localitati: [],
             token: localStorage.getItem('token'),
             angajat_nou: {
                 nume: "",
@@ -452,20 +463,59 @@ export default {
                 cnp: false
             },
             lista_erori: [],
+            localitati_nastere_validate: [],
+            localitati_domiciliu_validate: []
         }
     },
     components:{
-        TopNav
+        TopNav,
+        LoadingComponent
     },
     computed:{
         angajatValid(){
             return this.lista_erori.length === 0
-        }
+        },
+        showLoadingAnimation(){
+            return this.lista_judete.length > 0 && this.lista_localitati.length > 0 && this.user_institutii_acces.length > 0
+        },
+        judete_nastere(){
+            return this.lista_judete.sort((a, b)=>{
+                a.judet_denumire.localeCompare(b.judet_denumire);
+            });
+        },
     },
     async created() {
-       await this.preluareInstitutiiAcces();
+        await this.preluareJudete();
+        await this.preluareLocalitati();
+        await this.preluareInstitutiiAcces();
     },
     methods:{
+        filtrareLocalitatiNastere(){
+            this.localitati_nastere_validate = [];
+            for(let i = 0; i < this.lista_localitati.length; i++){
+                if(this.lista_localitati[i].localitate_judet_id === this.angajat_nou.judet_nastere){
+                    this.localitati_nastere_validate.push(this.lista_localitati[i])
+                }
+            }
+        },
+        filtrareLocalitatiDomiciuliu(){
+            this.localitati_domiciliu_validate = [];
+            for(let i = 0; i < this.lista_localitati.length; i++){
+                if(this.lista_localitati[i].localitate_judet_id === this.angajat_nou.judet_domiciliu){
+                    this.localitati_domiciliu_validate.push(this.lista_localitati[i])
+                }
+            }
+        },
+        async preluareJudete(){
+            await axios.get('/api/judete/all').then(response=>{
+                this.lista_judete = response.data.data;
+            })
+        },
+        async preluareLocalitati(){
+            await axios.get('/api/localitati/adrese').then(response=>{
+                this.lista_localitati = response.data.data;
+            })
+        },
         async preluareInstitutiiAcces(){
             const user_id = JSON.parse(localStorage.getItem('user')).id;
             await axios.get("/api/users/institutii/acces/" + user_id, {
@@ -475,9 +525,6 @@ export default {
                     this.user_institutii_acces = response.data
                 }
             )
-        },
-        async preluareJudete(){
-
         },
         async adaugaAngajat(){
             this.validareAngajatNou()
@@ -566,7 +613,6 @@ export default {
                         Authorization : 'Bearer ' + this.token
                     }
                 }).then(response => {
-                    console.log(response)
                     if(response.data.cod === '001'){
                         this.$notify({
                             group: 'angajat',
@@ -574,6 +620,7 @@ export default {
                             text: 'Angajatul a fost salvat in baza de date!',
                             type: 'success'
                         });
+                        router.push({name: 'user-dashboard'});
                     }else if(response.data.cod === '000'){
                         this.$notify({
                             group: 'angajat',

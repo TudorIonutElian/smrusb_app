@@ -115,13 +115,13 @@ export default {
 
 <style scoped>
 .acces_activ{
-    padding: 5px;
+    padding: 10px;
     border-radius: 3px;
     background-color: #2ecc71;
     color: #ffffff;
 }
 .acces_inactiv{
-    padding: 5px;
+    padding: 10px;
     border-radius: 3px;
     background-color: #e74c3c;
     color: #ffffff;

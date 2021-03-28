@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\InstitutiiStateSelect;
 use App\Http\Resources\LocalitatiCollection;
+use App\Http\Resources\UserAccesLevelInactive;
 use App\Models\Institutii;
 use App\Models\Judet;
 use App\Models\Localitate;
@@ -128,5 +130,27 @@ class AdminController extends Controller
                 'status'  => 200
             ]);
         }
+    }
+
+    public function solicitariAcces(){
+
+        $solicitari = UserAccessLevel::where('ua_status', '=', 0)->get();
+        return UserAccesLevelInactive::collection($solicitari);
+    }
+
+    public function aprobareAcces(Request $request){
+        $userAccesLevel = UserAccessLevel::find($request->solicitare_id);
+        $userAccesLevel->ua_status = 1;
+
+        if($userAccesLevel->save()){
+            return response()->json([
+                'return_code'=> 2000
+            ]);
+        }
+
+    }
+
+    public function institutiiCreareStat(){
+        return InstitutiiStateSelect::collection(Institutii::all());
     }
 }
