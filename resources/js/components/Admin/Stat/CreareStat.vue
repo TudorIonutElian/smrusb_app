@@ -85,6 +85,7 @@ export default {
     },
     methods:{
         async preluareInstitutiiAdmin(){
+            this.operatiune_finalizata = false;
             this.loading = true
             await axios.get('/api/admin/institutii/creare_stat', {
                 headers:{
@@ -97,6 +98,7 @@ export default {
             })
         },
         async verificareStat(){
+            this.operatiune_finalizata = false;
             await axios.get(`/api/stat/${this.institutie_id}/verificare`, {
                 headers:{
                     ContentType: 'application/json',

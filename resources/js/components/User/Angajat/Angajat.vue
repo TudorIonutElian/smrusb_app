@@ -20,23 +20,23 @@
                     </div>
                     <div class="row-profile">
                         <div class="row-profile-template">Nume</div>
-                        <div class="row-profile-info"> Popescu</div>
+                        <div class="row-profile-info"> {{ date_fisa.date_personale.angajat_nume }}</div>
                     </div>
                     <div class="row-profile">
                         <div class="row-profile-template">Prenume Tata</div>
-                        <div class="row-profile-info"> Popescu</div>
+                        <div class="row-profile-info"> {{ date_fisa.date_personale.angajat_prenume_tata }}</div>
                     </div>
                     <div class="row-profile">
                         <div class="row-profile-template">Prenume Mama</div>
-                        <div class="row-profile-info"> Popescu</div>
+                        <div class="row-profile-info"> {{ date_fisa.date_personale.angajat_prenume_mama }}</div>
                     </div>
                     <div class="row-profile">
                         <div class="row-profile-template">Prenume</div>
-                        <div class="row-profile-info">Adrian</div>
+                        <div class="row-profile-info"> {{ date_fisa.date_personale.angajat_prenume }} </div>
                     </div>
                     <div class="row-profile">
                         <div class="row-profile-template">CNP</div>
-                        <div class="row-profile-info"> Popescu</div>
+                        <div class="row-profile-info"> {{ date_fisa.date_personale.angajat_cnp }}</div>
                     </div>
                     <div class="row-profile">
                         <div class="row-profile-template">Data nasterii</div>
@@ -297,7 +297,8 @@ export default {
             token: localStorage.getItem('token'),
             angajat:{
                 id: this.$route.params.id
-            }
+            },
+            date_fisa: null
         }
     },
     created(){
@@ -310,7 +311,11 @@ export default {
                     ContentType: 'application/json',
                     Authorization : 'Bearer ' + this.token
                 }
-            })
+            }).then(
+                response=>{
+                    this.date_fisa = response.data;
+                }
+            )
         }
 
     },
@@ -375,8 +380,8 @@ export default {
 /* Pentru aceasta componenta */
 tr.mutare{
     font-weight: bold;
-    background-color: #6a89cc;
-    color: #fff;
+    border: 1px solid #6a89cc;
+    color: #6a89cc;
 }
 span.angajat-istoric-mutatii{
     background-color: #38ada9;

@@ -40,14 +40,25 @@
                             <div class="p-2 col-flex-info-right">Numar posturi <span>aprobate</span> :</div>
                             <div class="p-2">{{ stat_organizare_detaliat.stat_numar_posturi}}</div>
                         </div>
+                        <div class="col-flex-info">
+                            <div class="p-2 col-flex-info-right">Numar posturi <span>disponibile</span>:</div>
+                            <div class="p-2">{{ stat_organizare_detaliat.stat_numar_posturi_disponibile}}</div>
+                        </div>
                     </div>
                     <div class="col-12">
                         <div class="suplimentare-stat">
                             <div class="col-flex-info">
                                 <div class="col-flex-info_left p-2 col-flex-info-right">Pozitie</div>
                                 <div class="col-flex-info_right p-2">
-                                    <input type="number" class="form-control">
+                                    <input
+                                        type="number"
+                                        class="form-control"
+                                        v-model="institutie.pozitie.ps_pozitie"
+                                        @change="verificarePozitie"
+                                    >
+                                    <div class="pl-2 pozitie_existenta" v-if="erori.eroare_pozitie_existenta">Eroare: pozitia exista deja</div>
                                 </div>
+
                             </div>
                             <div class="col-flex-info">
                                 <div class="col-flex-info_left p-2 col-flex-info-right">Cuprins</div>
@@ -57,19 +68,22 @@
                                         id="cuprins_suplimentare_stat"
                                         v-model="institutie.pozitie.ps_denumire_cuprins"
                                     >
-                                        <option value="1">I-Conducere</option>
+                                        <option v-for="c in this.stat_organizare_detaliat.cuprins" :value="c.id">
+                                            {{ c.sc_denumire }}</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-flex-info">
-                                <div class="col-flex-info_left p-2 col-flex-info-right">Cuprins</div>
+                                <div class="col-flex-info_left p-2 col-flex-info-right">Functie</div>
                                 <div class="col-flex-info_right p-2">
                                     <select
                                         class="form-control form-select mr-1"
                                         id="cuprins_suplimentare_stat_functie"
                                         v-model="institutie.pozitie.ps_functie"
                                     >
-                                        <option value="1">Director general - 2.08 - 8000</option>
+                                        <option v-for="functie in functii" :value="functie.id">
+                                            {{ functie.functie_coeficient }} - {{ functie.functie_suma}} - {{ functie.functie_denumire }}
+                                        </option>
                                     </select>
                                 </div>
                             </div>
@@ -106,7 +120,11 @@ export default {
             user_institutii_acces: [],
             stat_organizare: null,
             stat_organizare_detaliat: {},
-            loading: false
+            loading: false,
+            erori: {
+                eroare_pozitie_existenta: false
+            },
+            functii: []
         }
     },
     components:{
@@ -114,9 +132,20 @@ export default {
         TopNav
     },
     created(){
+        this.preluareFunctii();
         this.preluareUserAcces();
     },
     methods:{
+        async preluareFunctii(){
+            await axios.get("/api/functii/preluare", {
+                headers:{
+                    ContentType: 'application/json',
+                    Authorization : 'Bearer ' + this.token
+                }
+            }).then(response=>{
+                this.functii = response.data;
+            });
+        },
         async preluareUserAcces(){
             this.loading = true;
             const user_id = JSON.parse(localStorage.getItem('user')).id;
@@ -139,15 +168,45 @@ export default {
                     ContentType: 'application/json',
                     Authorization : 'Bearer ' + this.token
                 }
-            }).then(response => {
+            }).then(async (response) => {
                     if(response.data.return_code !== 402){
                         // Setare stat pe codul 0 pentru afisare warning
                         this.stat_organizare_detaliat = response.data.stat[0]
                         this.stat_organizare = 1
+                        this.institutie.pozitie.ps_stat = this.stat_organizare_detaliat.stat_id
                         this.loading = false
+
+                        // preluare cuprins stat
+                        await axios.get(`/api/cuprins/${this.institutie.id}/preluare`, {
+                            headers:{
+                                ContentType: 'application/json',
+                                Authorization : 'Bearer ' + this.token
+                            }
+                        }).then(response => {
+                            this.stat_organizare_detaliat.cuprins = response.data;
+                        });
+
+                    }else if(response.data.return_code === 402){
+                        this.stat_organizare = 0;
+                        this.loading = false;
                     }
                 }
             )
+        },
+        async verificarePozitie(){
+            this.erori.eroare_pozitie_existenta = false;
+            await axios.get(`/api/pozitii/${this.stat_organizare_detaliat.stat_id}/verificare/${this.institutie.pozitie.ps_pozitie}`, {
+                headers:{
+                    ContentType: 'application/json',
+                    Authorization : 'Bearer ' + this.token
+                }
+            }).then(response=>{
+                if(response.data === 1){
+                    this.erori.eroare_pozitie_existenta = true;
+                }else{
+                    this.erori.eroare_pozitie_existenta = false;
+                }
+            })
         }
     }
 }
@@ -182,5 +241,9 @@ export default {
     border: 1px solid;
     border-color: #079992;
     border-radius: 5px;
+}
+.pozitie_existenta{
+    font-weight: bold;
+    color: #e55039;
 }
 </style>

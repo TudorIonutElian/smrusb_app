@@ -28,4 +28,8 @@ class Institutii extends Model
     public function mutatii(){
         return $this->hasMany(MutatiiProfesionale::class, 'id');
     }
+
+    public function cuprins(){
+        return $this->hasMany(Cuprins::class, 'sc_institutie', 'id');
+    }
 }

@@ -15,7 +15,7 @@ class Angajat extends Model
     public $timestamps = false;
 
     public function adresa(){
-        return $this->hasMany(AngajatAdresa::class, 'aa_angajat');
+        return $this->hasOne(AngajatAdresa::class, 'aa_angajat');
     }
 
     public function profile(){

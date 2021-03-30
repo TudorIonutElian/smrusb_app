@@ -30,6 +30,7 @@ import VizualizareStat from "../components/User/Stat/VizualizareStat";
 import AccesUtilizatori from "../components/Admin/AccesUtilizatori";
 import MutareAngajatSelectat from "../components/User/Management/MutareAngajatSelectat";
 import SuplimentareStat from "../components/User/Stat/SuplimentareStat";
+import CuprinsStat from "../components/User/Stat/CuprinsStat";
 
 
 const router = new VueRouter({
@@ -69,6 +70,7 @@ const router = new VueRouter({
         {path: '/user/solicitare_acces/:id', component: SolicitareAcces, name: 'solicitare-acces'},
         {path: '/user/stat/vizualizare', component: VizualizareStat, name: 'vizualizare-stat'},
         {path: '/user/stat/suplimentare', component: SuplimentareStat, name: 'suplimentare-stat'},
+        {path: '/user/stat/cuprins', component: CuprinsStat, name: 'cuprins-stat'},
 
 
 

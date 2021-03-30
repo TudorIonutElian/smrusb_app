@@ -66,11 +66,11 @@ class AngajatiController extends Controller
     }
 
     public function fisaEvidenta($id){
-        $fisa_evidenta_angajat_date     = FisaEvidentaAngajat::collection(Angajat::where('id', '=', $id)->get());
-        $fisa_evidenta_angajat_mutatii  = MutatiiAngajat::collection(MutatiiProfesionale::where('mp_angajat_id', '=', $id)->get());
         return [
-            'date_personale'        => $fisa_evidenta_angajat_date,
-            'date_mutatii'          => $fisa_evidenta_angajat_mutatii,
+            'date_personale'        => Angajat::find($id),
+            'date_mutatii'          => MutatiiAngajat::collection(MutatiiProfesionale::where('mp_angajat_id', '=', $id)->get()),
+            'adresa'                => Angajat::find($id)->adresa,
+
         ];
     }
 }

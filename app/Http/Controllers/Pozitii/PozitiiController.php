@@ -13,4 +13,13 @@ class PozitiiController extends Controller
         $pozitii_stat = PozitiiOrganizare::where('ps_stat', '=', $id)->get();
         return PozitiiOrganizareDetail::collection($pozitii_stat);
     }
+
+    public function verificarePozitie($stat, $pozitie){
+        $pozitie = count(PozitiiOrganizare::where([
+            ['ps_stat', '=', $stat],
+            ['ps_pozitie', '=', $pozitie]
+        ])->get());
+
+        return $pozitie;
+    }
 }

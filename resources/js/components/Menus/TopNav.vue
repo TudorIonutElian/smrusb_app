@@ -132,6 +132,11 @@
                                         <span>Posturi Vacante</span>
                                     </a>
                                 </li>
+                                <li>
+                                    <a class="dropdown-item dropdown-item-flex" href="/user/stat/cuprins">
+                                        <span>Cuprins Stat</span>
+                                    </a>
+                                </li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown" v-if="user != null && user.user_type !== 1">

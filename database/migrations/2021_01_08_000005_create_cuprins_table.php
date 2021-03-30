@@ -13,12 +13,14 @@ class CreateCuprinsTable extends Migration
      */
     public function up()
     {
-        Schema::create('cuprins', function (Blueprint $table) {
+        Schema::create('stat_cuprins', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('c_institutie')->nullable();
-            $table->string('c_denumire');
+            $table->unsignedBigInteger('sc_institutie')->nullable();
+            $table->string('sc_denumire');
+            $table->unsignedInteger('sc_ordine');
 
-            $table->foreign('c_institutie', 'fk_cuprins_institutie')->references('id')->on('institutii');
+            $table->foreign('sc_institutie', 'fk_cuprins_institutie')->references('id')->on('institutii');
+            $table->unique(['sc_institutie', 'sc_denumire']);
         });
     }
 

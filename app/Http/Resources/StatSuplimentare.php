@@ -15,9 +15,10 @@ class StatSuplimentare extends JsonResource
     public function toArray($request)
     {
         return [
-            'stat_id'               =>$this->id,
-            'stat_institutie'       =>$this->institutie->institutie_denumire,
-            'stat_numar_posturi'    =>$this->so_numar_posturi_aprobate
+            'stat_id'                           =>$this->id,
+            'stat_institutie'                   =>$this->institutie->institutie_denumire,
+            'stat_numar_posturi'                =>$this->so_numar_posturi_aprobate,
+            'stat_numar_posturi_disponibile'    =>$this->so_numar_posturi_aprobate - count($this->pozitii)
         ];
     }
 }

@@ -40,18 +40,28 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <th scope="row">0001</th>
-                                        <td class="td-cuprins">I - Conducere</td>
-                                        <td >Director general</td>
-                                        <td>2.88</td>
-                                        <td>8.000</td>
-                                        <td>-</td>
-                                        <td><a href="/">Popescu Aurelian</a></td>
-                                        <td>01.07.2017</td>
-                                        <td>123456</td>
-                                        <td>03.06.2017</td>
+                                    <tr class="institutie_no_stat" v-show="this.id_stat === 0">
+                                        <th scope="row" colspan="10">
+                                            <span>Institutia nu are un stat aprobat!</span>
+                                        </th>
                                     </tr>
+                                    <tr class="institutie_no_pozitii" v-if="this.date_preluate.pozitii.data.length === 0">
+                                        <th scope="row" colspan="10">
+                                            <span>Statul nu are pozitii create!</span>
+                                        </th>
+                                    </tr>
+<!--                                    <tr>-->
+<!--                                        <th scope="row">0001</th>-->
+<!--                                        <td class="td-cuprins">I - Conducere</td>-->
+<!--                                        <td >Director general</td>-->
+<!--                                        <td>2.88</td>-->
+<!--                                        <td>8.000</td>-->
+<!--                                        <td>-</td>-->
+<!--                                        <td><a href="/">Popescu Aurelian</a></td>-->
+<!--                                        <td>01.07.2017</td>-->
+<!--                                        <td>123456</td>-->
+<!--                                        <td>03.06.2017</td>-->
+<!--                                    </tr>-->
                                 </tbody>
                             </table>
                         </div>
@@ -79,13 +89,15 @@ export default {
             date_preluate:{
                 institutie: "",
                 stat: {},
-                pozitii: []
+                pozitii: {
+                    data: 0
+                }
             }
         }
     },
     computed:{
       date_preluate_valid : function (){
-          return Object.keys(this.date_preluate).length > 0 && this.date_preluate.institutie !== ""
+          return Object.keys(this.date_preluate).length > 0 && this.date_preluate.institutie !== "" && this.date_preluate.stat !== null
       }
     },
     components:{
@@ -107,10 +119,16 @@ export default {
                 this.date_preluate.institutie = response.data.institutie
                 this.date_preluate.stat = response.data.stat
             });
-            // preluare pozitii
-            await axios.get(`/api/stat/${this.date_preluate.stat.id}/pozitii`).then(response=>{
-                this.date_preluate.pozitii = response.data;
-            })
+            if(this.date_preluate.stat){
+                this.id_stat = 1
+                // preluare pozitii
+                await axios.get(`/api/stat/${this.date_preluate.stat.id}/pozitii`).then(response=>{
+                    this.date_preluate.pozitii = response.data;
+                })
+            }else{
+                this.id_stat = 0
+                this.date_preluate.pozitii.data = 0;
+            }
         }
     }
 }
@@ -128,5 +146,13 @@ tr.post-liber{
 }
 .col-row-info span{
     font-weight: normal;
+}
+.institutie_no_stat{
+    background-color: #ff6b6b;
+    color: #fff;
+}
+.institutie_no_pozitii{
+    background-color: #feca57;
+    color: #333;
 }
 </style>

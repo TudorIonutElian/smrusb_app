@@ -33,9 +33,11 @@ class CreateAngajatiTable extends Migration
                     AFTER INSERT ON angajati FOR EACH ROW
                         BEGIN
                                 INSERT INTO angajati_adrese(
-                                    aa_angajat)
+                                    aa_angajat,
+                                    aa_status)
                                 VALUES (
-                                    new.id);
+                                    new.id,
+                                    true);
                         END
                 ');
         // Setare trigger pentru creare angajat->profile social media

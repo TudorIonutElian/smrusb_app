@@ -26,6 +26,7 @@ class CreateAngajatiAdreseTable extends Migration
             $table->string('aa_apartament')->nullable();
             $table->string('aa_telefon_fix', 10)->nullable();
             $table->string('aa_telefon_mobil', 10)->nullable();
+            $table->boolean('aa_status');
 
             $table->foreign('aa_angajat', 'fk_adresa_user')->references('id')->on('angajati')->onDelete('cascade');
             $table->foreign('aa_judet', 'fk_adresa_judet')->references('id')->on('judete')->onDelete('cascade');

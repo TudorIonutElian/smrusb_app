@@ -57,6 +57,8 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapStatRoutes();
         $this->mapJudeteRoutes();
         $this->mapInstitutiiRoutes();
+        $this->mapCuprinsRoutes();
+        $this->mapFunctiiRoutes();
     }
 
     /**
@@ -123,4 +125,18 @@ class RouteServiceProvider extends ServiceProvider
         Route::prefix('/api/')
             ->group(base_path('routes/institutii.php'));
     }
+
+    private function mapCuprinsRoutes()
+    {
+        Route::prefix('/api/')
+            ->group(base_path('routes/cuprins.php'));
+    }
+
+    private function mapFunctiiRoutes()
+    {
+        Route::prefix('/api/')
+            ->group(base_path('routes/functii.php'));
+    }
+
+
 }
