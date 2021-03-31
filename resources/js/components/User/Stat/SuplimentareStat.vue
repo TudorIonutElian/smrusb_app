@@ -66,7 +66,7 @@
                                     <select
                                         class="form-control form-select mr-1"
                                         id="cuprins_suplimentare_stat"
-                                        v-model="institutie.pozitie.ps_denumire_cuprins"
+                                        v-model="institutie.pozitie.ps_cuprins"
                                     >
                                         <option v-for="c in this.stat_organizare_detaliat.cuprins" :value="c.id">
                                             {{ c.sc_denumire }}</option>
@@ -89,7 +89,11 @@
                             </div>
                         </div>
                     </div>
-                    <button class="btn btn-block m-3 btn-outline-success">Creaza Pozitie</button>
+                    <button
+                        class="btn btn-block m-3 btn-outline-success"
+                        @click.prevent="suplimenteazaPozitie"
+                    >Suplimentare Stat Organizare
+                    </button>
                 </div>
             </div>
         </div>
@@ -100,6 +104,7 @@
 <script>
 import TopNav from "../../Menus/TopNav";
 import LoadingComponent from "../../HelperComponents/LoadingComponent";
+import router from "../../../router/router";
 
 export default {
     data(){
@@ -111,7 +116,7 @@ export default {
                 pozitie: {
                     ps_stat: null,
                     ps_pozitie: null,
-                    ps_denumire_cuprins: null,
+                    ps_cuprins: null,
                     ps_functie: null,
                     ps_angajat: null,
                     ps_data_numire: null
@@ -205,6 +210,25 @@ export default {
                     this.erori.eroare_pozitie_existenta = true;
                 }else{
                     this.erori.eroare_pozitie_existenta = false;
+                }
+            })
+        },
+        async suplimenteazaPozitie(){
+            await axios.post(`/api/pozitii/suplimentare`, {
+                pozitie: {
+                    ps_stat: this.institutie.pozitie.ps_stat,
+                    ps_pozitie: this.institutie.pozitie.ps_pozitie,
+                    ps_functie: this.institutie.pozitie.ps_functie,
+                    ps_cuprins: this.institutie.pozitie.ps_cuprins
+                }
+            }, {
+                headers:{
+                    ContentType: 'application/json',
+                    Authorization : 'Bearer ' + this.token
+                }
+            }).then(response =>{
+                if(response.data.cod_raspuns === 2000){
+                    router.push({name: 'vizualizare-stat'});
                 }
             })
         }

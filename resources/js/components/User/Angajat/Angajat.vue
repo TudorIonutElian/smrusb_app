@@ -40,7 +40,7 @@
                     </div>
                     <div class="row-profile">
                         <div class="row-profile-template">Data nasterii</div>
-                        <div class="row-profile-info"> Popescu</div>
+                        <div class="row-profile-info"> {{ date_fisa.date_personale.angajat_data_nasterii }} </div>
                     </div>
                     <div class="row-profile">
                         <div class="row-profile-template">Nascut in judetul: </div>

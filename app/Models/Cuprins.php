@@ -17,4 +17,7 @@ class Cuprins extends Model
     public function institutie(){
         return $this->belongsTo(Institutii::class, 'sc_institutie');
     }
+    public function pozitii(){
+        return $this->hasMany(PozitiiOrganizare::class, 'ps_cuprins', 'id');
+    }
 }

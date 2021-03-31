@@ -24,6 +24,8 @@ class CreateAngajatiTable extends Migration
             $table->date('angajat_data_nasterii');
             $table->integer('angajat_stare_civila');
             $table->unsignedInteger('angajat_cod_acces')->nullable();
+            $table->unsignedInteger('angajat_judet_nastere')->nullable();
+            $table->unsignedInteger('angajat_localitate_nastere')->nullable();
 
         });
 

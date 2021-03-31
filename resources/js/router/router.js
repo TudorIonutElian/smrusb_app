@@ -18,7 +18,11 @@ import UserPannelControl from '../components/User/UserPannelControl';
 import UserChangePassword from '../components/User/UserChangePassword';
 
 import AdaugaAngajat from '../components/User/Management/AdaugareAngajat';
+
 import MutareAngajat from "../components/User/Management/MutareAngajat";
+import MutareAngajatSelectat from "../components/User/Management/MutareAngajatSelectat";
+import NumireAngajat from "../components/User/Management/NumireAngajat";
+
 import SolicitareAcces from '../components/User/Management/SolicitareAcces';
 
 
@@ -28,9 +32,9 @@ import NomenclatorJudete from '../components/Admin/Nomenclator/Judete';
 import Angajat from "../components/User/Angajat/Angajat";
 import VizualizareStat from "../components/User/Stat/VizualizareStat";
 import AccesUtilizatori from "../components/Admin/AccesUtilizatori";
-import MutareAngajatSelectat from "../components/User/Management/MutareAngajatSelectat";
 import SuplimentareStat from "../components/User/Stat/SuplimentareStat";
 import CuprinsStat from "../components/User/Stat/CuprinsStat";
+import NumireAngajatSelectat from "../components/User/Management/NumireAngajatSelectat";
 
 
 const router = new VueRouter({
@@ -63,6 +67,10 @@ const router = new VueRouter({
         {path: '/user/adauga_angajat', component: AdaugaAngajat, name: 'adauga-angajat'},
         {path: '/user/mutare_angajat', component: MutareAngajat, name: 'mutare-angajat'},
         {path: '/user/mutare_angajat/:id', component: MutareAngajatSelectat, name: 'mutare-angajat-selectat'},
+
+
+        {path: '/user/numire_angajat', component: NumireAngajat, name: 'numire-angajat'},
+        {path: '/user/numire_angajat/:id', component: NumireAngajatSelectat, name: 'numire-angajat-selectat'},
 
 
 

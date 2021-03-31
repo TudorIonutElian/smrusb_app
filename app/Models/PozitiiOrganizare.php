@@ -31,4 +31,8 @@ class PozitiiOrganizare extends Model
     public function mutatii(){
         return $this->hasMany(MutatiiProfesionale::class, 'mp_pozitie_id', 'id');
     }
+
+    public function cuprins(){
+        return $this->hasOne(Cuprins::class, 'id', 'ps_cuprins');
+    }
 }

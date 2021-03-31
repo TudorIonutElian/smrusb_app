@@ -31,4 +31,9 @@ class Angajat extends Model
     public function mutatii(){
         return $this->hasMany(MutatiiProfesionale::class, 'mp_angajat_id');
     }
+
+    //returnare judet de nastere
+    public function judet_nastere(){
+        return $this->hasOne(Judet::class, 'id', 'angajat_judet_nastere');
+    }
 }

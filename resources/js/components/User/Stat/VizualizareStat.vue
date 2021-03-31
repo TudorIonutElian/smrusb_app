@@ -50,18 +50,19 @@
                                             <span>Statul nu are pozitii create!</span>
                                         </th>
                                     </tr>
-<!--                                    <tr>-->
-<!--                                        <th scope="row">0001</th>-->
-<!--                                        <td class="td-cuprins">I - Conducere</td>-->
-<!--                                        <td >Director general</td>-->
-<!--                                        <td>2.88</td>-->
-<!--                                        <td>8.000</td>-->
-<!--                                        <td>-</td>-->
-<!--                                        <td><a href="/">Popescu Aurelian</a></td>-->
-<!--                                        <td>01.07.2017</td>-->
-<!--                                        <td>123456</td>-->
-<!--                                        <td>03.06.2017</td>-->
-<!--                                    </tr>-->
+                                    <tr v-if="date_preluate.pozitii.data.length > 0" v-for="pozitie in date_preluate.pozitii.data">
+                                        <th scope="row">{{ pozitieNumarValidare(pozitie.pozitie_numar) }}</th>
+                                        <td class="td-cuprins">{{ pozitie.pozitie_denumire_cuprins }}</td>
+                                        <td>{{ pozitie.pozitie_functie.functie_denumire}}</td>
+                                        <td>{{ pozitie.pozitie_functie.functie_coeficient}}</td>
+                                        <td>{{ pozitie.pozitie_functie.functie_suma}}</td>
+                                        <td>-</td>
+                                        <td><a href="/">{{ angajatValidare(pozitie.pozitie_angajat) }} </a></td>
+                                        <td>{{ pozitie.pozitie_data_numire}}</td>
+                                        <td>{{ pozitie.data_data_numire }}</td>
+                                        <td>{{ pozitie.pozitie_numar_act}}</td>
+                                        <td>{{ pozitie.pozitie_data_act}}</td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -99,6 +100,7 @@ export default {
       date_preluate_valid : function (){
           return Object.keys(this.date_preluate).length > 0 && this.date_preluate.institutie !== "" && this.date_preluate.stat !== null
       }
+
     },
     components:{
         TopNav
@@ -129,7 +131,24 @@ export default {
                 this.id_stat = 0
                 this.date_preluate.pozitii.data = 0;
             }
+        },
+        angajatValidare(angajat){
+            if (angajat !== null) {
+                return `${angajat.angajat_nume} ${angajat.angajat_prenume}`
+            } else {
+                return ``;
+            }
+        },
+        pozitieNumarValidare(pozitie){
+            if(pozitie < 10){
+                return `000${pozitie}`;
+            }else if(pozitie > 10 & pozitie < 100){
+                return `00${pozitie}`;
+            }else if(pozitie > 100 & pozitie < 1000){
+                return `0${pozitie}`
+            }
         }
+
     }
 }
 </script>

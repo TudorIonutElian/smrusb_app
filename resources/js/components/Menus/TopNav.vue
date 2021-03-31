@@ -45,7 +45,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item dropdown-item-flex" href="/">
+                                    <a class="dropdown-item dropdown-item-flex" href="/user/numire_angajat">
                                         <img class="mr-2" src="/images/numireangajat.png" alt="">
                                         <span>Numire angajat</span>
                                     </a>
@@ -109,31 +109,37 @@
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li>
                                     <a class="dropdown-item dropdown-item-flex" href="/user/stat/vizualizare">
+                                        <img class="mr-2" src="/images/vizualizare_stat.png" alt="">
                                         <span>Vizualizare</span>
                                     </a>
                                 </li>
                                 <li>
                                     <a class="dropdown-item dropdown-item-flex" href="/user/stat/suplimentare">
+                                        <img class="mr-2" src="/images/suplimentare_stat.png" alt="">
                                         <span>Suplimentare</span>
                                     </a>
                                 </li>
                                 <li>
                                     <a class="dropdown-item dropdown-item-flex" href="/">
+                                        <img class="mr-2" src="/images/radiere_stat.png" alt="">
                                         <span>Radiere</span>
                                     </a>
                                 </li>
                                 <li>
                                     <a class="dropdown-item dropdown-item-flex" href="/">
+                                        <img class="mr-2" src="/images/istoric_stat.png" alt="">
                                         <span>Istoric</span>
                                     </a>
                                 </li>
                                 <li>
                                     <a class="dropdown-item dropdown-item-flex" href="/">
+                                        <img class="mr-2" src="/images/vacante_stat.png" alt="">
                                         <span>Posturi Vacante</span>
                                     </a>
                                 </li>
                                 <li>
                                     <a class="dropdown-item dropdown-item-flex" href="/user/stat/cuprins">
+                                        <img class="mr-2" src="/images/cuprins_stat.png" alt="">
                                         <span>Cuprins Stat</span>
                                     </a>
                                 </li>

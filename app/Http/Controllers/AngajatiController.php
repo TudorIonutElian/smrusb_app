@@ -37,6 +37,8 @@ class AngajatiController extends Controller
             $angajat->angajat_data_nasterii                             = $request->angajat['data_nasterii'];
             $angajat->angajat_stare_civila                              = $request->angajat['stare_civila'];
             $angajat->angajat_cod_acces                                 = $request->angajat['acces_level'];
+            $angajat->angajat_judet_nastere                             = $request->angajat['judet_nastere'];
+            $angajat->angajat_localitate_nastere                        = $request->angajat['localitate_nastere'];
 
             if($angajat->save()){
                 return response()->json([
