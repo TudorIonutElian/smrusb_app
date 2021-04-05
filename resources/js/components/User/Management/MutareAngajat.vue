@@ -17,25 +17,21 @@
                                 <th scope="col">#</th>
                                 <th scope="col">Nume</th>
                                 <th scope="col">Prenume</th>
-                                <th scope="col">Gradul</th>
                                 <th scope="col">CNP</th>
-                                <th scope="col">Ordonator</th>
                                 <th scope="col">Institutia</th>
                                 <th scope="col">Functia</th>
-                                <th scope="col">Fisa Evidenta</th>
+                                <th scope="col">Mutare</th>
                             </tr>
                             </thead>
                             <tbody class="angajati">
-                            <tr v-for="(angajat, index) in lista_angajati">
+                            <tr v-for="(angajat, index) in lista_angajati" class="tr-angajat">
                                 <th scope="row">{{ index+1}}</th>
                                 <td>{{ angajat.angajat_nume }}</td>
                                 <td>{{ angajat.angajat_prenume }}</td>
-                                <td>-</td>
                                 <td>{{ angajat.angajat_cnp }}</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td><a :href="'/user/mutare_angajat/' + angajat.id" class="btn btn-sm btn-secondary btn-show">Muta Angajat</a></td>
+                                <td>{{ angajat.angajat_institutie}}</td>
+                                <td>{{ angajat.angajat_functie }}</td>
+                                <td><a :href="'/user/mutare_angajat/' + angajat.angajat_id" class="btn btn-sm btn-secondary btn-show">Muta Angajat</a></td>
                             </tr>
                             </tbody>
                         </table>
@@ -76,7 +72,7 @@ export default {
                 }
             }).then(async (response) => {
                 console.log(response)
-                this.lista_angajati = response.data
+                this.lista_angajati = response.data.data
             })
         }
     }
@@ -91,5 +87,10 @@ export default {
     color: #ffffff;
     background-color: #38c172;
     border: none;
+}
+.tr-angajat:hover{
+    font-weight: bolder;
+    color: #38c172;
+    background-color: #fff;
 }
 </style>

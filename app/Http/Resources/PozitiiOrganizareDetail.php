@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class PozitiiOrganizareDetail extends JsonResource
@@ -24,6 +25,7 @@ class PozitiiOrganizareDetail extends JsonResource
             'pozitie_data_numire'                   => $this->ps_data_numire,
             'pozitie_numar_act'                     => $this->ps_numar_act,
             'pozitie_data_act'                      => $this->ps_data_emitere,
+            'pozitie_vechime'                       => Carbon::now()->diff($this->ps_data_numire)->days
         ];
     }
 }

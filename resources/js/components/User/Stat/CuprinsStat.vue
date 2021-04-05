@@ -16,7 +16,7 @@
                                 v-model="institutie.id"
                                 @change="verificareStat"
                             >
-                                <option v-for="institutie in user_institutii_acces" :value="institutie.id">{{ institutie.ua_denumire }}</option>
+                                <option v-for="institutie in user_institutii_acces" :value="institutie.id">{{ institutie.institutie_denumire }}</option>
                             </select>
                         </div>
                     </div>

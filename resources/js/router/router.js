@@ -18,10 +18,11 @@ import UserPannelControl from '../components/User/UserPannelControl';
 import UserChangePassword from '../components/User/UserChangePassword';
 
 import AdaugaAngajat from '../components/User/Management/AdaugareAngajat';
-
 import MutareAngajat from "../components/User/Management/MutareAngajat";
 import MutareAngajatSelectat from "../components/User/Management/MutareAngajatSelectat";
 import NumireAngajat from "../components/User/Management/NumireAngajat";
+import NumireAngajatSelectat from "../components/User/Management/NumireAngajatSelectat";
+
 
 import SolicitareAcces from '../components/User/Management/SolicitareAcces';
 
@@ -32,10 +33,11 @@ import NomenclatorJudete from '../components/Admin/Nomenclator/Judete';
 import Angajat from "../components/User/Angajat/Angajat";
 import VizualizareStat from "../components/User/Stat/VizualizareStat";
 import AccesUtilizatori from "../components/Admin/AccesUtilizatori";
+
 import SuplimentareStat from "../components/User/Stat/SuplimentareStat";
 import CuprinsStat from "../components/User/Stat/CuprinsStat";
-import NumireAngajatSelectat from "../components/User/Management/NumireAngajatSelectat";
-
+import RadiereStat from "../components/User/Stat/RadiereStat";
+import VacanteStat from "../components/User/Stat/VacanteStat";
 
 const router = new VueRouter({
     mode: 'history',
@@ -60,6 +62,8 @@ const router = new VueRouter({
         /*--- User Routes*/
         /*--- User Routes --- Route Login */
         {path: '/login', component: Login, name: 'login'},
+
+
         /*--- User Routes --- Route Inregistrare */
         {path: '/inregistrare', component: Register, name: 'register'},
 
@@ -79,17 +83,14 @@ const router = new VueRouter({
         {path: '/user/stat/vizualizare', component: VizualizareStat, name: 'vizualizare-stat'},
         {path: '/user/stat/suplimentare', component: SuplimentareStat, name: 'suplimentare-stat'},
         {path: '/user/stat/cuprins', component: CuprinsStat, name: 'cuprins-stat'},
+        {path: '/user/stat/radiere', component: RadiereStat, name: 'radiere-stat'},
+        {path: '/user/stat/vacante', component: VacanteStat, name: 'vacante-stat'},
 
 
 
         // Rute pentru admin nomenclator
         {path: '/admin/nomenclator/regiuni', component: NomenclatorRegiuni, name: 'nomenclator-regiuni'},
         {path: '/admin/nomenclator/judete', component: NomenclatorJudete, name: 'nomenclator-judete'},
-
-
-
-
-
 
 
 

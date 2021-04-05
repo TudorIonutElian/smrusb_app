@@ -1,7 +1,7 @@
 <template>
     <div class="container-fluid">
         <top-nav></top-nav>
-        <div class="row">
+        <div class="row" v-if="loading === false">
             <div class="container mt-4 container-angajati">
                 <!-- row profil utilizator -->
                 <div class="row mt-2">
@@ -11,31 +11,30 @@
                         </div>
                         <div class="row-profile">
                             <div class="row-profile-template">Nume</div>
-                            <div class="row-profile-info"> Popescu</div>
+                            <div class="row-profile-info"> {{ date_angajat.angajat_date.angajat_nume }}</div>
                         </div>
                         <div class="row-profile">
                             <div class="row-profile-template">Prenume</div>
-                            <div class="row-profile-info">Adrian</div>
+                            <div class="row-profile-info">{{ date_angajat.angajat_date.angajat_prenume }}</div>
                         </div>
                         <div class="row-profile">
                             <div class="row-profile-template">Data nasterii</div>
-                            <div class="row-profile-info">12.01.1975</div>
+                            <div class="row-profile-info">{{ date_angajat.angajat_date.angajat_data_nasterii }}</div>
                         </div>
                         <div class="row-profile">
                             <div class="row-profile-template">Varsta</div>
-                            <div class="row-profile-info">45 ani</div>
+                            <div class="row-profile-info">{{ date_angajat.angajat_date.angajat_varsta }} ani</div>
                         </div>
                         <div class="row-profile">
                             <div class="row-profile-template">Institutie</div>
-                            <div class="row-profile-info">Agentia Nationala de Administrare Fiscala</div>
+                            <div class="row-profile-info">{{ date_angajat.angajat_institutie }}</div>
                         </div>
                         <div class="row-profile">
                             <div class="row-profile-template">Functie</div>
-                            <div class="row-profile-info">Director general</div>
-                        </div>
-                        <div class="row-profile">
-                            <div class="row-profile-template">Pozitie</div>
-                            <div class="row-profile-info">0001</div>
+                            <div class="row-profile-info" v-if="date_angajat.angajat_functie !== null">{{ date_angajat.angajat_functie }}</div>
+                            <div class="row-profile-info" v-if="date_angajat.angajat_functie === null">
+                                <span class="angajat_nenumit_info">Nu este numit.</span>
+                            </div>
                         </div>
                     </div>
                     <div class="col-8">
@@ -97,41 +96,78 @@
                 </div>
             </div>
         </div>
+        <loading-component v-if="loading === true"></loading-component>
     </div>
 </template>
 
 <script>
 import TopNav from "../../Menus/TopNav";
+import LoadingComponent from "../../HelperComponents/LoadingComponent";
+import router from "../../../router/router";
 
 export default {
     data(){
         return{
             token: localStorage.getItem('token'),
             user_id: JSON.parse(localStorage.getItem('user')).id,
+            angajat_id: this.$route.params.id,
+            date_angajat: {
+                angajat_date:{},
+                angajat_functie: null,
+                angajat_institutie: 'Nu este numit!',
+            },
             lista_institutii_all: [],
             mutare:{
                 numar_act_administrativ: "",
                 data_emitere_act_administrativ: "",
                 data_aplicare_act_administrativ: "",
                 institutie_id: 0
-            }
+            },
+            // variabile de ajutor
+            loading: false,
 
         }
     },
     created(){
+        this.preluareAngajat();
         this.preluareInstitutii();
     },
     components:{
+        LoadingComponent,
         TopNav
     },
     methods:{
+        async preluareAngajat(){
+            this.loading = true;
+            await axios.get(`/api/angajati/mutare/${this.angajat_id}`, {
+                headers:{
+                    ContentType: 'application/json',
+                    Authorization : 'Bearer ' + this.token
+                }
+            }).then(response => {
+                this.date_angajat.angajat_date          = response.data.angajat_date;
+                this.date_angajat.angajat_functie       = response.data.angajat_functie ? response.data.angajat_functie: this.date_angajat.angajat_functie;
+                this.date_angajat.angajat_institutie    = response.data.angajat_institutie;
+                this.loading = false;
+            });
+        },
         async preluareInstitutii(){
             await axios.get('/api/institutii/all').then(response=>{
                 this.lista_institutii_all = response.data.data;
             })
         },
         async mutareAngajat(){
-            console.log(this.mutare)
+            await axios.post(`/api/angajati/mutare/${this.$route.params.id}/`, {
+                    mutare: this.mutare
+            }, {
+                headers:{
+                    ContentType: 'application/json',
+                    Authorization : 'Bearer ' + this.token
+                }
+            })
+            .then(response => {
+                router.push({name: 'user-dashboard'})
+            })
         }
     }
 }
@@ -170,5 +206,9 @@ export default {
 .col-table table.table{
     max-width: 100%;
     box-sizing: border-box;
+}
+.angajat_nenumit_info{
+    color: #d63031;
+    font-weight: bolder;
 }
 </style>

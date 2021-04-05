@@ -32,4 +32,8 @@ class Institutii extends Model
     public function cuprins(){
         return $this->hasMany(Cuprins::class, 'sc_institutie', 'id');
     }
+
+    public function angajati(){
+        return $this->hasMany(Angajat::class, 'angajat_institutie_curenta', 'id');
+    }
 }

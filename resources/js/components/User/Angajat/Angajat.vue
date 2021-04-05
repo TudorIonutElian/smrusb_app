@@ -1,7 +1,7 @@
 <template>
     <div class="container-fluid">
         <top-nav></top-nav>
-        <div class="container-fluid mt-2 p-1">
+        <div class="container-fluid mt-2 p-1" v-if="loading === false">
             <div class="row">
                 <div class="col-12 bg-primary-blue p-2 text-center">
                     Dosar Angajat - Fisa Evidenta date
@@ -44,23 +44,23 @@
                     </div>
                     <div class="row-profile">
                         <div class="row-profile-template">Nascut in judetul: </div>
-                        <div class="row-profile-info"> Popescu</div>
+                        <div class="row-profile-info"> {{ date_fisa.date_personale.angajat_judet_nastere }}</div>
                     </div>
                     <div class="row-profile">
                         <div class="row-profile-template">Nascut in localitatea: </div>
-                        <div class="row-profile-info"> Popescu</div>
+                        <div class="row-profile-info"> {{ date_fisa.date_personale.angajat_localitate_nastere }}</div>
                     </div>
                     <div class="row-profile">
                         <div class="row-profile-template">Nume anterior</div>
-                        <div class="row-profile-info"> Popescu</div>
+                        <div class="row-profile-info"> {{ date_fisa.date_personale.angajat_nume_anterior }}</div>
                     </div>
                     <div class="row-profile">
                         <div class="row-profile-template">Stare civila</div>
-                        <div class="row-profile-info"> Casatorit </div>
+                        <div class="row-profile-info"> {{ stareCivila(date_fisa.date_personale.angajat_stare_civila) }} </div>
                     </div>
                     <div class="row-profile">
                         <div class="row-profile-template">Nivel Acces</div>
-                        <div class="row-profile-info"> Agentia Nationala de Administrare Fiscala </div>
+                        <div class="row-profile-info"> {{ date_fisa.date_personale.angajat_nivel_acces }} </div>
                     </div>
                     <div class="row-profile">
                         <div class="row-profile-template">Email</div>
@@ -284,11 +284,14 @@
                     </div>
                 </div>
             </div>
+        <loading-component v-if="loading === true"></loading-component>
     </div>
 </template>
 
 <script>
 import TopNav from "../../Menus/TopNav";
+import LoadingComponent from "../../HelperComponents/LoadingComponent";
+
 export default {
     data(){
         return{
@@ -298,7 +301,8 @@ export default {
             angajat:{
                 id: this.$route.params.id
             },
-            date_fisa: null
+            date_fisa: null,
+            loading: false
         }
     },
     created(){
@@ -306,6 +310,7 @@ export default {
     },
     methods:{
         async preluareDateAngajat(){
+            this.loading = true;
             await axios.get(`/api/angajati/fisaevidenta/${this.angajat.id}`, {
                 headers:{
                     ContentType: 'application/json',
@@ -314,12 +319,30 @@ export default {
             }).then(
                 response=>{
                     this.date_fisa = response.data;
+                    this.loading = false;
                 }
             )
+        },
+        stareCivila(stare) {
+            switch (stare) {
+                case 0:
+                    return "Nespecificat";
+                    break;
+                case 1:
+                    return "Necasatorit(a)";
+                    break;
+                case 2:
+                    return "Casatorit(a)";
+                    break;
+                case 3:
+                    return "Divortat(a)";
+                    break;
+
+            }
         }
 
     },
-    components: {TopNav}
+    components: {LoadingComponent, TopNav}
 }
 </script>
 
@@ -386,7 +409,7 @@ tr.mutare{
 span.angajat-istoric-mutatii{
     background-color: #38ada9;
     color: #ffffff;
-    padding: 10px;
+    padding: 8px;
     border-radius: 5px;
 }
 .col-institutie{

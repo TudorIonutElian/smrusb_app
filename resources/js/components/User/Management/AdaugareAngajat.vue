@@ -182,7 +182,7 @@
                             id="angajat_institutie"
                             v-model="angajat_nou.acces_level"
                         >
-                            <option v-for="institutie in user_institutii_acces" :value="institutie.ua_level">{{ institutie.ua_denumire}}</option>
+                            <option v-for="institutie in user_institutii_acces" :value="institutie.id">{{ institutie.institutie_denumire}}</option>
                         </select>
                     </div>
                 </div>
@@ -606,7 +606,7 @@ export default {
 
             if(this.angajatValid){
                 await axios.post('/api/angajati/adaugare', {
-                    angajat: this.angajat_nou
+                    angajat: this.angajat_nou,
                 }, {
                     headers:{
                         ContentType: 'application/json',

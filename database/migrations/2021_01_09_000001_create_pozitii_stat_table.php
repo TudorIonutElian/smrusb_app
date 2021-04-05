@@ -23,6 +23,9 @@ class CreatePozitiiStatTable extends Migration
             $table->date('ps_data_numire')->nullable();
             $table->string('ps_numar_act')->nullable();
             $table->date('ps_data_emitere')->nullable();
+            $table->date('ps_data_creare')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->date('ps_data_radiere')->nullable();
+            $table->boolean('ps_status')->default(true);
 
             $table->foreign('ps_stat', 'fk_pozitie_stat')->references('id')->on('stat_organizare');
             $table->foreign('ps_cuprins', 'fk_pozitie_cuprins')->references('id')->on('stat_cuprins');

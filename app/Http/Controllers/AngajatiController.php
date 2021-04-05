@@ -2,15 +2,26 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\DateAngajatiUserDashboard;
+use App\Http\Resources\DateAngajatMutare;
+use App\Http\Resources\DateAngajatNumire;
+use App\Http\Resources\DatePersonaleAngajat;
 use App\Http\Resources\FisaEvidentaAngajat;
 use App\Http\Resources\MutatiiAngajat;
 use App\Models\Angajat;
+use App\Models\Institutii;
 use App\Models\MutatiiProfesionale;
+use App\Models\PozitiiOrganizare;
+use App\Models\StatOrganizare;
 use App\Models\User;
 use Illuminate\Http\Request;
 
 class AngajatiController extends Controller
 {
+    public function preluareInstitutie($id){
+        $institutie = Institutii::find($id);
+        return $institutie;
+    }
     public function adauga(Request $request){
         // Preluare CNP de la utilizator
         $verificare_cnp = $request->angajat['cnp'];
@@ -36,9 +47,11 @@ class AngajatiController extends Controller
             $angajat->angajat_nume_anterior                             = $request->angajat['nume_anterior'];
             $angajat->angajat_data_nasterii                             = $request->angajat['data_nasterii'];
             $angajat->angajat_stare_civila                              = $request->angajat['stare_civila'];
-            $angajat->angajat_cod_acces                                 = $request->angajat['acces_level'];
+            $angajat->angajat_cod_acces                                 = Institutii::where('id', '=', $request->angajat['acces_level'])->first()['institutie_cod_acces'];
             $angajat->angajat_judet_nastere                             = $request->angajat['judet_nastere'];
             $angajat->angajat_localitate_nastere                        = $request->angajat['localitate_nastere'];
+            $angajat->angajat_functie_curenta                           = NULL;
+            $angajat->angajat_institutie_curenta                        = $request->angajat['acces_level'];
 
             if($angajat->save()){
                 return response()->json([
@@ -64,15 +77,145 @@ class AngajatiController extends Controller
 
         // Identificare angajati
         $angajati = Angajat::whereIn('angajat_cod_acces', $lista_acces)->get();
-        return $angajati;
+        return DateAngajatiUserDashboard::collection($angajati);
     }
 
     public function fisaEvidenta($id){
         return [
-            'date_personale'        => Angajat::find($id),
+            'date_personale'        => DatePersonaleAngajat::make(Angajat::find($id)),
             'date_mutatii'          => MutatiiAngajat::collection(MutatiiProfesionale::where('mp_angajat_id', '=', $id)->get()),
             'adresa'                => Angajat::find($id)->adresa,
 
         ];
+    }
+
+    public function numireAngajat($id, Request $request){
+        // Identificare Angajat
+        $angajat = Angajat::find($id);
+
+        // Identificare institutie unde este numite angajatul
+        $institutie = Institutii::where('id', '=', $angajat->angajat_institutie_curenta)->first();
+
+        // Setare conditii pentru identificare stat de organizare
+        $conditii_stat = [
+            'so_institutie_id' => $institutie->id
+        ];
+
+        // Identificare stat de organizare
+        $stat_unde_este_numit = StatOrganizare::where($conditii_stat)->first();
+
+        // Setare conditii pentur identificare pozitie veche
+        $conditii_pozitie_veche = [
+            'ps_stat' => $stat_unde_este_numit->id,
+            'ps_angajat' =>$angajat->id
+        ];
+
+        // Identificare pozitie veche
+        $pozitie_veche = PozitiiOrganizare::where($conditii_pozitie_veche)->first();
+
+        if(!empty($pozitie_veche)){
+            $pozitie_veche->ps_angajat = null;
+            $pozitie_veche->ps_data_emitere = null;
+            $pozitie_veche->ps_data_numire = null;
+            $pozitie_veche->ps_numar_act = null;
+
+            $pozitie_veche->save();
+        }
+
+        // Identificare Pozitie Noua
+        $stat_nou = StatOrganizare::where('so_institutie_id', '=', $request->date_numire['numire_stat'])->first();
+
+
+
+        $pozitie_noua = PozitiiOrganizare::where([
+            'ps_stat'       => $stat_nou->id,
+            'ps_pozitie'    => $request->date_numire['numire_pozitie']
+        ])->first();
+
+        $pozitie_noua->ps_angajat                = $angajat->id;
+        $pozitie_noua->ps_data_numire            = $request->date_numire['numire_act_aplicare'];
+        $pozitie_noua->ps_data_emitere           = $request->date_numire['numire_act_emitere'];
+        $pozitie_noua->ps_numar_act              = $request->date_numire['numire_act'];
+
+        $pozitie_noua->save();
+        $angajat->angajat_functie_curenta = $pozitie_noua->ps_functie;
+        $angajat->save();
+
+        // Salvare mutatie profesionala
+        $mutatie_profesionala = new MutatiiProfesionale();
+        $mutatie_profesionala->mp_act_numar                     = $pozitie_noua->ps_numar_act;
+        $mutatie_profesionala->mp_act_data_emitere              = $pozitie_noua->ps_data_emitere;
+        $mutatie_profesionala->mp_act_data_aplicare             = $pozitie_noua->ps_data_numire;
+        $mutatie_profesionala->mp_institutie_id                 = $institutie->id;
+        $mutatie_profesionala->mp_angajat_id                    = $angajat->id;
+        $mutatie_profesionala->mp_cuprins_id                    = $pozitie_noua->ps_cuprins;
+        $mutatie_profesionala->mp_fel_numire_id                 = null; // TODO - editare tip cuprins
+        $mutatie_profesionala->mp_pozitie_id                    = $pozitie_noua->id;
+        $mutatie_profesionala->mp_functie_id                    = $pozitie_noua->ps_functie;
+
+        $mutatie_profesionala->save();
+
+    }
+
+    public function preluareAngajatMutare($id){
+        $angajat = Angajat::find($id);
+
+        $institutie = Institutii::where('institutie_cod_acces', '=', $angajat->angajat_cod_acces)->get();
+        $functie = 'Nu este numit';
+
+        return response()->json(
+            [
+                'angajat_date'          => DateAngajatMutare::make($angajat),
+                'angajat_institutie'    => $institutie[0]->institutie_denumire,
+                'angajat_functie'       => $angajat->angajat_functie_curenta === null ? null : $angajat->get_functie_curenta->functie_denumire
+            ]
+        );
+    }
+
+    public function preluareAngajatNumire($id){
+        $angajat = Angajat::find($id);
+
+        return DateAngajatNumire::make($angajat);
+    }
+
+    public function mutareAngajat($id, Request $request){
+        // Identificare institutie la care angajatul se va muta
+        $institutie = Institutii::find($request->mutare['institutie_id']);
+
+        if(is_object($institutie)){
+            $angajat = Angajat::find($id);
+
+            // TODO - identificare stat si pozitie veche
+            $id_stat = StatOrganizare::where('so_institutie_id', '=', $angajat->angajat_institutie_curenta)->first()->id;
+            // Setare conditii pentur identificare pozitie veche
+            $conditii_pozitie_veche = [
+                'ps_stat' => $id_stat,
+                'ps_angajat' =>$angajat->id
+            ];
+
+            // Identificare pozitie veche
+            $pozitie_veche = PozitiiOrganizare::where($conditii_pozitie_veche)->first();
+            if(!empty($pozitie_veche)){
+                $pozitie_veche->ps_angajat = null;
+                $pozitie_veche->ps_data_emitere = null;
+                $pozitie_veche->ps_data_numire = null;
+                $pozitie_veche->ps_numar_act = null;
+
+                $pozitie_veche->save();
+            }
+
+            $angajat->angajat_institutie_curenta = $institutie->id;
+            $angajat->angajat_functie_curenta = null;
+            $angajat->angajat_cod_acces = $institutie->institutie_cod_acces;
+
+            $angajat->save();
+            return $angajat;
+
+        }else{
+            return response()->json([
+                'cod_raspuns'       => 4000,
+                'mesaj_raspuns'     => 'Institutia nu exista!'
+            ]);
+        }
     }
 }

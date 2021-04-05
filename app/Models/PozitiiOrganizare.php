@@ -16,7 +16,7 @@ class PozitiiOrganizare extends Model
 
     // returnare stat de organizare
     public function stat(){
-        return $this->belongsTo(StatOrganizare::class, 'ps_stat');
+        return $this->belongsTo(StatOrganizare::class, 'ps_stat', 'id');
     }
 
     // returnare angajat
@@ -35,4 +35,9 @@ class PozitiiOrganizare extends Model
     public function cuprins(){
         return $this->hasOne(Cuprins::class, 'id', 'ps_cuprins');
     }
+
+    public function istoric(){
+        return $this->hasMany(IstoricPozitie::class, 'ips_pozitie', 'ps_pozitie');
+    }
+
 }

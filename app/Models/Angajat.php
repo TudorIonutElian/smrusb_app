@@ -36,4 +36,12 @@ class Angajat extends Model
     public function judet_nastere(){
         return $this->hasOne(Judet::class, 'id', 'angajat_judet_nastere');
     }
+
+    public function institutie_curenta(){
+        return $this->hasOne(Institutii::class, 'institutie_cod_acces', 'angajat_cod_acce');
+    }
+
+    public function get_functie_curenta(){
+        return $this->hasOne(Functii::class, 'id', 'angajat_functie_curenta');
+    }
 }

@@ -59,13 +59,13 @@
                                 <li>
                                     <a class="dropdown-item dropdown-item-flex" href="/">
                                         <img class="mr-2" src="/images/majoraresalariu.png" alt="">
-                                        <span>Majorare Salariu</span>
+                                        <span style="color: red">Majorare Salariu</span>
                                     </a>
                                 </li>
                                 <li>
                                     <a class="dropdown-item dropdown-item-flex" href="/">
                                         <img class="mr-2" src="/images/scaderesalariu.png" alt="">
-                                        <span>Scadere Salariu</span>
+                                        <span style="color: red">Scadere Salariu</span>
                                     </a>
                                 </li>
                             </ul>
@@ -78,26 +78,26 @@
                                 <li>
                                     <a class="dropdown-item dropdown-item-flex" href="/user/adauga_angajat">
                                         <img class="mr-2" src="/images/evaluare.png" alt="">
-                                        <span>Vizualizare</span>
+                                        <span style="color: red">Vizualizare</span>
                                     </a>
                                 </li>
                                 <li>
                                     <a class="dropdown-item dropdown-item-flex" href="/user/adauga_angajat">
                                         <img class="mr-2" src="/images/evaluare_adaugare.png" alt="">
-                                        <span>Adaugare</span>
+                                        <span style="color: red">Adaugare</span>
                                     </a>
                                 </li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li>
                                     <a class="dropdown-item dropdown-item-flex" href="/user/adauga_angajat">
                                         <img class="mr-2" src="/images/evaluare_cautare.png" alt="">
-                                        <span>Recompense</span>
+                                        <span style="color: red">Recompense</span>
                                     </a>
                                 </li>
                                 <li>
                                     <a class="dropdown-item dropdown-item-flex" href="/user/adauga_angajat">
                                         <img class="mr-2" src="/images/evaluare_cautare.png" alt="">
-                                        <span>Sanctiuni</span>
+                                        <span style="color: red">Sanctiuni</span>
                                     </a>
                                 </li>
                             </ul>
@@ -110,37 +110,31 @@
                                 <li>
                                     <a class="dropdown-item dropdown-item-flex" href="/user/stat/vizualizare">
                                         <img class="mr-2" src="/images/vizualizare_stat.png" alt="">
-                                        <span>Vizualizare</span>
+                                        <span>Stat Vizualizare</span>
                                     </a>
                                 </li>
                                 <li>
                                     <a class="dropdown-item dropdown-item-flex" href="/user/stat/suplimentare">
                                         <img class="mr-2" src="/images/suplimentare_stat.png" alt="">
-                                        <span>Suplimentare</span>
+                                        <span>Stat Suplimentare</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item dropdown-item-flex" href="/">
+                                    <a class="dropdown-item dropdown-item-flex" href="/user/stat/radiere">
                                         <img class="mr-2" src="/images/radiere_stat.png" alt="">
-                                        <span>Radiere</span>
+                                        <span>Stat Radiere</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item dropdown-item-flex" href="/">
-                                        <img class="mr-2" src="/images/istoric_stat.png" alt="">
-                                        <span>Istoric</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item dropdown-item-flex" href="/">
+                                    <a class="dropdown-item dropdown-item-flex" href="/user/stat/vacante">
                                         <img class="mr-2" src="/images/vacante_stat.png" alt="">
-                                        <span>Posturi Vacante</span>
+                                        <span>Stat Vacante</span>
                                     </a>
                                 </li>
                                 <li>
                                     <a class="dropdown-item dropdown-item-flex" href="/user/stat/cuprins">
                                         <img class="mr-2" src="/images/cuprins_stat.png" alt="">
-                                        <span>Cuprins Stat</span>
+                                        <span>Stat Cuprins</span>
                                     </a>
                                 </li>
                             </ul>
@@ -150,17 +144,17 @@
                                 Situatii
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#" >Incetari contracte de munca</a></li>
-                                <li><a class="dropdown-item" href="#" >Situatie mutari de personal</a></li>
-                                <li><a class="dropdown-item" href="#" >Situatie detasari de personal</a></li>
+                                <li><a class="dropdown-item" href="#" style="color: red">Incetari contracte de munca</a></li>
+                                <li><a class="dropdown-item" href="#" style="color: red">Situatie mutari de personal</a></li>
+                                <li><a class="dropdown-item" href="#" style="color: red">Situatie detasari de personal</a></li>
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="#" >Situatii salarii lunare</a></li>
-                                <li><a class="dropdown-item" href="#" >Situatii salarii trimestriale</a></li>
-                                <li><a class="dropdown-item" href="#" >Situatii salarii semestriale</a></li>
-                                <li><a class="dropdown-item" href="#" >Situatii salarii anuale</a></li>
+                                <li><a class="dropdown-item" href="#" style="color: red">Situatii salarii lunare</a></li>
+                                <li><a class="dropdown-item" href="#" style="color: red">Situatii salarii trimestriale</a></li>
+                                <li><a class="dropdown-item" href="#" style="color: red">Situatii salarii semestriale</a></li>
+                                <li><a class="dropdown-item" href="#" style="color: red">Situatii salarii anuale</a></li>
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="#" >Plati CASS</a></li>
-                                <li><a class="dropdown-item" href="#" >Plati Impozit venit</a></li>
+                                <li><a class="dropdown-item" href="#" style="color: red">Plati CASS</a></li>
+                                <li><a class="dropdown-item" href="#" style="color: red">Plati Impozit venit</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown" v-if="user != null && user.user_type !== 1">
@@ -168,11 +162,11 @@
                                 Pontaj
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#" >Vizualizare </a></li>
-                                <li><a class="dropdown-item" href="#" >Aprobare </a></li>
+                                <li><a class="dropdown-item" href="#" style="color: red">Vizualizare </a></li>
+                                <li><a class="dropdown-item" href="#" style="color: red">Aprobare </a></li>
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="#" >Salvare PDF </a></li>
-                                <li><a class="dropdown-item" href="#" >Listare salarii</a></li>
+                                <li><a class="dropdown-item" href="#" style="color: red">Salvare PDF </a></li>
+                                <li><a class="dropdown-item" href="#" style="color: red">Listare salarii</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown" v-if="user != null && user.user_type !== 1">
@@ -180,11 +174,11 @@
                                 Documente
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#" >Adeverinta angajat </a></li>
-                                <li><a class="dropdown-item" href="#" >Adeverinta asigurat </a></li>
+                                <li><a class="dropdown-item" href="#" style="color: red">Adeverinta angajat </a></li>
+                                <li><a class="dropdown-item" href="#" style="color: red">Adeverinta asigurat </a></li>
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="#" >Adeverinta dosar pensie</a></li>
-                                <li><a class="dropdown-item" href="#" >Adeverinta salarii</a></li>
+                                <li><a class="dropdown-item" href="#" style="color: red">Adeverinta dosar pensie</a></li>
+                                <li><a class="dropdown-item" href="#" style="color: red">Adeverinta salarii</a></li>
                             </ul>
                         </li>
                     </ul>

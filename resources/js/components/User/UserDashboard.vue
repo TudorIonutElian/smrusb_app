@@ -17,9 +17,7 @@
                                 <th scope="col">#</th>
                                 <th scope="col">Nume</th>
                                 <th scope="col">Prenume</th>
-                                <th scope="col">Gradul</th>
                                 <th scope="col">CNP</th>
-                                <th scope="col">Ordonator</th>
                                 <th scope="col">Institutia</th>
                                 <th scope="col">Functia</th>
                                 <th scope="col">Fisa Evidenta</th>
@@ -30,12 +28,10 @@
                                 <th scope="row">{{ index+1}}</th>
                                 <td>{{ angajat.angajat_nume }}</td>
                                 <td>{{ angajat.angajat_prenume }}</td>
-                                <td>-</td>
                                 <td>{{ angajat.angajat_cnp }}</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td><a :href="'/angajat/' + angajat.id" class="btn btn-sm btn-secondary btn-show">Vezi Angajat</a></td>
+                                <td>{{ angajat.angajat_institutie }}</td>
+                                <td>{{ angajat.angajat_functie ? angajat.angajat_functie: 'Nu este numit.' }}</td>
+                                <td><a :href="'/angajat/' + angajat.angajat_id" class="btn btn-sm btn-secondary btn-show">Vezi Angajat</a></td>
                             </tr>
                             </tbody>
                         </table>
@@ -76,7 +72,7 @@ export default {
                 }
             }).then(async (response) => {
                 console.log(response)
-                this.lista_angajati = response.data
+                this.lista_angajati = response.data.data
             })
         }
     }

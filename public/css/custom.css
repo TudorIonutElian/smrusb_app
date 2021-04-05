@@ -43,6 +43,7 @@
 .dropdown-item-flex span {
   font-weight: normal;
   color: #000000;
+  width: 80%;
 }
 
 .dropdown-item-flex span:hover {

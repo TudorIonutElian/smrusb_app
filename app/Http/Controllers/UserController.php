@@ -61,9 +61,10 @@ class UserController extends Controller
         $institutii_acces = $user->get_user_acces;
 
         $lista_acces = [];
+
         foreach ($institutii_acces as $acces){
             if($acces->ua_status === 1){
-                array_push($lista_acces, $acces);
+                array_push($lista_acces, Institutii::select('id', 'institutie_denumire')->where('institutie_cod_acces', '=', $acces->ua_level)->first());
             }
         }
         return $lista_acces;

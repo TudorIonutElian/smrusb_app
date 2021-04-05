@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Functii;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class MutatiiAngajat extends JsonResource
@@ -23,7 +24,7 @@ class MutatiiAngajat extends JsonResource
             'mutatie_cuprins'                           => $this->cuprins,
             'mutatie_fel_mutatie'                       => $this->fel_numire_id,
             'mutatie_pozitie'                           => $this->pozitie,
-            'mutatie_functie'                           => $this->functie->functie_denumire,
+            'mutatie_functie'                           => Functii::where('id', '=', $this->mp_functie_id)->first()['functie_denumire'] || null,
         ];
     }
 }

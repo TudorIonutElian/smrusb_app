@@ -20,6 +20,6 @@ class StatOrganizare extends Model
     }
 
     public function pozitii(){
-        return $this->hasMany(PozitiiOrganizare::class, 'ps_stat', 'id');
+        return $this->hasMany(PozitiiOrganizare::class, 'ps_stat', 'id')->where(['ps_status' => true]);
     }
 }

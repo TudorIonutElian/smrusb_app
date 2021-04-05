@@ -27,6 +27,7 @@
                             <table class="table text-center">
                                 <thead>
                                 <tr class="tr-flex-row">
+                                    <th scope="col">Status</th>
                                     <th scope="col">Pozitie</th>
                                     <th scope="col" class="td-cuprins">Denumire Cuprins</th>
                                     <th scope="col">Denumire Functie</th>
@@ -37,31 +38,42 @@
                                     <th scope="col">Data numirii</th>
                                     <th scope="col">Numar act</th>
                                     <th scope="col">Data emitere act</th>
+                                    <th scope="col">Vechime functie</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                     <tr class="institutie_no_stat" v-show="this.id_stat === 0">
-                                        <th scope="row" colspan="10">
+                                        <th scope="row" colspan="12">
                                             <span>Institutia nu are un stat aprobat!</span>
                                         </th>
                                     </tr>
                                     <tr class="institutie_no_pozitii" v-if="this.date_preluate.pozitii.data.length === 0">
-                                        <th scope="row" colspan="10">
+                                        <th scope="row" colspan="12">
                                             <span>Statul nu are pozitii create!</span>
                                         </th>
                                     </tr>
-                                    <tr v-if="date_preluate.pozitii.data.length > 0" v-for="pozitie in date_preluate.pozitii.data">
-                                        <th scope="row">{{ pozitieNumarValidare(pozitie.pozitie_numar) }}</th>
+                                    <tr
+                                        v-if="date_preluate.pozitii.data.length > 0"
+                                        v-for="pozitie in date_preluate.pozitii.data"
+                                        :class=" pozitie.pozitie_angajat === null ? 'pozitieLibera' : 'pozitieOcupata' "
+                                    >
+                                        <td><span>{{ pozitieStatus(pozitie)}}</span></td>
+                                        <td>{{ pozitieNumarValidare(pozitie.pozitie_numar) }}</td>
                                         <td class="td-cuprins">{{ pozitie.pozitie_denumire_cuprins }}</td>
                                         <td>{{ pozitie.pozitie_functie.functie_denumire}}</td>
                                         <td>{{ pozitie.pozitie_functie.functie_coeficient}}</td>
                                         <td>{{ pozitie.pozitie_functie.functie_suma}}</td>
                                         <td>-</td>
-                                        <td><a href="/">{{ angajatValidare(pozitie.pozitie_angajat) }} </a></td>
+                                        <!-- Returnare link catre pagina angajati -->
+                                        <td v-if="pozitie.pozitie_angajat !== null"><a :href="'/angajat/' + pozitie.pozitie_angajat.id">{{ angajatValidare(pozitie.pozitie_angajat) }} </a></td>
+                                        <td v-if="pozitie.pozitie_angajat === null"><a href="/user/dashboard">{{ angajatValidare(pozitie.pozitie_angajat) }} </a></td>
                                         <td>{{ pozitie.pozitie_data_numire}}</td>
-                                        <td>{{ pozitie.data_data_numire }}</td>
                                         <td>{{ pozitie.pozitie_numar_act}}</td>
                                         <td>{{ pozitie.pozitie_data_act}}</td>
+
+                                        <!-- Returnare vechime in zile -->
+                                        <td v-if="pozitie.pozitie_vechime">{{ pozitie.pozitie_vechime}} zile</td>
+                                        <td v-if="!pozitie.pozitie_vechime">-</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -147,8 +159,14 @@ export default {
             }else if(pozitie > 100 & pozitie < 1000){
                 return `0${pozitie}`
             }
+        },
+        pozitieStatus(pozitie){
+            if(pozitie.pozitie_angajat === null){
+                return 'Post Vacant';
+            }else if(pozitie.pozitie_angajat !== null){
+                return 'Post Ocupat';
+            }
         }
-
     }
 }
 </script>
@@ -173,5 +191,13 @@ tr.post-liber{
 .institutie_no_pozitii{
     background-color: #feca57;
     color: #333;
+}
+tr.pozitieOcupata{
+    color: #1dd1a1;
+    font-weight: bold;
+}
+tr.pozitieLibera{
+    color: #ff6b6b;
+    font-weight: bold;
 }
 </style>

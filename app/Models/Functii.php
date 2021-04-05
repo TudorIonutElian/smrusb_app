@@ -17,4 +17,8 @@ class Functii extends Model
     public function pozitii(){
         return $this->hasOne(PozitiiOrganizare::class, 'id');
     }
+
+    public function angajati(){
+        return $this->belongsTo(Angajat::class, 'angajat_functie_curenta');
+    }
 }

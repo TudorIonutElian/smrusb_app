@@ -32,7 +32,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
 }
 .dropdown-item-flex img{
     width: 20%;
@@ -40,6 +40,7 @@
 .dropdown-item-flex span{
     font-weight: normal;
     color: #000000;
+    width: 80%;
 }
 .dropdown-item-flex span:hover{
     color: #04ccf6;
