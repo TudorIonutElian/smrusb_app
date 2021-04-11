@@ -44,4 +44,8 @@ class Angajat extends Model
     public function get_functie_curenta(){
         return $this->hasOne(Functii::class, 'id', 'angajat_functie_curenta');
     }
+
+    public function salarii(){
+        return $this->hasMany(Salariu::class, 's_angajat', 'id');
+    }
 }

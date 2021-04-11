@@ -111,7 +111,11 @@
                             <div class="col-12 p-2">
                                 <table class="table">
                                     <thead>
-                                    <tr>
+                                    <tr class="mutatii_head">
+                                        <th scope="col">#</th>
+                                        <th scope="col">Numar Act</th>
+                                        <th scope="col">Data Aplicare Act</th>
+                                        <th scope="col">Data Emitere Act</th>
                                         <th scope="col">Institutia</th>
                                         <th scope="col">Tip Mutare</th>
                                         <th scope="col">Cuprins</th>
@@ -119,84 +123,33 @@
                                         <th scope="col">Functia</th>
                                         <th scope="col">Coeficient</th>
                                         <th scope="col">Suma</th>
-                                        <th scope="col">Numar Act</th>
-                                        <th scope="col">Data Emitere Act</th>
-                                        <th scope="col">Data Aplicare Act</th>
+
                                     </tr>
                                     </thead>
                                     <tbody>
-                                        <tr class="mutare">
-                                            <td scope="col" class="col-institutie">Agentia Nationala de Administrare Fiscala</td>
-                                            <td scope="col" colspan="6" class="text-center">La cerere</td>
-                                            <td scope="col">1234</td>
-                                            <td scope="col">01.07.2000</td>
-                                            <td scope="col">30.06.2000</td>
-                                        </tr>
-                                        <tr class="numire">
-                                            <td scope="col" class="col-institutie" rowspan="3">Agentia Nationala de Administrare Fiscala</td>
-                                            <td scope="col"></td>
-                                            <td scope="col">I-Conducerea</td>
-                                            <td scope="col">0001</td>
-                                            <td scope="col">Director General</td>
-                                            <td scope="col">2.80</td>
-                                            <td scope="col">8000</td>
-                                            <td scope="col">1234</td>
-                                            <td scope="col">01.07.2000</td>
-                                            <td scope="col">30.06.2000</td>
-                                        </tr>
-                                        <tr class="numire">
-                                            <td scope="col"></td>
-                                            <td scope="col">I-Conducerea</td>
-                                            <td scope="col">0002</td>
-                                            <td scope="col">Director General adjunct</td>
-                                            <td scope="col">2.78</td>
-                                            <td scope="col">8000</td>
-                                            <td scope="col">1234</td>
-                                            <td scope="col">01.07.2003</td>
-                                            <td scope="col">30.06.2003</td>
-                                        </tr>
-                                        <tr class="numire">
-                                            <td scope="col"></td>
-                                            <td scope="col">I-Conducerea</td>
-                                            <td scope="col">0002</td>
-                                            <td scope="col">Director General adjunct</td>
-                                            <td scope="col">2.78</td>
-                                            <td scope="col">8000</td>
-                                            <td scope="col">1234</td>
-                                            <td scope="col">01.07.2003</td>
-                                            <td scope="col">30.06.2003</td>
-                                        </tr>
-                                        <tr class="mutare">
-                                            <td scope="col" class="col-institutie">Agentia Judeteana de Administrare Fiscala Dolj</td>
-                                            <td scope="col" colspan="6" class="text-center">In interesul serviciului</td>
-                                            <td scope="col">1234</td>
-                                            <td scope="col">01.07.2005</td>
-                                            <td scope="col">30.06.2005</td>
+                                        <tr
+                                            v-for="(mutatie, index) in date_fisa.date_mutatii"
+                                            v-bind:class="mutatie.mutatie_fel_mutatie == 0 ? 'numire' : 'mutare'"
+                                        >
+                                            <td scope="col">{{index + 1}}</td>
+                                            <td scope="col">{{mutatie.mutatie_act_numar}}</td>
+                                            <td scope="col">{{mutatie.mutatie_act_data_aplicare}}</td>
+                                            <td scope="col">{{mutatie.mutatie_act_data_emitere}}</td>
+                                            <td scope="col" class="col-institutie">{{mutatie.mutatie_institutie}} </td>
+                                            <td scope="col" class="text-center" v-if="mutatie.mutatie_fel_mutatie === 0">Numire</td>
+                                            <td scope="col" class="text-center" v-if="mutatie.mutatie_fel_mutatie === 1">Mutare</td>
+                                            <td scope="col" v-if="mutatie.mutatie_cuprins !== null">{{mutatie.mutatie_cuprins}}</td>
+                                            <td scope="col" v-if="mutatie.mutatie_cuprins === null">{{mutatie.mutatie_cuprins}}</td>
+                                            <td scope="col" v-if="mutatie.mutatie_pozitie">{{pozitieNumarValidare(mutatie.mutatie_pozitie)}}</td>
+                                            <td scope="col" v-else></td>
+                                            <td scope="col" v-if="mutatie.mutatie_functie">{{mutatie.mutatie_functie.functie_denumire}}</td>
+                                            <td scope="col" v-if="mutatie.mutatie_functie === null"></td>
+                                            <td scope="col" v-if="mutatie.mutatie_functie">{{mutatie.mutatie_functie.functie_coeficient}}</td>
+                                            <td scope="col" v-if="mutatie.mutatie_functie === null"></td>
+                                            <td scope="col" v-if="mutatie.mutatie_functie">{{mutatie.mutatie_functie.functie_suma}}</td>
+                                            <td scope="col" v-if="mutatie.mutatie_functie === null"></td>
 
-                                        </tr>
-                                        <tr class="numire">
-                                            <td scope="col" class="col-institutie" rowspan="1">Agentia Judeteana de Administrare Fiscala Dolj</td>
-                                            <td scope="col"></td>
-                                            <td scope="col">I-Conducerea</td>
-                                            <td scope="col">0002</td>
-                                            <td scope="col">Director</td>
-                                            <td scope="col">2.78</td>
-                                            <td scope="col">8000</td>
-                                            <td scope="col">1234</td>
-                                            <td scope="col">01.07.2005</td>
-                                            <td scope="col">30.06.2005</td>
-                                        </tr>
-                                        <tr class="numire">
-                                            <td scope="col"></td>
-                                            <td scope="col"></td>
-                                            <td scope="col">II-DRU</td>
-                                            <td scope="col">0005</td>
-                                            <td scope="col">Director</td>
-                                            <td scope="col">2.78</td>
-                                            <td scope="col">8000</td>
-                                            <td scope="col">1234</td>
-                                            <td scope="col">01.07.2005</td>
-                                            <td scope="col">30.06.2005</td>
+
                                         </tr>
                                     </tbody>
                                 </table>
@@ -214,28 +167,30 @@
                                             <th scope="col">Institutie</th>
                                             <th scope="col">De la </th>
                                             <th scope="col">Pana la </th>
-                                            <th scope="col">Suma bruta </th>
-                                            <th scope="col">CAS </th>
-                                            <th scope="col">Impozit </th>
-                                            <th scope="col">Suma neta </th>
+                                            <th scope="col">Suma initiala </th>
+                                            <th scope="col">Bonus</th>
+                                            <th scope="col">Suma Finala </th>
                                             <th scope="col">Achitat</th>
                                             <th scope="col">Stat / Card </th>
                                             <th scope="col">Moneda </th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>Agentia Nationala de Administrare Fiscala</td>
-                                            <td>2021-01-01</td>
-                                            <td>2021-01-31</td>
-                                            <td>10.000</td>
-                                            <td>800</td>
-                                            <td>1350</td>
-                                            <td>7850</td>
-                                            <td>DA</td>
-                                            <td>Card</td>
-                                            <td>RON</td>
+                                        <tr
+                                            v-for="(salariu, index) in date_fisa.date_salarii"
+                                            v-bind:class="salariu.salariu_achitat == 0 ? 'salariu_neachitat' : 'salariu_achitat'"
+                                        >
+                                            <th scope="row">{{ index + 1}}</th>
+                                            <td>{{ salariu.salariu_institutie }}</td>
+                                            <td>{{ salariu.salariu_start_date }}</td>
+                                            <td>{{ salariu.salariu_end_date }}</td>
+                                            <td>{{ salariu.salariu_suma_initiala }}</td>
+                                            <td>{{ salariu.salariu_bonus}}</td>
+                                            <td>{{ salariu.salariu_suma_finala}}</td>
+                                            <td>{{ verificareAchitareSalariu(salariu.salariu_achitat)}}</td>
+                                            <td>{{ verificareTipAchitare(salariu.salariu_tip_achitare)}}</td>
+                                            <td>{{ salariu.salariu_moneda}}</td>
+
                                         </tr>
                                         </tbody>
                                     </table>
@@ -309,6 +264,38 @@ export default {
         this.preluareDateAngajat();
     },
     methods:{
+        verificareTipMutatie(mutatie){
+          if(mutatie === 1){
+              return true;
+          }else{
+              return false;
+          }
+        },
+        verificareAchitareSalariu(salariu){
+            if(salariu === 0){
+                return "Neachitat"
+            }else if(salariu === 1){
+                return "Achitat";
+            }
+        },
+        verificareTipAchitare(achitare){
+          if(achitare === 0){
+              return "Neachitat";
+          }else if(achitare === 1){
+              return "Card";
+          }else if(achitare === 2){
+              return "Stat";
+          }
+        },
+        pozitieNumarValidare(pozitie){
+            if(pozitie < 10){
+                return `000${pozitie}`;
+            }else if(pozitie > 10 & pozitie < 100){
+                return `00${pozitie}`;
+            }else if(pozitie > 100 & pozitie < 1000){
+                return `0${pozitie}`
+            }
+        },
         async preluareDateAngajat(){
             this.loading = true;
             await axios.get(`/api/angajati/fisaevidenta/${this.angajat.id}`, {
@@ -404,7 +391,8 @@ export default {
 tr.mutare{
     font-weight: bold;
     border: 1px solid #6a89cc;
-    color: #6a89cc;
+    background-color: #6a89cc;
+    color: #ffffff;
 }
 span.angajat-istoric-mutatii{
     background-color: #38ada9;
@@ -414,5 +402,16 @@ span.angajat-istoric-mutatii{
 }
 .col-institutie{
     text-align: center;
+}
+tr.mutatii_head{
+    background-color: #38ada9;
+    color: #ffffff;
+    font-weight: bold;
+}
+tr.salariu_neachitat{
+    color: #e71e1e;
+}
+tr.salariu_achitat{
+    color: #38ada9;
 }
 </style>

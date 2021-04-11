@@ -21,4 +21,12 @@ class Functii extends Model
     public function angajati(){
         return $this->belongsTo(Angajat::class, 'angajat_functie_curenta');
     }
+
+    public function mutatii(){
+        return $this->hasMany(MutatiiProfesionale::class, 'mp_functie_id', 'id');
+    }
+
+    public function salarii(){
+        return $this->hasMany(Salariu::class, 's_functie', 'id');
+    }
 }

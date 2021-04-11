@@ -39,6 +39,10 @@ import CuprinsStat from "../components/User/Stat/CuprinsStat";
 import RadiereStat from "../components/User/Stat/RadiereStat";
 import VacanteStat from "../components/User/Stat/VacanteStat";
 
+
+import GenerareSalarii from "../components/User/Salarii/GenerareSalarii";
+import VizualizareSalarii from "../components/User/Salarii/VizualizareSalarii";
+
 const router = new VueRouter({
     mode: 'history',
     routes: [
@@ -85,6 +89,11 @@ const router = new VueRouter({
         {path: '/user/stat/cuprins', component: CuprinsStat, name: 'cuprins-stat'},
         {path: '/user/stat/radiere', component: RadiereStat, name: 'radiere-stat'},
         {path: '/user/stat/vacante', component: VacanteStat, name: 'vacante-stat'},
+
+
+
+        {path: '/user/salarii/generare', component: GenerareSalarii, name: 'generare-salarii'},
+        {path: '/user/salarii/vizualizare', component: VizualizareSalarii, name: 'vizualizare-salarii'},
 
 
 

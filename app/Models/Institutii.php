@@ -36,4 +36,9 @@ class Institutii extends Model
     public function angajati(){
         return $this->hasMany(Angajat::class, 'angajat_institutie_curenta', 'id');
     }
+
+    public function salarii(){
+        return $this->hasMany(Salariu::class, 's_institutie', 'id');
+    }
+
 }

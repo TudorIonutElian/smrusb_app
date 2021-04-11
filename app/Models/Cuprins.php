@@ -20,4 +20,8 @@ class Cuprins extends Model
     public function pozitii(){
         return $this->hasMany(PozitiiOrganizare::class, 'ps_cuprins', 'id');
     }
+
+    public function mutatii(){
+        return $this->hasMany(MutatiiProfesionale::class, 'mp_cuprins_id', 'id');
+    }
 }

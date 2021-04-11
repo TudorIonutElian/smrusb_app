@@ -28,4 +28,9 @@ class MutatiiProfesionale extends Model
     public function pozitie(){
         return $this->hasOne(PozitiiOrganizare::class, 'id', 'mp_pozitie_id');
     }
+
+    public function cuprins(){
+        return $this->hasMany(Cuprins::class, 'id', 'mp_cuprins_id');
+    }
+
 }

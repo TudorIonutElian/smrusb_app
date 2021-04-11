@@ -6,15 +6,20 @@ use App\Http\Resources\DateAngajatiUserDashboard;
 use App\Http\Resources\DateAngajatMutare;
 use App\Http\Resources\DateAngajatNumire;
 use App\Http\Resources\DatePersonaleAngajat;
+use App\Http\Resources\DateSalariiAngajat;
 use App\Http\Resources\FisaEvidentaAngajat;
 use App\Http\Resources\MutatiiAngajat;
 use App\Models\Angajat;
 use App\Models\Institutii;
 use App\Models\MutatiiProfesionale;
 use App\Models\PozitiiOrganizare;
+use App\Models\Salariu;
 use App\Models\StatOrganizare;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class AngajatiController extends Controller
 {
@@ -54,10 +59,24 @@ class AngajatiController extends Controller
             $angajat->angajat_institutie_curenta                        = $request->angajat['acces_level'];
 
             if($angajat->save()){
-                return response()->json([
-                    'cod'     => '001',
-                    'status'       => 200
-                ]);
+                $user = new User();
+                $user->user_first_name  = $angajat->angajat_nume;
+                $user->user_last_name   = $angajat->angajat_prenume;
+                $user->user_email       = strtolower($angajat->angajat_prenume).'.'.'@smrusb.ro';
+                $user->user_username    = $angajat->angajat_prenume.'.'.$angajat->angajat_nume;
+                $user->user_password    = Hash::make('password');
+                $user->remember_token   = Str::random(10);
+                $user->user_is_active   = false;
+                $user->user_type        = 3;
+                $user->user_cod_acces   = $angajat->angajat_cod_acces;
+                $user->user_angajat_id  = $angajat->id;
+
+                if($user->save()){
+                    return response()->json([
+                        'cod'     => '001',
+                        'status'       => 200
+                    ]);
+                }
             }else{
                 return $request;
             }
@@ -83,7 +102,8 @@ class AngajatiController extends Controller
     public function fisaEvidenta($id){
         return [
             'date_personale'        => DatePersonaleAngajat::make(Angajat::find($id)),
-            'date_mutatii'          => MutatiiAngajat::collection(MutatiiProfesionale::where('mp_angajat_id', '=', $id)->get()),
+            'date_mutatii'          => MutatiiAngajat::collection(MutatiiProfesionale::where('mp_angajat_id', '=', $id)->orderBy('id')->get()),
+            'date_salarii'          => DateSalariiAngajat::collection(Salariu::where('s_angajat', '=', Angajat::find($id)->id)->get()),
             'adresa'                => Angajat::find($id)->adresa,
 
         ];
@@ -125,8 +145,6 @@ class AngajatiController extends Controller
         // Identificare Pozitie Noua
         $stat_nou = StatOrganizare::where('so_institutie_id', '=', $request->date_numire['numire_stat'])->first();
 
-
-
         $pozitie_noua = PozitiiOrganizare::where([
             'ps_stat'       => $stat_nou->id,
             'ps_pozitie'    => $request->date_numire['numire_pozitie']
@@ -149,12 +167,11 @@ class AngajatiController extends Controller
         $mutatie_profesionala->mp_institutie_id                 = $institutie->id;
         $mutatie_profesionala->mp_angajat_id                    = $angajat->id;
         $mutatie_profesionala->mp_cuprins_id                    = $pozitie_noua->ps_cuprins;
-        $mutatie_profesionala->mp_fel_numire_id                 = null; // TODO - editare tip cuprins
-        $mutatie_profesionala->mp_pozitie_id                    = $pozitie_noua->id;
+        $mutatie_profesionala->mp_fel_numire_id                 = 0;
+        $mutatie_profesionala->mp_pozitie_id                    = $pozitie_noua->ps_pozitie;
         $mutatie_profesionala->mp_functie_id                    = $pozitie_noua->ps_functie;
 
         $mutatie_profesionala->save();
-
     }
 
     public function preluareAngajatMutare($id){
@@ -209,6 +226,31 @@ class AngajatiController extends Controller
             $angajat->angajat_cod_acces = $institutie->institutie_cod_acces;
 
             $angajat->save();
+
+            $mutatie_profesionala = new MutatiiProfesionale();
+            // Salvare mutatie profesionala
+            $mutatie_profesionala = new MutatiiProfesionale();
+            $mutatie_profesionala->mp_act_numar                     = $request->mutare['numar_act_administrativ'];
+            $mutatie_profesionala->mp_act_data_emitere              = $request->mutare['data_emitere_act_administrativ'];
+            $mutatie_profesionala->mp_act_data_aplicare             = $request->mutare['data_aplicare_act_administrativ'];
+            $mutatie_profesionala->mp_institutie_id                 = $request->mutare['institutie_id'];
+            $mutatie_profesionala->mp_angajat_id                    = $angajat->id;
+            $mutatie_profesionala->mp_cuprins_id                    = null;
+            $mutatie_profesionala->mp_fel_numire_id                 = 1;
+            $mutatie_profesionala->mp_pozitie_id                    = null;
+            $mutatie_profesionala->mp_functie_id                    = null;
+
+            $mutatie_profesionala->save();
+
+            // verificare daca exista salariu generat
+            $salariu_generat = Salariu::where([
+                ['s_angajat',       '=', $angajat->id],
+                ['s_achitat',       '=', 0]
+            ])->first();
+
+            $salariu_generat->s_end_date  = Carbon::now();
+            $salariu_generat->save();
+
             return $angajat;
 
         }else{

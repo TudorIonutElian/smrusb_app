@@ -173,7 +173,7 @@ export default {
 
 <style scoped>
 .td-cuprins{
-    text-align: right;
+    text-align: left;
 }
 tr.post-liber{
     background-color: #f6e58d;

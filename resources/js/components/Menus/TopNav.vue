@@ -11,6 +11,15 @@
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="/">Acasa</a>
                         </li>
+                        <li class="nav-item dropdown" v-if="user != null && user.user_type === 3">
+                            <a class="nav-link dropdown-toggle" href="#" id="angajat_pontaj" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Pontaj
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="/user/angajat/pontaj/creare">Adaugare</a></li>
+                                <li><a class="dropdown-item" href="/user/angajat/pontaj/modificare">Modificare</a></li>
+                            </ul>
+                        </li>
                         <li class="nav-item dropdown" v-if="user != null && user.user_type === 1">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Nomenclator
@@ -139,7 +148,16 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="nav-item dropdown" v-if="user != null && user.user_type !== 1">
+                        <li class="nav-item dropdown" v-if="user != null && user.user_type === 0">
+                            <a class="nav-link dropdown-toggle" href="#" id="user_pontaj" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Salarii
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="/user/salarii/generare" style="color: red">Generare Salarii</a></li>
+                                <li><a class="dropdown-item" href="/user/salarii/vizualizare" style="color: red">Vizualizare Salarii</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown" v-if="user != null && user.user_type === 0">
                             <a class="nav-link dropdown-toggle" href="#" id="situatiiProfesionale" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Situatii
                             </a>
@@ -157,7 +175,7 @@
                                 <li><a class="dropdown-item" href="#" style="color: red">Plati Impozit venit</a></li>
                             </ul>
                         </li>
-                        <li class="nav-item dropdown" v-if="user != null && user.user_type !== 1">
+                        <li class="nav-item dropdown" v-if="user != null && user.user_type === 0">
                             <a class="nav-link dropdown-toggle" href="#" id="pontaj" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Pontaj
                             </a>
@@ -169,7 +187,7 @@
                                 <li><a class="dropdown-item" href="#" style="color: red">Listare salarii</a></li>
                             </ul>
                         </li>
-                        <li class="nav-item dropdown" v-if="user != null && user.user_type !== 1">
+                        <li class="nav-item dropdown" v-if="user != null && user.user_type === 0">
                             <a class="nav-link dropdown-toggle" href="#" id="documente" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Documente
                             </a>
@@ -239,44 +257,41 @@
 </template>
 
 <script>
-    import router from "../../router/router";
-    import {checkIfIsAdmin, checkIfLoggedIn} from "../../functions/auth/authFunctions";
-
-    export default {
-        data: function () {
-            return {
-                isLoggedIn: checkIfLoggedIn(),
-                isAdmin: checkIfIsAdmin(),
-                user: JSON.parse(localStorage.getItem('user')),
-                searchComponent: 'angajati'
+import router from "../../router/router";
+import {checkIfIsAdmin, checkIfLoggedIn} from "../../functions/auth/authFunctions";
+export default {
+    data: function () {
+        return {
+            isLoggedIn: checkIfLoggedIn(),
+            isAdmin: checkIfIsAdmin(),
+            user: JSON.parse(localStorage.getItem('user')),
+            searchComponent: 'angajati'
+        }
+    },
+    created() {
+        this.checkLoggedIn();
+    },
+    methods:{
+        checkLoggedIn(){
+            const isLoggedIn = localStorage.getItem('isLoggedIn');
+            if(isLoggedIn === 'true'){
+                this.user = JSON.parse(localStorage.getItem('user'));
             }
         },
-        created() {
-            this.checkLoggedIn();
-        },
-
-        methods:{
-            checkLoggedIn(){
-                const isLoggedIn = localStorage.getItem('isLoggedIn');
-                if(isLoggedIn === 'true'){
-                    this.user = JSON.parse(localStorage.getItem('user'));
+        async logout(){
+            const token = localStorage.getItem('token');
+            await axios.post('/logout',{}, {
+                headers:{
+                    ContentType: 'application/json',
+                    Authorization : 'Bearer ' + token
                 }
-            },
-            async logout(){
-                const token = localStorage.getItem('token');
-                await axios.post('/logout',{}, {
-                    headers:{
-                        ContentType: 'application/json',
-                        Authorization : 'Bearer ' + token
-                    }
-                });
-
-                this.$store.dispatch('setAdminLoggedOut', false);
-                router.push('/login');
-            }
-        },
-        props: ['utilizatori-inactivi', 'este-administrator']
-    }
+            });
+            this.$store.dispatch('setAdminLoggedOut', false);
+            router.push('/login');
+        }
+    },
+    props: ['utilizatori-inactivi', 'este-administrator']
+}
 </script>
 
 <style scoped>

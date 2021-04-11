@@ -79,15 +79,15 @@ class AdminController extends Controller
                 'status'  => 401
             ]);
         }else{
-            if($user->isActive === 1){
+            if($user->user_is_active === 1){
                 return response()->json([
                     'message' =>'Contul este deja activ!',
                     'status'  => 201
                 ]);
             }else{
                 $user->user_is_active = 1;
-                $user->user_type      = 0;
-                $user->save();
+                //$user->user_type      = 0;
+                $user->update();
                 return response()->json([
                     'message' =>'Contul a fost activat!',
                     'status'  => 202
@@ -109,6 +109,7 @@ class AdminController extends Controller
         $user->user_username          = $request->user_username;
         $user->user_password          = Hash::make($request->user_password);
         $user->remember_token         = Str::random(10);
+        $user->user_type              = 0;
 
         $cod_acces = $request->user_acces_level;
         $institutie_cod_acces = Institutii::where('institutie_cod_acces', '=', $cod_acces)->first();

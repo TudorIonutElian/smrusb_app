@@ -25,7 +25,6 @@ class CreateMutatiiProfesionaleTable extends Migration
             $table->unsignedBigInteger('mp_pozitie_id')->nullable();
             $table->unsignedBigInteger('mp_functie_id')->nullable();
 
-            // TODO - implementare mutatii la mutare angajat de pe o functie pe alta
         });
     }
 

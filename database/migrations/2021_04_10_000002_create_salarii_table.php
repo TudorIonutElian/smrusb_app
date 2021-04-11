@@ -27,6 +27,7 @@ class CreateSalariiTable extends Migration
             $table->integer('s_suma_finala');
             $table->boolean('s_achitat');
             $table->integer('s_tip_achitare');
+            $table->date('s_data_achitarii')->nullable();
 
             $table->foreign('s_institutie')->references('id')->on('institutii');
             $table->foreign('s_angajat')->references('id')->on('angajati');

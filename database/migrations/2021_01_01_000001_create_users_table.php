@@ -24,6 +24,7 @@ class CreateUsersTable extends Migration
             $table->boolean('user_is_active')->default(false)->nullable();
             $table->unsignedBigInteger('user_type')->nullable();
             $table->unsignedInteger('user_cod_acces')->nullable();
+            $table->unsignedInteger('user_angajat_id')->nullable();
         });
     }
 

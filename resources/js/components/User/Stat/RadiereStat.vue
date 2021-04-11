@@ -33,6 +33,9 @@
                             </tr>
                             </thead>
                             <tbody>
+                                <tr v-if="pozitii.length === 0">
+                                    <td colspan="5" class="bg-danger text-white text-center">Nu ati selectat stat sau nu sunt pozitii vacante!</td>
+                                </tr>
                                 <tr v-for="p in pozitii">
                                     <td>{{ pozitieNumarValidare(p.pozitie_pozitie) }}</td>
                                     <td>{{ p.pozitie_data_creare}}</td>
