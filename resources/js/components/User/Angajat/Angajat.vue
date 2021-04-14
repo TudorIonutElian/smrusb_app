@@ -156,6 +156,14 @@
                             </div>
                         </div>
                         <div class="row">
+                            <div class="col-12 col-info p-2">
+                                <span class="angajat-istoric-mutatii">Grafic salariu angajat</span>
+                            </div>
+                            <div class="col-12">
+                                <planet-chart></planet-chart>
+                            </div>
+                        </div>
+                        <div class="row">
                                 <div class="col-12 col-info p-2">
                                     <span class="angajat-istoric-mutatii">Istoric Salarii Angajat</span>
                                 </div>
@@ -246,6 +254,7 @@
 <script>
 import TopNav from "../../Menus/TopNav";
 import LoadingComponent from "../../HelperComponents/LoadingComponent";
+import PlanetChart from "../Chart/PlanetChart";
 
 export default {
     data(){
@@ -329,7 +338,7 @@ export default {
         }
 
     },
-    components: {LoadingComponent, TopNav}
+    components: {PlanetChart, LoadingComponent, TopNav}
 }
 </script>
 

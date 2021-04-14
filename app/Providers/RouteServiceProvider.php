@@ -60,6 +60,7 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapCuprinsRoutes();
         $this->mapFunctiiRoutes();
         $this->mapSalarizareRoutes();
+        $this->mapPontajRoutes();
     }
 
     /**
@@ -145,5 +146,10 @@ class RouteServiceProvider extends ServiceProvider
             ->group(base_path('routes/salarizare.php'));
     }
 
+    private function mapPontajRoutes()
+    {
+        Route::prefix('/api/')
+            ->group(base_path('routes/pontaj.php'));
+    }
 
 }

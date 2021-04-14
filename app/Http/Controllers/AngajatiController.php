@@ -62,8 +62,9 @@ class AngajatiController extends Controller
                 $user = new User();
                 $user->user_first_name  = $angajat->angajat_nume;
                 $user->user_last_name   = $angajat->angajat_prenume;
-                $user->user_email       = strtolower($angajat->angajat_prenume).'.'.'@smrusb.ro';
-                $user->user_username    = $angajat->angajat_prenume.'.'.$angajat->angajat_nume;
+                $user->user_email       = strtolower($angajat->angajat_prenume).strtolower($angajat->angajat_nume).'@smrusb.ro';
+                // TODO - de verifica modul de trim
+                $user->user_username    = trim("angajat_".strtolower(trim($angajat->angajat_prenume)).trim(strtolower($angajat->angajat_nume)));
                 $user->user_password    = Hash::make('password');
                 $user->remember_token   = Str::random(10);
                 $user->user_is_active   = false;
@@ -157,6 +158,7 @@ class AngajatiController extends Controller
 
         $pozitie_noua->save();
         $angajat->angajat_functie_curenta = $pozitie_noua->ps_functie;
+        $angajat->angajat_pozitie_curenta = $pozitie_noua->id;
         $angajat->save();
 
         // Salvare mutatie profesionala
@@ -223,6 +225,7 @@ class AngajatiController extends Controller
 
             $angajat->angajat_institutie_curenta = $institutie->id;
             $angajat->angajat_functie_curenta = null;
+            $angajat->angajat_pozitie_curenta = null;
             $angajat->angajat_cod_acces = $institutie->institutie_cod_acces;
 
             $angajat->save();
@@ -248,8 +251,10 @@ class AngajatiController extends Controller
                 ['s_achitat',       '=', 0]
             ])->first();
 
-            $salariu_generat->s_end_date  = Carbon::now();
-            $salariu_generat->save();
+            if(is_object($salariu_generat)){
+                $salariu_generat->s_end_date  = Carbon::now();
+                $salariu_generat->save();
+            }
 
             return $angajat;
 

@@ -54,7 +54,7 @@
                                     <td>{{ pozitie.functie}}</td>
                                     <td>{{ pozitie.angajat}}</td>
                                     <!-- Regiune Generare Salariu -->
-                                    <td v-if="pozitie.status.length > 0">{{ pozitie.status[0].s_end_date}}</td>
+                                    <td v-if="pozitie.status !== null && pozitie.status.length > 0">{{ pozitie.status[0].s_end_date}}</td>
                                     <td v-else>
                                         <button
                                             class="btn btn-outline-primary btn-sm"
@@ -62,7 +62,7 @@
                                         >Generare Salariu</button>
                                     </td>
                                     <!-- Regiune Achitare Salariu -->
-                                    <td v-if="pozitie.status.length > 0">
+                                    <td v-if="pozitie.status !== null && pozitie.status.length > 0">
                                         <button
                                             class="btn btn-outline-success btn-sm"
                                             @click.prevent="achitaSalariu(pozitie.status)"
@@ -164,7 +164,21 @@ export default {
                 }
             }).then(response => {
                 console.log(response)
-                this.generareSalarii();
+                if(response.data.code_message == 'pontaj_inexistent'){
+                    Vue.$toast.open({
+                        message: 'Angajatul nu si-a introdus pontajul!',
+                        type: 'error',
+                        // all of other options may go here
+                    });
+                }else if(response.data.code_message == 'pontaj_neaprobat'){
+                    Vue.$toast.open({
+                        message: 'Pontajul nu este aprobat',
+                        type: 'warning',
+                        // all of other options may go here
+                    });
+                }else{
+                    this.generareSalarii();
+                }
                 this.loading = false;
             })
         }

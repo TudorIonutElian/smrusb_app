@@ -42,6 +42,8 @@ import VacanteStat from "../components/User/Stat/VacanteStat";
 
 import GenerareSalarii from "../components/User/Salarii/GenerareSalarii";
 import VizualizareSalarii from "../components/User/Salarii/VizualizareSalarii";
+import AdaugarePontaj from "../components/User/Pontaj/AdaugarePontaj";
+import VizualizarePontajUser from "../components/User/Pontaj/VizualizarePontajUser";
 
 const router = new VueRouter({
     mode: 'history',
@@ -94,6 +96,9 @@ const router = new VueRouter({
 
         {path: '/user/salarii/generare', component: GenerareSalarii, name: 'generare-salarii'},
         {path: '/user/salarii/vizualizare', component: VizualizareSalarii, name: 'vizualizare-salarii'},
+
+        {path: '/user/angajat/pontaj/creare', component: AdaugarePontaj, name: 'adaugare-pontaj'},
+        {path: '/user/pontaj/vizualizare', component: VizualizarePontajUser, name: 'vizualizare-pontaj-user'},
 
 
 

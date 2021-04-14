@@ -1,6 +1,6 @@
 <template>
     <div id="topNavArea">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-fixed-top">
             <div class="container">
                 <a class="navbar-brand ml-auto" href="/">SMRUSB</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -63,6 +63,12 @@
                                     <a class="dropdown-item dropdown-item-flex" href="/user/mutare_angajat">
                                         <img class="mr-2" src="/images/usermove.png" alt="">
                                         <span>Mutare angajat</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item dropdown-item-flex" href="/user/incetare_angajat">
+                                        <img class="mr-2" src="/images/usermove.png" alt="">
+                                        <span style="color: red">Incetare raport</span>
                                     </a>
                                 </li>
                                 <li>
@@ -153,8 +159,8 @@
                                 Salarii
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="/user/salarii/generare" style="color: red">Generare Salarii</a></li>
-                                <li><a class="dropdown-item" href="/user/salarii/vizualizare" style="color: red">Vizualizare Salarii</a></li>
+                                <li><a class="dropdown-item" href="/user/salarii/generare">Generare Salarii</a></li>
+                                <li><a class="dropdown-item" href="/user/salarii/vizualizare">Vizualizare Salarii</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown" v-if="user != null && user.user_type === 0">
@@ -180,11 +186,9 @@
                                 Pontaj
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#" style="color: red">Vizualizare </a></li>
-                                <li><a class="dropdown-item" href="#" style="color: red">Aprobare </a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="#" style="color: red">Salvare PDF </a></li>
-                                <li><a class="dropdown-item" href="#" style="color: red">Listare salarii</a></li>
+                                <li><a class="dropdown-item" href="/user/pontaj/vizualizare">Pontaj-Vizualizare </a></li>
+                                <li><a class="dropdown-item" href="#">Pontaj-Aprobare </a></li>
+                                <li><a class="dropdown-item" href="#" style="color: red">Pontaj-Salvare PDF </a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown" v-if="user != null && user.user_type === 0">

@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <top-nav></top-nav>
         <div class="row">
-            <div class="container mt-4 container-angajati">
+            <div class="container-fluid mt-4 container-angajati">
                 <div class="row">
                     <div class="col-12 d-flex mb-2">
                         <input class="form-control me-2" type="search" placeholder="Introduceti numele angajatului ..." aria-label="Search">

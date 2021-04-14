@@ -41,4 +41,8 @@ class Institutii extends Model
         return $this->hasMany(Salariu::class, 's_institutie', 'id');
     }
 
+    public function pontaje(){
+        return $this->hasMany(Pontaj::class, 'pl_institutie', 'id');
+    }
+
 }

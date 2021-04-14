@@ -48,4 +48,8 @@ class Angajat extends Model
     public function salarii(){
         return $this->hasMany(Salariu::class, 's_angajat', 'id');
     }
+
+    public function pontaje(){
+        return $this->hasMany(Pontaj::class, 'pl_angajat', 'id');
+    }
 }

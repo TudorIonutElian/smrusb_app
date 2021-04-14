@@ -3,14 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\DatePozitiiSalarii;
-use App\Http\Resources\DateSalariiAngajat;
 use App\Http\Resources\DateSalariiInstitutie;
 use App\Models\Institutii;
+use App\Models\Pontaj;
 use App\Models\PozitiiOrganizare;
 use App\Models\Salariu;
 use App\Models\StatOrganizare;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use function PHPUnit\Framework\isEmpty;
 
 class SalariiController extends Controller
 {
@@ -38,20 +39,48 @@ class SalariiController extends Controller
             ['ps_pozitie',  '=', $request->pozitie]
         ])->first();
 
-        $salariu = new Salariu();
-        $salariu->s_institutie      = Institutii::find($request->institutie)->id;
-        $salariu->s_angajat         = $pozitie->ps_angajat;
-        $salariu->s_functie         = $pozitie->functie->id;
-        $salariu->s_stat            = $stat->id;
-        $salariu->s_pozitie         = $pozitie->ps_pozitie;
-        $salariu->s_start_date      = Carbon::now();
-        $salariu->s_end_date        = Carbon::now()->endOfMonth();
-        $salariu->s_suma_initiala   = $pozitie->functie->functie_suma;
-        $salariu->s_bonus           = 0;
-        $salariu->s_suma_finala     = $pozitie->functie->functie_suma;
-        $salariu->s_achitat         = false;
-        $salariu->s_tip_achitare    = 0;
+        // TODO - verificare pontaj angajat
+        $pontaj = Pontaj::where([
+            ['pl_institutie',   '=', $request->institutie],
+            ['pl_pozitie',      '=', $request->pozitie],
+            ['pl_angajat',      '=', $pozitie->angajat['id']],
+        ])->first();
 
-        $salariu->save();
+        if(!$pontaj){
+            return response()->json([
+                'code_message' => 'pontaj_inexistent'
+            ]);
+        }else{
+            if(!isEmpty($pontaj) || is_null($pontaj)){
+                return response()->json([
+                    'code_message' => 'eroare_pontaj'
+                ]);
+            }else{
+                // Verificare daca pontajul este aprobat
+                if($pontaj->pl_este_aprobat === true || $pontaj->pl_este_aprobat === 1){
+                    $salariu = new Salariu();
+                    $salariu->s_institutie      = Institutii::find($request->institutie)->id;
+                    $salariu->s_angajat         = $pozitie->ps_angajat;
+                    $salariu->s_functie         = $pozitie->functie->id;
+                    $salariu->s_stat            = $stat->id;
+                    $salariu->s_pozitie         = $pozitie->ps_pozitie;
+                    $salariu->s_start_date      = Carbon::now()->startOfMonth();
+                    $salariu->s_end_date        = Carbon::now()->endOfMonth();
+                    $salariu->s_suma_initiala   = $pozitie->functie->functie_suma;
+                    $salariu->s_bonus           = 0;
+                    $salariu->s_suma_finala     = $pozitie->functie->functie_suma;
+                    $salariu->s_achitat         = false;
+                    $salariu->s_tip_achitare    = 0;
+
+                    $salariu->save();
+
+                    return $salariu;
+                }else{
+                    return response()->json([
+                        'code_message' => 'pontaj_neaprobat'
+                    ]);
+                }
+            }
+        }
     }
 }

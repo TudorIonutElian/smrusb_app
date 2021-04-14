@@ -15,7 +15,12 @@ class CreateSalariiImpoziteTable extends Migration
     {
         Schema::create('salarii_impozite', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->unsignedBigInteger('si_institutie');
+            $table->unsignedBigInteger('si_angajat');
+            $table->integer('si_suma');
+            $table->integer('si_impozit');
+            $table->boolean('si_achitat');
+            $table->date('si_data_achitarii');
         });
     }
 

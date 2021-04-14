@@ -42,11 +42,17 @@ class PozitiiOrganizare extends Model
     }
 
     public function salarii(){
-        return $this->hasMany(Salariu::class, 's_pozitie', 'id');
+        return $this->hasMany(Salariu::class, 's_pozitie', 'id')
+            ->where([
+                ['s_stat', '=', $this->stat->id]
+            ]);
     }
     public function salariu_generat(){
-        return $this->hasMany(Salariu::class, 's_pozitie', 'id')
-            ->where([['s_pozitie', '=', $this->ps_pozitie]])
+        return $this->hasMany(Salariu::class, 's_pozitie', 'ps_pozitie')
+            ->where([
+                ['s_pozitie', '=', $this->ps_pozitie],
+                ['s_stat',    '=', $this->stat->id ]
+            ])
             ->whereDate('s_end_date', '=', Carbon::now()->endOfMonth());
     }
 
