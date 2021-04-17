@@ -11,6 +11,32 @@
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="/">Acasa</a>
                         </li>
+                        <li class="nav-item">
+                            <a
+                                class="nav-link active"
+                                aria-current="page" href="/"
+                                v-if="user === null"
+                            >Despre</a>
+                        </li>
+                        <li class="nav-item">
+                            <a
+                                class="nav-link active"
+                                aria-current="page" href="/"
+                                v-if="user === null"
+                            >Module</a>
+                        </li>
+                        <li class="nav-item" v-if="user != null && user.user_type === 3">
+                            <router-link class="nav-link active" :to="{ name: 'angajat-date-plata', params: { id: this.user.id}}">Date plata</router-link>
+                        </li>
+                        <li class="nav-item dropdown" v-if="user != null && user.user_type === 3">
+                            <a class="nav-link dropdown-toggle" href="#" id="angajat_salarii" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Salarii
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="/">Vizualizare</a></li>
+                                <li><a class="dropdown-item" href="/">Export</a></li>
+                            </ul>
+                        </li>
                         <li class="nav-item dropdown" v-if="user != null && user.user_type === 3">
                             <a class="nav-link dropdown-toggle" href="#" id="angajat_pontaj" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Pontaj
@@ -66,7 +92,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item dropdown-item-flex" href="/user/incetare_angajat">
+                                    <a class="dropdown-item dropdown-item-flex" href="/user/angajat/incetare_angajat">
                                         <img class="mr-2" src="/images/usermove.png" alt="">
                                         <span style="color: red">Incetare raport</span>
                                     </a>
@@ -213,6 +239,14 @@
                                     </a>
                                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                         <li>
+                                            <a class="dropdown-item text-center" href="">
+                                                <span v-if="user != null && user.user_type === 1" class="btn btn-block btn-sm user_admin">Administrator</span>
+                                                <span v-if="user != null && user.user_type === 0" class="btn btn-block btn-sm user_operator">Operator</span>
+                                                <span v-if="user != null && user.user_type === 3" class="btn btn-block btn-sm user_angajat">Angajat</span>
+                                            </a>
+                                        </li>
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li>
                                             <a class="dropdown-item" :href="'/user/profile/' + user.id">
                                                 <img src="/images/pannel.png" alt="">
                                                 Panou de control
@@ -291,7 +325,7 @@ export default {
                 }
             });
             this.$store.dispatch('setAdminLoggedOut', false);
-            router.push('/login');
+            router.push({ name: 'login', query:{status: 'deconectat'}} )
         }
     },
     props: ['utilizatori-inactivi', 'este-administrator']
@@ -305,5 +339,24 @@ export default {
 }
 .dropdown-item{
     margin-right: 10px;
+}
+.user_operator,
+.user_angajat,
+.user_admin{
+    color: #fff;
+    border-radius: 3px;
+    padding: 10px;
+    font-weight: bolder;
+}
+
+.user_admin{
+    background-color: #e55039;
+}
+
+.user_operator{
+    background-color: #4a69bd;
+}
+.user_angajat{
+    background-color: #60a3bc;
 }
 </style>

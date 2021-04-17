@@ -10,6 +10,45 @@
                 </div>
                 <div class="row row-blue mt-2">
                     <div class="col-12 p-1">
+                        <span>Date Angajare</span>
+                    </div>
+                </div>
+                <div class="row p-1 mt-2">
+                    <div class="col-12 col-12-flexed" >
+                        <label for="numar_act_mutare" class="form-label">Numarul actului administrativ: </label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="numar_act_mutare"
+                            v-model="angajat_nou.numar_act_angajare"
+                        >
+                    </div>
+                </div>
+                <div class="row p-1">
+                    <div class="col-12 col-12-flexed" >
+                        <label for="data_emitere_act" class="form-label">Data emitere act administrativ: </label>
+                        <input
+                            type="date"
+                            class="form-control"
+                            id="data_emitere_act"
+                            v-model="angajat_nou.data_emitere_act_angajare"
+                        >
+                    </div>
+                </div>
+                <div class="row p-1">
+                    <div class="col-12 col-12-flexed" >
+                        <label for="data_aplicare_act_angajare" class="form-label">Data aplicare act administrativ: </label>
+                        <input
+                            type="date"
+                            class="form-control"
+                            id="data_aplicare_act_angajare"
+                            v-model="angajat_nou.data_aplicare_act_angajare"
+                        >
+                    </div>
+                </div>
+
+                <div class="row row-blue mt-2">
+                    <div class="col-12 p-1">
                         <span>Date Personale</span>
                     </div>
                 </div>
@@ -451,7 +490,11 @@ export default {
                 link_twitter: "",
                 link_google: "",
                 link_youtube: "",
-                acces_level: 0
+                acces_level: 0,
+                // date angajare
+                numar_act_angajare: "",
+                data_emitere_act_angajare: "",
+                data_aplicare_act_angajare: ""
             },
             erori:{
                 nume: false,

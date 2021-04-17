@@ -3125,14 +3125,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              console.log(_this.$route.query);
+              if (_this.$route.query.status === "succes") {
+                Vue.$toast.open({
+                  message: 'Contul a fost creat!',
+                  type: 'success' // all of other options may go here
 
-              if (_this.$route.query.status) {
-                _this.$notify({
-                  group: 'login',
-                  title: 'Inregistrare Ok!',
-                  text: 'Contul a fost creat!',
-                  type: 'success'
+                });
+              }
+
+              if (_this.$route.query.status === "deconectat") {
+                Vue.$toast.open({
+                  message: 'V-ati deconectat!',
+                  type: 'info' // all of other options may go here
+
                 });
               }
 
@@ -3809,6 +3814,40 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -3852,7 +3891,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 3:
                 _this.$store.dispatch('setAdminLoggedOut', false);
 
-                _router_router__WEBPACK_IMPORTED_MODULE_1__.default.push('/login');
+                _router_router__WEBPACK_IMPORTED_MODULE_1__.default.push({
+                  name: 'login',
+                  query: {
+                    status: 'deconectat'
+                  }
+                });
 
               case 5:
               case "end":
@@ -4390,6 +4434,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -4494,6 +4545,236 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     PlanetChart: _Chart_PlanetChart__WEBPACK_IMPORTED_MODULE_3__.default,
     LoadingComponent: _HelperComponents_LoadingComponent__WEBPACK_IMPORTED_MODULE_2__.default,
     TopNav: _Menus_TopNav__WEBPACK_IMPORTED_MODULE_1__.default
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/User/Angajat/DatePlata.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/User/Angajat/DatePlata.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _Menus_TopNav__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../Menus/TopNav */ "./resources/js/components/Menus/TopNav.vue");
+/* harmony import */ var _HelperComponents_LoadingComponent__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../HelperComponents/LoadingComponent */ "./resources/js/components/HelperComponents/LoadingComponent.vue");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      loading: false,
+      token: localStorage.getItem('token'),
+      adminData: {
+        email: JSON.parse(localStorage.getItem('user')).email
+      },
+      user: JSON.parse(localStorage.getItem('user')),
+      date_plata: {
+        dp_tip_plata: 0,
+        dp_banca_id: 0,
+        dp_cont_iban: "",
+        dp_titular_cont: JSON.parse(localStorage.getItem('user')).user_first_name + ' ' + JSON.parse(localStorage.getItem('user')).user_last_name,
+        dp_angajat: JSON.parse(localStorage.getItem('user')).id
+      },
+      banci: []
+    };
+  },
+  components: {
+    LoadingComponent: _HelperComponents_LoadingComponent__WEBPACK_IMPORTED_MODULE_2__.default,
+    TopNav: _Menus_TopNav__WEBPACK_IMPORTED_MODULE_1__.default
+  },
+  computed: {
+    dateBancareValide: function dateBancareValide() {
+      if (this.date_plata.dp_tip_plata != 0 & this.date_plata.dp_cont_iban != "" & this.date_plata.dp_titular_cont != "") {
+        return true;
+      }
+
+      return false;
+    }
+  },
+  methods: {
+    preluareBanci: function preluareBanci() {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                if (!(_this.date_plata.dp_tip_plata == 1)) {
+                  _context.next = 4;
+                  break;
+                }
+
+                _this.loading = true;
+                _context.next = 4;
+                return axios.get("/api/salarizare/datebanci/preluare", {
+                  headers: {
+                    ContentType: 'application/json',
+                    Authorization: 'Bearer ' + _this.token
+                  }
+                }).then(function (response) {
+                  _this.banci = response.data;
+                  _this.loading = false;
+                });
+
+              case 4:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    salvareDateBancare: function salvareDateBancare() {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                if (!_this2.dateBancareValide) {
+                  _context2.next = 5;
+                  break;
+                }
+
+                _context2.next = 3;
+                return axios.post("/api/angajati/datebancare", {
+                  date: _this2.date_plata
+                }, {
+                  headers: {
+                    ContentType: 'application/json',
+                    Authorization: 'Bearer ' + _this2.token
+                  }
+                }).then(function (response) {
+                  console.log(response.data);
+
+                  if (response.data.cod_raspuns === 1000) {
+                    Vue.$toast.open({
+                      message: 'Datele de plata au fost salvate.',
+                      type: 'succes' // all of other options may go here
+
+                    });
+                  } else if (response.data.cod_raspuns === 500) {
+                    Vue.$toast.open({
+                      message: 'Eroare la salvarea datelor.',
+                      type: 'error' // all of other options may go here
+
+                    });
+                  } else if (response.data.cod_raspuns === 300) {
+                    Vue.$toast.open({
+                      message: 'Aveti deja metoda de plata setata.',
+                      type: 'error' // all of other options may go here
+
+                    });
+                  }
+                });
+
+              case 3:
+                _context2.next = 6;
+                break;
+
+              case 5:
+                Vue.$toast.open({
+                  message: 'Datele de plata nu sunt valide',
+                  type: 'warning' // all of other options may go here
+
+                });
+
+              case 6:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    }
   }
 });
 
@@ -5017,6 +5298,45 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -5052,7 +5372,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         link_twitter: "",
         link_google: "",
         link_youtube: "",
-        acces_level: 0
+        acces_level: 0,
+        // date angajare
+        numar_act_angajare: "",
+        data_emitere_act_angajare: "",
+        data_aplicare_act_angajare: ""
       },
       erori: {
         nume: false,
@@ -5340,6 +5664,396 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             }
           }
         }, _callee6);
+      }))();
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/User/Management/IncetareAngajat.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/User/Management/IncetareAngajat.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _Menus_TopNav__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../Menus/TopNav */ "./resources/js/components/Menus/TopNav.vue");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      token: localStorage.getItem('token'),
+      adminData: {
+        email: JSON.parse(localStorage.getItem('user')).email
+      },
+      lista_angajati: [],
+      user_id: JSON.parse(localStorage.getItem('user')).id,
+      lista_acces: []
+    };
+  },
+  components: {
+    TopNav: _Menus_TopNav__WEBPACK_IMPORTED_MODULE_1__.default
+  },
+  created: function created() {
+    this.preluareAngajati();
+  },
+  methods: {
+    preluareAngajati: function preluareAngajati() {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                axios.get("/api/angajati/".concat(_this.user_id), {
+                  headers: {
+                    ContentType: 'application/json',
+                    Authorization: 'Bearer ' + localStorage.getItem('token')
+                  }
+                }).then( /*#__PURE__*/function () {
+                  var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(response) {
+                    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+                      while (1) {
+                        switch (_context.prev = _context.next) {
+                          case 0:
+                            _this.lista_angajati = response.data.data;
+
+                          case 1:
+                          case "end":
+                            return _context.stop();
+                        }
+                      }
+                    }, _callee);
+                  }));
+
+                  return function (_x) {
+                    return _ref.apply(this, arguments);
+                  };
+                }());
+
+              case 1:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/User/Management/IncetareAngajatSelectat.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/User/Management/IncetareAngajatSelectat.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _Menus_TopNav__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../Menus/TopNav */ "./resources/js/components/Menus/TopNav.vue");
+/* harmony import */ var _HelperComponents_LoadingComponent__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../HelperComponents/LoadingComponent */ "./resources/js/components/HelperComponents/LoadingComponent.vue");
+/* harmony import */ var _router_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../router/router */ "./resources/js/router/router.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      token: localStorage.getItem('token'),
+      user_id: JSON.parse(localStorage.getItem('user')).id,
+      angajat_id: this.$route.params.id,
+      date_angajat: {
+        angajat_date: {},
+        angajat_functie: null,
+        angajat_institutie: 'Nu este numit!'
+      },
+      incetare_contract: {
+        numar_act_administrativ: "",
+        data_emitere_act_administrativ: "",
+        data_aplicare_act_administrativ: "",
+        incetare_motiv: 0
+      },
+      motive_incetare: null,
+      // variabile de ajutor
+      loading: false
+    };
+  },
+  created: function created() {
+    this.preluareAngajat();
+    this.preluareMotive();
+  },
+  computed: {
+    incetareValida: function incetareValida() {
+      return this.incetare_contract.numar_act_administrativ != "" && this.incetare_contract.data_emitere_act_administrativ != "" && this.incetare_contract.data_aplicare_act_administrativ != "" && this.incetare_contract.incetare_motiv != 0;
+    }
+  },
+  components: {
+    LoadingComponent: _HelperComponents_LoadingComponent__WEBPACK_IMPORTED_MODULE_2__.default,
+    TopNav: _Menus_TopNav__WEBPACK_IMPORTED_MODULE_1__.default
+  },
+  methods: {
+    preluareAngajat: function preluareAngajat() {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _this.loading = true;
+                _context.next = 3;
+                return axios.get("/api/angajati/mutare/".concat(_this.angajat_id), {
+                  headers: {
+                    ContentType: 'application/json',
+                    Authorization: 'Bearer ' + _this.token
+                  }
+                }).then(function (response) {
+                  _this.date_angajat.angajat_date = response.data.angajat_date;
+                  _this.date_angajat.angajat_functie = response.data.angajat_functie ? response.data.angajat_functie : _this.date_angajat.angajat_functie;
+                  _this.date_angajat.angajat_institutie = response.data.angajat_institutie;
+                  _this.loading = false;
+                });
+
+              case 3:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    preluareMotive: function preluareMotive() {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _this2.loading = true;
+                _context2.next = 3;
+                return axios.get("/api/user/incetarecontract/preluare", {
+                  headers: {
+                    ContentType: 'application/json',
+                    Authorization: 'Bearer ' + _this2.token
+                  }
+                }).then(function (response) {
+                  _this2.motive_incetare = response.data;
+                  _this2.loading = false;
+                });
+
+              case 3:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
+    incetareContract: function incetareContract() {
+      var _this3 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+        var date_incetare;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                date_incetare = {};
+                date_incetare.id_angajat = _this3.angajat_id;
+                date_incetare.numar_act_administrativ = _this3.incetare_contract.numar_act_administrativ;
+                date_incetare.data_emitere_act_administrativ = _this3.incetare_contract.data_emitere_act_administrativ;
+                date_incetare.data_aplicare_act_administrativ = _this3.incetare_contract.data_aplicare_act_administrativ;
+                date_incetare.motiv_incetare = _this3.incetare_contract.incetare_motiv;
+                _context3.next = 8;
+                return axios.post("/api/angajati/incetarecontract", {
+                  date: date_incetare
+                }, {
+                  headers: {
+                    ContentType: 'application/json',
+                    Authorization: 'Bearer ' + _this3.token
+                  }
+                }).then(function (response) {
+                  console.log(response.data);
+                });
+
+              case 8:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
       }))();
     }
   }
@@ -9164,7 +9878,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
+/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
 /* harmony import */ var _components_Admin_AdminDashboard__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/Admin/AdminDashboard */ "./resources/js/components/Admin/AdminDashboard.vue");
 /* harmony import */ var _components_Admin_Stat_CreareStat__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/Admin/Stat/CreareStat */ "./resources/js/components/Admin/Stat/CreareStat.vue");
 /* harmony import */ var _components_Home_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/Home.vue */ "./resources/js/components/Home.vue");
@@ -9183,16 +9897,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Admin_Nomenclator_Regiuni__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../components/Admin/Nomenclator/Regiuni */ "./resources/js/components/Admin/Nomenclator/Regiuni.vue");
 /* harmony import */ var _components_Admin_Nomenclator_Judete__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../components/Admin/Nomenclator/Judete */ "./resources/js/components/Admin/Nomenclator/Judete.vue");
 /* harmony import */ var _components_User_Angajat_Angajat__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../components/User/Angajat/Angajat */ "./resources/js/components/User/Angajat/Angajat.vue");
-/* harmony import */ var _components_User_Stat_VizualizareStat__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ../components/User/Stat/VizualizareStat */ "./resources/js/components/User/Stat/VizualizareStat.vue");
-/* harmony import */ var _components_Admin_AccesUtilizatori__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ../components/Admin/AccesUtilizatori */ "./resources/js/components/Admin/AccesUtilizatori.vue");
-/* harmony import */ var _components_User_Stat_SuplimentareStat__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ../components/User/Stat/SuplimentareStat */ "./resources/js/components/User/Stat/SuplimentareStat.vue");
-/* harmony import */ var _components_User_Stat_CuprinsStat__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ../components/User/Stat/CuprinsStat */ "./resources/js/components/User/Stat/CuprinsStat.vue");
-/* harmony import */ var _components_User_Stat_RadiereStat__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ../components/User/Stat/RadiereStat */ "./resources/js/components/User/Stat/RadiereStat.vue");
-/* harmony import */ var _components_User_Stat_VacanteStat__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ../components/User/Stat/VacanteStat */ "./resources/js/components/User/Stat/VacanteStat.vue");
-/* harmony import */ var _components_User_Salarii_GenerareSalarii__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ../components/User/Salarii/GenerareSalarii */ "./resources/js/components/User/Salarii/GenerareSalarii.vue");
-/* harmony import */ var _components_User_Salarii_VizualizareSalarii__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ../components/User/Salarii/VizualizareSalarii */ "./resources/js/components/User/Salarii/VizualizareSalarii.vue");
-/* harmony import */ var _components_User_Pontaj_AdaugarePontaj__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ../components/User/Pontaj/AdaugarePontaj */ "./resources/js/components/User/Pontaj/AdaugarePontaj.vue");
-/* harmony import */ var _components_User_Pontaj_VizualizarePontajUser__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ../components/User/Pontaj/VizualizarePontajUser */ "./resources/js/components/User/Pontaj/VizualizarePontajUser.vue");
+/* harmony import */ var _components_User_Management_IncetareAngajat__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ../components/User/Management/IncetareAngajat */ "./resources/js/components/User/Management/IncetareAngajat.vue");
+/* harmony import */ var _components_User_Stat_VizualizareStat__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ../components/User/Stat/VizualizareStat */ "./resources/js/components/User/Stat/VizualizareStat.vue");
+/* harmony import */ var _components_Admin_AccesUtilizatori__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ../components/Admin/AccesUtilizatori */ "./resources/js/components/Admin/AccesUtilizatori.vue");
+/* harmony import */ var _components_User_Stat_SuplimentareStat__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ../components/User/Stat/SuplimentareStat */ "./resources/js/components/User/Stat/SuplimentareStat.vue");
+/* harmony import */ var _components_User_Stat_CuprinsStat__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ../components/User/Stat/CuprinsStat */ "./resources/js/components/User/Stat/CuprinsStat.vue");
+/* harmony import */ var _components_User_Stat_RadiereStat__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ../components/User/Stat/RadiereStat */ "./resources/js/components/User/Stat/RadiereStat.vue");
+/* harmony import */ var _components_User_Stat_VacanteStat__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ../components/User/Stat/VacanteStat */ "./resources/js/components/User/Stat/VacanteStat.vue");
+/* harmony import */ var _components_User_Salarii_GenerareSalarii__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ../components/User/Salarii/GenerareSalarii */ "./resources/js/components/User/Salarii/GenerareSalarii.vue");
+/* harmony import */ var _components_User_Salarii_VizualizareSalarii__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ../components/User/Salarii/VizualizareSalarii */ "./resources/js/components/User/Salarii/VizualizareSalarii.vue");
+/* harmony import */ var _components_User_Pontaj_AdaugarePontaj__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ../components/User/Pontaj/AdaugarePontaj */ "./resources/js/components/User/Pontaj/AdaugarePontaj.vue");
+/* harmony import */ var _components_User_Pontaj_VizualizarePontajUser__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ../components/User/Pontaj/VizualizarePontajUser */ "./resources/js/components/User/Pontaj/VizualizarePontajUser.vue");
+/* harmony import */ var _components_User_Angajat_DatePlata__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ../components/User/Angajat/DatePlata */ "./resources/js/components/User/Angajat/DatePlata.vue");
+/* harmony import */ var _components_User_Management_IncetareAngajatSelectat__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ../components/User/Management/IncetareAngajatSelectat */ "./resources/js/components/User/Management/IncetareAngajatSelectat.vue");
 
 /*************************
  *Import de componente
@@ -9226,7 +9943,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var router = new vue_router__WEBPACK_IMPORTED_MODULE_28__.default({
+
+
+
+var router = new vue_router__WEBPACK_IMPORTED_MODULE_31__.default({
   mode: 'history',
   routes: [// Route Home
   {
@@ -9292,6 +10012,14 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_28__.default({
     component: _components_User_Management_MutareAngajatSelectat__WEBPACK_IMPORTED_MODULE_11__.default,
     name: 'mutare-angajat-selectat'
   }, {
+    path: '/user/angajat/incetare_angajat',
+    component: _components_User_Management_IncetareAngajat__WEBPACK_IMPORTED_MODULE_18__.default,
+    name: 'incetare-pontaj'
+  }, {
+    path: '/user/angajat/incetare_angajat/:id',
+    component: _components_User_Management_IncetareAngajatSelectat__WEBPACK_IMPORTED_MODULE_30__.default,
+    name: 'incetare-pontaj'
+  }, {
     path: '/user/numire_angajat',
     component: _components_User_Management_NumireAngajat__WEBPACK_IMPORTED_MODULE_12__.default,
     name: 'numire-angajat'
@@ -9305,39 +10033,39 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_28__.default({
     name: 'solicitare-acces'
   }, {
     path: '/user/stat/vizualizare',
-    component: _components_User_Stat_VizualizareStat__WEBPACK_IMPORTED_MODULE_18__.default,
+    component: _components_User_Stat_VizualizareStat__WEBPACK_IMPORTED_MODULE_19__.default,
     name: 'vizualizare-stat'
   }, {
     path: '/user/stat/suplimentare',
-    component: _components_User_Stat_SuplimentareStat__WEBPACK_IMPORTED_MODULE_20__.default,
+    component: _components_User_Stat_SuplimentareStat__WEBPACK_IMPORTED_MODULE_21__.default,
     name: 'suplimentare-stat'
   }, {
     path: '/user/stat/cuprins',
-    component: _components_User_Stat_CuprinsStat__WEBPACK_IMPORTED_MODULE_21__.default,
+    component: _components_User_Stat_CuprinsStat__WEBPACK_IMPORTED_MODULE_22__.default,
     name: 'cuprins-stat'
   }, {
     path: '/user/stat/radiere',
-    component: _components_User_Stat_RadiereStat__WEBPACK_IMPORTED_MODULE_22__.default,
+    component: _components_User_Stat_RadiereStat__WEBPACK_IMPORTED_MODULE_23__.default,
     name: 'radiere-stat'
   }, {
     path: '/user/stat/vacante',
-    component: _components_User_Stat_VacanteStat__WEBPACK_IMPORTED_MODULE_23__.default,
+    component: _components_User_Stat_VacanteStat__WEBPACK_IMPORTED_MODULE_24__.default,
     name: 'vacante-stat'
   }, {
     path: '/user/salarii/generare',
-    component: _components_User_Salarii_GenerareSalarii__WEBPACK_IMPORTED_MODULE_24__.default,
+    component: _components_User_Salarii_GenerareSalarii__WEBPACK_IMPORTED_MODULE_25__.default,
     name: 'generare-salarii'
   }, {
     path: '/user/salarii/vizualizare',
-    component: _components_User_Salarii_VizualizareSalarii__WEBPACK_IMPORTED_MODULE_25__.default,
+    component: _components_User_Salarii_VizualizareSalarii__WEBPACK_IMPORTED_MODULE_26__.default,
     name: 'vizualizare-salarii'
   }, {
     path: '/user/angajat/pontaj/creare',
-    component: _components_User_Pontaj_AdaugarePontaj__WEBPACK_IMPORTED_MODULE_26__.default,
+    component: _components_User_Pontaj_AdaugarePontaj__WEBPACK_IMPORTED_MODULE_27__.default,
     name: 'adaugare-pontaj'
   }, {
     path: '/user/pontaj/vizualizare',
-    component: _components_User_Pontaj_VizualizarePontajUser__WEBPACK_IMPORTED_MODULE_27__.default,
+    component: _components_User_Pontaj_VizualizarePontajUser__WEBPACK_IMPORTED_MODULE_28__.default,
     name: 'vizualizare-pontaj-user'
   }, // Rute pentru admin nomenclator
   {
@@ -9350,13 +10078,17 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_28__.default({
     name: 'nomenclator-judete'
   }, {
     path: '/admin/utilizatori/access',
-    component: _components_Admin_AccesUtilizatori__WEBPACK_IMPORTED_MODULE_19__.default,
+    component: _components_Admin_AccesUtilizatori__WEBPACK_IMPORTED_MODULE_20__.default,
     name: 'utilizatori-acces'
   }, // Rute pentru angajati
   {
     path: '/angajat/:id',
     component: _components_User_Angajat_Angajat__WEBPACK_IMPORTED_MODULE_17__.default,
     name: 'angajat'
+  }, {
+    path: '/angajat/dateplata/:id',
+    component: _components_User_Angajat_DatePlata__WEBPACK_IMPORTED_MODULE_29__.default,
+    name: 'angajat-date-plata'
   }]
 });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (router);
@@ -30334,7 +31066,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#topNavArea[data-v-720c6694]{\n    width: 100%;\n    height: 5vh;\n}\n.dropdown-item[data-v-720c6694]{\n    margin-right: 10px;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n#topNavArea[data-v-720c6694]{\n    width: 100%;\n    height: 5vh;\n}\n.dropdown-item[data-v-720c6694]{\n    margin-right: 10px;\n}\n.user_operator[data-v-720c6694],\n.user_angajat[data-v-720c6694],\n.user_admin[data-v-720c6694]{\n    color: #fff;\n    border-radius: 3px;\n    padding: 10px;\n    font-weight: bolder;\n}\n.user_admin[data-v-720c6694]{\n    background-color: #e55039;\n}\n.user_operator[data-v-720c6694]{\n    background-color: #4a69bd;\n}\n.user_angajat[data-v-720c6694]{\n    background-color: #60a3bc;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -30382,7 +31114,31 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.col-profile[data-v-6e8de2c4]{\n    display: flex;\n    flex-direction: column;\n}\n.row-profile[data-v-6e8de2c4]{\n    display: flex;\n    flex-direction: row;\n    justify-content: space-around;\n}\n.row-profile-template-full[data-v-6e8de2c4]{\n    width: 100%;\n    text-align: center;\n    padding: 5px;\n    font-weight: bold;\n    color: #04ccf6;\n}\n.row-profile-template[data-v-6e8de2c4]{\n    width: 50%;\n    text-align: right;\n    padding: 5px;\n    font-weight: bold;\n}\n.row-profile-info[data-v-6e8de2c4]{\n    width: 50%;\n    text-align: left;\n    padding: 5px;\n}\n.col-info[data-v-6e8de2c4]{\n    padding: 10px;\n    color: #04ccf6;\n    font-weight: bold;\n}\n.col-table table.table[data-v-6e8de2c4]{\n    max-width: 100%;\n    box-sizing: border-box;\n}\n.row-profile-template-full-flex[data-v-6e8de2c4]{\n    display: flex;\n    flex-direction: row;\n    align-items: center;\n}\n.th-td-numar[data-v-6e8de2c4]{\n    display: flex;\n    flex-direction: column;\n    font-weight: normal;\n    justify-items: center;\n    align-items: center;\n}\n.table td[data-v-6e8de2c4],\n.table th[data-v-6e8de2c4]{\n    vertical-align: middle;\n    border: none;\n}\n/* Pentru aceasta componenta */\ntr.mutare[data-v-6e8de2c4]{\n    font-weight: bold;\n    border: 1px solid #6a89cc;\n    background-color: #6a89cc;\n    color: #ffffff;\n}\nspan.angajat-istoric-mutatii[data-v-6e8de2c4]{\n    background-color: #38ada9;\n    color: #ffffff;\n    padding: 8px;\n    border-radius: 5px;\n}\n.col-institutie[data-v-6e8de2c4]{\n    text-align: center;\n}\ntr.mutatii_head[data-v-6e8de2c4]{\n    background-color: #38ada9;\n    color: #ffffff;\n    font-weight: bold;\n}\ntr.salariu_neachitat[data-v-6e8de2c4]{\n    color: #e71e1e;\n}\ntr.salariu_achitat[data-v-6e8de2c4]{\n    color: #38ada9;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.col-profile[data-v-6e8de2c4]{\n    display: flex;\n    flex-direction: column;\n}\n.row-profile[data-v-6e8de2c4]{\n    display: flex;\n    flex-direction: row;\n    justify-content: space-around;\n}\n.row-profile-template-full[data-v-6e8de2c4]{\n    width: 100%;\n    text-align: center;\n    padding: 5px;\n    font-weight: bold;\n    color: #04ccf6;\n}\n.row-profile-template[data-v-6e8de2c4]{\n    width: 50%;\n    text-align: right;\n    padding: 5px;\n    font-weight: bold;\n}\n.row-profile-info[data-v-6e8de2c4]{\n    width: 50%;\n    text-align: left;\n    padding: 5px;\n}\n.col-info[data-v-6e8de2c4]{\n    padding: 10px;\n    color: #04ccf6;\n    font-weight: bold;\n}\n.col-table table.table[data-v-6e8de2c4]{\n    max-width: 100%;\n    box-sizing: border-box;\n}\n.row-profile-template-full-flex[data-v-6e8de2c4]{\n    display: flex;\n    flex-direction: row;\n    align-items: center;\n}\n.th-td-numar[data-v-6e8de2c4]{\n    display: flex;\n    flex-direction: column;\n    font-weight: normal;\n    justify-items: center;\n    align-items: center;\n}\n.table td[data-v-6e8de2c4],\n.table th[data-v-6e8de2c4]{\n    vertical-align: middle;\n    border: none;\n}\n/* Pentru aceasta componenta */\ntr.mutare[data-v-6e8de2c4]{\n    font-weight: bold;\n    border: 1px solid #6a89cc;\n    background-color: #6a89cc;\n    color: #ffffff;\n}\ntr.incetare[data-v-6e8de2c4]{\n    font-weight: bold;\n    border: 1px solid #e74c3c;\n    background-color: rgba(231, 76, 60, 0.7);\n    color: #ffffff;\n}\nspan.angajat-istoric-mutatii[data-v-6e8de2c4]{\n    background-color: #38ada9;\n    color: #ffffff;\n    padding: 8px;\n    border-radius: 5px;\n}\n.col-institutie[data-v-6e8de2c4]{\n    text-align: center;\n}\ntr.mutatii_head[data-v-6e8de2c4]{\n    background-color: #38ada9;\n    color: #ffffff;\n    font-weight: bold;\n}\ntr.salariu_neachitat[data-v-6e8de2c4]{\n    color: #e71e1e;\n}\ntr.salariu_achitat[data-v-6e8de2c4]{\n    color: #38ada9;\n}\n", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-10[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-10[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/User/Angajat/DatePlata.vue?vue&type=style&index=0&id=8895415c&scoped=true&lang=css&":
+/*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-10[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-10[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/User/Angajat/DatePlata.vue?vue&type=style&index=0&id=8895415c&scoped=true&lang=css& ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, "\nspan.badge[data-v-8895415c]{\n    padding: 10px;\n    background-color: #3498db;\n    font-size: 16px;\n    color: #fff;\n}\n.col-12-flexed[data-v-8895415c]{\n    display: flex;\n    flex-direction: row;\n    align-items: center;\n    justify-content: center;\n}\n.col-12-flexed label[data-v-8895415c]{\n    width: 20%;\n    color: #04ccf6;\n    font-weight: bold;\n    text-align: right;\n    padding-right: 10px;\n}\n.col-12-flexed select[data-v-8895415c]{\n    width: 100%;\n}\n.col-12-flexed div[data-v-8895415c] {\n    width: 20%;\n}\n.col-12-flexed div.error[data-v-8895415c] {\n    width: 80%;\n}\n.col-12-flexed-right[data-v-8895415c]{\n    display: flex;\n    flex-direction: row;\n    align-items: center;\n    justify-content: flex-end;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -30407,6 +31163,54 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
 ___CSS_LOADER_EXPORT___.push([module.id, "\n.row-bordered[data-v-57a31be2]{\n    border: 1px solid #273c75;\n    color: #273c75;;\n    display: flex;\n    flex-direction: row;\n    align-items: center;\n    justify-content: center;\n}\n.row-bordered[data-v-57a31be2]{\n    border-radius: 5px;\n}\n.col-12-flexed[data-v-57a31be2]{\n    display: flex;\n    flex-direction: row;\n    align-items: center;\n    justify-content: center;\n}\n.col-12-flexed label[data-v-57a31be2]{\n    width: 20%;\n    color: #04ccf6;\n    font-weight: bold;\n    text-align: right;\n    padding-right: 10px;\n}\n.col-12-flexed select[data-v-57a31be2]{\n    width: 100%;\n}\n.col-12-flexed div[data-v-57a31be2] {\n    width: 20%;\n}\n.col-12-flexed div.error[data-v-57a31be2] {\n    width: 80%;\n}\n.row.row-blue .col-12 span[data-v-57a31be2]{\n    padding: 8px;\n    background-color: #273c75;\n    color: #fff;\n    font-weight: bolder;\n    border-radius: 5px;\n}\n.row.row-green .col-12 span[data-v-57a31be2]{\n    padding: 8px;\n    background-color: #273c75;\n    color: #fff;\n    font-weight: bolder;\n    border-radius: 5px;\n}\n.row.row-pink .col-12 span[data-v-57a31be2]{\n    padding: 8px;\n    background-color: #273c75;\n    color: #fff;\n    font-weight: bolder;\n    border-radius: 5px;\n}\n.btn-adauga-angajat[data-v-57a31be2]{\n    background-color: #273c75;\n    color: #fff;\n    border-radius: 5px;\n    font-weight: bold;\n}\n.eroare[data-v-57a31be2]{\n    font-weight: bold;\n    color: #e74c3c;\n}\n", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-10[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-10[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/User/Management/IncetareAngajat.vue?vue&type=style&index=0&id=078e98ac&scoped=true&lang=css&":
+/*!************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-10[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-10[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/User/Management/IncetareAngajat.vue?vue&type=style&index=0&id=078e98ac&scoped=true&lang=css& ***!
+  \************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, "\n.btn-outline-danger btn-show[data-v-078e98ac]:hover{\n    color: #ffffff;\n    background-color:#e74c3c;\n    border: 2px #e74c3c;\n}\n.tr-angajat[data-v-078e98ac]:hover{\n    font-weight: bolder;\n    color: #38c172;\n    background-color: #fff;\n}\n", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-10[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-10[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/User/Management/IncetareAngajatSelectat.vue?vue&type=style&index=0&id=4cbfdb7b&scoped=true&lang=css&":
+/*!********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-10[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-10[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/User/Management/IncetareAngajatSelectat.vue?vue&type=style&index=0&id=4cbfdb7b&scoped=true&lang=css& ***!
+  \********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, "\n.row-profile[data-v-4cbfdb7b]{\n    display: flex;\n    flex-direction: row;\n    justify-content: space-around;\n}\n.row-profile-template-full[data-v-4cbfdb7b]{\n    width: 100%;\n    text-align: center;\n    padding: 5px;\n    font-weight: bold;\n    color: #04ccf6;\n}\n.row-profile-template[data-v-4cbfdb7b]{\n    width: 50%;\n    text-align: right;\n    padding: 5px;\n    font-weight: bold;\n}\n.row-profile-info[data-v-4cbfdb7b]{\n    width: 50%;\n    text-align: left;\n    padding: 5px;\n}\n.col-info[data-v-4cbfdb7b]{\n    padding: 10px;\n    color: #04ccf6;\n    font-weight: bold;\n}\n.col-table table.table[data-v-4cbfdb7b]{\n    max-width: 100%;\n    box-sizing: border-box;\n}\n.angajat_nenumit_info[data-v-4cbfdb7b]{\n    color: #d63031;\n    font-weight: bolder;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -84383,6 +85187,36 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-10[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-10[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/User/Angajat/DatePlata.vue?vue&type=style&index=0&id=8895415c&scoped=true&lang=css&":
+/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-10[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-10[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/User/Angajat/DatePlata.vue?vue&type=style&index=0&id=8895415c&scoped=true&lang=css& ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_clonedRuleSet_10_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_10_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_DatePlata_vue_vue_type_style_index_0_id_8895415c_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-10[0].rules[0].use[1]!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-10[0].rules[0].use[2]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./DatePlata.vue?vue&type=style&index=0&id=8895415c&scoped=true&lang=css& */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-10[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-10[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/User/Angajat/DatePlata.vue?vue&type=style&index=0&id=8895415c&scoped=true&lang=css&");
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_10_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_10_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_DatePlata_vue_vue_type_style_index_0_id_8895415c_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__.default, options);
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_10_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_10_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_DatePlata_vue_vue_type_style_index_0_id_8895415c_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__.default.locals || {});
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-10[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-10[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/User/Management/AdaugareAngajat.vue?vue&type=style&index=0&id=57a31be2&scoped=true&lang=css&":
 /*!****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-10[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-10[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/User/Management/AdaugareAngajat.vue?vue&type=style&index=0&id=57a31be2&scoped=true&lang=css& ***!
@@ -84410,6 +85244,66 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_10_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_10_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_AdaugareAngajat_vue_vue_type_style_index_0_id_57a31be2_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__.default.locals || {});
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-10[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-10[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/User/Management/IncetareAngajat.vue?vue&type=style&index=0&id=078e98ac&scoped=true&lang=css&":
+/*!****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-10[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-10[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/User/Management/IncetareAngajat.vue?vue&type=style&index=0&id=078e98ac&scoped=true&lang=css& ***!
+  \****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_clonedRuleSet_10_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_10_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_IncetareAngajat_vue_vue_type_style_index_0_id_078e98ac_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-10[0].rules[0].use[1]!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-10[0].rules[0].use[2]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./IncetareAngajat.vue?vue&type=style&index=0&id=078e98ac&scoped=true&lang=css& */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-10[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-10[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/User/Management/IncetareAngajat.vue?vue&type=style&index=0&id=078e98ac&scoped=true&lang=css&");
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_10_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_10_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_IncetareAngajat_vue_vue_type_style_index_0_id_078e98ac_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__.default, options);
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_10_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_10_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_IncetareAngajat_vue_vue_type_style_index_0_id_078e98ac_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__.default.locals || {});
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-10[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-10[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/User/Management/IncetareAngajatSelectat.vue?vue&type=style&index=0&id=4cbfdb7b&scoped=true&lang=css&":
+/*!************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-10[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-10[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/User/Management/IncetareAngajatSelectat.vue?vue&type=style&index=0&id=4cbfdb7b&scoped=true&lang=css& ***!
+  \************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_clonedRuleSet_10_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_10_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_IncetareAngajatSelectat_vue_vue_type_style_index_0_id_4cbfdb7b_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-10[0].rules[0].use[1]!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-10[0].rules[0].use[2]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./IncetareAngajatSelectat.vue?vue&type=style&index=0&id=4cbfdb7b&scoped=true&lang=css& */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-10[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-10[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/User/Management/IncetareAngajatSelectat.vue?vue&type=style&index=0&id=4cbfdb7b&scoped=true&lang=css&");
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_10_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_10_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_IncetareAngajatSelectat_vue_vue_type_style_index_0_id_4cbfdb7b_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__.default, options);
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_10_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_10_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_IncetareAngajatSelectat_vue_vue_type_style_index_0_id_4cbfdb7b_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__.default.locals || {});
 
 /***/ }),
 
@@ -85861,6 +86755,47 @@ component.options.__file = "resources/js/components/User/Angajat/Angajat.vue"
 
 /***/ }),
 
+/***/ "./resources/js/components/User/Angajat/DatePlata.vue":
+/*!************************************************************!*\
+  !*** ./resources/js/components/User/Angajat/DatePlata.vue ***!
+  \************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _DatePlata_vue_vue_type_template_id_8895415c_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./DatePlata.vue?vue&type=template&id=8895415c&scoped=true& */ "./resources/js/components/User/Angajat/DatePlata.vue?vue&type=template&id=8895415c&scoped=true&");
+/* harmony import */ var _DatePlata_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./DatePlata.vue?vue&type=script&lang=js& */ "./resources/js/components/User/Angajat/DatePlata.vue?vue&type=script&lang=js&");
+/* harmony import */ var _DatePlata_vue_vue_type_style_index_0_id_8895415c_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./DatePlata.vue?vue&type=style&index=0&id=8895415c&scoped=true&lang=css& */ "./resources/js/components/User/Angajat/DatePlata.vue?vue&type=style&index=0&id=8895415c&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
+  _DatePlata_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _DatePlata_vue_vue_type_template_id_8895415c_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _DatePlata_vue_vue_type_template_id_8895415c_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  "8895415c",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/User/Angajat/DatePlata.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/User/Chart/PlanetChart.vue":
 /*!************************************************************!*\
   !*** ./resources/js/components/User/Chart/PlanetChart.vue ***!
@@ -85937,6 +86872,88 @@ var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__
 /* hot reload */
 if (false) { var api; }
 component.options.__file = "resources/js/components/User/Management/AdaugareAngajat.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/User/Management/IncetareAngajat.vue":
+/*!*********************************************************************!*\
+  !*** ./resources/js/components/User/Management/IncetareAngajat.vue ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _IncetareAngajat_vue_vue_type_template_id_078e98ac_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./IncetareAngajat.vue?vue&type=template&id=078e98ac&scoped=true& */ "./resources/js/components/User/Management/IncetareAngajat.vue?vue&type=template&id=078e98ac&scoped=true&");
+/* harmony import */ var _IncetareAngajat_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./IncetareAngajat.vue?vue&type=script&lang=js& */ "./resources/js/components/User/Management/IncetareAngajat.vue?vue&type=script&lang=js&");
+/* harmony import */ var _IncetareAngajat_vue_vue_type_style_index_0_id_078e98ac_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./IncetareAngajat.vue?vue&type=style&index=0&id=078e98ac&scoped=true&lang=css& */ "./resources/js/components/User/Management/IncetareAngajat.vue?vue&type=style&index=0&id=078e98ac&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
+  _IncetareAngajat_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _IncetareAngajat_vue_vue_type_template_id_078e98ac_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _IncetareAngajat_vue_vue_type_template_id_078e98ac_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  "078e98ac",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/User/Management/IncetareAngajat.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/User/Management/IncetareAngajatSelectat.vue":
+/*!*****************************************************************************!*\
+  !*** ./resources/js/components/User/Management/IncetareAngajatSelectat.vue ***!
+  \*****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _IncetareAngajatSelectat_vue_vue_type_template_id_4cbfdb7b_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./IncetareAngajatSelectat.vue?vue&type=template&id=4cbfdb7b&scoped=true& */ "./resources/js/components/User/Management/IncetareAngajatSelectat.vue?vue&type=template&id=4cbfdb7b&scoped=true&");
+/* harmony import */ var _IncetareAngajatSelectat_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./IncetareAngajatSelectat.vue?vue&type=script&lang=js& */ "./resources/js/components/User/Management/IncetareAngajatSelectat.vue?vue&type=script&lang=js&");
+/* harmony import */ var _IncetareAngajatSelectat_vue_vue_type_style_index_0_id_4cbfdb7b_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./IncetareAngajatSelectat.vue?vue&type=style&index=0&id=4cbfdb7b&scoped=true&lang=css& */ "./resources/js/components/User/Management/IncetareAngajatSelectat.vue?vue&type=style&index=0&id=4cbfdb7b&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
+  _IncetareAngajatSelectat_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _IncetareAngajatSelectat_vue_vue_type_template_id_4cbfdb7b_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _IncetareAngajatSelectat_vue_vue_type_template_id_4cbfdb7b_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  "4cbfdb7b",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/User/Management/IncetareAngajatSelectat.vue"
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
 
 /***/ }),
@@ -86908,6 +87925,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/User/Angajat/DatePlata.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************!*\
+  !*** ./resources/js/components/User/Angajat/DatePlata.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DatePlata_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./DatePlata.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/User/Angajat/DatePlata.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DatePlata_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
 /***/ "./resources/js/components/User/Chart/PlanetChart.vue?vue&type=script&lang=js&":
 /*!*************************************************************************************!*\
   !*** ./resources/js/components/User/Chart/PlanetChart.vue?vue&type=script&lang=js& ***!
@@ -86937,6 +87970,38 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AdaugareAngajat_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./AdaugareAngajat.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/User/Management/AdaugareAngajat.vue?vue&type=script&lang=js&");
  /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AdaugareAngajat_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
+/***/ "./resources/js/components/User/Management/IncetareAngajat.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************!*\
+  !*** ./resources/js/components/User/Management/IncetareAngajat.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_IncetareAngajat_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./IncetareAngajat.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/User/Management/IncetareAngajat.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_IncetareAngajat_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
+/***/ "./resources/js/components/User/Management/IncetareAngajatSelectat.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************!*\
+  !*** ./resources/js/components/User/Management/IncetareAngajatSelectat.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_IncetareAngajatSelectat_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./IncetareAngajatSelectat.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/User/Management/IncetareAngajatSelectat.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_IncetareAngajatSelectat_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
 
 /***/ }),
 
@@ -87381,6 +88446,19 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/User/Angajat/DatePlata.vue?vue&type=style&index=0&id=8895415c&scoped=true&lang=css&":
+/*!*********************************************************************************************************************!*\
+  !*** ./resources/js/components/User/Angajat/DatePlata.vue?vue&type=style&index=0&id=8895415c&scoped=true&lang=css& ***!
+  \*********************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_10_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_10_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_DatePlata_vue_vue_type_style_index_0_id_8895415c_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/style-loader/dist/cjs.js!../../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-10[0].rules[0].use[1]!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-10[0].rules[0].use[2]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./DatePlata.vue?vue&type=style&index=0&id=8895415c&scoped=true&lang=css& */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-10[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-10[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/User/Angajat/DatePlata.vue?vue&type=style&index=0&id=8895415c&scoped=true&lang=css&");
+
+
+/***/ }),
+
 /***/ "./resources/js/components/User/Management/AdaugareAngajat.vue?vue&type=style&index=0&id=57a31be2&scoped=true&lang=css&":
 /*!******************************************************************************************************************************!*\
   !*** ./resources/js/components/User/Management/AdaugareAngajat.vue?vue&type=style&index=0&id=57a31be2&scoped=true&lang=css& ***!
@@ -87390,6 +88468,32 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_10_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_10_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_AdaugareAngajat_vue_vue_type_style_index_0_id_57a31be2_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/style-loader/dist/cjs.js!../../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-10[0].rules[0].use[1]!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-10[0].rules[0].use[2]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./AdaugareAngajat.vue?vue&type=style&index=0&id=57a31be2&scoped=true&lang=css& */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-10[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-10[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/User/Management/AdaugareAngajat.vue?vue&type=style&index=0&id=57a31be2&scoped=true&lang=css&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/User/Management/IncetareAngajat.vue?vue&type=style&index=0&id=078e98ac&scoped=true&lang=css&":
+/*!******************************************************************************************************************************!*\
+  !*** ./resources/js/components/User/Management/IncetareAngajat.vue?vue&type=style&index=0&id=078e98ac&scoped=true&lang=css& ***!
+  \******************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_10_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_10_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_IncetareAngajat_vue_vue_type_style_index_0_id_078e98ac_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/style-loader/dist/cjs.js!../../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-10[0].rules[0].use[1]!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-10[0].rules[0].use[2]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./IncetareAngajat.vue?vue&type=style&index=0&id=078e98ac&scoped=true&lang=css& */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-10[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-10[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/User/Management/IncetareAngajat.vue?vue&type=style&index=0&id=078e98ac&scoped=true&lang=css&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/User/Management/IncetareAngajatSelectat.vue?vue&type=style&index=0&id=4cbfdb7b&scoped=true&lang=css&":
+/*!**************************************************************************************************************************************!*\
+  !*** ./resources/js/components/User/Management/IncetareAngajatSelectat.vue?vue&type=style&index=0&id=4cbfdb7b&scoped=true&lang=css& ***!
+  \**************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_10_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_10_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_IncetareAngajatSelectat_vue_vue_type_style_index_0_id_4cbfdb7b_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/style-loader/dist/cjs.js!../../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-10[0].rules[0].use[1]!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-10[0].rules[0].use[2]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./IncetareAngajatSelectat.vue?vue&type=style&index=0&id=4cbfdb7b&scoped=true&lang=css& */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-10[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-10[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/User/Management/IncetareAngajatSelectat.vue?vue&type=style&index=0&id=4cbfdb7b&scoped=true&lang=css&");
 
 
 /***/ }),
@@ -87891,6 +88995,23 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/User/Angajat/DatePlata.vue?vue&type=template&id=8895415c&scoped=true&":
+/*!*******************************************************************************************************!*\
+  !*** ./resources/js/components/User/Angajat/DatePlata.vue?vue&type=template&id=8895415c&scoped=true& ***!
+  \*******************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DatePlata_vue_vue_type_template_id_8895415c_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DatePlata_vue_vue_type_template_id_8895415c_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DatePlata_vue_vue_type_template_id_8895415c_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./DatePlata.vue?vue&type=template&id=8895415c&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/User/Angajat/DatePlata.vue?vue&type=template&id=8895415c&scoped=true&");
+
+
+/***/ }),
+
 /***/ "./resources/js/components/User/Chart/PlanetChart.vue?vue&type=template&id=7f4d22c8&":
 /*!*******************************************************************************************!*\
   !*** ./resources/js/components/User/Chart/PlanetChart.vue?vue&type=template&id=7f4d22c8& ***!
@@ -87921,6 +89042,40 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AdaugareAngajat_vue_vue_type_template_id_57a31be2_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AdaugareAngajat_vue_vue_type_template_id_57a31be2_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./AdaugareAngajat.vue?vue&type=template&id=57a31be2&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/User/Management/AdaugareAngajat.vue?vue&type=template&id=57a31be2&scoped=true&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/User/Management/IncetareAngajat.vue?vue&type=template&id=078e98ac&scoped=true&":
+/*!****************************************************************************************************************!*\
+  !*** ./resources/js/components/User/Management/IncetareAngajat.vue?vue&type=template&id=078e98ac&scoped=true& ***!
+  \****************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_IncetareAngajat_vue_vue_type_template_id_078e98ac_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_IncetareAngajat_vue_vue_type_template_id_078e98ac_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_IncetareAngajat_vue_vue_type_template_id_078e98ac_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./IncetareAngajat.vue?vue&type=template&id=078e98ac&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/User/Management/IncetareAngajat.vue?vue&type=template&id=078e98ac&scoped=true&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/User/Management/IncetareAngajatSelectat.vue?vue&type=template&id=4cbfdb7b&scoped=true&":
+/*!************************************************************************************************************************!*\
+  !*** ./resources/js/components/User/Management/IncetareAngajatSelectat.vue?vue&type=template&id=4cbfdb7b&scoped=true& ***!
+  \************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_IncetareAngajatSelectat_vue_vue_type_template_id_4cbfdb7b_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_IncetareAngajatSelectat_vue_vue_type_template_id_4cbfdb7b_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_IncetareAngajatSelectat_vue_vue_type_template_id_4cbfdb7b_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./IncetareAngajatSelectat.vue?vue&type=template&id=4cbfdb7b&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/User/Management/IncetareAngajatSelectat.vue?vue&type=template&id=4cbfdb7b&scoped=true&");
 
 
 /***/ }),
@@ -90132,6 +91287,80 @@ var render = function() {
               _c("ul", { staticClass: "navbar-nav mr-auto mb-2 mb-lg-0 " }, [
                 _vm._m(1),
                 _vm._v(" "),
+                _c("li", { staticClass: "nav-item" }, [
+                  _vm.user === null
+                    ? _c(
+                        "a",
+                        {
+                          staticClass: "nav-link active",
+                          attrs: { "aria-current": "page", href: "/" }
+                        },
+                        [_vm._v("Despre")]
+                      )
+                    : _vm._e()
+                ]),
+                _vm._v(" "),
+                _c("li", { staticClass: "nav-item" }, [
+                  _vm.user === null
+                    ? _c(
+                        "a",
+                        {
+                          staticClass: "nav-link active",
+                          attrs: { "aria-current": "page", href: "/" }
+                        },
+                        [_vm._v("Module")]
+                      )
+                    : _vm._e()
+                ]),
+                _vm._v(" "),
+                _vm.user != null && _vm.user.user_type === 3
+                  ? _c(
+                      "li",
+                      { staticClass: "nav-item" },
+                      [
+                        _c(
+                          "router-link",
+                          {
+                            staticClass: "nav-link active",
+                            attrs: {
+                              to: {
+                                name: "angajat-date-plata",
+                                params: { id: this.user.id }
+                              }
+                            }
+                          },
+                          [_vm._v("Date plata")]
+                        )
+                      ],
+                      1
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.user != null && _vm.user.user_type === 3
+                  ? _c("li", { staticClass: "nav-item dropdown" }, [
+                      _c(
+                        "a",
+                        {
+                          staticClass: "nav-link dropdown-toggle",
+                          attrs: {
+                            href: "#",
+                            id: "angajat_salarii",
+                            role: "button",
+                            "data-bs-toggle": "dropdown",
+                            "aria-expanded": "false"
+                          }
+                        },
+                        [
+                          _vm._v(
+                            "\n                            Salarii\n                        "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _vm._m(2)
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
                 _vm.user != null && _vm.user.user_type === 3
                   ? _c("li", { staticClass: "nav-item dropdown" }, [
                       _c(
@@ -90153,7 +91382,7 @@ var render = function() {
                         ]
                       ),
                       _vm._v(" "),
-                      _vm._m(2)
+                      _vm._m(3)
                     ])
                   : _vm._e(),
                 _vm._v(" "),
@@ -90178,7 +91407,7 @@ var render = function() {
                         ]
                       ),
                       _vm._v(" "),
-                      _vm._m(3)
+                      _vm._m(4)
                     ])
                   : _vm._e(),
                 _vm._v(" "),
@@ -90203,7 +91432,7 @@ var render = function() {
                         ]
                       ),
                       _vm._v(" "),
-                      _vm._m(4)
+                      _vm._m(5)
                     ])
                   : _vm._e(),
                 _vm._v(" "),
@@ -90228,7 +91457,7 @@ var render = function() {
                         ]
                       ),
                       _vm._v(" "),
-                      _vm._m(5)
+                      _vm._m(6)
                     ])
                   : _vm._e(),
                 _vm._v(" "),
@@ -90253,7 +91482,7 @@ var render = function() {
                         ]
                       ),
                       _vm._v(" "),
-                      _vm._m(6)
+                      _vm._m(7)
                     ])
                   : _vm._e(),
                 _vm._v(" "),
@@ -90278,7 +91507,7 @@ var render = function() {
                         ]
                       ),
                       _vm._v(" "),
-                      _vm._m(7)
+                      _vm._m(8)
                     ])
                   : _vm._e(),
                 _vm._v(" "),
@@ -90303,7 +91532,7 @@ var render = function() {
                         ]
                       ),
                       _vm._v(" "),
-                      _vm._m(8)
+                      _vm._m(9)
                     ])
                   : _vm._e(),
                 _vm._v(" "),
@@ -90328,7 +91557,7 @@ var render = function() {
                         ]
                       ),
                       _vm._v(" "),
-                      _vm._m(9)
+                      _vm._m(10)
                     ])
                   : _vm._e(),
                 _vm._v(" "),
@@ -90353,7 +91582,7 @@ var render = function() {
                         ]
                       ),
                       _vm._v(" "),
-                      _vm._m(10)
+                      _vm._m(11)
                     ])
                   : _vm._e(),
                 _vm._v(" "),
@@ -90378,7 +91607,7 @@ var render = function() {
                         ]
                       ),
                       _vm._v(" "),
-                      _vm._m(11)
+                      _vm._m(12)
                     ])
                   : _vm._e()
               ]),
@@ -90426,6 +91655,55 @@ var render = function() {
                                   _c(
                                     "a",
                                     {
+                                      staticClass: "dropdown-item text-center",
+                                      attrs: { href: "" }
+                                    },
+                                    [
+                                      _vm.user != null &&
+                                      _vm.user.user_type === 1
+                                        ? _c(
+                                            "span",
+                                            {
+                                              staticClass:
+                                                "btn btn-block btn-sm user_admin"
+                                            },
+                                            [_vm._v("Administrator")]
+                                          )
+                                        : _vm._e(),
+                                      _vm._v(" "),
+                                      _vm.user != null &&
+                                      _vm.user.user_type === 0
+                                        ? _c(
+                                            "span",
+                                            {
+                                              staticClass:
+                                                "btn btn-block btn-sm user_operator"
+                                            },
+                                            [_vm._v("Operator")]
+                                          )
+                                        : _vm._e(),
+                                      _vm._v(" "),
+                                      _vm.user != null &&
+                                      _vm.user.user_type === 3
+                                        ? _c(
+                                            "span",
+                                            {
+                                              staticClass:
+                                                "btn btn-block btn-sm user_angajat"
+                                            },
+                                            [_vm._v("Angajat")]
+                                          )
+                                        : _vm._e()
+                                    ]
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _vm._m(13),
+                                _vm._v(" "),
+                                _c("li", [
+                                  _c(
+                                    "a",
+                                    {
                                       staticClass: "dropdown-item",
                                       attrs: {
                                         href: "/user/profile/" + _vm.user.id
@@ -90445,7 +91723,7 @@ var render = function() {
                                   )
                                 ]),
                                 _vm._v(" "),
-                                _vm._m(12),
+                                _vm._m(14),
                                 _vm._v(" "),
                                 this.esteAdministrator
                                   ? _c("li", [
@@ -90484,7 +91762,7 @@ var render = function() {
                                   : _vm._e(),
                                 _vm._v(" "),
                                 this.esteAdministrator
-                                  ? _c("li", [_vm._m(13)])
+                                  ? _c("li", [_vm._m(15)])
                                   : _vm._e(),
                                 _vm._v(" "),
                                 _c("li", [
@@ -90636,6 +91914,31 @@ var staticRenderFns = [
         [_vm._v("Acasa")]
       )
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "ul",
+      {
+        staticClass: "dropdown-menu",
+        attrs: { "aria-labelledby": "navbarDropdown" }
+      },
+      [
+        _c("li", [
+          _c("a", { staticClass: "dropdown-item", attrs: { href: "/" } }, [
+            _vm._v("Vizualizare")
+          ])
+        ]),
+        _vm._v(" "),
+        _c("li", [
+          _c("a", { staticClass: "dropdown-item", attrs: { href: "/" } }, [
+            _vm._v("Export")
+          ])
+        ])
+      ]
+    )
   },
   function() {
     var _vm = this
@@ -90856,7 +92159,7 @@ var staticRenderFns = [
             "a",
             {
               staticClass: "dropdown-item dropdown-item-flex",
-              attrs: { href: "/user/incetare_angajat" }
+              attrs: { href: "/user/angajat/incetare_angajat" }
             },
             [
               _c("img", {
@@ -91375,6 +92678,12 @@ var staticRenderFns = [
         ])
       ]
     )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", [_c("hr", { staticClass: "dropdown-divider" })])
   },
   function() {
     var _vm = this
@@ -91975,10 +93284,14 @@ var render = function() {
                             return _c(
                               "tr",
                               {
-                                class:
-                                  mutatie.mutatie_fel_mutatie == 0
+                                class: [
+                                  mutatie.mutatie_fel_mutatie === 0
                                     ? "numire"
-                                    : "mutare"
+                                    : "mutare",
+                                  mutatie.mutatie_fel_mutatie === 6
+                                    ? "incetare"
+                                    : ""
+                                ]
                               },
                               [
                                 _c("td", { attrs: { scope: "col" } }, [
@@ -92013,6 +93326,28 @@ var render = function() {
                                     )
                                   ]
                                 ),
+                                _vm._v(" "),
+                                mutatie.mutatie_fel_mutatie === 5
+                                  ? _c(
+                                      "td",
+                                      {
+                                        staticClass: "text-center",
+                                        attrs: { scope: "col" }
+                                      },
+                                      [_vm._v("Angajare")]
+                                    )
+                                  : _vm._e(),
+                                _vm._v(" "),
+                                mutatie.mutatie_fel_mutatie === 6
+                                  ? _c(
+                                      "td",
+                                      {
+                                        staticClass: "text-center",
+                                        attrs: { scope: "col" }
+                                      },
+                                      [_vm._v("Incetare Contract")]
+                                    )
+                                  : _vm._e(),
                                 _vm._v(" "),
                                 mutatie.mutatie_fel_mutatie === 0
                                   ? _c(
@@ -92522,6 +93857,277 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/User/Angajat/DatePlata.vue?vue&type=template&id=8895415c&scoped=true&":
+/*!**********************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/User/Angajat/DatePlata.vue?vue&type=template&id=8895415c&scoped=true& ***!
+  \**********************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "container-fluid" },
+    [
+      _c("top-nav"),
+      _vm._v(" "),
+      _vm.loading === false
+        ? _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "container mt-4 container-angajati" }, [
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-12 my-4" }, [
+                  _c("span", { staticClass: "badge" }, [
+                    _vm._v(
+                      "Date de plata Angajat " +
+                        _vm._s(
+                          this.user.user_first_name +
+                            " " +
+                            this.user.user_last_name
+                        )
+                    )
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "row mt-3 p-1" }, [
+                _c("div", { staticClass: "col-12 col-12-flexed form-group" }, [
+                  _c(
+                    "label",
+                    {
+                      staticClass: "form-label",
+                      attrs: { for: "angajat_institutie" }
+                    },
+                    [_vm._v("Tip Plata")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.date_plata.dp_tip_plata,
+                          expression: "date_plata.dp_tip_plata"
+                        }
+                      ],
+                      staticClass: "form-control form-select",
+                      attrs: { id: "angajat_institutie" },
+                      on: {
+                        change: [
+                          function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.$set(
+                              _vm.date_plata,
+                              "dp_tip_plata",
+                              $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            )
+                          },
+                          _vm.preluareBanci
+                        ]
+                      }
+                    },
+                    [
+                      _c("option", { attrs: { value: "1" } }, [
+                        _vm._v("Card Bancar")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "2" } }, [
+                        _vm._v("Casierie")
+                      ])
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _vm.date_plata.dp_tip_plata == 1
+                  ? _c(
+                      "div",
+                      { staticClass: "col-12 col-12-flexed form-group" },
+                      [
+                        _c(
+                          "label",
+                          {
+                            staticClass: "form-label",
+                            attrs: { for: "angajat_banca" }
+                          },
+                          [_vm._v("Banca")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.date_plata.dp_banca_id,
+                                expression: "date_plata.dp_banca_id"
+                              }
+                            ],
+                            staticClass: "form-control form-select",
+                            attrs: { id: "angajat_banca" },
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.$set(
+                                  _vm.date_plata,
+                                  "dp_banca_id",
+                                  $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                )
+                              }
+                            }
+                          },
+                          _vm._l(_vm.banci, function(banca) {
+                            return _c(
+                              "option",
+                              { domProps: { value: banca.id } },
+                              [_vm._v(_vm._s(banca.db_denumire))]
+                            )
+                          }),
+                          0
+                        )
+                      ]
+                    )
+                  : _vm._e()
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "row p-1 mt-2" }, [
+                _c("div", { staticClass: "col-12 col-12-flexed" }, [
+                  _c(
+                    "label",
+                    {
+                      staticClass: "form-label",
+                      attrs: { for: "numar_act_mutare" }
+                    },
+                    [_vm._v("CONT IBAN: ")]
+                  ),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.date_plata.dp_cont_iban,
+                        expression: "date_plata.dp_cont_iban"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "text", id: "numar_act_mutare" },
+                    domProps: { value: _vm.date_plata.dp_cont_iban },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(
+                          _vm.date_plata,
+                          "dp_cont_iban",
+                          $event.target.value
+                        )
+                      }
+                    }
+                  })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "row p-1 mt-2" }, [
+                _c("div", { staticClass: "col-12 col-12-flexed" }, [
+                  _c(
+                    "label",
+                    {
+                      staticClass: "form-label",
+                      attrs: { for: "titular_cont_bancar" }
+                    },
+                    [_vm._v("Titular cont bancar: ")]
+                  ),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.date_plata.dp_titular_cont,
+                        expression: "date_plata.dp_titular_cont"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "text", id: "titular_cont_bancar" },
+                    domProps: { value: _vm.date_plata.dp_titular_cont },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(
+                          _vm.date_plata,
+                          "dp_titular_cont",
+                          $event.target.value
+                        )
+                      }
+                    }
+                  })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "row p-1 mt-2" }, [
+                _c("div", { staticClass: "col-12 col-12-flexed-right" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-outline-primary",
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          return _vm.salvareDateBancare($event)
+                        }
+                      }
+                    },
+                    [_vm._v("Salveaza datele")]
+                  )
+                ])
+              ])
+            ])
+          ])
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.loading === true ? _c("loading-component") : _vm._e()
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/User/Chart/PlanetChart.vue?vue&type=template&id=7f4d22c8&":
 /*!**********************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/User/Chart/PlanetChart.vue?vue&type=template&id=7f4d22c8& ***!
@@ -92597,6 +94203,129 @@ var render = function() {
               _vm._m(0),
               _vm._v(" "),
               _vm._m(1),
+              _vm._v(" "),
+              _c("div", { staticClass: "row p-1 mt-2" }, [
+                _c("div", { staticClass: "col-12 col-12-flexed" }, [
+                  _c(
+                    "label",
+                    {
+                      staticClass: "form-label",
+                      attrs: { for: "numar_act_mutare" }
+                    },
+                    [_vm._v("Numarul actului administrativ: ")]
+                  ),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.angajat_nou.numar_act_angajare,
+                        expression: "angajat_nou.numar_act_angajare"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "text", id: "numar_act_mutare" },
+                    domProps: { value: _vm.angajat_nou.numar_act_angajare },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(
+                          _vm.angajat_nou,
+                          "numar_act_angajare",
+                          $event.target.value
+                        )
+                      }
+                    }
+                  })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "row p-1" }, [
+                _c("div", { staticClass: "col-12 col-12-flexed" }, [
+                  _c(
+                    "label",
+                    {
+                      staticClass: "form-label",
+                      attrs: { for: "data_emitere_act" }
+                    },
+                    [_vm._v("Data emitere act administrativ: ")]
+                  ),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.angajat_nou.data_emitere_act_angajare,
+                        expression: "angajat_nou.data_emitere_act_angajare"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "date", id: "data_emitere_act" },
+                    domProps: {
+                      value: _vm.angajat_nou.data_emitere_act_angajare
+                    },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(
+                          _vm.angajat_nou,
+                          "data_emitere_act_angajare",
+                          $event.target.value
+                        )
+                      }
+                    }
+                  })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "row p-1" }, [
+                _c("div", { staticClass: "col-12 col-12-flexed" }, [
+                  _c(
+                    "label",
+                    {
+                      staticClass: "form-label",
+                      attrs: { for: "data_aplicare_act_angajare" }
+                    },
+                    [_vm._v("Data aplicare act administrativ: ")]
+                  ),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.angajat_nou.data_aplicare_act_angajare,
+                        expression: "angajat_nou.data_aplicare_act_angajare"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "date", id: "data_aplicare_act_angajare" },
+                    domProps: {
+                      value: _vm.angajat_nou.data_aplicare_act_angajare
+                    },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(
+                          _vm.angajat_nou,
+                          "data_aplicare_act_angajare",
+                          $event.target.value
+                        )
+                      }
+                    }
+                  })
+                ])
+              ]),
+              _vm._v(" "),
+              _vm._m(2),
               _vm._v(" "),
               _c("div", { staticClass: "row p-1" }, [
                 _c("div", { staticClass: "col-12 col-12-flexed" }, [
@@ -93245,7 +94974,7 @@ var render = function() {
                 ])
               ]),
               _vm._v(" "),
-              _vm._m(2),
+              _vm._m(3),
               _vm._v(" "),
               _c("div", { staticClass: "row p-1" }, [
                 _c("div", { staticClass: "col-12 col-12-flexed form-group" }, [
@@ -93741,11 +95470,11 @@ var render = function() {
                 ])
               ]),
               _vm._v(" "),
-              _vm._m(3),
+              _vm._m(4),
               _vm._v(" "),
               _c("div", { staticClass: "row p-1" }, [
                 _c("div", { staticClass: "col-12 col-12-flexed" }, [
-                  _vm._m(4),
+                  _vm._m(5),
                   _vm._v(" "),
                   _c("input", {
                     directives: [
@@ -93777,7 +95506,7 @@ var render = function() {
               _vm._v(" "),
               _c("div", { staticClass: "row p-1" }, [
                 _c("div", { staticClass: "col-12 col-12-flexed" }, [
-                  _vm._m(5),
+                  _vm._m(6),
                   _vm._v(" "),
                   _c("input", {
                     directives: [
@@ -93809,7 +95538,7 @@ var render = function() {
               _vm._v(" "),
               _c("div", { staticClass: "row p-1" }, [
                 _c("div", { staticClass: "col-12 col-12-flexed" }, [
-                  _vm._m(6),
+                  _vm._m(7),
                   _vm._v(" "),
                   _c("input", {
                     directives: [
@@ -93841,7 +95570,7 @@ var render = function() {
               _vm._v(" "),
               _c("div", { staticClass: "row p-1" }, [
                 _c("div", { staticClass: "col-12 col-12-flexed" }, [
-                  _vm._m(7),
+                  _vm._m(8),
                   _vm._v(" "),
                   _c("input", {
                     directives: [
@@ -93934,6 +95663,16 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "row row-blue mt-2" }, [
       _c("div", { staticClass: "col-12 p-1" }, [
+        _c("span", [_vm._v("Date Angajare")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row row-blue mt-2" }, [
+      _c("div", { staticClass: "col-12 p-1" }, [
         _c("span", [_vm._v("Date Personale")])
       ])
     ])
@@ -94017,6 +95756,512 @@ var staticRenderFns = [
         })
       ]
     )
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/User/Management/IncetareAngajat.vue?vue&type=template&id=078e98ac&scoped=true&":
+/*!*******************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/User/Management/IncetareAngajat.vue?vue&type=template&id=078e98ac&scoped=true& ***!
+  \*******************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "container-fluid" },
+    [
+      _c("top-nav"),
+      _vm._v(" "),
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "container mt-4 container-angajati" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c("div", { staticClass: "row mt-2" }, [
+            _c("div", { staticClass: "col-12" }, [
+              _c("table", { staticClass: "table" }, [
+                _vm._m(1),
+                _vm._v(" "),
+                _c(
+                  "tbody",
+                  { staticClass: "angajati" },
+                  _vm._l(_vm.lista_angajati, function(angajat, index) {
+                    return angajat.angajat_status != 0
+                      ? _c("tr", { staticClass: "tr-angajat" }, [
+                          _c("th", { attrs: { scope: "row" } }, [
+                            _vm._v(_vm._s(index + 1))
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(angajat.angajat_nume))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(angajat.angajat_prenume))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(angajat.angajat_cnp))]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _vm._v(_vm._s(angajat.angajat_institutie))
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(angajat.angajat_functie))]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _c(
+                              "a",
+                              {
+                                staticClass:
+                                  "btn btn-sm btn-outline-danger btn-show",
+                                attrs: {
+                                  href:
+                                    "/user/angajat/incetare_angajat/" +
+                                    angajat.angajat_id
+                                }
+                              },
+                              [_vm._v("Incetare Contract")]
+                            )
+                          ])
+                        ])
+                      : _vm._e()
+                  }),
+                  0
+                )
+              ])
+            ])
+          ])
+        ])
+      ])
+    ],
+    1
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-12 d-flex mb-2" }, [
+        _c("input", {
+          staticClass: "form-control me-2",
+          attrs: {
+            type: "search",
+            placeholder: "Introduceti numele angajatului ...",
+            "aria-label": "Search"
+          }
+        }),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-outline-success ml-1",
+            attrs: { type: "submit" }
+          },
+          [_vm._v("Cauta")]
+        )
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", { staticClass: "bg-success text-white" }, [
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("#")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Nume")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Prenume")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("CNP")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Institutia")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Functia")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Mutare")])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/User/Management/IncetareAngajatSelectat.vue?vue&type=template&id=4cbfdb7b&scoped=true&":
+/*!***************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/User/Management/IncetareAngajatSelectat.vue?vue&type=template&id=4cbfdb7b&scoped=true& ***!
+  \***************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "container-fluid" },
+    [
+      _c("top-nav"),
+      _vm._v(" "),
+      _vm.loading === false
+        ? _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "container mt-4 container-angajati" }, [
+              _c("div", { staticClass: "row mt-2" }, [
+                _c("div", { staticClass: "col-4 col-profile" }, [
+                  _vm._m(0),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "row-profile" }, [
+                    _c("div", { staticClass: "row-profile-template" }, [
+                      _vm._v("Nume")
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "row-profile-info" }, [
+                      _vm._v(
+                        " " + _vm._s(_vm.date_angajat.angajat_date.angajat_nume)
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "row-profile" }, [
+                    _c("div", { staticClass: "row-profile-template" }, [
+                      _vm._v("Prenume")
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "row-profile-info" }, [
+                      _vm._v(
+                        _vm._s(_vm.date_angajat.angajat_date.angajat_prenume)
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "row-profile" }, [
+                    _c("div", { staticClass: "row-profile-template" }, [
+                      _vm._v("Data nasterii")
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "row-profile-info" }, [
+                      _vm._v(
+                        _vm._s(
+                          _vm.date_angajat.angajat_date.angajat_data_nasterii
+                        )
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "row-profile" }, [
+                    _c("div", { staticClass: "row-profile-template" }, [
+                      _vm._v("Varsta")
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "row-profile-info" }, [
+                      _vm._v(
+                        _vm._s(_vm.date_angajat.angajat_date.angajat_varsta) +
+                          " ani"
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "row-profile" }, [
+                    _c("div", { staticClass: "row-profile-template" }, [
+                      _vm._v("Institutie")
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "row-profile-info" }, [
+                      _vm._v(_vm._s(_vm.date_angajat.angajat_institutie))
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "row-profile" }, [
+                    _c("div", { staticClass: "row-profile-template" }, [
+                      _vm._v("Functie")
+                    ]),
+                    _vm._v(" "),
+                    _vm.date_angajat.angajat_functie !== null
+                      ? _c("div", { staticClass: "row-profile-info" }, [
+                          _vm._v(_vm._s(_vm.date_angajat.angajat_functie))
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm.date_angajat.angajat_functie === null
+                      ? _c("div", { staticClass: "row-profile-info" }, [
+                          _c("span", { staticClass: "angajat_nenumit_info" }, [
+                            _vm._v("Nu este numit.")
+                          ])
+                        ])
+                      : _vm._e()
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-8" }, [
+                  _c("div", { staticClass: "container-fluid" }, [
+                    _c("div", { staticClass: "row" }, [
+                      _c(
+                        "div",
+                        { staticClass: "col-12 col-info p-2 text-center" },
+                        [
+                          _vm._v(
+                            "\n                                Mutare angajat\n                            "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-12 p-2" }, [
+                        _c("form", [
+                          _c("div", { staticClass: "mb-3" }, [
+                            _c(
+                              "label",
+                              {
+                                staticClass: "form-label",
+                                attrs: { for: "numar_act_mutare" }
+                              },
+                              [_vm._v("Numarul actului administrativ: ")]
+                            ),
+                            _vm._v(" "),
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value:
+                                    _vm.incetare_contract
+                                      .numar_act_administrativ,
+                                  expression:
+                                    "incetare_contract.numar_act_administrativ"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: { type: "text", id: "numar_act_mutare" },
+                              domProps: {
+                                value:
+                                  _vm.incetare_contract.numar_act_administrativ
+                              },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.incetare_contract,
+                                    "numar_act_administrativ",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "mb-3" }, [
+                            _c(
+                              "label",
+                              {
+                                staticClass: "form-label",
+                                attrs: { for: "data_emitere_act" }
+                              },
+                              [_vm._v("Data emitere act administrativ: ")]
+                            ),
+                            _vm._v(" "),
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value:
+                                    _vm.incetare_contract
+                                      .data_emitere_act_administrativ,
+                                  expression:
+                                    "incetare_contract.data_emitere_act_administrativ"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: { type: "date", id: "data_emitere_act" },
+                              domProps: {
+                                value:
+                                  _vm.incetare_contract
+                                    .data_emitere_act_administrativ
+                              },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.incetare_contract,
+                                    "data_emitere_act_administrativ",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "mb-3" }, [
+                            _c(
+                              "label",
+                              {
+                                staticClass: "form-label",
+                                attrs: { for: "data_aplicare_act" }
+                              },
+                              [_vm._v("Data aplicare act administrativ: ")]
+                            ),
+                            _vm._v(" "),
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value:
+                                    _vm.incetare_contract
+                                      .data_aplicare_act_administrativ,
+                                  expression:
+                                    "incetare_contract.data_aplicare_act_administrativ"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: { type: "date", id: "data_aplicare_act" },
+                              domProps: {
+                                value:
+                                  _vm.incetare_contract
+                                    .data_aplicare_act_administrativ
+                              },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.incetare_contract,
+                                    "data_aplicare_act_administrativ",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _vm.motive_incetare !== null
+                            ? _c("div", { staticClass: "mb-3" }, [
+                                _c(
+                                  "label",
+                                  {
+                                    staticClass: "form-label",
+                                    attrs: { for: "mutare_angajat_institutie" }
+                                  },
+                                  [_vm._v("Selectati motiv incetare: ")]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "select",
+                                  {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value:
+                                          _vm.incetare_contract.incetare_motiv,
+                                        expression:
+                                          "incetare_contract.incetare_motiv"
+                                      }
+                                    ],
+                                    staticClass: "form-control form-select",
+                                    attrs: { id: "mutare_angajat_institutie" },
+                                    on: {
+                                      change: function($event) {
+                                        var $$selectedVal = Array.prototype.filter
+                                          .call($event.target.options, function(
+                                            o
+                                          ) {
+                                            return o.selected
+                                          })
+                                          .map(function(o) {
+                                            var val =
+                                              "_value" in o ? o._value : o.value
+                                            return val
+                                          })
+                                        _vm.$set(
+                                          _vm.incetare_contract,
+                                          "incetare_motiv",
+                                          $event.target.multiple
+                                            ? $$selectedVal
+                                            : $$selectedVal[0]
+                                        )
+                                      }
+                                    }
+                                  },
+                                  _vm._l(_vm.motive_incetare, function(mic) {
+                                    return _c(
+                                      "option",
+                                      { domProps: { value: mic.id } },
+                                      [_vm._v(_vm._s(mic.mic_denumire))]
+                                    )
+                                  }),
+                                  0
+                                )
+                              ])
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-danger btn-block",
+                              attrs: {
+                                type: "submit",
+                                disabled: _vm.incetareValida === false
+                              },
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.incetareContract()
+                                }
+                              }
+                            },
+                            [_vm._v("Incetare Contract")]
+                          )
+                        ])
+                      ])
+                    ])
+                  ])
+                ])
+              ])
+            ])
+          ])
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.loading === true ? _c("loading-component") : _vm._e()
+    ],
+    1
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row-profile" }, [
+      _c("div", { staticClass: "row-profile-template-full p-2" }, [
+        _vm._v("Date Angajat")
+      ])
+    ])
   }
 ]
 render._withStripped = true

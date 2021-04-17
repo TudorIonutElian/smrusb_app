@@ -20,7 +20,7 @@ class PontajController extends Controller
         $pontaj_existent = Pontaj::where([
                 'pl_institutie'     => $institutie,
                 'pl_angajat'        => $request->pontaj['pontaj_angajat_id'],
-                'pl_start_date'     => Carbon::now()->startOfMonth()->format('Y-m-d')
+                'pl_start_date'     => $request->pontaj['pontaj_data_inceput']
         ])->first();
 
         if(is_object($pontaj_existent)){

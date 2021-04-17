@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Judet;
 use App\Models\Localitate;
+use App\Models\MotivIncetareContract;
 use App\Models\Regiune;
-use Illuminate\Http\Request;
 
 class DataController extends Controller
 {
@@ -19,5 +19,8 @@ class DataController extends Controller
             'judete'            => $judete,
             'localitati'        => $localitati
         ]);
+    }
+    public function preluareMotiveIncetareContract(){
+        return MotivIncetareContract::all();
     }
 }

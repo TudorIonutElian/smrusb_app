@@ -123,19 +123,28 @@
                                         <th scope="col">Functia</th>
                                         <th scope="col">Coeficient</th>
                                         <th scope="col">Suma</th>
-
                                     </tr>
                                     </thead>
                                     <tbody>
                                         <tr
                                             v-for="(mutatie, index) in date_fisa.date_mutatii"
-                                            v-bind:class="mutatie.mutatie_fel_mutatie == 0 ? 'numire' : 'mutare'"
+                                            v-bind:class="[
+                                                mutatie.mutatie_fel_mutatie === 0 ? 'numire' : 'mutare',
+                                                mutatie.mutatie_fel_mutatie === 6 ? 'incetare' : '',
+                                            ]"
                                         >
+                                            <!-- Coloana Index -->
                                             <td scope="col">{{index + 1}}</td>
+                                            <!-- Coloana Numar act -->
                                             <td scope="col">{{mutatie.mutatie_act_numar}}</td>
+                                            <!-- Coloana Data Aplicare -->
                                             <td scope="col">{{mutatie.mutatie_act_data_aplicare}}</td>
+                                            <!-- Coloana Data Emitere -->
                                             <td scope="col">{{mutatie.mutatie_act_data_emitere}}</td>
+                                            <!-- Coloana Denumire Institutie -->
                                             <td scope="col" class="col-institutie">{{mutatie.mutatie_institutie}} </td>
+                                            <td scope="col" class="text-center" v-if="mutatie.mutatie_fel_mutatie === 5">Angajare</td>
+                                            <td scope="col" class="text-center" v-if="mutatie.mutatie_fel_mutatie === 6">Incetare Contract</td>
                                             <td scope="col" class="text-center" v-if="mutatie.mutatie_fel_mutatie === 0">Numire</td>
                                             <td scope="col" class="text-center" v-if="mutatie.mutatie_fel_mutatie === 1">Mutare</td>
                                             <td scope="col" v-if="mutatie.mutatie_cuprins !== null">{{mutatie.mutatie_cuprins}}</td>
@@ -148,8 +157,6 @@
                                             <td scope="col" v-if="mutatie.mutatie_functie === null"></td>
                                             <td scope="col" v-if="mutatie.mutatie_functie">{{mutatie.mutatie_functie.functie_suma}}</td>
                                             <td scope="col" v-if="mutatie.mutatie_functie === null"></td>
-
-
                                         </tr>
                                     </tbody>
                                 </table>
@@ -401,6 +408,12 @@ tr.mutare{
     font-weight: bold;
     border: 1px solid #6a89cc;
     background-color: #6a89cc;
+    color: #ffffff;
+}
+tr.incetare{
+    font-weight: bold;
+    border: 1px solid #e74c3c;
+    background-color: rgba(231, 76, 60, 0.7);
     color: #ffffff;
 }
 span.angajat-istoric-mutatii{

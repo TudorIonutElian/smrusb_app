@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\DatePozitiiSalarii;
 use App\Http\Resources\DateSalariiInstitutie;
+use App\Models\DateBanca;
 use App\Models\Institutii;
 use App\Models\Pontaj;
 use App\Models\PozitiiOrganizare;
@@ -82,5 +83,8 @@ class SalariiController extends Controller
                 }
             }
         }
+    }
+    public function preluareDateBanci(){
+        return DateBanca::all('id', 'db_denumire')->sortBy('db_denumire');
     }
 }

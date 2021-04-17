@@ -31,6 +31,7 @@ import SolicitareAcces from '../components/User/Management/SolicitareAcces';
 import NomenclatorRegiuni from '../components/Admin/Nomenclator/Regiuni';
 import NomenclatorJudete from '../components/Admin/Nomenclator/Judete';
 import Angajat from "../components/User/Angajat/Angajat";
+import IncetareAngajat from "../components/User/Management/IncetareAngajat";
 import VizualizareStat from "../components/User/Stat/VizualizareStat";
 import AccesUtilizatori from "../components/Admin/AccesUtilizatori";
 
@@ -44,6 +45,8 @@ import GenerareSalarii from "../components/User/Salarii/GenerareSalarii";
 import VizualizareSalarii from "../components/User/Salarii/VizualizareSalarii";
 import AdaugarePontaj from "../components/User/Pontaj/AdaugarePontaj";
 import VizualizarePontajUser from "../components/User/Pontaj/VizualizarePontajUser";
+import DatePlata from "../components/User/Angajat/DatePlata";
+import IncetareAngajatSelectat from "../components/User/Management/IncetareAngajatSelectat";
 
 const router = new VueRouter({
     mode: 'history',
@@ -77,6 +80,8 @@ const router = new VueRouter({
         {path: '/user/adauga_angajat', component: AdaugaAngajat, name: 'adauga-angajat'},
         {path: '/user/mutare_angajat', component: MutareAngajat, name: 'mutare-angajat'},
         {path: '/user/mutare_angajat/:id', component: MutareAngajatSelectat, name: 'mutare-angajat-selectat'},
+        {path: '/user/angajat/incetare_angajat', component: IncetareAngajat, name: 'incetare-pontaj'},
+        {path: '/user/angajat/incetare_angajat/:id', component: IncetareAngajatSelectat, name: 'incetare-pontaj'},
 
 
         {path: '/user/numire_angajat', component: NumireAngajat, name: 'numire-angajat'},
@@ -113,6 +118,7 @@ const router = new VueRouter({
 
         // Rute pentru angajati
         {path: '/angajat/:id', component: Angajat, name: 'angajat'},
+        {path: '/angajat/dateplata/:id', component: DatePlata, name: 'angajat-date-plata'},
     ]
 });
 

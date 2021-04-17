@@ -48,13 +48,18 @@ export default {
         }
     },
     async created() {
-        console.log(this.$route.query)
-        if(this.$route.query.status){
-            this.$notify({
-                group: 'login',
-                title: 'Inregistrare Ok!',
-                text: 'Contul a fost creat!',
-                type: 'success'
+        if(this.$route.query.status === "succes"){
+            Vue.$toast.open({
+                message: 'Contul a fost creat!',
+                type: 'success',
+                // all of other options may go here
+            });
+        }
+        if(this.$route.query.status === "deconectat"){
+            Vue.$toast.open({
+                message: 'V-ati deconectat!',
+                type: 'info',
+                // all of other options may go here
             });
         }
         await this.checkUserLoggedIn();
