@@ -29,6 +29,7 @@ class CreateAngajatiTable extends Migration
             $table->unsignedInteger('angajat_institutie_curenta')->nullable();
             $table->unsignedInteger('angajat_localitate_nastere')->nullable();
             $table->unsignedInteger('angajat_pozitie_curenta')->nullable();
+            $table->unsignedBigInteger('angajat_adaugat_by')->nullable();
             $table->boolean('angajat_status')->default(true);
 
         });

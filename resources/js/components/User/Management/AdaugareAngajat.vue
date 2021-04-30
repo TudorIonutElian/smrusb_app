@@ -494,7 +494,8 @@ export default {
                 // date angajare
                 numar_act_angajare: "",
                 data_emitere_act_angajare: "",
-                data_aplicare_act_angajare: ""
+                data_aplicare_act_angajare: "",
+                user_added_by: JSON.parse(localStorage.getItem('user')).id
             },
             erori:{
                 nume: false,
@@ -657,19 +658,17 @@ export default {
                     }
                 }).then(response => {
                     if(response.data.cod === '001'){
-                        this.$notify({
-                            group: 'angajat',
-                            title: 'Angajat Adaugat',
-                            text: 'Angajatul a fost salvat in baza de date!',
-                            type: 'success'
+                        Vue.$toast.open({
+                            message: 'Angajatul a fost salvat in baza de date!',
+                            type: 'success',
+                            // all of other options may go here
                         });
                         router.push({name: 'user-dashboard'});
                     }else if(response.data.cod === '000'){
-                        this.$notify({
-                            group: 'angajat',
-                            title: 'Eroare',
-                            text: 'CNP duplicat! Angajatul exista deja',
-                            type: 'warn'
+                        Vue.$toast.open({
+                            message: 'CNP duplicat! Angajatul exista deja',
+                            type: 'error',
+                            // all of other options may go here
                         });
                     }
                 })

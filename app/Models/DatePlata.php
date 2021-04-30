@@ -15,6 +15,10 @@ class DatePlata extends Model
     public $timestamps = false;
 
     public function angajat(){
-        return $this->belongsTo(Angajat::class, 'dp_angajat', 'id');
+        return $this->hasOne(Angajat::class, 'id');
+    }
+
+    public function banca(){
+        return $this->hasOne(DateBanca::class, 'id', 'dp_banca');
     }
 }

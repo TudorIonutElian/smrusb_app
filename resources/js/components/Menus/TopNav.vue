@@ -28,6 +28,9 @@
                         <li class="nav-item" v-if="user != null && user.user_type === 3">
                             <router-link class="nav-link active" :to="{ name: 'angajat-date-plata', params: { id: this.user.id}}">Date plata</router-link>
                         </li>
+                        <li class="nav-item" v-if="user != null && user.user_type === 3">
+                            <router-link class="nav-link active" :to="{ name: 'angajat-adrese', params: { id: this.user.id}}">Adrese</router-link>
+                        </li>
                         <li class="nav-item dropdown" v-if="user != null && user.user_type === 3">
                             <a class="nav-link dropdown-toggle" href="#" id="angajat_salarii" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Salarii
@@ -93,8 +96,8 @@
                                 </li>
                                 <li>
                                     <a class="dropdown-item dropdown-item-flex" href="/user/angajat/incetare_angajat">
-                                        <img class="mr-2" src="/images/usermove.png" alt="">
-                                        <span style="color: red">Incetare raport</span>
+                                        <img class="mr-2" src="/images/incetarecontract.png" alt="">
+                                        <span>Incetare raport</span>
                                     </a>
                                 </li>
                                 <li>
@@ -117,13 +120,13 @@
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li>
-                                    <a class="dropdown-item dropdown-item-flex" href="/user/adauga_angajat">
+                                    <a class="dropdown-item dropdown-item-flex" href="/user/evaluare/vizualizare">
                                         <img class="mr-2" src="/images/evaluare.png" alt="">
                                         <span style="color: red">Vizualizare</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item dropdown-item-flex" href="/user/adauga_angajat">
+                                    <a class="dropdown-item dropdown-item-flex" href="/user/evaluare/adaugare">
                                         <img class="mr-2" src="/images/evaluare_adaugare.png" alt="">
                                         <span style="color: red">Adaugare</span>
                                     </a>
@@ -213,7 +216,7 @@
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="/user/pontaj/vizualizare">Pontaj-Vizualizare </a></li>
-                                <li><a class="dropdown-item" href="#">Pontaj-Aprobare </a></li>
+                                <li><a class="dropdown-item" href="/user/pontaj/aprobare">Pontaj-Aprobare </a></li>
                                 <li><a class="dropdown-item" href="#" style="color: red">Pontaj-Salvare PDF </a></li>
                             </ul>
                         </li>
@@ -277,6 +280,18 @@
                                             <a class="dropdown-item" :href="'/user/solicitare_acces/' + user.id">
                                                 <img src="/images/acces_solicitare.png" alt="">
                                                 Solicitare Acces
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" :href="'/user/angajati/aprobare/' + user.id">
+                                                <img src="/images/account.png" alt="">
+                                                Aprobare Angajat
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="/user/pontaj/aprobare">
+                                                <img src="/images/pontaj.png" alt="">
+                                                Aprobare Pontaj
                                             </a>
                                         </li>
                                         <li v-if="this.user.isAdmin === 1"><a class="dropdown-item" href="#">Admin Dashboard</a></li>

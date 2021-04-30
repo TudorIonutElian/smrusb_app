@@ -8,3 +8,4 @@ Route::get('/salarizare/datebanci/preluare', [SalariiController::class, 'preluar
 
 
 Route::post('/salarizare/generare', [SalariiController::class, 'generareSalariu'])->middleware('auth:sanctum');
+Route::post('/salarizare/achitare', [SalariiController::class, 'achitareSalariu'])->middleware('auth:sanctum');

@@ -5,12 +5,13 @@ namespace App\Http\Controllers;
 use App\Http\Resources\DateAngajatiUserDashboard;
 use App\Http\Resources\DateAngajatMutare;
 use App\Http\Resources\DateAngajatNumire;
+use App\Http\Resources\DateCalificativeAngajat;
 use App\Http\Resources\DatePersonaleAngajat;
 use App\Http\Resources\DateSalariiAngajat;
-use App\Http\Resources\FisaEvidentaAngajat;
 use App\Http\Resources\MutatiiAngajat;
 use App\Models\Angajat;
-use App\Models\DateBanca;
+use App\Models\Calificativ;
+use App\Models\Contract;
 use App\Models\DatePlata;
 use App\Models\Institutii;
 use App\Models\MutatiiProfesionale;
@@ -20,9 +21,10 @@ use App\Models\StatOrganizare;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Date;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
-use function PHPUnit\Framework\isEmpty;
 
 class AngajatiController extends Controller
 {
@@ -65,9 +67,9 @@ class AngajatiController extends Controller
 
                 // Salvare mutatie profesionala
                 $mutatie_profesionala = new MutatiiProfesionale();
-                $mutatie_profesionala->mp_act_numar                     = '1234';               // TODO - de editat
-                $mutatie_profesionala->mp_act_data_emitere              = '2020-01-01';         // TODO - de editat
-                $mutatie_profesionala->mp_act_data_aplicare             = '2020-01-01';         // TODO - de editat
+                $mutatie_profesionala->mp_act_numar                     = $request->angajat['numar_act_angajare'];
+                $mutatie_profesionala->mp_act_data_emitere              = $request->angajat['data_emitere_act_angajare'];
+                $mutatie_profesionala->mp_act_data_aplicare             = $request->angajat['data_aplicare_act_angajare'];
                 $mutatie_profesionala->mp_institutie_id                 = $request->angajat['acces_level'];
                 $mutatie_profesionala->mp_angajat_id                    = $angajat->id;
                 $mutatie_profesionala->mp_cuprins_id                    = null;
@@ -77,21 +79,27 @@ class AngajatiController extends Controller
 
                 $mutatie_profesionala->save();
 
-
                 $user = new User();
-                $user->user_first_name  = $angajat->angajat_nume;
-                $user->user_last_name   = $angajat->angajat_prenume;
-                $user->user_email       = strtolower($angajat->angajat_prenume).strtolower($angajat->angajat_nume).'@smrusb.ro';
-                // TODO - de verifica modul de trim
-                $user->user_username    = trim("angajat_".trim(strtolower($angajat->angajat_prenume.trim(strtolower($angajat->angajat_nume)))));
-                $user->user_password    = Hash::make('password');
-                $user->remember_token   = Str::random(10);
-                $user->user_is_active   = false;
-                $user->user_type        = 3;
-                $user->user_cod_acces   = $angajat->angajat_cod_acces;
-                $user->user_angajat_id  = $angajat->id;
+                $user->user_first_name      = $angajat->angajat_nume;
+                $user->user_last_name       = $angajat->angajat_prenume;
+                $user->user_email           = trim(strtolower($angajat->angajat_prenume).strtolower($angajat->angajat_nume).'@smrusb.ro');
+
+                // Prelucrare username
+                $user_username_generat      = trim('angajat_'.strtolower($angajat->angajat_prenume).strtolower($angajat->angajat_nume));
+                $user->user_username        = $angajat->angajat_cnp;
+
+                $user->user_password        = Hash::make('password');
+                $user->remember_token       = Str::random(10);
+                $user->user_is_active       = false;
+                $user->user_type            = 3;
+                $user->user_cod_acces       = $angajat->angajat_cod_acces;
+                $user->user_angajat_id      = $angajat->id;
+                $user->user_added_by      = $request->angajat['user_added_by'];
 
                 if($user->save()){
+                    // Salvare contract
+                    $this::salvareContract($angajat, 1, $request->angajat['data_aplicare_act_angajare']);
+
                     return response()->json([
                         'cod'     => '001',
                         'status'       => 200
@@ -119,8 +127,9 @@ class AngajatiController extends Controller
         return DateAngajatiUserDashboard::collection($angajati);
     }
 
+    // Preluare angajat care au contractul activ
     public function angajatiPreluareIncetare($user_id){
-        $user = User::find($id);
+        $user = User::find($user_id);
 
         $user_acces = $user->get_user_acces;
         $lista_acces = [];
@@ -135,16 +144,19 @@ class AngajatiController extends Controller
         return DateAngajatiUserDashboard::collection($angajati);
     }
 
+    // Preluare date angajat pentru fisa de evidenta
     public function fisaEvidenta($id){
         return [
             'date_personale'        => DatePersonaleAngajat::make(Angajat::find($id)),
             'date_mutatii'          => MutatiiAngajat::collection(MutatiiProfesionale::where('mp_angajat_id', '=', $id)->orderBy('mp_act_data_aplicare')->get()),
             'date_salarii'          => DateSalariiAngajat::collection(Salariu::where('s_angajat', '=', Angajat::find($id)->id)->get()),
             'adresa'                => Angajat::find($id)->adresa,
+            'evaluari'              => DateCalificativeAngajat::collection(Calificativ::where('ca_angajat', '=', Angajat::find($id)->id)->get())
 
         ];
     }
 
+    // Numire angajat
     public function numireAngajat($id, Request $request){
         // Identificare Angajat
         $angajat = Angajat::find($id);
@@ -211,6 +223,7 @@ class AngajatiController extends Controller
         $mutatie_profesionala->save();
     }
 
+    // Preluare date angajat la mutare
     public function preluareAngajatMutare($id){
         $angajat = Angajat::find($id);
 
@@ -226,12 +239,14 @@ class AngajatiController extends Controller
         );
     }
 
+    // Preluare date angajat la numire
     public function preluareAngajatNumire($id){
         $angajat = Angajat::find($id);
 
         return DateAngajatNumire::make($angajat);
     }
 
+    // Mutare angajat la alta institutie
     public function mutareAngajat($id, Request $request){
         // Identificare institutie la care angajatul se va muta
         $institutie = Institutii::find($request->mutare['institutie_id']);
@@ -301,48 +316,38 @@ class AngajatiController extends Controller
         }
     }
 
-    public function adaugaDateBancare(Request $request){
-        // Verificare daca angajatul are metoda de plata
-
-        $date_plata_verificare = DatePlata::where('dp_angajat', '=', $request->date['dp_angajat'])->first();
-
-
-        if(!is_object($date_plata_verificare)){
-            $date_plata = new DatePlata();
-            $date_plata->dp_angajat         = $request->date['dp_angajat'];
-            $date_plata->dp_metoda          = (int) $request->date['dp_tip_plata'];
-            $date_plata->dp_banca           = $request->date['dp_banca_id'] !== 0 ? $request->date['dp_banca_id']: 0;
-            $date_plata->dp_iban            = $request->date['dp_cont_iban'];
-            $date_plata->dp_moneda          = 'RON';
-            $date_plata->dp_titular         = $request->date['dp_titular_cont'];
-            $date_plata->dp_status          = true;
-
-            if($date_plata->save()){
-                return response()->json([
-                    'cod_raspuns' => 1000
-                ]);
-            }else{
-                return response()->json([
-                    'cod_raspuns' => 500
-                ]);
-            }
-        }else{
-            return response()->json([
-                'cod_raspuns' => 300
-            ]);
-        }
-    }
-
+    // Incetare contract angajat
     public function angajatIncetareContract(Request $request){
         // Identificare Angajat
         $id_angajat = $request->date['id_angajat'];
-        $angajat                    = Angajat::find($id_angajat);
+        $angajat    = Angajat::find($id_angajat);
 
         // Setare status false
-        $angajat->angajat_status    = 0;
+        $angajat->angajat_status                = 0;
+        $angajat->angajat_functie_curenta       = null;
 
         // Salvare date
         if($angajat->save()){
+
+            // Actualizare date pozitie stat
+            $id_stat = StatOrganizare::where('so_institutie_id', '=', $angajat->angajat_institutie_curenta)->first()->id;
+            // Setare conditii pentur identificare pozitie veche
+            $conditii_pozitie_veche = [
+                'ps_stat' => $id_stat,
+                'ps_angajat' =>$angajat->id
+            ];
+
+            // Identificare pozitie veche
+            $pozitie_veche = PozitiiOrganizare::where($conditii_pozitie_veche)->first();
+            if(!empty($pozitie_veche)) {
+                $pozitie_veche->ps_angajat = null;
+                $pozitie_veche->ps_data_emitere = null;
+                $pozitie_veche->ps_data_numire = null;
+                $pozitie_veche->ps_numar_act = null;
+
+                $pozitie_veche->save();
+            }
+
             // Creare mutatie profesionala
             $mutatie_profesionala                           = new MutatiiProfesionale();
             $mutatie_profesionala->mp_act_numar             = $request->date['numar_act_administrativ'];
@@ -357,10 +362,117 @@ class AngajatiController extends Controller
 
             // Salvare mutatie profesionala
             if($mutatie_profesionala->save()){
-                return $mutatie_profesionala;
+                // Incetare contract de munca
+                $this::incetareContractByAngajat($angajat, $request->date['data_aplicare_act_administrativ']);
+
+                return response()->json([
+                    'cod_raspuns'   => 2000
+                ]);
             }
-
-
         }
+    }
+
+    // Preluare date pentru afisarea calificativelor
+    public function preluaredatecalificativ($id){
+        $angajat = Angajat::find($id);
+
+        return response()->json([
+            'angajat'       => $angajat,
+            'calificative'  => DateCalificativeAngajat::collection($angajat->calificative),
+            'next_date'     => DB::select(DB::raw("select max(ca_data_sfarsit) as nextdate from angajati_calificative where ca_angajat = '$angajat->id'")->getValue())
+        ]);
+    }
+
+    // Adaugare calificativ angajat
+    public function adaugareCalificativ(Request $request){
+
+        // Identificare angajat
+        $angajat = Angajat::find($request->angajat);
+
+        // Identificare institutie curenta
+        $institutie = $angajat->angajat_institutie_curenta;
+
+        // verificare daca angajatul mai are evaluare
+
+        $calificativ_existent = Calificativ::where([
+                ['ca_angajat',      '=', $angajat->id],
+                ['ca_data_sfarsit', '>=', $request->evaluare['dela']],
+            ])->orWhere([
+                ['ca_angajat',      '=', $angajat->id],
+                ['ca_data_inceput', '=', $request->evaluare['dela']],
+                ['ca_data_sfarsit', '=', $request->evaluare['panala']],
+        ])->first();
+
+        if(is_object($calificativ_existent)){
+            return response()->json([
+                'cod_raspuns' => 500
+            ]);
+        }else{
+            // Creare obiect nou pentru evaluare
+            $calificativ = new Calificativ();
+            $calificativ->ca_angajat                = $angajat->id;
+            $calificativ->ca_institutie             = $institutie;
+            $calificativ->ca_data_inceput           = $request->evaluare['dela'];
+
+            // Verificare de la sa nu fie mai inapoi de data angajarii
+            $contract = Contract::where([
+                ['c_angajat',           '=', $angajat->id],
+                ['c_stare_contract',    '=', 1]
+            ])->first();
+
+            // verificare daca are contract activ
+            if($calificativ->ca_data_inceput < $contract->c_data_incepere_contract){
+                return response()->json([
+                    'cod_raspuns' => 501
+                ]);
+            }else {
+                $calificativ->ca_data_sfarsit           = $request->evaluare['panala'];
+                $calificativ->ca_calificativ_initial    = $request->evaluare['calificativ'];
+                $calificativ->ca_are_contestatie        = false;
+                $calificativ->ca_calificativ_final      = $request->evaluare['calificativ'];
+                $calificativ->ca_status                 = false;
+
+                if($calificativ->save()){
+                    return response()->json([
+                        'cod_raspuns' => 1000
+                    ]);
+                }
+            }
+        }
+    }
+
+    public static function salvareContract($angajat, $tip, $data){
+        $contract = new Contract();
+        $contract->c_angajat                    = $angajat->id;
+        $contract->c_tip_contract               = $tip;
+        $contract->c_data_incepere_contract     = $data;
+        $contract->c_stare_contract             = 1;
+        $contract->save();
+    }
+
+    public static function incetareContractByAngajat($angajat, $data){
+        $contract = Contract::where([
+            ['c_angajat',           '=', $angajat->id],
+            ['c_stare_contract',    '=', 1]
+        ])->first();
+
+        $contract->c_stare_contract         = 0;
+        $contract->c_data_incetare_contract = $data;
+        $data_inceput_contract              = Carbon::parse($contract->c_data_incepere_contract);
+        $contract->c_zile_contract          = $data_inceput_contract->diff($data)->days;
+        $contract->save();
+    }
+
+    public function preluareAnPrecedent($an, $institutie){
+        $start_date     = Carbon::now()->startOfYear();
+        $end_date       = Carbon::now()->endOfYear();
+
+        $calificative   = Calificativ::where([
+            ['ca_institutie',   '=', $institutie],
+            ['ca_data_inceput', '>=', $start_date],
+            ['ca_data_sfarsit', '<=', $end_date],
+        ])->get();
+
+        return DateCalificativeAngajat::collection($calificative);
     }
 }

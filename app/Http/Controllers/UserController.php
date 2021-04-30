@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Http\Resources\DateAngajatiAprobareConturi;
 use App\Models\Institutii;
 use App\Models\User;
 use App\Models\UserAccessLevel;
@@ -68,5 +69,24 @@ class UserController extends Controller
             }
         }
         return $lista_acces;
+    }
+
+    public function aprobareConturiAngajat($user_id){
+
+        return DateAngajatiAprobareConturi::collection(User::where([
+            ['user_added_by',   '=', $user_id],
+            ['user_is_active',  '=', 0]
+        ])->get());
+    }
+
+    public function aprobareContRUAngajat($angajat_id){
+        $user = User::find($angajat_id);
+        $user->user_is_active = 1;
+        $user->save();
+
+        return response()->json([
+            'cod_raspuns'   => 2000
+        ]);
+
     }
 }

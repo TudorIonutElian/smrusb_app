@@ -13,7 +13,7 @@
                             <select
                                 class="form-control form-select mr-1"
                                 id="angajat_judet_domiciliu"
-                                v-model="generare_institutie_id"
+                                v-model="institutie_id"
                             >
                                 <option v-for="aui in acces_user_institutii" :value="aui.id">{{ aui.institutie_denumire}}</option>
                             </select>
@@ -29,7 +29,7 @@
                         <a
                             href="/"
                             class="btn btn-primary btn-sm"
-                            @click.prevent="generareSalarii"
+                            @click.prevent="preluareSalarii"
                         >Generare Salarii</a>
                     </div>
                 </div>
@@ -44,7 +44,10 @@
                                 <th scope="col">Angajat</th>
                                 <th scope="col">Status</th>
                                 <th scope="col">Achita</th>
-                                <th scope="col">Achitat ?</th>
+                                <th scope="col">Stare</th>
+                                <th scope="col">CASS Taxa</th>
+                                <th scope="col">CASS Valoare</th>
+                                <th scope="col">CASS Platit</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -66,6 +69,7 @@
                                         <button
                                             class="btn btn-outline-success btn-sm"
                                             @click.prevent="achitaSalariu(pozitie.status)"
+                                            :disabled="pozitie.status[0].s_achitat == 1"
                                         >Achita Salariu</button>
                                     </td>
                                     <td v-else style="color: red; font-weight: bold">
@@ -75,6 +79,9 @@
                                         v-if="pozitie.status[0] !== undefined "
                                         :class="pozitie.status[0].s_achitat === 0 ? 'sal_neachitat' : 'sal_achitat' "
                                     >{{ pozitie.status[0].s_achitat === 0 ? 'Neachitat' : 'Achitat'}}</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>Nu</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -97,7 +104,7 @@ export default {
             token: localStorage.getItem('token'),
             user_id: JSON.parse(localStorage.getItem('user')).id,
             acces_user_institutii: [],
-            generare_institutie_id: 0,
+            institutie_id: 0,
             generare_erori:{
                 institutie_neselectata: false
             },
@@ -133,9 +140,9 @@ export default {
                 this.acces_user_institutii = response.data
             })
         },
-        async generareSalarii(){
+        async preluareSalarii(){
             this.loading = true;
-            await axios.get(`/api/salarizare/${this.generare_institutie_id}/generare`, {
+            await axios.get(`/api/salarizare/${this.institutie_id}/generare`, {
                 headers:{
                     ContentType: 'application/json',
                     Authorization : 'Bearer ' + this.token
@@ -146,13 +153,30 @@ export default {
                 }
             )
         },
-        async achitaSalariu(pozitie){
-            // TODO - achitare salariu
+        async achitaSalariu(salariuDeModificat){
+            await axios.post(`/api/salarizare/achitare`, {
+                salariu: salariuDeModificat
+            }, {
+                headers:{
+                    ContentType: 'application/json',
+                    Authorization : 'Bearer ' + this.token
+                }
+            })
+            .then(response => {
+                this.preluareSalarii();
+                if(response.data.code_message === 'salariu_achitat'){
+                    Vue.$toast.open({
+                        message: 'Salariu Achitat',
+                        type: 'success',
+                        // all of other options may go here
+                    });
+                }
+            })
         },
         async genereazaSalariu(pozitie){
             this.loading = true;
             const pozitie_stat  = pozitie.pozitie;
-            const institutie_id = this.generare_institutie_id;
+            const institutie_id = this.institutie_id;
 
             await axios.post("/api/salarizare/generare", {
                 institutie: institutie_id,
@@ -163,7 +187,6 @@ export default {
                     Authorization : 'Bearer ' + this.token
                 }
             }).then(response => {
-                console.log(response)
                 if(response.data.code_message == 'pontaj_inexistent'){
                     Vue.$toast.open({
                         message: 'Angajatul nu si-a introdus pontajul!',
@@ -176,9 +199,8 @@ export default {
                         type: 'warning',
                         // all of other options may go here
                     });
-                }else{
-                    this.generareSalarii();
                 }
+                this.preluareSalarii();
                 this.loading = false;
             })
         }

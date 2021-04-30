@@ -20,3 +20,7 @@ Route::get('/users/institutii/acces/{id}', [UserController::class, 'accesInstitu
 
 Route::get('/users/institutii/stat/{id}', [StatOrganizareController::class, 'accesStat']);
 Route::get('/users/institutii/{id}/stat/', [StatOrganizareController::class, 'preluareStat']);
+
+
+Route::get('/users/angajati/aprobare/{user_id}', [UserController::class, 'aprobareConturiAngajat'])->middleware('auth:sanctum');
+Route::post('/users/angajataccount/{angajat_id}/aprobare', [UserController::class, 'aprobareContRUAngajat'])->middleware('auth:sanctum');

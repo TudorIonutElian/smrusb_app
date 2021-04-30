@@ -13,11 +13,14 @@ class CreateIstoricContracteTable extends Migration
      */
     public function up()
     {
-        Schema::create('istoric_contracte', function (Blueprint $table) {
+        Schema::create('contracte', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('ic_angajat');
-            $table->integer('ic_tip_contract');
-            $table->integer('ic_data_contract');
+            $table->unsignedBigInteger('c_angajat')->unique();
+            $table->integer('c_tip_contract');
+            $table->date('c_data_incepere_contract');
+            $table->date('c_data_incetare_contract')->nullable();
+            $table->boolean('c_stare_contract');
+            $table->integer('c_zile_contract')->nullable();
         });
     }
 

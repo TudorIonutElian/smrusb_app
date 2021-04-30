@@ -64,6 +64,44 @@
                         >Salveaza datele</button>
                     </div>
                 </div>
+                <div class="col-12 mt-3">
+                    <table class="table">
+                        <thead>
+                            <tr class="eticheta">
+                                <th scope="col" colspan="7">
+                                    <span class="badge">Istoric Metode de plata</span>
+                                </th>
+                            </tr>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Metoda</th>
+                            <th scope="col">Banca</th>
+                            <th scope="col">IBAN</th>
+                            <th scope="col">Titular</th>
+                            <th scope="col">Status</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-if="istoric_dateplata != null" v-for="(idp, index) in istoric_dateplata">
+                            <th scope="row">{{ index + 1}}</th>
+                            <td>
+                                <span v-if="idp.idp_metoda == 1">Plata Bancara</span>
+                                <span v-if="idp.idp_metoda == 2">Plata Casierie</span>
+                            </td>
+                            <td>
+                                <span v-if="idp.idp_banca != 0">{{ idp.idp_banca}}</span>
+                                <span v-if="idp.idp_banca == null">Casieria Institutiei</span>
+                            </td>
+                            <td>{{ idp.idp_iban}}</td>
+                            <td>{{ idp.idp_titular }}</td>
+                            <td>
+                                <span class="metoda_activa" v-if="idp.idp_status === 1">Activ</span>
+                                <span class="metoda_inactiva" v-if="idp.idp_status === 0">Inactiv</span>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
         <loading-component v-if="loading === true"></loading-component>
@@ -90,7 +128,8 @@ export default {
                 dp_titular_cont: JSON.parse(localStorage.getItem('user')).user_first_name + ' ' + JSON.parse(localStorage.getItem('user')).user_last_name,
                 dp_angajat: JSON.parse(localStorage.getItem('user')).id
             },
-            banci: []
+            banci: [],
+            istoric_dateplata: null
         }
     },
     components:{
@@ -105,7 +144,26 @@ export default {
             return false;
         }
     },
+    created() {
+        this.preluareMetodeDePlataUser();
+    },
     methods:{
+        async preluareMetodeDePlataUser(){
+            this.loading = true;
+            const angajat = JSON.parse(localStorage.getItem('user')).id;
+
+            await axios.get(`/api/angajati/datebancare/${angajat}`, {
+                headers:{
+                    ContentType: 'application/json',
+                    Authorization : 'Bearer ' + this.token
+                }
+            }).then(response => {
+                this.istoric_dateplata = response.data.data;
+                this.loading = false;
+            })
+
+
+        },
         async preluareBanci(){
             if(this.date_plata.dp_tip_plata == 1){
                 this.loading = true;
@@ -151,6 +209,7 @@ export default {
                        });
                    }
                 })
+                this.preluareMetodeDePlataUser();
             }else{
                 Vue.$toast.open({
                     message: 'Datele de plata nu sunt valide',
@@ -198,5 +257,22 @@ span.badge{
     flex-direction: row;
     align-items: center;
     justify-content: flex-end;
+}
+table thead tr.eticheta th{
+    border-top: none;
+}
+span.metoda_activa{
+    padding: 10px;
+    background-color: #38ada9;
+    color: #fff;
+    font-weight: bolder;
+    border-radius: 3px;
+}
+span.metoda_inactiva{
+    padding: 10px;
+    background-color: #e55039;
+    color: #fff;
+    font-weight: bolder;
+    border-radius: 3px;
 }
 </style>

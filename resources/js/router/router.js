@@ -47,6 +47,12 @@ import AdaugarePontaj from "../components/User/Pontaj/AdaugarePontaj";
 import VizualizarePontajUser from "../components/User/Pontaj/VizualizarePontajUser";
 import DatePlata from "../components/User/Angajat/DatePlata";
 import IncetareAngajatSelectat from "../components/User/Management/IncetareAngajatSelectat";
+import AdreseAngajat from "../components/User/Angajat/AdreseAngajat";
+import AngajatiAprobareContUser from "../components/User/Management/AngajatiAprobareContUser";
+import AprobarePontaj from "../components/User/Pontaj/AprobarePontaj";
+import EvaluareVizualizare from "../components/User/Evaluare/EvaluareVizualizare";
+import EvaluareAdaugare from "../components/User/Evaluare/EvaluareAdaugare";
+import EvaluareAdaugareSelectat from "../components/User/Evaluare/EvaluareAdaugareSelectat";
 
 const router = new VueRouter({
     mode: 'history',
@@ -82,6 +88,7 @@ const router = new VueRouter({
         {path: '/user/mutare_angajat/:id', component: MutareAngajatSelectat, name: 'mutare-angajat-selectat'},
         {path: '/user/angajat/incetare_angajat', component: IncetareAngajat, name: 'incetare-pontaj'},
         {path: '/user/angajat/incetare_angajat/:id', component: IncetareAngajatSelectat, name: 'incetare-pontaj'},
+        {path: '/user/angajati/aprobare/:id', component: AngajatiAprobareContUser, name: 'user-angajat-aprobare'},
 
 
         {path: '/user/numire_angajat', component: NumireAngajat, name: 'numire-angajat'},
@@ -104,6 +111,12 @@ const router = new VueRouter({
 
         {path: '/user/angajat/pontaj/creare', component: AdaugarePontaj, name: 'adaugare-pontaj'},
         {path: '/user/pontaj/vizualizare', component: VizualizarePontajUser, name: 'vizualizare-pontaj-user'},
+        {path: '/user/pontaj/aprobare', component: AprobarePontaj, name: 'aprobare-pontaj-user'},
+
+
+        {path: '/user/evaluare/vizualizare', component: EvaluareVizualizare, name: 'evaluare-vizualizare'},
+        {path: '/user/evaluare/adaugare', component: EvaluareAdaugare, name: 'evaluare-adaugare'},
+        {path: '/user/evaluare/adaugare/:id', component: EvaluareAdaugareSelectat, name: 'evaluare-adaugare-selectat'},
 
 
 
@@ -119,6 +132,7 @@ const router = new VueRouter({
         // Rute pentru angajati
         {path: '/angajat/:id', component: Angajat, name: 'angajat'},
         {path: '/angajat/dateplata/:id', component: DatePlata, name: 'angajat-date-plata'},
+        {path: '/angajat/adrese/:id', component: AdreseAngajat, name: 'angajat-adrese'},
     ]
 });
 

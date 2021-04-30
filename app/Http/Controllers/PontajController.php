@@ -33,7 +33,7 @@ class PontajController extends Controller
             $pontaj->pl_pozitie         = PozitiiOrganizare::find(Angajat::find($request->pontaj['pontaj_angajat_id'])->angajat_pozitie_curenta)->ps_pozitie;
             $pontaj->pl_angajat         = Angajat::find($request->pontaj['pontaj_angajat_id'])->id;
             $pontaj->pl_start_date      = $request->pontaj['pontaj_data_inceput'];
-            $pontaj->pl_end_date        = $request->pontaj['pontaj_data_inceput'];
+            $pontaj->pl_end_date        = $request->pontaj['pontaj_data_sfarsit'];
             $pontaj->pl_numar_ore       = (int)$request->pontaj['pontaj_numar_ore'];
 
             if($pontaj->pl_numar_ore < 165){
@@ -48,11 +48,28 @@ class PontajController extends Controller
         }
     }
 
+    public function aprobare(Request $request){
+        $pontaj = Pontaj::find($request->pontaj);
+        $pontaj->pl_este_aprobat = 1;
+        $pontaj->save();
+
+        return response()->json([
+            'cod_raspuns' => 2000
+        ]);
+    }
+
     public function preluare($cod){
         return Pontaj::where('pl_angajat', '=', $cod)->get();
     }
 
     public function preluarePontajInstitutie($institutie_id){
         return VizualizarePontajInstitutie::collection(Pontaj::where('pl_institutie', '=', $institutie_id)->get());
+    }
+
+    public function preluarePontajInstitutieNeaprobat($institutie_id){
+        return VizualizarePontajInstitutie::collection(Pontaj::where([
+            ['pl_institutie',   '=', $institutie_id],
+            ['pl_este_aprobat',  '=', 0]
+        ])->get());
     }
 }

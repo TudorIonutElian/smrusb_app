@@ -182,7 +182,14 @@ export default {
                     Authorization : 'Bearer ' + this.token
                 }
             }).then(response => {
-                console.log(response.data)
+                if(response.data.cod_raspuns == 2000){
+                    Vue.$toast.open({
+                        message: 'Contractul a fost incheiat cu succes!',
+                        type: 'success',
+                        // all of other options may go here
+                    });
+                    router.push({name: 'user-dashboard'});
+                }
             });
         }
     }

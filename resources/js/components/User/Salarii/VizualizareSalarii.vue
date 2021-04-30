@@ -32,6 +32,11 @@
                             class="btn btn-primary btn-sm"
                             @click.prevent="vizualizareSalarii"
                         >Vizualizare Salarii</a>
+                        <a
+                            href="/"
+                            class="btn btn-success btn-sm ml-2"
+                            @click.prevent="exportSalariiPDF"
+                        >Export Salarii PDF</a>
                     </div>
                 </div>
                 <div class="row">
@@ -41,63 +46,13 @@
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Institutie</th>
-                                <!-- Pozitie -->
-                                <th scope="col"
-                                    @click.prevent="setFilterable('pozitie')"
-                                    v-if="!filterable.pozitie">Pozitie</th>
-                                <th scope="col"
-                                    v-if="filterable.pozitie">
-                                    <input type="text" @blur="resetFilterable('pozitie')" placeholder="Introduceti pozitia">
-                                </th>
-                                <!-- Functie -->
-                                <th scope="col"
-                                    @click.prevent="setFilterable('functie')"
-                                    v-if="!filterable.functie">Functie</th>
-                                <th scope="col"
-                                    v-if="filterable.functie">
-                                    <input type="text" @blur="resetFilterable('functie')" placeholder="Introduceti functia">
-                                </th>
-
-                                <!-- Angajat -->
-                                <th scope="col"
-                                    @click.prevent="setFilterable('angajat')"
-                                    v-show="filterable.angajat === false">Angajat</th>
-                                <th scope="col"
-                                    v-if="filterable.angajat === true">
-                                    <input type="text" @blur="resetFilterable('angajat')" placeholder="Introduceti numele">
-                                </th>
-
-                                <!-- De la  -->
-                                <th scope="col"
-                                    @click.prevent="setFilterable('dela')"
-                                    v-show="filterable.dela === false">De la: </th>
-                                <th scope="col"
-                                    v-if="filterable.dela === true">
-                                    <input type="text" @blur="resetFilterable('dela')" placeholder="De la">
-                                </th>
-
-                                <!-- Pana la -->
-                                <th scope="col"
-                                    @click.prevent="setFilterable('panala')"
-                                    v-show="filterable.panala === false">Pana la: </th>
-                                <th scope="col"
-                                    v-if="filterable.panala === true">
-                                    <input type="text" @blur="resetFilterable('panala')" placeholder="Pana la:">
-                                </th>
-
-                                <!-- Suma initiala -->
-                                <th scope="col"
-                                    @click.prevent="setFilterable('sumainitiala')"
-                                    v-show="filterable.sumainitiala === false">Suma inititala: </th>
-                                <th scope="col"
-                                    v-if="filterable.sumainitiala === true">
-                                    <input type="text" @blur="resetFilterable('sumainitiala')" placeholder="Introduceti suma">
-                                </th>
-
-                                <!-- Suma Finala -->
+                                <th scope="col">Pozitie</th>
+                                <th scope="col">Functie</th>
+                                <th scope="col">Angajat</th>
+                                <th scope="col">De la: </th>
+                                <th scope="col">Pana la: </th>
+                                <th scope="col">Suma inititala: </th>
                                 <th scope="col">Bonus</th>
-
-                                <!-- Bonus -->
                                 <th scope="col">Suma Finala</th>
                                 <th scope="col">Status</th>
                                 <th scope="col">Tip Achitare</th>
@@ -136,7 +91,7 @@
 <script>
 import TopNav from "../../Menus/TopNav";
 import LoadingComponent from "../../HelperComponents/LoadingComponent";
-import router from "../../../router/router";
+import { jsPDF } from "jspdf";
 
 export default {
     data(){
@@ -150,18 +105,7 @@ export default {
                 institutie_neselectata: false
             },
             salarii: [],
-            filterable:{
-                pozitie: false,
-                functie: false,
-                angajat: false,
-                dela: false,
-                panala: false,
-                sumainitiala: false,
-                bonus: false,
-                sumafinala: false,
-                status: false,
-                tipachitare: false
-            }
+            exportable: false
         }
     },
     components:{
@@ -172,18 +116,6 @@ export default {
         this.preluareUserAcces();
     },
     methods:{
-        setFilterable(filter){
-            console.log(filter)
-            this.filterable[filter] = true;
-        },
-        resetFilterable(filter){
-            this.filterable[filter] = false;
-        },
-        resetAllFilters(){
-            for (var key in this.filterable ) {
-                this.filterable[key] = false;
-            }
-        },
         verificareAchitareSalariu(salariu){
             if(salariu === 0){
                 return "Neachitat"
@@ -193,11 +125,11 @@ export default {
         },
         verificareTipAchitare(achitare){
             if(achitare === 0){
-                return "Neachitat";
+                return "-";
             }else if(achitare === 1){
-                return "Card";
+                return "-";
             }else if(achitare === 2){
-                return "Stat";
+                return "-";
             }
         },
         async preluareUserAcces(){
@@ -220,8 +152,17 @@ export default {
                     this.salarii = response.data.data;
                 }
             )
+        },
+        exportSalariiPDF(){
+            const doc = new jsPDF({
+                orientation: 'l',
+                unit: 'cm',
+                format: 'a4',
+                putOnlyUsedFonts:true,
+            });
+            doc.comment("Comment");
+            doc.save("a4.pdf");
         }
-
     }
 }
 </script>

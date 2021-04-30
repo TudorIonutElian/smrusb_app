@@ -53,7 +53,15 @@ class Angajat extends Model
         return $this->hasMany(Pontaj::class, 'pl_angajat', 'id');
     }
 
-    public function metoda_plata(){
-        return $this->hasOne(DatePlata::class, 'dp_angajat', 'id')->where('dp_status', '=', true)->first();
+    public function metode_plata(){
+        return $this->hasMany(DatePlata::class, 'dp_angajat', 'id');
+    }
+
+    public function calificative(){
+        return $this->hasMany(Calificativ::class, 'ca_angajat', 'id');
+    }
+
+    public function contract(){
+        return $this->hasOne(Contract::class, 'c_angajat', 'id');
     }
 }

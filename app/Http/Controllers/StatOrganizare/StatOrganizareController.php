@@ -30,6 +30,7 @@ class StatOrganizareController extends Controller
     public function preluareStat($id){
         $institutie = Institutii::find($id);
         $stat_organizare = $institutie->stat;
+
         return [
             'institutie' => $institutie->institutie_denumire,
             'stat'       => $stat_organizare

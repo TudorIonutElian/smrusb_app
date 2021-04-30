@@ -5,12 +5,14 @@ namespace App\Http\Controllers;
 use App\Http\Resources\DatePozitiiSalarii;
 use App\Http\Resources\DateSalariiInstitutie;
 use App\Models\DateBanca;
+use App\Models\DatePlata;
 use App\Models\Institutii;
 use App\Models\Pontaj;
 use App\Models\PozitiiOrganizare;
 use App\Models\Salariu;
 use App\Models\StatOrganizare;
 use Carbon\Carbon;
+use Carbon\Traits\Date;
 use Illuminate\Http\Request;
 use function PHPUnit\Framework\isEmpty;
 
@@ -45,6 +47,7 @@ class SalariiController extends Controller
             ['pl_institutie',   '=', $request->institutie],
             ['pl_pozitie',      '=', $request->pozitie],
             ['pl_angajat',      '=', $pozitie->angajat['id']],
+            ['pl_start_date',   '=', Carbon::now()->startOfMonth()]
         ])->first();
 
         if(!$pontaj){
@@ -86,5 +89,18 @@ class SalariiController extends Controller
     }
     public function preluareDateBanci(){
         return DateBanca::all('id', 'db_denumire')->sortBy('db_denumire');
+    }
+
+    public function achitareSalariu(Request $request){
+        $salariu = Salariu::find($request->salariu[0]['id']);
+        $salariu->s_achitat = 1;
+        $salariu->s_data_achitarii  = Carbon::now();
+
+        if($salariu->save()){
+            return response()->json([
+                'code_message' => 'salariu_achitat'
+            ]);
+        }
+        return $salariu;
     }
 }

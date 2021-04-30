@@ -13,4 +13,8 @@ class DateBanca extends Model
 
     // Anulare coloane created_at si updated_at
     public $timestamps = false;
+
+    public function metode(){
+        return $this->hasMany(DatePlata::class, 'dp_banca', 'id');
+    }
 }

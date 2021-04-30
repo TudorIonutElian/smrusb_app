@@ -1,7 +1,7 @@
 <template>
     <div class="container-fluid">
         <top-nav></top-nav>
-        <div class="container-fluid mt-2 p-1" v-if="loading === false">
+        <div v-if="loading === false" class="container-fluid mt-2 p-1">
             <div class="row">
                 <div class="col-12 bg-primary-blue p-2 text-center">
                     Dosar Angajat - Fisa Evidenta date
@@ -12,7 +12,7 @@
                 <div class="col-2 col-profile p-3">
                     <div class="row-profile my-4">
                         <div class="row-profile-template-full-flex p-2">
-                            <img class="mr-2" src="/images/user.png" alt="">
+                            <img alt="" class="mr-2" src="/images/user.png">
                         </div>
                     </div>
                     <div class="row-profile">
@@ -32,7 +32,7 @@
                     </div>
                     <div class="row-profile">
                         <div class="row-profile-template">Prenume</div>
-                        <div class="row-profile-info"> {{ date_fisa.date_personale.angajat_prenume }} </div>
+                        <div class="row-profile-info"> {{ date_fisa.date_personale.angajat_prenume }}</div>
                     </div>
                     <div class="row-profile">
                         <div class="row-profile-template">CNP</div>
@@ -40,14 +40,14 @@
                     </div>
                     <div class="row-profile">
                         <div class="row-profile-template">Data nasterii</div>
-                        <div class="row-profile-info"> {{ date_fisa.date_personale.angajat_data_nasterii }} </div>
+                        <div class="row-profile-info"> {{ date_fisa.date_personale.angajat_data_nasterii }}</div>
                     </div>
                     <div class="row-profile">
-                        <div class="row-profile-template">Nascut in judetul: </div>
+                        <div class="row-profile-template">Nascut in judetul:</div>
                         <div class="row-profile-info"> {{ date_fisa.date_personale.angajat_judet_nastere }}</div>
                     </div>
                     <div class="row-profile">
-                        <div class="row-profile-template">Nascut in localitatea: </div>
+                        <div class="row-profile-template">Nascut in localitatea:</div>
                         <div class="row-profile-info"> {{ date_fisa.date_personale.angajat_localitate_nastere }}</div>
                     </div>
                     <div class="row-profile">
@@ -56,11 +56,14 @@
                     </div>
                     <div class="row-profile">
                         <div class="row-profile-template">Stare civila</div>
-                        <div class="row-profile-info"> {{ stareCivila(date_fisa.date_personale.angajat_stare_civila) }} </div>
+                        <div class="row-profile-info"> {{
+                                stareCivila(date_fisa.date_personale.angajat_stare_civila)
+                            }}
+                        </div>
                     </div>
                     <div class="row-profile">
                         <div class="row-profile-template">Nivel Acces</div>
-                        <div class="row-profile-info"> {{ date_fisa.date_personale.angajat_nivel_acces }} </div>
+                        <div class="row-profile-info"> {{ date_fisa.date_personale.angajat_nivel_acces }}</div>
                     </div>
                     <div class="row-profile">
                         <div class="row-profile-template">Email</div>
@@ -71,11 +74,11 @@
                     </div>
                     <div class="row-profile">
                         <div class="row-profile-template">Judet</div>
-                        <div class="row-profile-info"> - </div>
+                        <div class="row-profile-info"> -</div>
                     </div>
                     <div class="row-profile">
                         <div class="row-profile-template">Localitate</div>
-                        <div class="row-profile-info"> - </div>
+                        <div class="row-profile-info"> -</div>
                     </div>
                     <div class="row-profile">
                         <div class="row-profile-template">Strada</div>
@@ -83,23 +86,23 @@
                     </div>
                     <div class="row-profile">
                         <div class="row-profile-template">Numar</div>
-                        <div class="row-profile-info"> - </div>
+                        <div class="row-profile-info"> -</div>
                     </div>
                     <div class="row-profile">
                         <div class="row-profile-template">Bloc</div>
-                        <div class="row-profile-info"> - </div>
+                        <div class="row-profile-info"> -</div>
                     </div>
                     <div class="row-profile">
                         <div class="row-profile-template">Scara</div>
-                        <div class="row-profile-info"> - </div>
+                        <div class="row-profile-info"> -</div>
                     </div>
                     <div class="row-profile">
                         <div class="row-profile-template">Etaj</div>
-                        <div class="row-profile-info"> - </div>
+                        <div class="row-profile-info"> -</div>
                     </div>
                     <div class="row-profile">
                         <div class="row-profile-template">Apartament</div>
-                        <div class="row-profile-info"> - </div>
+                        <div class="row-profile-info"> -</div>
                     </div>
                 </div>
                 <div class="col-10 p-3">
@@ -126,38 +129,58 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                        <tr
-                                            v-for="(mutatie, index) in date_fisa.date_mutatii"
-                                            v-bind:class="[
+                                    <tr
+                                        v-for="(mutatie, index) in date_fisa.date_mutatii"
+                                        v-bind:class="[
                                                 mutatie.mutatie_fel_mutatie === 0 ? 'numire' : 'mutare',
                                                 mutatie.mutatie_fel_mutatie === 6 ? 'incetare' : '',
                                             ]"
-                                        >
-                                            <!-- Coloana Index -->
-                                            <td scope="col">{{index + 1}}</td>
-                                            <!-- Coloana Numar act -->
-                                            <td scope="col">{{mutatie.mutatie_act_numar}}</td>
-                                            <!-- Coloana Data Aplicare -->
-                                            <td scope="col">{{mutatie.mutatie_act_data_aplicare}}</td>
-                                            <!-- Coloana Data Emitere -->
-                                            <td scope="col">{{mutatie.mutatie_act_data_emitere}}</td>
-                                            <!-- Coloana Denumire Institutie -->
-                                            <td scope="col" class="col-institutie">{{mutatie.mutatie_institutie}} </td>
-                                            <td scope="col" class="text-center" v-if="mutatie.mutatie_fel_mutatie === 5">Angajare</td>
-                                            <td scope="col" class="text-center" v-if="mutatie.mutatie_fel_mutatie === 6">Incetare Contract</td>
-                                            <td scope="col" class="text-center" v-if="mutatie.mutatie_fel_mutatie === 0">Numire</td>
-                                            <td scope="col" class="text-center" v-if="mutatie.mutatie_fel_mutatie === 1">Mutare</td>
-                                            <td scope="col" v-if="mutatie.mutatie_cuprins !== null">{{mutatie.mutatie_cuprins}}</td>
-                                            <td scope="col" v-if="mutatie.mutatie_cuprins === null">{{mutatie.mutatie_cuprins}}</td>
-                                            <td scope="col" v-if="mutatie.mutatie_pozitie">{{pozitieNumarValidare(mutatie.mutatie_pozitie)}}</td>
-                                            <td scope="col" v-else></td>
-                                            <td scope="col" v-if="mutatie.mutatie_functie">{{mutatie.mutatie_functie.functie_denumire}}</td>
-                                            <td scope="col" v-if="mutatie.mutatie_functie === null"></td>
-                                            <td scope="col" v-if="mutatie.mutatie_functie">{{mutatie.mutatie_functie.functie_coeficient}}</td>
-                                            <td scope="col" v-if="mutatie.mutatie_functie === null"></td>
-                                            <td scope="col" v-if="mutatie.mutatie_functie">{{mutatie.mutatie_functie.functie_suma}}</td>
-                                            <td scope="col" v-if="mutatie.mutatie_functie === null"></td>
-                                        </tr>
+                                    >
+                                        <!-- Coloana Index -->
+                                        <td scope="col">{{ index + 1 }}</td>
+                                        <!-- Coloana Numar act -->
+                                        <td scope="col">{{ mutatie.mutatie_act_numar }}</td>
+                                        <!-- Coloana Data Aplicare -->
+                                        <td scope="col">{{ mutatie.mutatie_act_data_aplicare }}</td>
+                                        <!-- Coloana Data Emitere -->
+                                        <td scope="col">{{ mutatie.mutatie_act_data_emitere }}</td>
+                                        <!-- Coloana Denumire Institutie -->
+                                        <td class="col-institutie" scope="col">{{ mutatie.mutatie_institutie }}</td>
+                                        <td v-if="mutatie.mutatie_fel_mutatie === 5" class="text-center" scope="col">
+                                            Angajare
+                                        </td>
+                                        <td v-if="mutatie.mutatie_fel_mutatie === 6" class="text-center" scope="col">
+                                            Incetare Contract
+                                        </td>
+                                        <td v-if="mutatie.mutatie_fel_mutatie === 0" class="text-center" scope="col">
+                                            Numire
+                                        </td>
+                                        <td v-if="mutatie.mutatie_fel_mutatie === 1" class="text-center" scope="col">
+                                            Mutare
+                                        </td>
+                                        <td v-if="mutatie.mutatie_cuprins !== null" scope="col">
+                                            {{ mutatie.mutatie_cuprins }}
+                                        </td>
+                                        <td v-if="mutatie.mutatie_cuprins === null" scope="col">
+                                            {{ mutatie.mutatie_cuprins }}
+                                        </td>
+                                        <td v-if="mutatie.mutatie_pozitie" scope="col">
+                                            {{ pozitieNumarValidare(mutatie.mutatie_pozitie) }}
+                                        </td>
+                                        <td v-else scope="col"></td>
+                                        <td v-if="mutatie.mutatie_functie" scope="col">
+                                            {{ mutatie.mutatie_functie.functie_denumire }}
+                                        </td>
+                                        <td v-if="mutatie.mutatie_functie === null" scope="col"></td>
+                                        <td v-if="mutatie.mutatie_functie" scope="col">
+                                            {{ mutatie.mutatie_functie.functie_coeficient }}
+                                        </td>
+                                        <td v-if="mutatie.mutatie_functie === null" scope="col"></td>
+                                        <td v-if="mutatie.mutatie_functie" scope="col">
+                                            {{ mutatie.mutatie_functie.functie_suma }}
+                                        </td>
+                                        <td v-if="mutatie.mutatie_functie === null" scope="col"></td>
+                                    </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -171,89 +194,132 @@
                             </div>
                         </div>
                         <div class="row">
-                                <div class="col-12 col-info p-2">
-                                    <span class="angajat-istoric-mutatii">Istoric Salarii Angajat</span>
-                                </div>
-                                <div class="col-12 p-2 col-table">
-                                    <table class="table">
-                                        <thead>
-                                        <tr>
-                                            <th scope="col">#</th>
-                                            <th scope="col">Institutie</th>
-                                            <th scope="col">De la </th>
-                                            <th scope="col">Pana la </th>
-                                            <th scope="col">Suma initiala </th>
-                                            <th scope="col">Bonus</th>
-                                            <th scope="col">Suma Finala </th>
-                                            <th scope="col">Achitat</th>
-                                            <th scope="col">Stat / Card </th>
-                                            <th scope="col">Moneda </th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr
-                                            v-for="(salariu, index) in date_fisa.date_salarii"
-                                            v-bind:class="salariu.salariu_achitat == 0 ? 'salariu_neachitat' : 'salariu_achitat'"
-                                        >
-                                            <th scope="row">{{ index + 1}}</th>
-                                            <td>{{ salariu.salariu_institutie }}</td>
-                                            <td>{{ salariu.salariu_start_date }}</td>
-                                            <td>{{ salariu.salariu_end_date }}</td>
-                                            <td>{{ salariu.salariu_suma_initiala }}</td>
-                                            <td>{{ salariu.salariu_bonus}}</td>
-                                            <td>{{ salariu.salariu_suma_finala}}</td>
-                                            <td>{{ verificareAchitareSalariu(salariu.salariu_achitat)}}</td>
-                                            <td>{{ verificareTipAchitare(salariu.salariu_tip_achitare)}}</td>
-                                            <td>{{ salariu.salariu_moneda}}</td>
-
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
                             <div class="col-12 col-info p-2">
-                                <span class="angajat-istoric-mutatii">Istoric Domiciliu Angajat</span>
+                                <span class="angajat-istoric-mutatii">Istoric Salarii Angajat</span>
                             </div>
                             <div class="col-12 p-2 col-table">
                                 <table class="table">
                                     <thead>
                                     <tr>
                                         <th scope="col">#</th>
-                                        <th scope="col">Judet</th>
-                                        <th scope="col">Localitate</th>
-                                        <th scope="col">Strada</th>
-                                        <th scope="col">Numar</th>
-                                        <th scope="col">Bloc</th>
-                                        <th scope="col">Scara</th>
-                                        <th scope="col">Etaj</th>
-                                        <th scope="col">Apartament</th>
-                                        <th scope="col">Data Inceput</th>
-                                        <th scope="col">Data Sfarsit</th>
+                                        <th scope="col">Institutie</th>
+                                        <th scope="col">De la</th>
+                                        <th scope="col">Pana la</th>
+                                        <th scope="col">Suma initiala</th>
+                                        <th scope="col">Bonus</th>
+                                        <th scope="col">Suma Finala</th>
+                                        <th scope="col">Achitat</th>
+                                        <th scope="col">Stat / Card</th>
+                                        <th scope="col">Moneda</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>Bucuresti</td>
-                                        <td>Sector 6</td>
-                                        <td>Bulevardul Constructorilor</td>
-                                        <td>24</td>
-                                        <td>19</td>
-                                        <td>1</td>
-                                        <td>4</td>
-                                        <td>7</td>
-                                        <td>2020-01-01</td>
-                                        <td>2020-01-01</td>
+                                    <tr
+                                        v-for="(salariu, index) in date_fisa.date_salarii"
+                                        v-bind:class="salariu.salariu_achitat == 0 ? 'salariu_neachitat' : 'salariu_achitat'"
+                                    >
+                                        <th scope="row">{{ index + 1 }}</th>
+                                        <td>{{ salariu.salariu_institutie }}</td>
+                                        <td>{{ salariu.salariu_start_date }}</td>
+                                        <td>{{ salariu.salariu_end_date }}</td>
+                                        <td>{{ salariu.salariu_suma_initiala }}</td>
+                                        <td>{{ salariu.salariu_bonus }}</td>
+                                        <td>{{ salariu.salariu_suma_finala }}</td>
+                                        <td>{{ verificareAchitareSalariu(salariu.salariu_achitat) }}</td>
+                                        <td>{{ verificareTipAchitare(salariu.salariu_tip_achitare) }}</td>
+                                        <td>{{ salariu.salariu_moneda }}</td>
+
                                     </tr>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-12 col-info p-2">
+                            <span class="angajat-istoric-mutatii">Istoric Evaluari</span>
+                        </div>
+                        <div class="col-12 p-2 col-table">
+                            <table class="table">
+                                <thead>
+                                <tr class="bg-secondary text-white">
+                                    <th scope="col">#</th>
+                                    <th scope="col">Institutie</th>
+                                    <th scope="col">De la</th>
+                                    <th scope="col">Pana la</th>
+                                    <th scope="col">Calificativ Initial</th>
+                                    <th scope="col">Contestatie</th>
+                                    <th scope="col">Calificativ Final</th>
+                                    <th scope="col">Stare Calificativ</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    <tr
+                                        v-if="date_fisa.evaluari.length > 0"
+                                        v-for="(e, index) in date_fisa.evaluari"
+                                    >
+                                        <th scope="row">{{ index + 1 }}</th>
+                                        <td>{{ e.ca_institutie }}</td>
+                                        <td>{{ e.ca_data_inceput }}</td>
+                                        <td>{{ e.ca_data_sfarsit }}</td>
+                                        <td>{{ e.ca_calificativ_initial }}</td>
+                                        <td>{{ e.ca_are_contestatie }}</td>
+                                        <td>{{ e.ca_calificativ_final }}</td>
+                                        <td>
+                                            <span v-if="e.ca_status === 'Calificativ Neaprobat'" class="ca_neaprobat">Calificativ Neaprobat</span>
+                                            <span v-if="e.ca_status === 'Calificativ Aprobat'" class="ca_aprobat">Calificativ Aprobat</span>
+                                        </td>
+
+                                    </tr>
+                                    <tr v-if="date_fisa.evaluari.length === 0 || date_fisa.evaluari === undefined">
+                                        <td colspan="8" class="bg-no-evaluari text-center">Angajatul nu are evaluari operate.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-info p-2">
+                            <span class="angajat-istoric-mutatii">Istoric Domiciliu Angajat</span>
+                        </div>
+                        <div class="col-12 p-2 col-table">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Judet</th>
+                                    <th scope="col">Localitate</th>
+                                    <th scope="col">Strada</th>
+                                    <th scope="col">Numar</th>
+                                    <th scope="col">Bloc</th>
+                                    <th scope="col">Scara</th>
+                                    <th scope="col">Etaj</th>
+                                    <th scope="col">Apartament</th>
+                                    <th scope="col">Data Inceput</th>
+                                    <th scope="col">Data Sfarsit</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <th scope="row">1</th>
+                                    <td>Bucuresti</td>
+                                    <td>Sector 6</td>
+                                    <td>Bulevardul Constructorilor</td>
+                                    <td>24</td>
+                                    <td>19</td>
+                                    <td>1</td>
+                                    <td>4</td>
+                                    <td>7</td>
+                                    <td>2020-01-01</td>
+                                    <td>2020-01-01</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
+        </div>
         <loading-component v-if="loading === true"></loading-component>
     </div>
 </template>
@@ -264,63 +330,63 @@ import LoadingComponent from "../../HelperComponents/LoadingComponent";
 import PlanetChart from "../Chart/PlanetChart";
 
 export default {
-    data(){
-        return{
+    data() {
+        return {
             user_username: JSON.parse(localStorage.getItem('user')).user_username,
             user_id: JSON.parse(localStorage.getItem('user')).id,
             token: localStorage.getItem('token'),
-            angajat:{
+            angajat: {
                 id: this.$route.params.id
             },
             date_fisa: null,
             loading: false
         }
     },
-    created(){
+    created() {
         this.preluareDateAngajat();
     },
-    methods:{
-        verificareTipMutatie(mutatie){
-          if(mutatie === 1){
-              return true;
-          }else{
-              return false;
-          }
+    methods: {
+        verificareTipMutatie(mutatie) {
+            if (mutatie === 1) {
+                return true;
+            } else {
+                return false;
+            }
         },
-        verificareAchitareSalariu(salariu){
-            if(salariu === 0){
+        verificareAchitareSalariu(salariu) {
+            if (salariu === 0) {
                 return "Neachitat"
-            }else if(salariu === 1){
+            } else if (salariu === 1) {
                 return "Achitat";
             }
         },
-        verificareTipAchitare(achitare){
-          if(achitare === 0){
-              return "Neachitat";
-          }else if(achitare === 1){
-              return "Card";
-          }else if(achitare === 2){
-              return "Stat";
-          }
+        verificareTipAchitare(achitare) {
+            if (achitare === 0) {
+                return "Neachitat";
+            } else if (achitare === 1) {
+                return "Card";
+            } else if (achitare === 2) {
+                return "Stat";
+            }
         },
-        pozitieNumarValidare(pozitie){
-            if(pozitie < 10){
+        pozitieNumarValidare(pozitie) {
+            if (pozitie < 10) {
                 return `000${pozitie}`;
-            }else if(pozitie > 10 & pozitie < 100){
+            } else if (pozitie > 10 & pozitie < 100) {
                 return `00${pozitie}`;
-            }else if(pozitie > 100 & pozitie < 1000){
+            } else if (pozitie > 100 & pozitie < 1000) {
                 return `0${pozitie}`
             }
         },
-        async preluareDateAngajat(){
+        async preluareDateAngajat() {
             this.loading = true;
             await axios.get(`/api/angajati/fisaevidenta/${this.angajat.id}`, {
-                headers:{
+                headers: {
                     ContentType: 'application/json',
-                    Authorization : 'Bearer ' + this.token
+                    Authorization: 'Bearer ' + this.token
                 }
             }).then(
-                response=>{
+                response => {
                     this.date_fisa = response.data;
                     this.loading = false;
                 }
@@ -350,90 +416,128 @@ export default {
 </script>
 
 <style scoped>
-.col-profile{
+.col-profile {
     display: flex;
     flex-direction: column;
 }
-.row-profile{
+
+.row-profile {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
 }
-.row-profile-template-full{
+
+.row-profile-template-full {
     width: 100%;
     text-align: center;
     padding: 5px;
     font-weight: bold;
     color: #04ccf6;
 }
-.row-profile-template{
+
+.row-profile-template {
     width: 50%;
     text-align: right;
     padding: 5px;
     font-weight: bold;
 }
-.row-profile-info{
+
+.row-profile-info {
     width: 50%;
     text-align: left;
     padding: 5px;
 }
-.col-info{
+
+.col-info {
     padding: 10px;
     color: #04ccf6;
     font-weight: bold;
 }
-.col-table table.table{
+
+.col-table table.table {
     max-width: 100%;
     box-sizing: border-box;
 }
-.row-profile-template-full-flex{
+
+.row-profile-template-full-flex {
     display: flex;
     flex-direction: row;
     align-items: center;
 }
-.th-td-numar{
+
+.th-td-numar {
     display: flex;
     flex-direction: column;
     font-weight: normal;
     justify-items: center;
     align-items: center;
 }
+
 .table td,
-.table th{
+.table th {
     vertical-align: middle;
     border: none;
 }
+
 /* Pentru aceasta componenta */
-tr.mutare{
+tr.mutare {
     font-weight: bold;
     border: 1px solid #6a89cc;
     background-color: #6a89cc;
     color: #ffffff;
 }
-tr.incetare{
+
+tr.incetare {
     font-weight: bold;
     border: 1px solid #e74c3c;
     background-color: rgba(231, 76, 60, 0.7);
     color: #ffffff;
 }
-span.angajat-istoric-mutatii{
+
+span.angajat-istoric-mutatii {
     background-color: #38ada9;
     color: #ffffff;
     padding: 8px;
     border-radius: 5px;
 }
-.col-institutie{
+
+.col-institutie {
     text-align: center;
 }
-tr.mutatii_head{
+
+tr.mutatii_head {
     background-color: #38ada9;
     color: #ffffff;
     font-weight: bold;
 }
-tr.salariu_neachitat{
+
+tr.salariu_neachitat {
     color: #e71e1e;
 }
-tr.salariu_achitat{
+
+tr.salariu_achitat {
     color: #38ada9;
+}
+
+.ca_neaprobat,
+.ca_aprobat{
+    display: inline-block;
+    padding: 6px;
+    border-radius: 3px;
+    background-color: #ff7675;
+    color: #fff;
+    font-weight: bolder;
+    width: 150px;
+    text-align: center;
+}
+.ca_neaprobat{
+    background-color: #ff7675;
+}
+.ca_aprobat{
+    background-color: #55efc4;
+}
+
+.bg-no-evaluari{
+    background-color: #feca57;
 }
 </style>

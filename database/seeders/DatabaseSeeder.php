@@ -23,5 +23,6 @@ class DatabaseSeeder extends Seeder
         $this->call(StatSeeder::class);
         $this->call(DateBancaSeeder::class);
         $this->call(MotivIncetareContractSeeder::class);
+        $this->call(DictionarCalificativeSeeder::class);
     }
 }

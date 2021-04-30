@@ -29,6 +29,10 @@
                             <div class="row-profile-template">Institutie</div>
                             <div class="row-profile-info">{{ angajat_data.angajat_institutie }}</div>
                         </div>
+                        <div class="row-profile">
+                            <div class="row-profile-template">Data Aplicare</div>
+                            <div class="row-profile-info row-bold-red">{{ angajat_data.angajat_last_date }}</div>
+                        </div>
                     </div>
                     <div class="col-9">
                         <div class="container-fluid">
@@ -268,5 +272,9 @@ export default {
 #mutare_angajat_institutie_pozitii_0{
     font-weight: bold;
     color: #d63031;
+}
+.row-bold-red{
+    color: #d63031;
+    font-weight: bolder;
 }
 </style>
