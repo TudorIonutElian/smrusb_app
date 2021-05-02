@@ -117,7 +117,7 @@ export default {
                 dela: null,
                 panala: null
             },
-            calificative: null
+            calificative: null,
         }
     },
     computed:{
@@ -149,7 +149,16 @@ export default {
             )
         },
         async preluareEvaluariFiltrat(){
-
+            await axios.get(`/api/angajati/calificative/${this.filtrare.institutie}/${this.filtrare.dela}/${this.filtrare.panala}`, {
+                headers:{
+                    ContentType: 'application/json',
+                    Authorization : 'Bearer ' + this.token
+                }
+            })
+            .then(response => {
+                this.calificative = response.data.data;
+                this.loading = false;
+            })
         },
 
         async preluareEvaluariAnPrecedent(){

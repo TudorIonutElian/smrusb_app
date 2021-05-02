@@ -16,4 +16,8 @@ class Contract extends Model
     public function angajat(){
         return $this->belongsTo(Angajat::class, 'id');
     }
+
+    public function istoric(){
+        return $this->hasOne(ContractIstoric::class, 'ci_contract', 'id');
+    }
 }

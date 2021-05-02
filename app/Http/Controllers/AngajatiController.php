@@ -475,4 +475,14 @@ class AngajatiController extends Controller
 
         return DateCalificativeAngajat::collection($calificative);
     }
+
+    public function preluareCalificativeFiltrat($institutie, $dela, $panala){
+        $calificative = Calificativ::where([
+            ['ca_institutie',   '=', $institutie],
+            ['ca_data_inceput', '>=', $dela],
+            ['ca_data_sfarsit', '<=', $panala]
+        ])->get();
+
+        return DateCalificativeAngajat::collection($calificative);
+    }
 }

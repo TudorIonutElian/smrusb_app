@@ -53,6 +53,7 @@ import AprobarePontaj from "../components/User/Pontaj/AprobarePontaj";
 import EvaluareVizualizare from "../components/User/Evaluare/EvaluareVizualizare";
 import EvaluareAdaugare from "../components/User/Evaluare/EvaluareAdaugare";
 import EvaluareAdaugareSelectat from "../components/User/Evaluare/EvaluareAdaugareSelectat";
+import IncetariContracte from "../components/User/Situatii/IncetariContracte";
 
 const router = new VueRouter({
     mode: 'history',
@@ -117,6 +118,9 @@ const router = new VueRouter({
         {path: '/user/evaluare/vizualizare', component: EvaluareVizualizare, name: 'evaluare-vizualizare'},
         {path: '/user/evaluare/adaugare', component: EvaluareAdaugare, name: 'evaluare-adaugare'},
         {path: '/user/evaluare/adaugare/:id', component: EvaluareAdaugareSelectat, name: 'evaluare-adaugare-selectat'},
+
+
+        {path: '/user/situatii/incetaricontracte', component: IncetariContracte, name: 'incetari-contracte'},
 
 
 

@@ -79,7 +79,15 @@
                                                 <option v-for="mic in motive_incetare" v-bind:value="mic.id">{{ mic.mic_denumire }}</option>
                                             </select>
                                         </div>
-
+                                        <div class="mb-3" v-if="motive_incetare !== null">
+                                            <textarea
+                                                class="form-control"
+                                                placeholder="Introduceti sumar"
+                                                id="floatingTextarea"
+                                                :disabled="incetare_contract.incetare_motiv === null || incetare_contract.incetare_motiv === 0"
+                                            >
+                                            </textarea>
+                                        </div>
                                         <button
                                             type="submit"
                                             class="btn btn-danger btn-block"
@@ -118,7 +126,8 @@ export default {
                 numar_act_administrativ: "",
                 data_emitere_act_administrativ: "",
                 data_aplicare_act_administrativ: "",
-                incetare_motiv: 0
+                incetare_motiv: 0,
+                incetare_sumar: ""
             },
             motive_incetare: null,
             // variabile de ajutor
@@ -233,5 +242,8 @@ export default {
 .angajat_nenumit_info{
     color: #d63031;
     font-weight: bolder;
+}
+textarea {
+    resize: none;
 }
 </style>

@@ -21,5 +21,6 @@ Route::get('/angajati/numire/{id}/institutie', [AngajatiController::class, 'prel
 Route::get('/angajati/fisaevidenta/{id}', [AngajatiController::class, 'fisaEvidenta'])->middleware('auth:sanctum');
 Route::get('/angajati/{id}/preluaredatecalificativ', [AngajatiController::class, 'preluaredatecalificativ'])->middleware('auth:sanctum');
 Route::get('/angajati/calificative/anprecedent/{an}/{institutie}', [AngajatiController::class, 'preluareAnPrecedent'])->middleware('auth:sanctum');
+Route::get('/angajati/calificative/{institutie}/{dela}/{panala}', [AngajatiController::class, 'preluareCalificativeFiltrat'])->middleware('auth:sanctum');
 Route::get('/angajati/datebancare/{id}', [DatePlataController::class, 'preluareDateBancare'])->middleware('auth:sanctum');
 

@@ -122,13 +122,13 @@
                                 <li>
                                     <a class="dropdown-item dropdown-item-flex" href="/user/evaluare/vizualizare">
                                         <img class="mr-2" src="/images/evaluare.png" alt="">
-                                        <span style="color: red">Vizualizare</span>
+                                        <span>Vizualizare</span>
                                     </a>
                                 </li>
                                 <li>
                                     <a class="dropdown-item dropdown-item-flex" href="/user/evaluare/adaugare">
                                         <img class="mr-2" src="/images/evaluare_adaugare.png" alt="">
-                                        <span style="color: red">Adaugare</span>
+                                        <span>Adaugare</span>
                                     </a>
                                 </li>
                                 <li><hr class="dropdown-divider"></li>
@@ -197,7 +197,11 @@
                                 Situatii
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#" style="color: red">Incetari contracte de munca</a></li>
+                                <li>
+                                    <a class="dropdown-item" href="/user/situatii/incetaricontracte" style="color: orange">
+                                        Incetari contracte de munca
+                                    </a>
+                                </li>
                                 <li><a class="dropdown-item" href="#" style="color: red">Situatie mutari de personal</a></li>
                                 <li><a class="dropdown-item" href="#" style="color: red">Situatie detasari de personal</a></li>
                                 <li><hr class="dropdown-divider"></li>
