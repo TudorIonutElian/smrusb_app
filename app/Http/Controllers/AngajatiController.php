@@ -12,7 +12,7 @@ use App\Http\Resources\MutatiiAngajat;
 use App\Models\Angajat;
 use App\Models\Calificativ;
 use App\Models\Contract;
-use App\Models\DatePlata;
+use App\Models\ContractIstoric;
 use App\Models\Institutii;
 use App\Models\MutatiiProfesionale;
 use App\Models\PozitiiOrganizare;
@@ -21,7 +21,6 @@ use App\Models\StatOrganizare;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -83,9 +82,6 @@ class AngajatiController extends Controller
                 $user->user_first_name      = $angajat->angajat_nume;
                 $user->user_last_name       = $angajat->angajat_prenume;
                 $user->user_email           = trim(strtolower($angajat->angajat_prenume).strtolower($angajat->angajat_nume).'@smrusb.ro');
-
-                // Prelucrare username
-                $user_username_generat      = trim('angajat_'.strtolower($angajat->angajat_prenume).strtolower($angajat->angajat_nume));
                 $user->user_username        = $angajat->angajat_cnp;
 
                 $user->user_password        = Hash::make('password');
@@ -151,8 +147,7 @@ class AngajatiController extends Controller
             'date_mutatii'          => MutatiiAngajat::collection(MutatiiProfesionale::where('mp_angajat_id', '=', $id)->orderBy('mp_act_data_aplicare')->get()),
             'date_salarii'          => DateSalariiAngajat::collection(Salariu::where('s_angajat', '=', Angajat::find($id)->id)->get()),
             'adresa'                => Angajat::find($id)->adresa,
-            'evaluari'              => DateCalificativeAngajat::collection(Calificativ::where('ca_angajat', '=', Angajat::find($id)->id)->get())
-
+            'evaluari'              => DateCalificativeAngajat::collection(Calificativ::where('ca_angajat', '=', Angajat::find($id)->id)->get()),
         ];
     }
 
@@ -365,6 +360,16 @@ class AngajatiController extends Controller
                 // Incetare contract de munca
                 $this::incetareContractByAngajat($angajat, $request->date['data_aplicare_act_administrativ']);
 
+                // Salvare Contract in Istoric
+                $contractIstoric                        = new ContractIstoric();
+                $contractIstoric->ci_contract           = $angajat->contract->id;
+                $contractIstoric->ci_data_incepere      = $angajat->contract->c_data_incepere_contract;
+                $contractIstoric->ci_data_incetare      = $angajat->contract->c_data_incetare_contract;
+                $contractIstoric->ci_motiv_incetare     = $request->date['motiv_incetare'];
+                $contractIstoric->ci_sumar              = $request->date['sumar'];
+                $contractIstoric->save();
+
+
                 return response()->json([
                     'cod_raspuns'   => 2000
                 ]);
@@ -441,28 +446,6 @@ class AngajatiController extends Controller
         }
     }
 
-    public static function salvareContract($angajat, $tip, $data){
-        $contract = new Contract();
-        $contract->c_angajat                    = $angajat->id;
-        $contract->c_tip_contract               = $tip;
-        $contract->c_data_incepere_contract     = $data;
-        $contract->c_stare_contract             = 1;
-        $contract->save();
-    }
-
-    public static function incetareContractByAngajat($angajat, $data){
-        $contract = Contract::where([
-            ['c_angajat',           '=', $angajat->id],
-            ['c_stare_contract',    '=', 1]
-        ])->first();
-
-        $contract->c_stare_contract         = 0;
-        $contract->c_data_incetare_contract = $data;
-        $data_inceput_contract              = Carbon::parse($contract->c_data_incepere_contract);
-        $contract->c_zile_contract          = $data_inceput_contract->diff($data)->days;
-        $contract->save();
-    }
-
     public function preluareAnPrecedent($an, $institutie){
         $start_date     = Carbon::now()->startOfYear();
         $end_date       = Carbon::now()->endOfYear();
@@ -484,5 +467,32 @@ class AngajatiController extends Controller
         ])->get();
 
         return DateCalificativeAngajat::collection($calificative);
+    }
+
+
+    public static function incetareContractByAngajat($angajat, $data){
+        $contract = Contract::where([
+            ['c_angajat',           '=', $angajat->id],
+            ['c_stare_contract',    '=', 1]
+        ])->first();
+
+        $contract->c_stare_contract         = 0;
+        $contract->c_data_incetare_contract = $data;
+        $data_inceput_contract              = Carbon::parse($contract->c_data_incepere_contract);
+        $contract->c_zile_contract          = $data_inceput_contract->diff($data)->days;
+        $contract->save();
+    }
+
+    public static function salvareContract($angajat, $tip, $data){
+        $contract = new Contract();
+        $contract->c_angajat                    = $angajat->id;
+        $contract->c_tip_contract               = $tip;
+        $contract->c_data_incepere_contract     = $data;
+        $contract->c_stare_contract             = 1;
+        $contract->save();
+    }
+
+    public static function salvareIstoricContract(){
+
     }
 }

@@ -9,6 +9,7 @@ import Chart from 'chart.js'
 //import planetChartData from './planet-data.js'
 
 export default {
+    props: ['angajatSalarii'],
     data() {
         return {
             planetChartDataValues : {

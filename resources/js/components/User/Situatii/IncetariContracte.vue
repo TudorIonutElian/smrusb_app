@@ -41,12 +41,14 @@
                                 <button
                                     class="btn btn-success"
                                     :disabled="filtrareValida === false"
+                                    @click.prevent="preluareIncetariFiltrat"
                                 >Preluare </button>
                             </div>
                             <div class="d-flex-inner m-2">
                                 <label for="panala">Preluare</label>
                                 <button
                                     class="btn btn-secondary"
+                                    @click.prevent="preluareIncetariAstazi"
 
                                 >Afisare Astazi</button>
                             </div>
@@ -70,17 +72,20 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>XXX</td>
-                                <td>XXX</td>
-                                <td>XXX</td>
-                                <td>XXX</td>
-                                <td>XXX</td>
-                                <td>XXX</td>
-                                <td>XXX</td>
-                                <td>XXX</td>
-                            </tr>
+                                <tr v-for="(ic, index) in incetariContracte" :key="ic.id" v-if="incetariContracte !== null && incetariContracte.length > 0">
+                                    <th scope="row">{{ index + 1 }}</th>
+                                    <td>{{ ic.sic_numar_contract}}</td>
+                                    <td>{{ ic.sic_institutie}}</td>
+                                    <td>{{ ic.sic_angajat}}</td>
+                                    <td>{{ ic.sic_data_incepere}}</td>
+                                    <td>{{ ic.sic_data_incetare}}</td>
+                                    <td>{{ ic.sic_numar_zile}} :zile</td>
+                                    <td>{{ ic.sic_motiv_incetare}}</td>
+                                    <td>{{ ic.sic_sumar_incetare}}</td>
+                                </tr>
+                                <tr v-show="incetariContracte == null || incetariContracte.length == 0">
+                                    <td colspan="9" class="faraIncetari">Nu exista incetari ale contractelor de munca pentru perioada selectata</td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -101,13 +106,15 @@ export default {
     data(){
         return{
             user: JSON.parse(localStorage.getItem('user')),
+            token: localStorage.getItem('token'),
             loading: false,
             institutii: null,
             filtrare: {
                 institutie: null,
                 dela: null,
                 panala: null
-            }
+            },
+            incetariContracte: null
         }
     },
     created(){
@@ -131,6 +138,31 @@ export default {
                 }
             )
         },
+        async preluareIncetariFiltrat(){
+            this.loading = true;
+            await axios.get(`/api/situatii/incetaricontracte/${this.filtrare.institutie}/${this.filtrare.dela}/${this.filtrare.panala}`, {
+                headers:{
+                    ContentType: 'application/json',
+                    Authorization : 'Bearer ' + this.token
+                }
+            }).then(response => {
+                this.incetariContracte = response.data.data;
+                this.loading = false;
+            });
+        },
+        async preluareIncetariAstazi(){
+            this.loading = true;
+
+            await axios.get(`/api/situatii/incetaricontracte/astazi`, {
+                headers:{
+                    ContentType: 'application/json',
+                    Authorization : 'Bearer ' + this.token
+                }
+            }).then(response => {
+                this.incetariContracte = response.data.data;
+                this.loading = false;
+            });
+        }
     },
     computed:{
       filtrareValida: function(){
@@ -160,5 +192,10 @@ export default {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+.faraIncetari{
+    text-align: center;
+    color: #B53471;
+    font-weight: bolder;
 }
 </style>

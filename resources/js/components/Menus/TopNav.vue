@@ -121,7 +121,7 @@
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li>
                                     <a class="dropdown-item dropdown-item-flex" href="/user/evaluare/vizualizare">
-                                        <img class="mr-2" src="/images/evaluare.png" alt="">
+                                        <img class="mr-2" src="/images/evaluare_adaugare.png" alt="">
                                         <span>Vizualizare</span>
                                     </a>
                                 </li>
@@ -129,6 +129,12 @@
                                     <a class="dropdown-item dropdown-item-flex" href="/user/evaluare/adaugare">
                                         <img class="mr-2" src="/images/evaluare_adaugare.png" alt="">
                                         <span>Adaugare</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item dropdown-item-flex" href="/user/evaluare/aprobare">
+                                        <img class="mr-2" src="/images/evaluare_adaugare.png" alt="">
+                                        <span style="color: red">Aprobare</span>
                                     </a>
                                 </li>
                                 <li><hr class="dropdown-divider"></li>

@@ -22,6 +22,7 @@ class CreateCalificativeAngajatiTable extends Migration
             $table->unsignedBigInteger('ca_calificativ_initial');
             $table->boolean('ca_are_contestatie');
             $table->unsignedBigInteger('ca_calificativ_final');
+            $table->unsignedBigInteger('ca_aprobat_by')->nullable();
             $table->boolean('ca_status');
         });
     }

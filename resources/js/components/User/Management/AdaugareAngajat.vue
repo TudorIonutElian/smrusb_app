@@ -527,6 +527,22 @@ export default {
                 a.judet_denumire.localeCompare(b.judet_denumire);
             });
         },
+        salvareValidaConditii: function(){
+            return [
+                this.angajat_nou.nume !== "",
+                this.angajat_nou.prenume_tata !== "",
+                this.angajat_nou.prenume_mama !== "",
+                this.angajat_nou.prenume !== "",
+                this.angajat_nou.cnp !== "",
+                this.angajat_nou.data_nasterii !== "",
+                this.angajat_nou.stare_civila !== "",
+                this.angajat_nou.judet_nastere !== "",
+                this.angajat_nou.localitate_nastere !== "",
+                this.angajat_nou.judet_domiciliu !== "",
+                this.angajat_nou.localitate_domiciliu !== "",
+                this.angajat_nou.acces_level !== 0,
+            ];
+        }
     },
     async created() {
         await this.preluareJudete();
@@ -648,7 +664,7 @@ export default {
                 }
             }
 
-            if(this.angajatValid){
+            if(this.angajatValid && !this.salvareValidaConditii.includes(false)){
                 await axios.post('/api/angajati/adaugare', {
                     angajat: this.angajat_nou,
                 }, {
@@ -672,6 +688,12 @@ export default {
                         });
                     }
                 })
+            }else{
+                Vue.$toast.open({
+                    message: 'Erori Angajat',
+                    type: 'error',
+                    // all of other options may go here
+                });
             }
         }
     }

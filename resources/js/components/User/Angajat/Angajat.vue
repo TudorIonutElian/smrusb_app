@@ -108,10 +108,23 @@
                 <div class="col-10 p-3">
                     <div class="container-fluid">
                         <div class="row">
+                            <div class="col-12 mb-3">
+                                <button @click.prevent="goToNumireAngajat" class="btn btn-sm btn-primary">Numire Angajat</button>
+                                <button @click.prevent="goToMutareAngajat" class="btn btn-sm btn-primary">Mutare Angajat</button>
+                                <button @click.prevent="goToIncetareContract" class="btn btn-sm btn-primary">Incetare Contract</button>
+                                <button @click.prevent="goToAdaugareCalificativ" class="btn btn-sm btn-primary">Adaugare Calificativ</button>
+                                <button class="btn btn-sm btn-primary">Adaugare Recompense</button>
+                                <button class="btn btn-sm btn-success">Adeverinta Angajat</button>
+                                <button class="btn btn-sm btn-success">Adeverinta Asigurat</button>
+                                <button class="btn btn-sm btn-success">Adeverinta Salarii</button>
+                            </div>
                             <div class="col-12 col-info p-2">
                                 <span class="angajat-istoric-mutatii">Istoric Mutatii Profesionale</span>
                             </div>
-                            <div class="col-12 p-2">
+                            <div
+                                class="col-12 p-2"
+                                :class="date_fisa.date_mutatii.length > 10 ? 'col-100-vh' : ''"
+                            >
                                 <table class="table">
                                     <thead>
                                     <tr class="mutatii_head">
@@ -185,7 +198,7 @@
                                 </table>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row col-100-vh" v-if="date_fisa.date_salarii != null && date_fisa.date_salarii.length > 0">
                             <div class="col-12 col-info p-2">
                                 <span class="angajat-istoric-mutatii">Grafic salariu angajat</span>
                             </div>
@@ -193,11 +206,14 @@
                                 <planet-chart></planet-chart>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row" v-if="date_fisa.date_salarii != null && date_fisa.date_salarii.length > 0">
                             <div class="col-12 col-info p-2">
                                 <span class="angajat-istoric-mutatii">Istoric Salarii Angajat</span>
                             </div>
-                            <div class="col-12 p-2 col-table">
+                            <div
+                                class="col-12 p-2 col-table"
+                                :class="date_fisa.date_salarii.length > 0 ? 'col-100-vh' : ''"
+                            >
                                 <table class="table">
                                     <thead>
                                     <tr>
@@ -239,7 +255,10 @@
                         <div class="col-12 col-info p-2">
                             <span class="angajat-istoric-mutatii">Istoric Evaluari</span>
                         </div>
-                        <div class="col-12 p-2 col-table">
+                        <div
+                            class="col-12 p-2 col-table"
+                            :class="date_fisa.evaluari.length > 0 ? 'col-100-vh' : ''"
+                        >
                             <table class="table">
                                 <thead>
                                 <tr class="bg-secondary text-white">
@@ -328,6 +347,7 @@
 import TopNav from "../../Menus/TopNav";
 import LoadingComponent from "../../HelperComponents/LoadingComponent";
 import PlanetChart from "../Chart/PlanetChart";
+import router from "../../../router/router";
 
 export default {
     data() {
@@ -339,7 +359,8 @@ export default {
                 id: this.$route.params.id
             },
             date_fisa: null,
-            loading: false
+            loading: false,
+            salariiChart: null
         }
     },
     created() {
@@ -408,6 +429,25 @@ export default {
                     break;
 
             }
+        },
+        goToNumireAngajat(){
+            router.push({ name: 'numire-angajat-selectat', params: { id: this.angajat.id } })
+        },
+        goToMutareAngajat(){
+            router.push({ name: 'mutare-angajat-selectat', params: { id: this.angajat.id } })
+        },
+        goToIncetareContract(){
+            router.push({ name: 'incetare-angajat-selectat', params: { id: this.angajat.id } })
+        },
+        goToAdaugareCalificativ(){
+            router.push({ name: 'evaluare-adaugare-selectat', params: { id: this.angajat.id } })
+        },
+        goToAdaugareRecompense(){},
+        goToAdeverintaAngajat(){},
+        goToAdeverintaAsigurat(){},
+        goToAdeverintaSalarii(){},
+        prelucrareSalariiPentruChart(salarii){
+
         }
 
     },
@@ -539,5 +579,8 @@ tr.salariu_achitat {
 
 .bg-no-evaluari{
     background-color: #feca57;
+}
+.col-100-vh{
+    min-height: 100vh;
 }
 </style>

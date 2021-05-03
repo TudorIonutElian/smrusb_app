@@ -84,6 +84,7 @@
                                                 class="form-control"
                                                 placeholder="Introduceti sumar"
                                                 id="floatingTextarea"
+                                                v-model="incetare_contract.incetare_sumar"
                                                 :disabled="incetare_contract.incetare_motiv === null || incetare_contract.incetare_motiv === 0"
                                             >
                                             </textarea>
@@ -182,6 +183,7 @@ export default {
             date_incetare.data_emitere_act_administrativ    = this.incetare_contract.data_emitere_act_administrativ;
             date_incetare.data_aplicare_act_administrativ   = this.incetare_contract.data_aplicare_act_administrativ;
             date_incetare.motiv_incetare                    = this.incetare_contract.incetare_motiv;
+            date_incetare.sumar                             = this.incetare_contract.incetare_sumar;
 
             await axios.post(`/api/angajati/incetarecontract`, {
                 date: date_incetare

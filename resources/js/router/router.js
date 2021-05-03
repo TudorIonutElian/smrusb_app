@@ -87,8 +87,8 @@ const router = new VueRouter({
         {path: '/user/adauga_angajat', component: AdaugaAngajat, name: 'adauga-angajat'},
         {path: '/user/mutare_angajat', component: MutareAngajat, name: 'mutare-angajat'},
         {path: '/user/mutare_angajat/:id', component: MutareAngajatSelectat, name: 'mutare-angajat-selectat'},
-        {path: '/user/angajat/incetare_angajat', component: IncetareAngajat, name: 'incetare-pontaj'},
-        {path: '/user/angajat/incetare_angajat/:id', component: IncetareAngajatSelectat, name: 'incetare-pontaj'},
+        {path: '/user/angajat/incetare_angajat', component: IncetareAngajat, name: 'incetare-angajat'},
+        {path: '/user/angajat/incetare_angajat/:id', component: IncetareAngajatSelectat, name: 'incetare-angajat-selectat'},
         {path: '/user/angajati/aprobare/:id', component: AngajatiAprobareContUser, name: 'user-angajat-aprobare'},
 
 
