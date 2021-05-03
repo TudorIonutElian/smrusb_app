@@ -203,7 +203,7 @@
                                 <span class="angajat-istoric-mutatii">Grafic salariu angajat</span>
                             </div>
                             <div class="col-12">
-                                <planet-chart></planet-chart>
+                                <planet-chart :angajat-salarii="date_fisa.date_salarii"></planet-chart>
                             </div>
                         </div>
                         <div class="row" v-if="date_fisa.date_salarii != null && date_fisa.date_salarii.length > 0">
@@ -212,7 +212,7 @@
                             </div>
                             <div
                                 class="col-12 p-2 col-table"
-                                :class="date_fisa.date_salarii.length > 0 ? 'col-100-vh' : ''"
+                                :class="date_fisa.date_salarii.length > 15 ? 'col-100-vh' : ''"
                             >
                                 <table class="table">
                                     <thead>
@@ -257,7 +257,7 @@
                         </div>
                         <div
                             class="col-12 p-2 col-table"
-                            :class="date_fisa.evaluari.length > 0 ? 'col-100-vh' : ''"
+                            :class="date_fisa.evaluari.length > 15 ? 'col-100-vh' : ''"
                         >
                             <table class="table">
                                 <thead>

@@ -15,12 +15,13 @@ class CreateSalariiCassTable extends Migration
     {
         Schema::create('salarii_cass', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('sc_salariu_id');
             $table->unsignedBigInteger('sc_institutie');
             $table->unsignedBigInteger('sc_angajat');
             $table->integer('sc_suma');
-            $table->integer('sc_cass');
-            $table->boolean('sc_achitat');
-            $table->date('sc_data_achitarii');
+            $table->double('sc_cass', '4', '2');
+            $table->boolean('sc_achitat')->default(false);
+            $table->date('sc_data_achitarii')->nullable();
         });
     }
 

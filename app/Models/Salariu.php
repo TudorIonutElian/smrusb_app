@@ -29,4 +29,8 @@ class Salariu extends Model
     public function pozitie(){
         return $this->belongsTo(PozitiiOrganizare::class, 'id');
     }
+
+    public function cass(){
+        return $this->hasOne(CASS::class, 'sc_salariu_id', 'id');
+    }
 }

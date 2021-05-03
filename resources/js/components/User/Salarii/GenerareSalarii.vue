@@ -26,11 +26,11 @@
                         Nu ati selectat institutia, va rugam sa selectati!
                     </div>
                     <div class="col-4">
-                        <a
-                            href="/"
+                        <button
                             class="btn btn-primary btn-sm"
                             @click.prevent="preluareSalarii"
-                        >Generare Salarii</a>
+                            :disabled="institutie_id == 0"
+                        >Generare Salarii</button>
                     </div>
                 </div>
                 <div class="row">
@@ -79,7 +79,7 @@
                                         v-if="pozitie.status[0] !== undefined "
                                         :class="pozitie.status[0].s_achitat === 0 ? 'sal_neachitat' : 'sal_achitat' "
                                     >{{ pozitie.status[0].s_achitat === 0 ? 'Neachitat' : 'Achitat'}}</td>
-                                    <td>0</td>
+                                    <td>5.55</td>
                                     <td>0</td>
                                     <td>Nu</td>
                                 </tr>

@@ -145,7 +145,7 @@ class AngajatiController extends Controller
         return [
             'date_personale'        => DatePersonaleAngajat::make(Angajat::find($id)),
             'date_mutatii'          => MutatiiAngajat::collection(MutatiiProfesionale::where('mp_angajat_id', '=', $id)->orderBy('mp_act_data_aplicare')->get()),
-            'date_salarii'          => DateSalariiAngajat::collection(Salariu::where('s_angajat', '=', Angajat::find($id)->id)->get()),
+            'date_salarii'          => DateSalariiAngajat::collection(Salariu::where('s_angajat', '=', Angajat::find($id)->id)->orderBy('s_end_date', 'DESC')->limit(12)->get()),
             'adresa'                => Angajat::find($id)->adresa,
             'evaluari'              => DateCalificativeAngajat::collection(Calificativ::where('ca_angajat', '=', Angajat::find($id)->id)->get()),
         ];

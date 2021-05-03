@@ -17,22 +17,15 @@ export default {
                 data: {
 
                     // TODO - preluare dinamica a valorilor
-                    labels: ["Ianuarie", "Februarie", "Martie", "Aprilie", "Mai", "Iunie", "Iulie", "August", "Septembrie", "Octombrie", "Noiembrie", "Decembrie"],
+                    labels: [],
                     datasets: [
                         {
                             label: "Salariu",
-                            data: [1750, 12205, 6520, 8572, 6584, 9875, 1458, 4585, 9987, 10200, 3547, 12445],
-                            backgroundColor: "rgb(56,173,169, 0.4)",
-                            borderColor: "rgba(39, 60, 117,1.0)",
-                            borderWidth: 1
-                        },
-                        {
-                            label: "Bonusuri",
-                            data: [150, 300, 200, 450, 600, 360, 120, 80, 75, 500, 650, 100],
-                            backgroundColor: "rgba(116, 185, 255,1.0)",
-                            borderColor: "rgba(39, 60, 117,1.0)",
-                            borderWidth: 1
-                        },
+                            data: [],
+                            backgroundColor: "rgba(0, 148, 50,0.2)",
+                            borderColor: "rgba(15,109,122, 1.0)",
+                            borderWidth: 2
+                        }
                     ]
                 },
                 options: {
@@ -58,6 +51,7 @@ export default {
         this.createChart();
     },
     mounted() {
+        this.setChartData();
         const ctx = document.getElementById('planet-chart');
         new Chart(ctx, this.planetChartDataValues);
     },
@@ -69,6 +63,12 @@ export default {
                 data: [],
                 options: {},
             });
+        },
+        setChartData(){
+            this.angajatSalarii.forEach(salariu =>{
+                this.planetChartDataValues.data.labels.unshift(salariu.salariu_chart_data)
+                this.planetChartDataValues.data.datasets[0].data.unshift(salariu.salariu_suma_finala)
+            })
         }
     }
 }

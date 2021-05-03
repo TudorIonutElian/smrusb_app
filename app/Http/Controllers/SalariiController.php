@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\DatePozitiiSalarii;
 use App\Http\Resources\DateSalariiInstitutie;
+use App\Models\CASS;
 use App\Models\DateBanca;
 use App\Models\DatePlata;
 use App\Models\Institutii;
@@ -97,6 +98,15 @@ class SalariiController extends Controller
         $salariu->s_data_achitarii  = Carbon::now();
 
         if($salariu->save()){
+            $cass = new CASS();
+            $cass->sc_salariu_id    = $salariu->id;
+            $cass->sc_institutie    = $salariu->institutie->id;
+            $cass->sc_angajat       = $salariu->angajat->id;
+            $cass->sc_cass          = 5.55;
+            $cass->sc_suma          = ($salariu->s_suma_finala * 0.55);
+
+            $cass->save();
+
             return response()->json([
                 'code_message' => 'salariu_achitat'
             ]);
