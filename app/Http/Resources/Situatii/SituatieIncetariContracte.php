@@ -25,8 +25,7 @@ class SituatieIncetariContracte extends JsonResource
           'sic_data_incepere'   => $this->ci_data_incepere,
           'sic_data_incetare'   => $this->ci_data_incetare,
           'sic_motiv_incetare'  => MotivIncetareContract::find($this->ci_motiv_incetare)->mic_denumire,
-          'sic_sumar_incetare'  => $this->ci_sumar,
-          'sic_numar_zile'      => $this->contract['c_zile_contract'],
+          'sic_sumar_incetare'  => $this->ci_sumar
         ];
     }
 }

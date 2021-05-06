@@ -19,7 +19,7 @@ class CreateContracteIstoricTable extends Migration
             $table->date('ci_data_incepere');
             $table->date('ci_data_incetare');
             $table->unsignedBigInteger('ci_motiv_incetare');
-            $table->text('ci_sumar');
+            $table->text('ci_sumar')->nullable();
         });
     }
 

@@ -204,11 +204,11 @@
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li>
-                                    <a class="dropdown-item" href="/user/situatii/incetaricontracte" style="color: orange">
+                                    <a class="dropdown-item" href="/user/situatii/incetaricontracte">
                                         Incetari contracte de munca
                                     </a>
                                 </li>
-                                <li><a class="dropdown-item" href="#" style="color: red">Situatie mutari de personal</a></li>
+                                <li><a class="dropdown-item" href="/user/situatii/mutari">Situatie mutari de personal</a></li>
                                 <li><a class="dropdown-item" href="#" style="color: red">Situatie detasari de personal</a></li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li><a class="dropdown-item" href="#" style="color: red">Situatii salarii lunare</a></li>

@@ -26,22 +26,42 @@
                     >
                         Nu ati selectat institutia, va rugam sa selectati!
                     </div>
-                    <div class="col-4">
-                        <a
-                            href="/"
-                            class="btn btn-primary btn-sm"
-                            @click.prevent="vizualizareSalarii"
-                        >Vizualizare Salarii</a>
-                        <a
-                            href="/"
-                            class="btn btn-success btn-sm ml-2"
-                            @click.prevent="exportSalariiPDF"
-                        >Export Salarii PDF</a>
+                    <div class="col-12">
+                        <div class="row row-flexible p-2">
+                            <div>
+                                <button
+                                    class="btn btn-primary"
+                                    @click.prevent="vizualizareSalarii"
+                                    :disabled="generare_institutie_id === 0"
+                                    :class="generare_institutie_id === 0 ? 'bg-danger': ''"
+                                >Vizualizare Salarii</button>
+                                <button
+                                    class="btn btn-success ml-2"
+                                    @click.prevent="exportSalariiPDF"
+                                    :disabled="generare_institutie_id === 0"
+                                    :class="generare_institutie_id === 0 ? 'bg-danger': ''"
+                                >Export Salarii PDF</button>
+                                <button
+                                    class="btn btn-secondary ml-2"
+                                    @click.prevent="showHideFilters"
+                                    :disabled="generare_institutie_id === 0"
+                                    :class="generare_institutie_id === 0 ? 'bg-danger': ''"
+                                >Filtrare Salarii</button>
+                            </div>
+                            <div class="ml-3 form-group-filter" v-if="helperVariables.showFilter">
+                                <input type="date" class="form-control form-control-inline" v-model="filtrare.dela">
+                                <input type="date" class="form-control form-control-inline" v-model="filtrare.panala">
+                                <input type="text" class="form-control form-control-inline" v-model="filtrare.nume" placeholder="Numele angajatului" @keyup="getSalariiByName($event)">
+                                <a @click.prevent="resetFilters" class="reset" v-show="filtrare.nume != null && filtrare.nume.length > 0">
+                                    <img src="/images/resetFilters.png">
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-12 my-2">
-                        <table class="table">
+                        <table class="table" id="my-table">
                             <thead>
                             <tr>
                                 <th scope="col">#</th>
@@ -92,6 +112,7 @@
 import TopNav from "../../Menus/TopNav";
 import LoadingComponent from "../../HelperComponents/LoadingComponent";
 import { jsPDF } from "jspdf";
+import 'jspdf-autotable';
 
 export default {
     data(){
@@ -105,7 +126,15 @@ export default {
                 institutie_neselectata: false
             },
             salarii: [],
-            exportable: false
+            exportable: false,
+            helperVariables: {
+                showFilter: false
+            },
+            filtrare:{
+                dela: null,
+                panala: null,
+                nume: null
+            }
         }
     },
     components:{
@@ -143,7 +172,7 @@ export default {
             })
         },
         async vizualizareSalarii(){
-            await axios.get(`/api/salarizare/${this.generare_institutie_id}/vizualizare`, {
+            await axios.get(`/api/salarizare/${this.generare_institutie_id}/vizualizare/${this.filtrare.dela}/${this.filtrare.panala}/`, {
                 headers:{
                     ContentType: 'application/json',
                     Authorization : 'Bearer ' + this.token
@@ -160,19 +189,61 @@ export default {
                 format: 'a4',
                 putOnlyUsedFonts:true,
             });
-            doc.comment("Comment");
-            doc.save("a4.pdf");
+            doc.setDrawColor(39, 174, 96);
+            doc.text(`SMRUSB - Salarii ${this.acces_user_institutii[this.generare_institutie_id-1].institutie_denumire}`, 2, 2);
+            doc.autoTable({
+                html: '#my-table',
+                startY: 3,
+                tableWidth: 'auto',
+            })
+
+            doc.save("salarii.pdf");
+        },
+        showHideFilters(){
+            this.helperVariables.showFilter = !this.helperVariables.showFilter;
+        },
+        async getSalariiByName(event){
+            const valoareStringNume = event.target.value;
+            if(valoareStringNume === ""){
+                await this.vizualizareSalarii();
+            }else{
+                const salariiFiltrate = [];
+                this.salarii.forEach(salariu=>{
+                    let salariuLower = salariu.salariu_angajat.toLowerCase();
+                    if(salariuLower.includes(valoareStringNume.toLowerCase())){
+                        salariiFiltrate.push(salariu)
+                    }
+                })
+
+                this.salarii = salariiFiltrate;
+            }
+        },
+        async resetFilters(){
+            this.filtrare.dela = null;
+            this.filtrare.panala = null;
+            this.filtrare.nume = null;
+            await this.vizualizareSalarii();
         }
     }
 }
 </script>
 
 <style scoped>
-
-tr.salariu_neachitat{
-    color: #e71e1e;
+.row-flexible{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
 }
-tr.salariu_achitat{
-    color: #38ada9;
+.form-control-inline{
+    display: inline-block;
+}
+.form-group-filter{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.form-group-filter .form-control-inline{
+    margin: 0 10px;
 }
 </style>

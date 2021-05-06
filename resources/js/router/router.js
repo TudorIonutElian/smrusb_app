@@ -54,6 +54,7 @@ import EvaluareVizualizare from "../components/User/Evaluare/EvaluareVizualizare
 import EvaluareAdaugare from "../components/User/Evaluare/EvaluareAdaugare";
 import EvaluareAdaugareSelectat from "../components/User/Evaluare/EvaluareAdaugareSelectat";
 import IncetariContracte from "../components/User/Situatii/IncetariContracte";
+import MutariPersonal from "../components/User/Situatii/MutariPersonal";
 
 const router = new VueRouter({
     mode: 'history',
@@ -121,6 +122,7 @@ const router = new VueRouter({
 
 
         {path: '/user/situatii/incetaricontracte', component: IncetariContracte, name: 'incetari-contracte'},
+        {path: '/user/situatii/mutari', component: MutariPersonal, name: 'mutari-personal'},
 
 
 

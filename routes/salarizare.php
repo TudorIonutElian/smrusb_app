@@ -3,7 +3,7 @@
 use App\Http\Controllers\SalariiController;
 
 Route::get('/salarizare/{cod}/generare', [SalariiController::class, 'generare'])->middleware('auth:sanctum');
-Route::get('/salarizare/{cod}/vizualizare', [SalariiController::class, 'vizualizare'])->middleware('auth:sanctum');
+Route::get('/salarizare/{institutie}/vizualizare/{dela}/{panala}', [SalariiController::class, 'vizualizare'])->middleware('auth:sanctum');
 Route::get('/salarizare/datebanci/preluare', [SalariiController::class, 'preluareDateBanci'])->middleware('auth:sanctum');
 
 

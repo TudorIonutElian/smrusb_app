@@ -225,7 +225,7 @@ export default {
         validarePozitie(pozitie){
             if(pozitie < 10){
                 return `000${pozitie}`;
-            }else if(pozitie > 10 & pozitie < 100){
+            }else if(pozitie >= 10 & pozitie < 100){
                 return `00${pozitie}`;
             }else if(pozitie > 100 & pozitie < 1000){
                 return `0${pozitie}`

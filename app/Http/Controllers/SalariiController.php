@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\DatePozitiiSalarii;
 use App\Http\Resources\DateSalariiInstitutie;
+use App\Models\Angajat;
 use App\Models\CASS;
 use App\Models\DateBanca;
 use App\Models\DatePlata;
@@ -31,8 +32,48 @@ class SalariiController extends Controller
         return DatePozitiiSalarii::collection($pozitii_stat);
     }
 
-    public function vizualizare($cod){
-        return DateSalariiInstitutie::collection(Salariu::where('s_institutie', '=', $cod)->orderBy('s_start_date')->get());
+    public function vizualizare($institutie, $dela, $panala){
+        if(
+            // Verificare daca ambele date sunt setate
+            (isset($dela) && $dela != 'null') &&
+            (isset($dela) && $panala != 'null')
+        ){
+            return DateSalariiInstitutie::collection(
+                Salariu::where([
+                    ['s_institutie', '=', $institutie],
+                    ['s_start_date', '>=', $dela],
+                    ['s_end_date',   '<=', $panala],
+                ])->orderBy('s_start_date')->get()
+            );
+        }else if(
+            // Verificare daca prima data data este setata
+            (isset($dela) && $dela != 'null') &&
+            (isset($dela) && $panala == 'null')
+        ){
+            return DateSalariiInstitutie::collection(
+                Salariu::where([
+                    ['s_institutie', '=', $institutie],
+                    ['s_start_date', '>=', $dela]
+                ])->orderBy('s_start_date')->get()
+            );
+        }else if(
+            // Verificare daca prima data data este setata
+            (isset($dela) && $dela == 'null') &&
+            (isset($dela) && $panala != 'null')
+        ){
+            return DateSalariiInstitutie::collection(
+                Salariu::where([
+                    ['s_institutie', '=', $institutie],
+                    ['s_end_date',   '<=', $panala]
+                ])->orderBy('s_start_date')->get()
+            );
+        }else{
+            return DateSalariiInstitutie::collection(
+                Salariu::where(
+                    's_institutie', '=', $institutie
+                )->orderBy('s_start_date')->get()
+            );
+        }
     }
 
     public function generareSalariu(Request $request){

@@ -48,6 +48,7 @@
                                 <label for="panala">Preluare</label>
                                 <button
                                     class="btn btn-secondary"
+                                    :disabled="filtrare.institutie == null"
                                     @click.prevent="preluareIncetariAstazi"
 
                                 >Afisare Astazi</button>
@@ -66,7 +67,6 @@
                                 <th scope="col">Nume si Prenume</th>
                                 <th scope="col">Data angajarii</th>
                                 <th scope="col">Data incetarii</th>
-                                <th scope="col">Vechime in munca</th>
                                 <th scope="col">Motivul incetarii</th>
                                 <th scope="col">Sumar</th>
                             </tr>
@@ -79,7 +79,6 @@
                                     <td>{{ ic.sic_angajat}}</td>
                                     <td>{{ ic.sic_data_incepere}}</td>
                                     <td>{{ ic.sic_data_incetare}}</td>
-                                    <td>{{ ic.sic_numar_zile}} :zile</td>
                                     <td>{{ ic.sic_motiv_incetare}}</td>
                                     <td>{{ ic.sic_sumar_incetare}}</td>
                                 </tr>
@@ -153,7 +152,7 @@ export default {
         async preluareIncetariAstazi(){
             this.loading = true;
 
-            await axios.get(`/api/situatii/incetaricontracte/astazi`, {
+            await axios.get(`/api/situatii/incetaricontracte/${this.filtrare.institutie}/astazi`, {
                 headers:{
                     ContentType: 'application/json',
                     Authorization : 'Bearer ' + this.token

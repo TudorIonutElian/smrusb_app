@@ -46,8 +46,6 @@
                                 <th scope="col">Achita</th>
                                 <th scope="col">Stare</th>
                                 <th scope="col">CASS Taxa</th>
-                                <th scope="col">CASS Valoare</th>
-                                <th scope="col">CASS Platit</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -79,9 +77,7 @@
                                         v-if="pozitie.status[0] !== undefined "
                                         :class="pozitie.status[0].s_achitat === 0 ? 'sal_neachitat' : 'sal_achitat' "
                                     >{{ pozitie.status[0].s_achitat === 0 ? 'Neachitat' : 'Achitat'}}</td>
-                                    <td>5.55</td>
-                                    <td>0</td>
-                                    <td>Nu</td>
+                                    <td class="text-center">5.55%</td>
                                 </tr>
                             </tbody>
                         </table>

@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class DatePozitiiSalarii extends JsonResource
+class  DatePozitiiSalarii extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -18,7 +18,7 @@ class DatePozitiiSalarii extends JsonResource
             'pozitie'       => $this->ps_pozitie,
             'functie'       => $this->functie->functie_denumire,
             'angajat'       => $this->angajat->angajat_nume.' '.$this->angajat->angajat_prenume,
-            'status'        => $this->salariu_generat ? $this->salariu_generat : null
+            'status'        => $this->salariu_generat ? $this->salariu_generat : null,
         ];
     }
 }
