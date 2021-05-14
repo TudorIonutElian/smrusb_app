@@ -85,7 +85,10 @@
                             <td>{{ c.ca_data_inceput }}</td>
                             <td>{{ c.ca_data_sfarsit }}</td>
                             <td>{{ c.ca_calificativ_initial }}</td>
-                            <td>{{ c.ca_are_contestatie }}</td>
+                            <td>
+                                <span v-if="c.ca_are_contestatie == 0">Nu</span>
+                                <span v-if="c.ca_are_contestatie == 1">Da</span>
+                            </td>
                             <td>{{ c.ca_calificativ_final }}</td>
                         </tr>
                         <tr v-if="calificative != null && calificative.length == 0" class="fara_calificative">

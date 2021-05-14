@@ -1,0 +1,59 @@
+<template>
+    <div class="container-fluid">
+        <top-nav></top-nav>
+        <div class="row">
+            <div class="container-fluid mt-4 container-angajati">
+                <div class="row">
+                    <div class="col-12">
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Home</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Profile</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="messages-tab" data-bs-toggle="tab" data-bs-target="#messages" type="button" role="tab" aria-controls="messages" aria-selected="false">Messages</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="settings-tab" data-bs-toggle="tab" data-bs-target="#settings" type="button" role="tab" aria-controls="settings" aria-selected="false">Settings</button>
+                            </li>
+                        </ul>
+
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="home" role="tabpanel" aria-labelledby="home-tab">Home Tab Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa, odio!</div>
+                            <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi cumque fuga, ipsam odio soluta temporibus? Animi assumenda consectetur cum ea excepturi fuga, fugiat neque velit vero! Alias aliquam aperiam beatae cum dignissimos dolore error harum, illo illum ipsa iure laudantium libero, maxime nobis nulla perferendis, quos rerum sapiente velit veniam!</div>
+                            <div class="tab-pane" id="messages" role="tabpanel" aria-labelledby="messages-tab">...</div>
+                            <div class="tab-pane" id="settings" role="tabpanel" aria-labelledby="settings-tab">...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+
+
+import TopNav from "./Menus/TopNav";
+
+export default {
+    data(){
+        return{
+            user: JSON.parse(localStorage.getItem('user')),
+        }
+    },
+    components:{
+        TopNav,
+    },
+    methods:{
+
+    }
+}
+</script>
+
+<style scoped>
+</style>

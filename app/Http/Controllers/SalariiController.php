@@ -154,4 +154,134 @@ class SalariiController extends Controller
         }
         return $salariu;
     }
+
+    public function preluareSalariiLunar($institutie_id, $luna){
+        $anul = Carbon::now()->format('Y');
+        $perioada = null;
+
+        switch ($luna){
+            case '01':
+                $perioada = [
+                  'start_date'  => Carbon::createFromFormat('d-m-Y', '01-01-'.$anul),
+                  'end_date'    => Carbon::createFromFormat('d-m-Y', '31-01-'.$anul),
+                ];
+               break;
+            case '02':
+                $perioada = [
+                    'start_date'  => Carbon::createFromFormat('d-m-Y', '01-02-'.$anul),
+                    'end_date'    => Carbon::createFromFormat('d-m-Y', '28-02-'.$anul),
+                ];
+                break;
+            case '03':
+                $perioada = [
+                    'start_date'  => Carbon::createFromFormat('d-m-Y', '01-03-'.$anul),
+                    'end_date'    => Carbon::createFromFormat('d-m-Y', '31-03-'.$anul),
+                ];
+                break;
+            case '04':
+                $perioada = [
+                    'start_date'  => Carbon::createFromFormat('d-m-Y', '01-04-'.$anul),
+                    'end_date'    => Carbon::createFromFormat('d-m-Y', '30-04-'.$anul),
+                ];
+                break;
+            case '05':
+                $perioada = [
+                    'start_date'  => Carbon::createFromFormat('d-m-Y', '01-05-'.$anul),
+                    'end_date'    => Carbon::createFromFormat('d-m-Y', '31-05-'.$anul),
+                ];
+                break;
+            case '06':
+                $perioada = [
+                    'start_date'  => Carbon::createFromFormat('d-m-Y', '01-06-'.$anul),
+                    'end_date'    => Carbon::createFromFormat('d-m-Y', '30-06-'.$anul),
+                ];
+                break;
+            case '07':
+                $perioada = [
+                    'start_date'  => Carbon::createFromFormat('d-m-Y', '01-07-'.$anul),
+                    'end_date'    => Carbon::createFromFormat('d-m-Y', '31-07-'.$anul),
+                ];
+                break;
+            case '08':
+                $perioada = [
+                    'start_date'  => Carbon::createFromFormat('d-m-Y', '01-08-'.$anul),
+                    'end_date'    => Carbon::createFromFormat('d-m-Y', '31-08-'.$anul),
+                ];
+                break;
+            case '09':
+                $perioada = [
+                    'start_date'  => Carbon::createFromFormat('d-m-Y', '01-09-'.$anul),
+                    'end_date'    => Carbon::createFromFormat('d-m-Y', '30-09-'.$anul),
+                ];
+                break;
+            case '10':
+                $perioada = [
+                    'start_date'  => Carbon::createFromFormat('d-m-Y', '01-10-'.$anul),
+                    'end_date'    => Carbon::createFromFormat('d-m-Y', '31-10-'.$anul),
+                ];
+                break;
+            case '11':
+                $perioada = [
+                    'start_date'  => Carbon::createFromFormat('d-m-Y', '01-11-'.$anul),
+                    'end_date'    => Carbon::createFromFormat('d-m-Y', '30-11-'.$anul),
+                ];
+                break;
+            case '12':
+                $perioada = [
+                    'start_date'  => Carbon::createFromFormat('d-m-Y', '01-12-'.$anul),
+                    'end_date'    => Carbon::createFromFormat('d-m-Y', '31-12-'.$anul),
+                ];
+                break;
+        }
+        $salarii = Salariu::where([
+            ['s_institutie', '=', $institutie_id,],
+            ['s_start_date', '=', $perioada['start_date']->format('Y-m-d')],
+            ['s_end_date',   '=', $perioada['end_date']->format('Y-m-d')],
+        ])->get();
+
+        return DateSalariiInstitutie::collection($salarii);
+    }
+
+    public function preluareSalariiTrimestrial($institutie_id, $trimestru){
+        $anul = Carbon::now()->format('Y');
+        $perioada = null;
+
+        switch ($trimestru){
+            case '01':
+                $perioada = [
+                    'start_date'  => Carbon::createFromFormat('d-m-Y', '01-01-'.$anul),
+                    'end_date'    => Carbon::createFromFormat('d-m-Y', '31-03-'.$anul),
+                ];
+                break;
+            case '02':
+                $perioada = [
+                    'start_date'  => Carbon::createFromFormat('d-m-Y', '01-04-'.$anul),
+                    'end_date'    => Carbon::createFromFormat('d-m-Y', '30-06-'.$anul),
+                ];
+                break;
+            case '03':
+                $perioada = [
+                    'start_date'  => Carbon::createFromFormat('d-m-Y', '01-07-'.$anul),
+                    'end_date'    => Carbon::createFromFormat('d-m-Y', '30-09-'.$anul),
+                ];
+                break;
+            case '04':
+                $perioada = [
+                    'start_date'  => Carbon::createFromFormat('d-m-Y', '01-10-'.$anul),
+                    'end_date'    => Carbon::createFromFormat('d-m-Y', '31-12-'.$anul),
+                ];
+                break;
+        }
+
+        $salarii = Salariu::where([
+            ['s_institutie', '=', $institutie_id,],
+            ['s_start_date', '>=', $perioada['start_date']->format('Y-m-d')],
+            ['s_end_date',   '<=', $perioada['end_date']->format('Y-m-d')],
+        ])->get();
+
+        return [
+            'salarii'   => DateSalariiInstitutie::collection($salarii),
+            'sumar'     => 0
+        ];
+    }
 }

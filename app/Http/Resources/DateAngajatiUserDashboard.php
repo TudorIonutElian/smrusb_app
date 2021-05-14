@@ -23,7 +23,9 @@ class DateAngajatiUserDashboard extends JsonResource
             'angajat_cnp'                           => $this->angajat_cnp,
             'angajat_institutie'                    => Institutii::where('institutie_cod_acces', '=', $this->angajat_cod_acces)->first()['institutie_denumire'],
             'angajat_functie'                       => Functii::where('id', '=', $this->angajat_functie_curenta)->first()['functie_denumire'],
-            'angajat_status'                        => $this->angajat_status
+            'angajat_status'                        => $this->angajat_status,
+            'angajat_dob'                           => $this->angajat_data_nasterii,
+            'angajat_cnp'                           => $this->angajat_cnp
         ];
     }
 }

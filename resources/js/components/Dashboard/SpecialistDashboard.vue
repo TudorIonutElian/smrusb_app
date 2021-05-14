@@ -73,7 +73,6 @@ export default {
                     Authorization : 'Bearer ' + localStorage.getItem('token')
                 }
             }).then(async (response) => {
-                console.log(response)
                 this.lista_angajati = response.data.data
                 this.lista_angajati_filtrat = response.data.data
             })

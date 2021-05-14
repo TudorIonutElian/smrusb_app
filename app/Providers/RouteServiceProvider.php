@@ -62,6 +62,7 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapSalarizareRoutes();
         $this->mapPontajRoutes();
         $this->mapSituatiiRoutes();
+        $this->mapCalificativeRoutes();
     }
 
     /**
@@ -157,6 +158,12 @@ class RouteServiceProvider extends ServiceProvider
     {
         Route::prefix('/api/')
             ->group(base_path('routes/situatii.php'));
+    }
+
+    private function mapCalificativeRoutes()
+    {
+        Route::prefix('/api/')
+            ->group(base_path('routes/calificative.php'));
     }
 
 }

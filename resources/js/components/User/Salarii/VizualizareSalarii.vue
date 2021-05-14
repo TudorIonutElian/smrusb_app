@@ -66,7 +66,6 @@
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Institutie</th>
-                                <th scope="col">Pozitie</th>
                                 <th scope="col">Functie</th>
                                 <th scope="col">Angajat</th>
                                 <th scope="col">De la: </th>
@@ -86,7 +85,6 @@
                                 >
                                     <th scope="row">{{ index + 1}}</th>
                                     <td>{{ salariu.salariu_institutie }}</td>
-                                    <td>-</td>
                                     <td>{{ salariu.salariu_functie }}</td>
                                     <td>{{ salariu.salariu_angajat }}</td>
                                     <td>{{ salariu.salariu_start_date }}</td>

@@ -17,6 +17,7 @@ class DateCalificativeAngajat extends JsonResource
     public function toArray($request)
     {
         return [
+            'ca_id'                     => $this->id,
             'ca_institutie'             => $this->institutie['institutie_denumire'],
             'ca_data_inceput'           => $this->ca_data_inceput,
             'ca_data_sfarsit'           => $this->ca_data_sfarsit,
@@ -28,6 +29,8 @@ class DateCalificativeAngajat extends JsonResource
             'ca_angajat_prenume'        => $this->angajat['angajat_prenume'],
             'ca_angajat_dataangajarii'  => $this->angajat->contract['c_data_incepere_contract'],
             'ca_angajat_vechimemunca'   => Carbon::createFromDate($this->angajat->contract['c_data_incepere_contract'])->diffInDays(Carbon::now()),
+            'ca_poate_fi_contestat'     => Carbon::createFromDate($this->ca_data_adaugarii)->diffInDays(Carbon::now()) <= 5,
+            'ca_data_adaugarii'         => $this->ca_data_adaugarii,
         ];
     }
 }

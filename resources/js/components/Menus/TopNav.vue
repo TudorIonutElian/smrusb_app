@@ -14,7 +14,7 @@
                         <li class="nav-item">
                             <a
                                 class="nav-link active"
-                                aria-current="page" href="/"
+                                aria-current="page" href="/despre"
                                 v-if="user === null"
                             >Despre</a>
                         </li>
@@ -134,7 +134,7 @@
                                 <li>
                                     <a class="dropdown-item dropdown-item-flex" href="/user/evaluare/aprobare">
                                         <img class="mr-2" src="/images/evaluare_adaugare.png" alt="">
-                                        <span style="color: red">Aprobare</span>
+                                        <span>Aprobare</span>
                                     </a>
                                 </li>
                                 <li><hr class="dropdown-divider"></li>
@@ -209,11 +209,10 @@
                                     </a>
                                 </li>
                                 <li><a class="dropdown-item" href="/user/situatii/mutari">Situatie mutari de personal</a></li>
-                                <li><a class="dropdown-item" href="#" style="color: red">Situatie detasari de personal</a></li>
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="#" style="color: red">Situatii salarii lunare</a></li>
-                                <li><a class="dropdown-item" href="#" style="color: red">Situatii salarii trimestriale</a></li>
-                                <li><a class="dropdown-item" href="#" style="color: red">Situatii salarii semestriale</a></li>
+                                <li><a class="dropdown-item" href="/user/situatii/salarii/lunare">Situatii salarii lunare</a></li>
+                                <li><a class="dropdown-item" href="/user/situatii/salarii/trimestriale">Situatii salarii trimestriale</a></li>
+                                <li><a class="dropdown-item" href="/user/situatii/salarii/semestriale" style="color: red">Situatii salarii semestriale</a></li>
                                 <li><a class="dropdown-item" href="#" style="color: red">Situatii salarii anuale</a></li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li><a class="dropdown-item" href="#" style="color: red">Plati CASS</a></li>
@@ -227,7 +226,6 @@
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="/user/pontaj/vizualizare">Pontaj-Vizualizare </a></li>
                                 <li><a class="dropdown-item" href="/user/pontaj/aprobare">Pontaj-Aprobare </a></li>
-                                <li><a class="dropdown-item" href="#" style="color: red">Pontaj-Salvare PDF </a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown" v-if="user != null && user.user_type === 0">
@@ -235,7 +233,7 @@
                                 Documente
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#" style="color: red">Adeverinta angajat </a></li>
+                                <li><a class="dropdown-item" href="/user/adeverinte/adeverintaangajat">Adeverinta angajat </a></li>
                                 <li><a class="dropdown-item" href="#" style="color: red">Adeverinta asigurat </a></li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li><a class="dropdown-item" href="#" style="color: red">Adeverinta dosar pensie</a></li>

@@ -55,13 +55,20 @@ import EvaluareAdaugare from "../components/User/Evaluare/EvaluareAdaugare";
 import EvaluareAdaugareSelectat from "../components/User/Evaluare/EvaluareAdaugareSelectat";
 import IncetariContracte from "../components/User/Situatii/IncetariContracte";
 import MutariPersonal from "../components/User/Situatii/MutariPersonal";
+import DespreComponent from "../components/DespreComponent";
+import AngajatCalificative from "../components/User/Angajat/AngajatCalificative";
+import EvaluareAprobare from "../components/User/Evaluare/EvaluareAprobare";
+import SalariiLunare from "../components/User/Situatii/SalariiLunare";
+import AdeverintaAngajat from "../components/User/Adeverinte/AdeverintaAngajat";
+import SalariiSemestriale from "../components/User/Situatii/SalariiSemestriale";
+import SalariiTrimestriale from "../components/User/Situatii/SalariiTrimestriale";
 
 const router = new VueRouter({
     mode: 'history',
     routes: [
         // Route Home
         {path: '/', component: Home, name: 'home'},
-        {path: '/despre', component: Home, name: 'despre'},
+        {path: '/despre', component: DespreComponent, name: 'despre'},
 
         // Route Admin Dashboard
         {path: '/admin/dashboard', component: Admin, name: 'admin-dashboard'},
@@ -107,6 +114,10 @@ const router = new VueRouter({
         {path: '/user/stat/vacante', component: VacanteStat, name: 'vacante-stat'},
 
 
+        {path: '/user/dashboard/calificativeangajat/:id', component: AngajatCalificative, name: 'angajat-calificative'},
+        {path: '/user/adeverinte/adeverintaangajat', component: AdeverintaAngajat, name: 'adeverinta-angajat'},
+
+
 
         {path: '/user/salarii/generare', component: GenerareSalarii, name: 'generare-salarii'},
         {path: '/user/salarii/vizualizare', component: VizualizareSalarii, name: 'vizualizare-salarii'},
@@ -119,10 +130,14 @@ const router = new VueRouter({
         {path: '/user/evaluare/vizualizare', component: EvaluareVizualizare, name: 'evaluare-vizualizare'},
         {path: '/user/evaluare/adaugare', component: EvaluareAdaugare, name: 'evaluare-adaugare'},
         {path: '/user/evaluare/adaugare/:id', component: EvaluareAdaugareSelectat, name: 'evaluare-adaugare-selectat'},
+        {path: '/user/evaluare/aprobare', component: EvaluareAprobare, name: 'evaluare-aprobare'},
 
 
         {path: '/user/situatii/incetaricontracte', component: IncetariContracte, name: 'incetari-contracte'},
         {path: '/user/situatii/mutari', component: MutariPersonal, name: 'mutari-personal'},
+        {path: '/user/situatii/salarii/lunare', component: SalariiLunare, name: 'salarii-lunare'},
+        {path: '/user/situatii/salarii/trimestriale', component: SalariiTrimestriale, name: 'salarii-trimestriale'},
+        {path: '/user/situatii/salarii/semestriale', component: SalariiSemestriale, name: 'salarii-semstriale'},
 
 
 

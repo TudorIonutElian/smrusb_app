@@ -6,6 +6,8 @@ Route::get('/salarizare/{cod}/generare', [SalariiController::class, 'generare'])
 Route::get('/salarizare/{institutie}/vizualizare/{dela}/{panala}', [SalariiController::class, 'vizualizare'])->middleware('auth:sanctum');
 Route::get('/salarizare/datebanci/preluare', [SalariiController::class, 'preluareDateBanci'])->middleware('auth:sanctum');
 
+Route::get('/salarizare/{institutie}/lunar/{luna}', [SalariiController::class, 'preluareSalariiLunar'])->middleware('auth:sanctum');
+Route::get('/salarizare/{institutie}/trimestrial/{trimestru}', [SalariiController::class, 'preluareSalariiTrimestrial'])->middleware('auth:sanctum');
 
 Route::post('/salarizare/generare', [SalariiController::class, 'generareSalariu'])->middleware('auth:sanctum');
 Route::post('/salarizare/achitare', [SalariiController::class, 'achitareSalariu'])->middleware('auth:sanctum');

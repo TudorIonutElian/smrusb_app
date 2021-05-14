@@ -24,6 +24,7 @@ class CreateCalificativeAngajatiTable extends Migration
             $table->unsignedBigInteger('ca_calificativ_final');
             $table->unsignedBigInteger('ca_aprobat_by')->nullable();
             $table->boolean('ca_status');
+            $table->date('ca_data_adaugarii')->default(DB::raw('CURRENT_TIMESTAMP'));
         });
     }
 

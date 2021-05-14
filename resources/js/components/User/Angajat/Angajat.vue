@@ -109,231 +109,302 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-12 mb-3">
-                                <button @click.prevent="goToNumireAngajat" class="btn btn-sm btn-primary">Numire Angajat</button>
-                                <button @click.prevent="goToMutareAngajat" class="btn btn-sm btn-primary">Mutare Angajat</button>
-                                <button @click.prevent="goToIncetareContract" class="btn btn-sm btn-primary">Incetare Contract</button>
-                                <button @click.prevent="goToAdaugareCalificativ" class="btn btn-sm btn-primary">Adaugare Calificativ</button>
-                                <button class="btn btn-sm btn-primary">Adaugare Recompense</button>
-                                <button class="btn btn-sm btn-success">Adeverinta Angajat</button>
-                                <button class="btn btn-sm btn-success">Adeverinta Asigurat</button>
-                                <button class="btn btn-sm btn-success">Adeverinta Salarii</button>
+                                <div class="btn-group">
+                                    <button @click.prevent="goToNumireAngajat" class="btn btn-primary">Numire Angajat</button>
+                                    <button @click.prevent="goToMutareAngajat" class="btn btn-primary">Mutare Angajat</button>
+                                    <button @click.prevent="goToIncetareContract" class="btn btn-primary">Incetare Contract</button>
+                                    <button @click.prevent="goToAdaugareCalificativ" class="btn btn-primary">Adaugare Calificativ</button>
+                                    <button class="btn btn-primary">Adaugare Recompense</button>
+                                    <button class="btn btn-success">Adeverinta Angajat</button>
+                                    <button class="btn btn-success">Adeverinta Asigurat</button>
+                                    <button class="btn btn-success">Adeverinta Salarii</button>
+                                </div>
                             </div>
-                            <div class="col-12 col-info p-2">
-                                <span class="angajat-istoric-mutatii">Istoric Mutatii Profesionale</span>
-                            </div>
-                            <div
-                                class="col-12 p-2"
-                                :class="date_fisa.date_mutatii.length > 10 ? 'col-100-vh' : ''"
-                            >
-                                <table class="table">
-                                    <thead>
-                                    <tr class="mutatii_head">
-                                        <th scope="col">#</th>
-                                        <th scope="col">Numar Act</th>
-                                        <th scope="col">Data Aplicare Act</th>
-                                        <th scope="col">Data Emitere Act</th>
-                                        <th scope="col">Institutia</th>
-                                        <th scope="col">Tip Mutare</th>
-                                        <th scope="col">Cuprins</th>
-                                        <th scope="col">Pozitia</th>
-                                        <th scope="col">Functia</th>
-                                        <th scope="col">Coeficient</th>
-                                        <th scope="col">Suma</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr
-                                        v-for="(mutatie, index) in date_fisa.date_mutatii"
-                                        v-bind:class="[
+                            <div class="col-12">
+                                <div class="col-12">
+                                    <!-- Nav tabs -->
+                                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                        <li class="nav-item" role="presentation">
+                                            <button
+                                                class="nav-link active"
+                                                id="mutatii-tab" data-bs-toggle="tab"
+                                                data-bs-target="#mutatii"
+                                                type="button" role="tab"
+                                                aria-controls="mutatii"
+                                                aria-selected="true">
+                                                Istoric Mutatii Profesionale
+                                            </button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button
+                                                class="nav-link"
+                                                id="salarii-tab"
+                                                data-bs-toggle="tab"
+                                                data-bs-target="#salarii"
+                                                type="button"
+                                                role="tab"
+                                                aria-controls="salarii"
+                                                aria-selected="false">
+                                                Salarii Angajat
+                                            </button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button
+                                                class="nav-link"
+                                                id="grafic-tab"
+                                                data-bs-toggle="tab"
+                                                data-bs-target="#grafic"
+                                                type="button"
+                                                role="tab"
+                                                aria-controls="grafic"
+                                                aria-selected="false">
+                                                Grafic Salarii Angajat
+                                            </button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button
+                                                class="nav-link"
+                                                id="evaluari-tab"
+                                                data-bs-toggle="tab"
+                                                data-bs-target="#evaluari"
+                                                type="button"
+                                                role="tab"
+                                                aria-controls="evaluari"
+                                                aria-selected="false">
+                                                Evaluari Angajat
+                                            </button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button
+                                                class="nav-link"
+                                                id="domicilii-tab"
+                                                data-bs-toggle="tab"
+                                                data-bs-target="#domicilii"
+                                                type="button"
+                                                role="tab"
+                                                aria-controls="domicilii"
+                                                aria-selected="false">
+                                                Istoric Adrese Angajat
+                                            </button>
+                                        </li>
+                                    </ul>
+
+                                    <!-- Tab panes -->
+                                    <div class="tab-content">
+                                        <!-- mutatii angajat -->
+                                        <div class="tab-pane active" id="mutatii" role="tabpanel" aria-labelledby="mutatii-tab">
+                                            <div
+                                                class="col-12 p-2"
+                                                :class="date_fisa.date_mutatii.length > 10 ? 'col-100-vh' : ''"
+                                            >
+                                                <table class="table">
+                                                    <thead>
+                                                    <tr class="mutatii_head">
+                                                        <th scope="col">#</th>
+                                                        <th scope="col">Numar Act</th>
+                                                        <th scope="col">Data Aplicare Act</th>
+                                                        <th scope="col">Data Emitere Act</th>
+                                                        <th scope="col">Institutia</th>
+                                                        <th scope="col">Tip Mutare</th>
+                                                        <th scope="col">Cuprins</th>
+                                                        <th scope="col">Pozitia</th>
+                                                        <th scope="col">Functia</th>
+                                                        <th scope="col">Coeficient</th>
+                                                        <th scope="col">Suma</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr
+                                                        v-for="(mutatie, index) in date_fisa.date_mutatii"
+                                                        v-bind:class="[
                                                 mutatie.mutatie_fel_mutatie === 0 ? 'numire' : 'mutare',
                                                 mutatie.mutatie_fel_mutatie === 6 ? 'incetare' : '',
                                             ]"
-                                    >
-                                        <!-- Coloana Index -->
-                                        <td scope="col">{{ index + 1 }}</td>
-                                        <!-- Coloana Numar act -->
-                                        <td scope="col">{{ mutatie.mutatie_act_numar }}</td>
-                                        <!-- Coloana Data Aplicare -->
-                                        <td scope="col">{{ mutatie.mutatie_act_data_aplicare }}</td>
-                                        <!-- Coloana Data Emitere -->
-                                        <td scope="col">{{ mutatie.mutatie_act_data_emitere }}</td>
-                                        <!-- Coloana Denumire Institutie -->
-                                        <td class="col-institutie" scope="col">{{ mutatie.mutatie_institutie }}</td>
-                                        <td v-if="mutatie.mutatie_fel_mutatie === 5" class="text-center" scope="col">
-                                            Angajare
-                                        </td>
-                                        <td v-if="mutatie.mutatie_fel_mutatie === 6" class="text-center" scope="col">
-                                            Incetare Contract
-                                        </td>
-                                        <td v-if="mutatie.mutatie_fel_mutatie === 0" class="text-center" scope="col">
-                                            Numire
-                                        </td>
-                                        <td v-if="mutatie.mutatie_fel_mutatie === 1" class="text-center" scope="col">
-                                            Mutare
-                                        </td>
-                                        <td v-if="mutatie.mutatie_cuprins !== null" scope="col">
-                                            {{ mutatie.mutatie_cuprins }}
-                                        </td>
-                                        <td v-if="mutatie.mutatie_cuprins === null" scope="col">
-                                            {{ mutatie.mutatie_cuprins }}
-                                        </td>
-                                        <td v-if="mutatie.mutatie_pozitie" scope="col">
-                                            {{ pozitieNumarValidare(mutatie.mutatie_pozitie) }}
-                                        </td>
-                                        <td v-else scope="col"></td>
-                                        <td v-if="mutatie.mutatie_functie" scope="col">
-                                            {{ mutatie.mutatie_functie.functie_denumire }}
-                                        </td>
-                                        <td v-if="mutatie.mutatie_functie === null" scope="col"></td>
-                                        <td v-if="mutatie.mutatie_functie" scope="col">
-                                            {{ mutatie.mutatie_functie.functie_coeficient }}
-                                        </td>
-                                        <td v-if="mutatie.mutatie_functie === null" scope="col"></td>
-                                        <td v-if="mutatie.mutatie_functie" scope="col">
-                                            {{ mutatie.mutatie_functie.functie_suma }}
-                                        </td>
-                                        <td v-if="mutatie.mutatie_functie === null" scope="col"></td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="row col-100-vh" v-if="date_fisa.date_salarii != null && date_fisa.date_salarii.length > 0">
-                            <div class="col-12 col-info p-2">
-                                <span class="angajat-istoric-mutatii">Grafic salariu angajat</span>
-                            </div>
-                            <div class="col-12">
-                                <planet-chart :angajat-salarii="date_fisa.date_salarii"></planet-chart>
-                            </div>
-                        </div>
-                        <div class="row" v-if="date_fisa.date_salarii != null && date_fisa.date_salarii.length > 0">
-                            <div class="col-12 col-info p-2">
-                                <span class="angajat-istoric-mutatii">Istoric Salarii Angajat</span>
-                            </div>
-                            <div
-                                class="col-12 p-2 col-table"
-                                :class="date_fisa.date_salarii.length > 15 ? 'col-100-vh' : ''"
-                            >
-                                <table class="table">
-                                    <thead>
-                                    <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Institutie</th>
-                                        <th scope="col">De la</th>
-                                        <th scope="col">Pana la</th>
-                                        <th scope="col">Suma initiala</th>
-                                        <th scope="col">Bonus</th>
-                                        <th scope="col">Suma Finala</th>
-                                        <th scope="col">Achitat</th>
-                                        <th scope="col">Stat / Card</th>
-                                        <th scope="col">Moneda</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr
-                                        v-for="(salariu, index) in date_fisa.date_salarii"
-                                        v-bind:class="salariu.salariu_achitat == 0 ? 'salariu_neachitat' : 'salariu_achitat'"
-                                    >
-                                        <th scope="row">{{ index + 1 }}</th>
-                                        <td>{{ salariu.salariu_institutie }}</td>
-                                        <td>{{ salariu.salariu_start_date }}</td>
-                                        <td>{{ salariu.salariu_end_date }}</td>
-                                        <td>{{ salariu.salariu_suma_initiala }}</td>
-                                        <td>{{ salariu.salariu_bonus }}</td>
-                                        <td>{{ salariu.salariu_suma_finala }}</td>
-                                        <td>{{ verificareAchitareSalariu(salariu.salariu_achitat) }}</td>
-                                        <td>{{ verificareTipAchitare(salariu.salariu_tip_achitare) }}</td>
-                                        <td>{{ salariu.salariu_moneda }}</td>
+                                                    >
+                                                        <!-- Coloana Index -->
+                                                        <td scope="col">{{ index + 1 }}</td>
+                                                        <!-- Coloana Numar act -->
+                                                        <td scope="col">{{ mutatie.mutatie_act_numar }}</td>
+                                                        <!-- Coloana Data Aplicare -->
+                                                        <td scope="col">{{ mutatie.mutatie_act_data_aplicare }}</td>
+                                                        <!-- Coloana Data Emitere -->
+                                                        <td scope="col">{{ mutatie.mutatie_act_data_emitere }}</td>
+                                                        <!-- Coloana Denumire Institutie -->
+                                                        <td class="col-institutie" scope="col">{{ mutatie.mutatie_institutie }}</td>
+                                                        <td v-if="mutatie.mutatie_fel_mutatie === 5" class="text-center" scope="col">
+                                                            Angajare
+                                                        </td>
+                                                        <td v-if="mutatie.mutatie_fel_mutatie === 6" class="text-center" scope="col">
+                                                            Incetare Contract
+                                                        </td>
+                                                        <td v-if="mutatie.mutatie_fel_mutatie === 0" class="text-center" scope="col">
+                                                            Numire
+                                                        </td>
+                                                        <td v-if="mutatie.mutatie_fel_mutatie === 1" class="text-center" scope="col">
+                                                            Mutare
+                                                        </td>
+                                                        <td v-if="mutatie.mutatie_cuprins !== null" scope="col">
+                                                            {{ mutatie.mutatie_cuprins }}
+                                                        </td>
+                                                        <td v-if="mutatie.mutatie_cuprins === null" scope="col">
+                                                            {{ mutatie.mutatie_cuprins }}
+                                                        </td>
+                                                        <td v-if="mutatie.mutatie_pozitie" scope="col">
+                                                            {{ pozitieNumarValidare(mutatie.mutatie_pozitie) }}
+                                                        </td>
+                                                        <td v-else scope="col"></td>
+                                                        <td v-if="mutatie.mutatie_functie" scope="col">
+                                                            {{ mutatie.mutatie_functie.functie_denumire }}
+                                                        </td>
+                                                        <td v-if="mutatie.mutatie_functie === null" scope="col"></td>
+                                                        <td v-if="mutatie.mutatie_functie" scope="col">
+                                                            {{ mutatie.mutatie_functie.functie_coeficient }}
+                                                        </td>
+                                                        <td v-if="mutatie.mutatie_functie === null" scope="col"></td>
+                                                        <td v-if="mutatie.mutatie_functie" scope="col">
+                                                            {{ mutatie.mutatie_functie.functie_suma }}
+                                                        </td>
+                                                        <td v-if="mutatie.mutatie_functie === null" scope="col"></td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <!-- salarii angajat -->
+                                        <div class="tab-pane" id="salarii" role="tabpanel" aria-labelledby="salarii-tab">
+                                            <div
+                                                class="col-12 p-2 col-table"
+                                                :class="date_fisa.date_salarii.length > 15 ? 'col-100-vh' : ''"
+                                            >
+                                                <table class="table">
+                                                    <thead>
+                                                    <tr class="bg-secondary text-white">
+                                                        <th scope="col">#</th>
+                                                        <th scope="col">Institutie</th>
+                                                        <th scope="col">De la</th>
+                                                        <th scope="col">Pana la</th>
+                                                        <th scope="col">Suma initiala</th>
+                                                        <th scope="col">Bonus</th>
+                                                        <th scope="col">Suma Finala</th>
+                                                        <th scope="col">Achitat</th>
+                                                        <th scope="col">Stat / Card</th>
+                                                        <th scope="col">Moneda</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr
+                                                            v-for="(salariu, index) in date_fisa.date_salarii"
+                                                            v-bind:class="salariu.salariu_achitat == 0 ? 'salariu_neachitat' : 'salariu_achitat'"
+                                                            v-if="date_fisa.date_salarii != null && date_fisa.date_salarii.length > 0"
+                                                        >
+                                                            <th scope="row">{{ index + 1 }}</th>
+                                                            <td>{{ salariu.salariu_institutie }}</td>
+                                                            <td>{{ salariu.salariu_start_date }}</td>
+                                                            <td>{{ salariu.salariu_end_date }}</td>
+                                                            <td>{{ salariu.salariu_suma_initiala }}</td>
+                                                            <td>{{ salariu.salariu_bonus }}</td>
+                                                            <td>{{ salariu.salariu_suma_finala }}</td>
+                                                            <td>{{ verificareAchitareSalariu(salariu.salariu_achitat) }}</td>
+                                                            <td>{{ verificareTipAchitare(salariu.salariu_tip_achitare) }}</td>
+                                                            <td>{{ salariu.salariu_moneda }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="10" class="bg-warning text-center">Angajatul nu are salarii achitate.</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <!-- grafic angajat -->
+                                        <div class="tab-pane" id="grafic" role="tabpanel" aria-labelledby="grafic-tab">
+                                            <div class="col-12">
+                                                <planet-chart :angajat-salarii="date_fisa.date_salarii"></planet-chart>
+                                            </div>
+                                        </div>
+                                        <!-- evaluari angajat -->
+                                        <div class="tab-pane" id="evaluari" role="tabpanel" aria-labelledby="evaluari-tab">
+                                            <div
+                                                class="col-12 p-2 col-table"
+                                                :class="date_fisa.evaluari.length > 15 ? 'col-100-vh' : ''"
+                                            >
+                                                <table class="table">
+                                                    <thead>
+                                                    <tr class="bg-secondary text-white">
+                                                        <th scope="col">#</th>
+                                                        <th scope="col">Institutie</th>
+                                                        <th scope="col">De la</th>
+                                                        <th scope="col">Pana la</th>
+                                                        <th scope="col">Calificativ Initial</th>
+                                                        <th scope="col">Contestatie</th>
+                                                        <th scope="col">Calificativ Final</th>
+                                                        <th scope="col">Stare Calificativ</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr
+                                                        v-if="date_fisa.evaluari.length > 0"
+                                                        v-for="(e, index) in date_fisa.evaluari"
+                                                    >
+                                                        <th scope="row">{{ index + 1 }}</th>
+                                                        <td>{{ e.ca_institutie }}</td>
+                                                        <td>{{ e.ca_data_inceput }}</td>
+                                                        <td>{{ e.ca_data_sfarsit }}</td>
+                                                        <td>{{ e.ca_calificativ_initial }}</td>
+                                                        <td>{{ e.ca_are_contestatie }}</td>
+                                                        <td>{{ e.ca_calificativ_final }}</td>
+                                                        <td>
+                                                            <span v-if="e.ca_status === 'Calificativ Neaprobat'" class="ca_neaprobat">Calificativ Neaprobat</span>
+                                                            <span v-if="e.ca_status === 'Calificativ Aprobat'" class="ca_aprobat">Calificativ Aprobat</span>
+                                                        </td>
 
-                                    </tr>
-                                    </tbody>
-                                </table>
+                                                    </tr>
+                                                    <tr v-if="date_fisa.evaluari.length === 0 || date_fisa.evaluari === undefined">
+                                                        <td colspan="8" class="bg-no-evaluari text-center">Angajatul nu are evaluari operate.</td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <!-- evaluari angajat -->
+                                        <div class="tab-pane" id="domicilii" role="tabpanel" aria-labelledby="domicilii-tab">
+                                            <div class="col-12 p-2 col-table">
+                                                <table class="table">
+                                                    <thead>
+                                                    <tr>
+                                                        <th scope="col">#</th>
+                                                        <th scope="col">Judet</th>
+                                                        <th scope="col">Localitate</th>
+                                                        <th scope="col">Strada</th>
+                                                        <th scope="col">Numar</th>
+                                                        <th scope="col">Bloc</th>
+                                                        <th scope="col">Scara</th>
+                                                        <th scope="col">Etaj</th>
+                                                        <th scope="col">Apartament</th>
+                                                        <th scope="col">Data Inceput</th>
+                                                        <th scope="col">Data Sfarsit</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr>
+                                                        <th scope="row">1</th>
+                                                        <td>Bucuresti</td>
+                                                        <td>Sector 6</td>
+                                                        <td>Bulevardul Constructorilor</td>
+                                                        <td>24</td>
+                                                        <td>19</td>
+                                                        <td>1</td>
+                                                        <td>4</td>
+                                                        <td>7</td>
+                                                        <td>2020-01-01</td>
+                                                        <td>2020-01-01</td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12 col-info p-2">
-                            <span class="angajat-istoric-mutatii">Istoric Evaluari</span>
-                        </div>
-                        <div
-                            class="col-12 p-2 col-table"
-                            :class="date_fisa.evaluari.length > 15 ? 'col-100-vh' : ''"
-                        >
-                            <table class="table">
-                                <thead>
-                                <tr class="bg-secondary text-white">
-                                    <th scope="col">#</th>
-                                    <th scope="col">Institutie</th>
-                                    <th scope="col">De la</th>
-                                    <th scope="col">Pana la</th>
-                                    <th scope="col">Calificativ Initial</th>
-                                    <th scope="col">Contestatie</th>
-                                    <th scope="col">Calificativ Final</th>
-                                    <th scope="col">Stare Calificativ</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                    <tr
-                                        v-if="date_fisa.evaluari.length > 0"
-                                        v-for="(e, index) in date_fisa.evaluari"
-                                    >
-                                        <th scope="row">{{ index + 1 }}</th>
-                                        <td>{{ e.ca_institutie }}</td>
-                                        <td>{{ e.ca_data_inceput }}</td>
-                                        <td>{{ e.ca_data_sfarsit }}</td>
-                                        <td>{{ e.ca_calificativ_initial }}</td>
-                                        <td>{{ e.ca_are_contestatie }}</td>
-                                        <td>{{ e.ca_calificativ_final }}</td>
-                                        <td>
-                                            <span v-if="e.ca_status === 'Calificativ Neaprobat'" class="ca_neaprobat">Calificativ Neaprobat</span>
-                                            <span v-if="e.ca_status === 'Calificativ Aprobat'" class="ca_aprobat">Calificativ Aprobat</span>
-                                        </td>
-
-                                    </tr>
-                                    <tr v-if="date_fisa.evaluari.length === 0 || date_fisa.evaluari === undefined">
-                                        <td colspan="8" class="bg-no-evaluari text-center">Angajatul nu are evaluari operate.</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12 col-info p-2">
-                            <span class="angajat-istoric-mutatii">Istoric Domiciliu Angajat</span>
-                        </div>
-                        <div class="col-12 p-2 col-table">
-                            <table class="table">
-                                <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Judet</th>
-                                    <th scope="col">Localitate</th>
-                                    <th scope="col">Strada</th>
-                                    <th scope="col">Numar</th>
-                                    <th scope="col">Bloc</th>
-                                    <th scope="col">Scara</th>
-                                    <th scope="col">Etaj</th>
-                                    <th scope="col">Apartament</th>
-                                    <th scope="col">Data Inceput</th>
-                                    <th scope="col">Data Sfarsit</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Bucuresti</td>
-                                    <td>Sector 6</td>
-                                    <td>Bulevardul Constructorilor</td>
-                                    <td>24</td>
-                                    <td>19</td>
-                                    <td>1</td>
-                                    <td>4</td>
-                                    <td>7</td>
-                                    <td>2020-01-01</td>
-                                    <td>2020-01-01</td>
-                                </tr>
-                                </tbody>
-                            </table>
                         </div>
                     </div>
                 </div>
