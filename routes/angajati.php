@@ -10,10 +10,12 @@ Route::post('/angajati/numire/{id}', [AngajatiController::class, 'numireAngajat'
 Route::post('/angajati/incetarecontract', [AngajatiController::class, 'angajatIncetareContract'])->middleware('auth:sanctum');
 Route::post('/angajati/datebancare', [DatePlataController::class, 'adaugaDateBancare'])->middleware('auth:sanctum');
 Route::post('/angajati/calificative/adaugare', [AngajatiController::class, 'adaugareCalificativ'])->middleware('auth:sanctum');
+Route::post('/angajati/adresa_noua', [AngajatiController::class, 'salvareAdresaNoua'])->middleware('auth:sanctum');
 
 
 
 Route::get('/angajati/{id}', [AngajatiController::class, 'preluare'])->middleware('auth:sanctum');
+Route::get('/angajati/{id}/adrese', [AngajatiController::class, 'preluareAdrese'])->middleware('auth:sanctum');
 Route::get('/angajati/incetare{user_id}', [AngajatiController::class, 'angajatiPreluareIncetare'])->middleware('auth:sanctum');
 Route::get('/angajati/mutare/{id}', [AngajatiController::class, 'preluareAngajatMutare'])->middleware('auth:sanctum');
 Route::get('/angajati/numire/{id}', [AngajatiController::class, 'preluareAngajatNumire'])->middleware('auth:sanctum');

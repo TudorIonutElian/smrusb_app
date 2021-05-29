@@ -97,9 +97,6 @@
                                 <td colspan="3">Total salarii achitate ::</td>
                                 <td colspan="5">{{ this.data.sumar }} -lei</td>
                             </tr>
-                            <tr v-if="(this.data.salarii == null) || (this.data.salarii != null && this.data.salarii.length == 0) ">
-                                <td colspan="10" class="text-center">Nu exista salarii pentru trimestrul selectat.</td>
-                            </tr>
                             </tbody>
                         </table>
                     </div>
@@ -154,6 +151,7 @@ export default {
             )
         },
         async preluareSalarii(){
+            this.data.sumar = 0;
             this.loading = true;
             await axios.get(`/api/salarizare/${this.data.institutie}/trimestrial/${this.data.trimestru}`, {
                 headers:{
@@ -181,7 +179,7 @@ export default {
                 putOnlyUsedFonts:true,
             });
             doc.setDrawColor(39, 174, 96);
-            doc.text(`SMRUSB - Salarii`, 2, 2);
+            doc.text(`SMRUSB - Salarii ${new Date().getFullYear()} - Trimestrul ${this.data.trimestru[1]}`, 2, 2);
             doc.autoTable({
                 html: '#salariiGenerate',
                 startY: 3,
@@ -191,6 +189,7 @@ export default {
             doc.save("salarii.pdf");
         },
         sumarSalarii(salarii){
+            this.data.sumar = 0;
             salarii.forEach(salariu =>{
                 this.data.sumar += salariu.salariu_suma_finala;
             })

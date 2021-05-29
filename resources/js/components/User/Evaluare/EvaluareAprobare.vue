@@ -38,57 +38,57 @@
                         <loading-component></loading-component>
                     </div>
                 </div>
-                <div class="row" v-if="data.loaded === true">
-                    <div class="col-12 my-3">
-                        <table class="table table-striped">
-                            <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Institutie</th>
-                                <th scope="col">Angajat</th>
-                                <th scope="col">De la</th>
-                                <th scope="col">Pana la</th>
-                                <th scope="col">Calificativ Final</th>
-                                <th scope="col">Data adaugarii</th>
-                                <th scope="col">Aprobare</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr v-for="(c, index) in data.calificative">
-                                <th scope="row">{{ index + 1 }}</th>
-                                <td>{{ c.ca_institutie }}</td>
-                                <td>{{ c.ca_angajat_nume}} {{ c.ca_angajat_prenume }}</td>
-                                <td>{{ c.ca_data_inceput }}</td>
-                                <td>{{ c.ca_data_sfarsit }}</td>
-                                <td>
-                                    <select
-                                        class="form-control form-select"
-                                        aria-label="Default select example"
-                                        v-model="data.calificativ_final"
-                                    >
-                                        <option value="1">Excelent</option>
-                                        <option value="2">Foarte Bine</option>
-                                        <option value="3">Bine</option>
-                                        <option value="4">Satisfacator</option>
-                                        <option value="5">Nesatisfacator</option>
-                                        <option value="6">Neevaluat</option>
-                                    </select>
-                                </td>
-                                <td>{{ c.ca_data_adaugarii}}</td>
-                                <td>
-                                    <button
-                                        class="btn btn-sm btn-success"
-                                        @click.prevent="aprobareCalificativ(c.ca_id)"
-                                    >Aproba Calificativ</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="8" class="text-center">Nu exista calificative neaprobate</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+            </div>
+        </div>
+        <div class="row" v-if="data.loaded === true">
+            <div class="col-12 my-3">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Institutie</th>
+                        <th scope="col">Angajat</th>
+                        <th scope="col">De la</th>
+                        <th scope="col">Pana la</th>
+                        <th scope="col">Calificativ Final</th>
+                        <th scope="col">Data adaugarii</th>
+                        <th scope="col">Aprobare</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="(c, index) in data.calificative">
+                        <th scope="row">{{ index + 1 }}</th>
+                        <td>{{ c.ca_institutie }}</td>
+                        <td>{{ c.ca_angajat_nume}} {{ c.ca_angajat_prenume }}</td>
+                        <td>{{ c.ca_data_inceput }}</td>
+                        <td>{{ c.ca_data_sfarsit }}</td>
+                        <td>
+                            <select
+                                class="form-control form-select"
+                                aria-label="Default select example"
+                                v-model="data.calificativ_final"
+                            >
+                                <option value="1">Excelent</option>
+                                <option value="2">Foarte Bine</option>
+                                <option value="3">Bine</option>
+                                <option value="4">Satisfacator</option>
+                                <option value="5">Nesatisfacator</option>
+                                <option value="6">Neevaluat</option>
+                            </select>
+                        </td>
+                        <td>{{ c.ca_data_adaugarii}}</td>
+                        <td>
+                            <button
+                                class="btn btn-sm btn-success"
+                                @click.prevent="aprobareCalificativ(c.ca_id)"
+                            >Aproba Calificativ</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="8" class="text-center">Nu exista calificative neaprobate</td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -138,7 +138,7 @@ export default {
         // Preluare toate calificativele care nu au contestatie si pot fi aprobate
         async preluareCalificative(){
             this.loading = true;
-            await axios.get(`/api/calificative/neaprobate/institutie/${this.data.institutie}`, {
+            await axios.get(`/api/calificative/neaprobate/institutie/${this.data.institutie}/specialist`, {
                 headers:{
                     ContentType: 'application/json',
                     Authorization : 'Bearer ' + this.data.token

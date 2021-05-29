@@ -15,7 +15,7 @@ class CreateAngajatiAdreseTable extends Migration
     {
         Schema::create('angajati_adrese', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('aa_angajat')->unique();
+            $table->unsignedBigInteger('aa_angajat');
             $table->unsignedBigInteger('aa_judet')->nullable();
             $table->unsignedBigInteger('aa_localitate')->nullable();
             $table->string('aa_strada')->nullable();

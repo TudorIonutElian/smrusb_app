@@ -11,10 +11,10 @@
                             Adrese
                         </div>
                         <div class="angajat-bloc_numeric my-2">
-                            <span>0</span>
+                            <span>{{ lista_adrese.data.length }}</span>
                         </div>
                         <div class="my-2">
-                            <button class="btn btn-info btn-block text-white">Vezi Adrese</button>
+                            <a :href="`/angajat/adrese/${this.user.user_angajat_id}`" class="btn btn-info btn-block text-white">Vezi Adrese</a>
                         </div>
                     </div>
 
@@ -38,7 +38,7 @@
                             <span>0</span>
                         </div>
                         <div class="my-2">
-                            <button class="btn btn-info btn-block text-white">Vezi Adrese</button>
+                            <a :href="`/angajat/adrese/${this.user.user_angajat_id}`" class="btn btn-info btn-block text-white">Vezi Adrese</a>
                         </div>
                     </div>
 
@@ -108,7 +108,8 @@ export default {
             loading: true,
             angajat: {
                 calificative: null
-            }
+            },
+            lista_adrese: []
         }
     },
     components:{
@@ -118,6 +119,7 @@ export default {
     created(){
         this.preluareAngajati();
         this.preluareCalificative();
+        this.preluareAdrese();
     },
     methods:{
         async preluareAngajati(){
@@ -142,7 +144,20 @@ export default {
                 this.angajat.calificative = response.data.data;
                 this.loading = false;
             });
-        }
+        },
+        async preluareAdrese(){
+            this.loading = true;
+            axios.get(`/api/angajati/${this.user.user_angajat_id}/adrese`, {
+                headers:{
+                    ContentType: 'application/json',
+                    Authorization : 'Bearer ' + localStorage.getItem('token')
+                }
+            }).then(async (response) => {
+                this.lista_adrese = response.data
+                this.loading = false;
+
+            })
+        },
     }
 }
 </script>

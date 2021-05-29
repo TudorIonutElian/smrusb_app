@@ -62,6 +62,7 @@ import SalariiLunare from "../components/User/Situatii/SalariiLunare";
 import AdeverintaAngajat from "../components/User/Adeverinte/AdeverintaAngajat";
 import SalariiSemestriale from "../components/User/Situatii/SalariiSemestriale";
 import SalariiTrimestriale from "../components/User/Situatii/SalariiTrimestriale";
+import SalariiAnuale from "../components/User/Situatii/SalariiAnuale";
 
 const router = new VueRouter({
     mode: 'history',
@@ -138,6 +139,7 @@ const router = new VueRouter({
         {path: '/user/situatii/salarii/lunare', component: SalariiLunare, name: 'salarii-lunare'},
         {path: '/user/situatii/salarii/trimestriale', component: SalariiTrimestriale, name: 'salarii-trimestriale'},
         {path: '/user/situatii/salarii/semestriale', component: SalariiSemestriale, name: 'salarii-semstriale'},
+        {path: '/user/situatii/salarii/anuale', component: SalariiAnuale, name: 'salarii-anuale'},
 
 
 

@@ -29,7 +29,7 @@
                             <router-link class="nav-link active" :to="{ name: 'angajat-date-plata', params: { id: this.user.id}}">Date plata</router-link>
                         </li>
                         <li class="nav-item" v-if="user != null && user.user_type === 3">
-                            <router-link class="nav-link active" :to="{ name: 'angajat-adrese', params: { id: this.user.id}}">Adrese</router-link>
+                            <router-link class="nav-link active" :to="{ name: 'angajat-adrese', params: { id: this.user.user_angajat_id}}">Adrese</router-link>
                         </li>
                         <li class="nav-item dropdown" v-if="user != null && user.user_type === 3">
                             <a class="nav-link dropdown-toggle" href="#" id="angajat_salarii" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -98,18 +98,6 @@
                                     <a class="dropdown-item dropdown-item-flex" href="/user/angajat/incetare_angajat">
                                         <img class="mr-2" src="/images/incetarecontract.png" alt="">
                                         <span>Incetare raport</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item dropdown-item-flex" href="/">
-                                        <img class="mr-2" src="/images/majoraresalariu.png" alt="">
-                                        <span style="color: red">Majorare Salariu</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item dropdown-item-flex" href="/">
-                                        <img class="mr-2" src="/images/scaderesalariu.png" alt="">
-                                        <span style="color: red">Scadere Salariu</span>
                                     </a>
                                 </li>
                             </ul>
@@ -212,8 +200,8 @@
                                 <li><hr class="dropdown-divider"></li>
                                 <li><a class="dropdown-item" href="/user/situatii/salarii/lunare">Situatii salarii lunare</a></li>
                                 <li><a class="dropdown-item" href="/user/situatii/salarii/trimestriale">Situatii salarii trimestriale</a></li>
-                                <li><a class="dropdown-item" href="/user/situatii/salarii/semestriale" style="color: red">Situatii salarii semestriale</a></li>
-                                <li><a class="dropdown-item" href="#" style="color: red">Situatii salarii anuale</a></li>
+                                <li><a class="dropdown-item" href="/user/situatii/salarii/semestriale">Situatii salarii semestriale</a></li>
+                                <li><a class="dropdown-item" href="/user/situatii/salarii/anuale">Situatii salarii anuale</a></li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li><a class="dropdown-item" href="#" style="color: red">Plati CASS</a></li>
                                 <li><a class="dropdown-item" href="#" style="color: red">Plati Impozit venit</a></li>

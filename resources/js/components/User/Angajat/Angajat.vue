@@ -69,41 +69,6 @@
                         <div class="row-profile-template">Email</div>
                         <div class="row-profile-info">popescuadrian@gmail.com</div>
                     </div>
-                    <div class="row-profile my-4">
-                        <div class="row-profile-template-full p-2">Adresa angajat</div>
-                    </div>
-                    <div class="row-profile">
-                        <div class="row-profile-template">Judet</div>
-                        <div class="row-profile-info"> -</div>
-                    </div>
-                    <div class="row-profile">
-                        <div class="row-profile-template">Localitate</div>
-                        <div class="row-profile-info"> -</div>
-                    </div>
-                    <div class="row-profile">
-                        <div class="row-profile-template">Strada</div>
-                        <div class="row-profile-info">-</div>
-                    </div>
-                    <div class="row-profile">
-                        <div class="row-profile-template">Numar</div>
-                        <div class="row-profile-info"> -</div>
-                    </div>
-                    <div class="row-profile">
-                        <div class="row-profile-template">Bloc</div>
-                        <div class="row-profile-info"> -</div>
-                    </div>
-                    <div class="row-profile">
-                        <div class="row-profile-template">Scara</div>
-                        <div class="row-profile-info"> -</div>
-                    </div>
-                    <div class="row-profile">
-                        <div class="row-profile-template">Etaj</div>
-                        <div class="row-profile-info"> -</div>
-                    </div>
-                    <div class="row-profile">
-                        <div class="row-profile-template">Apartament</div>
-                        <div class="row-profile-info"> -</div>
-                    </div>
                 </div>
                 <div class="col-10 p-3">
                     <div class="container-fluid">
@@ -308,7 +273,7 @@
                                                             <td>{{ verificareTipAchitare(salariu.salariu_tip_achitare) }}</td>
                                                             <td>{{ salariu.salariu_moneda }}</td>
                                                         </tr>
-                                                        <tr>
+                                                        <tr v-if="date_fisa.date_salarii == null || date_fisa.date_salarii.length == 0">
                                                             <td colspan="10" class="bg-warning text-center">Angajatul nu are salarii achitate.</td>
                                                         </tr>
                                                     </tbody>
@@ -370,7 +335,7 @@
                                             <div class="col-12 p-2 col-table">
                                                 <table class="table">
                                                     <thead>
-                                                    <tr>
+                                                    <tr class="bg-secondary">
                                                         <th scope="col">#</th>
                                                         <th scope="col">Judet</th>
                                                         <th scope="col">Localitate</th>
@@ -380,23 +345,24 @@
                                                         <th scope="col">Scara</th>
                                                         <th scope="col">Etaj</th>
                                                         <th scope="col">Apartament</th>
-                                                        <th scope="col">Data Inceput</th>
-                                                        <th scope="col">Data Sfarsit</th>
+                                                        <th scope="col">Status</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    <tr>
-                                                        <th scope="row">1</th>
-                                                        <td>Bucuresti</td>
-                                                        <td>Sector 6</td>
-                                                        <td>Bulevardul Constructorilor</td>
-                                                        <td>24</td>
-                                                        <td>19</td>
-                                                        <td>1</td>
-                                                        <td>4</td>
-                                                        <td>7</td>
-                                                        <td>2020-01-01</td>
-                                                        <td>2020-01-01</td>
+                                                    <tr v-for="(adr, index) in lista_adrese">
+                                                        <th scope="row">{{ index + 1 }}</th>
+                                                        <td>{{ adr.aa_judet }}</td>
+                                                        <td>{{ adr.aa_localitate }}</td>
+                                                        <td>{{ adr.aa_strada }}</td>
+                                                        <td>{{ adr.aa_numar }}</td>
+                                                        <td>{{ adr.aa_bloc }}</td>
+                                                        <td>{{ adr.aa_scara }}</td>
+                                                        <td>{{ adr.aa_etaj }}</td>
+                                                        <td>{{ adr.aa_apartament }}</td>
+                                                        <td>
+                                                            <span v-if="adr.aa_status == 1" class="adresa_activa">Activa</span>
+                                                            <span v-if="adr.aa_status == 0" class="adresa_inactiva">Inactiva</span>
+                                                        </td>
                                                     </tr>
                                                     </tbody>
                                                 </table>
@@ -431,13 +397,27 @@ export default {
             },
             date_fisa: null,
             loading: false,
-            salariiChart: null
+            salariiChart: null,
+            lista_adrese: []
         }
     },
     created() {
         this.preluareDateAngajat();
+        this.preluareAdrese();
     },
     methods: {
+        async preluareAdrese(){
+            this.loading = true;
+            axios.get(`/api/angajati/${this.angajat.id}/adrese`, {
+                headers:{
+                    ContentType: 'application/json',
+                    Authorization : 'Bearer ' + localStorage.getItem('token')
+                }
+            }).then(async (response) => {
+                this.lista_adrese = response.data.data
+                this.loading = false;
+            })
+        },
         verificareTipMutatie(mutatie) {
             if (mutatie === 1) {
                 return true;
@@ -653,5 +633,24 @@ tr.salariu_achitat {
 }
 .col-100-vh{
     min-height: 100vh;
+}
+tr.bg-secondary{
+    color: #fff;
+}
+
+.adresa_activa{
+    padding: 6px;
+    background-color: #55efc4;
+    border-radius: 3px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.adresa_inactiva{
+    padding: 6px;
+    background-color: #ff7675;
+    border-radius: 3px;
+    font-weight: bold;
+    color: #fff;
 }
 </style>

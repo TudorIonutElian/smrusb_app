@@ -20,6 +20,9 @@ class DataController extends Controller
             'localitati'        => $localitati
         ]);
     }
+    public function getJudete(){
+        return Judet::orderBy('denumire')->get();
+    }
     public function preluareMotiveIncetareContract(){
         return MotivIncetareContract::all();
     }

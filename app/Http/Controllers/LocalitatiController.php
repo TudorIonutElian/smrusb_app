@@ -15,4 +15,8 @@ class LocalitatiController extends Controller
     public function adrese(){
         return LocalitatiNastereDomiciliu::collection(Localitate::all()->sortBy('denumire'));
     }
+
+    public function preluareLocalitatiByID($judet_id){
+        return Localitate::where('judet', '=', $judet_id)->orderBy('denumire')->get();
+    }
 }

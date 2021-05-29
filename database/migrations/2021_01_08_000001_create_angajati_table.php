@@ -33,31 +33,6 @@ class CreateAngajatiTable extends Migration
             $table->boolean('angajat_status')->default(true);
 
         });
-
-        // Setare trigger pentru creare angajat->adrese
-        DB::unprepared('
-                CREATE TRIGGER after_angajat_adaugare_adresa
-                    AFTER INSERT ON angajati FOR EACH ROW
-                        BEGIN
-                                INSERT INTO angajati_adrese(
-                                    aa_angajat,
-                                    aa_status)
-                                VALUES (
-                                    new.id,
-                                    true);
-                        END
-                ');
-        // Setare trigger pentru creare angajat->profile social media
-        DB::unprepared('
-                CREATE TRIGGER after_angajat_adaugare_profile
-                    AFTER INSERT ON angajati FOR EACH ROW
-                        BEGIN
-                                INSERT INTO angajati_profile_social(
-                                    aps_angajat)
-                                VALUES (
-                                    new.id);
-                        END
-                ');
     }
 
     /**

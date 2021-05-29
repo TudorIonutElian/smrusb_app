@@ -1,163 +1,169 @@
 <template>
     <div class="container-fluid">
         <top-nav></top-nav>
-        <div class="row">
+        <loading-component v-if="loading === true"></loading-component>
+        <div class="row" v-if="loading === false">
             <div class="container mt-4 container-angajati">
                 <div class="row">
-                    <div class="col-12 my-4">
+                    <div class="col-12 my-4 col-flex-space">
                         <span
                             class="badge"
                         >Adaugare adresa {{ this.user.user_first_name + ' ' + this.user.user_last_name}}</span>
+                        <div>
+                            <button
+                                class="btn btn-outline-success"
+                                v-if="this.showHide.tabel_campuri === true"
+                                @click.prevent="salvareAdresaNoua"
+                            >Salveaza Adresa </button>
+                            <button class="btn btn-outline-info" @click="showHideAdrese">Vezi Adrese</button>
+                        </div>
                     </div>
                 </div>
-                <div class="row my-2">
+                <div class="row p-1" v-if="this.showHide.tabel_campuri === true">
                     <!-- Judetul de domiciliu -->
-                    <div class="row p-1">
-                        <div class="col-12 col-12-flexed form-group">
-                            <label for="angajat_judet_domiciliu" class="form-label">Judetul</label>
-                            <select
-                                class="form-control form-select"
-                                id="angajat_judet_domiciliu"
-                                v-model="angajat_nou.judet_domiciliu"
-                                @change="filtrareLocalitatiDomiciuliu()"
-                            >
-                                <option v-for="judet in this.lista_judete" :value="judet.judet_id">{{ judet.judet_denumire }}</option>
-                            </select>
-                        </div>
+                    <div class="col-4 form-group">
+                        <label for="angajat_judet_domiciliu" class="form-label">Judetul</label>
+                        <select
+                            class="form-control form-select"
+                            id="angajat_judet_domiciliu"
+                            v-model="adresaNoua.judet"
+                            @change="preluareLocalitatiByJudet"
+                        >
+                            <option v-for="judet in judete" :value="judet.id">{{ judet.denumire}}</option>
+                        </select>
                     </div>
+
                     <!-- Localitatea nasterii -->
-                    <div class="row p-1">
-                        <div class="col-12 col-12-flexed form-group">
-                            <label for="angajat_localitate_domiciliu" class="form-label">Localitatea</label>
-                            <select
-                                class="form-control form-select"
-                                id="angajat_localitate_domiciliu"
-                                v-model="angajat_nou.localitate_domiciliu"
-                            >
-                                <option
-                                    v-for="localitate_domiciliu in localitati_domiciliu_validate"
-                                    :value="localitate_domiciliu.localitate_id"
-                                >{{ localitate_domiciliu.localitate_denumire }}</option>
-                            </select>
-                        </div>
+                    <div class="col-4 form-group">
+                        <label for="angajat_localitate_domiciliu" class="form-label">Localitatea</label>
+                        <select
+                            class="form-control form-select"
+                            id="angajat_localitate_domiciliu"
+                            v-model="adresaNoua.localitate"
+                            :disabled="adresaNoua.judet === 0"
+                        >
+                            <option v-for="localitate in localitati" :value="localitate.id">{{ localitate.denumire}}</option>
+                        </select>
                     </div>
 
                     <!-- Strada -->
-                    <div class="row p-1">
-                        <div class="col-12 col-12-flexed">
-                            <label for="angajat_strada_domiciliu" class="form-label">Strada</label>
-                            <input
-                                type="text"
-                                class="form-control"
-                                id="angajat_strada_domiciliu"
-                                placeholder="Numele strazii"
-                                v-model="angajat_nou.nume_strada"
-                                @blur="validareNumeleStrazii"
-                            >
-                        </div>
-                        <div class="col-12 col-12-flexed" v-if="erori.nume_strada">
-                            <label for="eroare_nume_strada" class="form-label"></label>
-                            <div id="eroare_nume_strada" class="eroare error">Numele strazii trebuie sa aiba cel putin 3 caractere!</div>
-                        </div>
-                    </div>
-                    <!-- Numarul Strazii -->
-                    <div class="row p-1">
-                        <div class="col-12 col-12-flexed">
-                            <label for="angajat_nr_domiciliu" class="form-label">Numarul</label>
-                            <input
-                                type="text"
-                                class="form-control"
-                                id="angajat_nr_domiciliu"
-                                placeholder="Numarul"
-                                v-model="angajat_nou.numar_strada"
-                            >
-                        </div>
-                    </div>
-                    <!-- Blocul -->
-                    <div class="row p-1">
-                        <div class="col-12 col-12-flexed">
-                            <label for="angajat_bloc_domiciliu" class="form-label">Bloc</label>
-                            <input
-                                type="text"
-                                class="form-control"
-                                id="angajat_bloc_domiciliu"
-                                placeholder="Bloc"
-                                v-model="angajat_nou.bloc_domiciliu"
-                            >
-                        </div>
-                    </div>
-                    <!-- Scara -->
-                    <div class="row p-1">
-                        <div class="col-12 col-12-flexed">
-                            <label for="angajat_scara_domiciliu" class="form-label">Scara</label>
-                            <input
-                                type="text"
-                                class="form-control"
-                                id="angajat_scara_domiciliu"
-                                placeholder="Scara"
-                                v-model="angajat_nou.scara_domiciliu"
-                            >
-                        </div>
-                    </div>
-                    <!-- Etaj -->
-                    <div class="row p-1">
-                        <div class="col-12 col-12-flexed">
-                            <label for="angajat_etaj_domiciliu" class="form-label">Etaj</label>
-                            <input
-                                type="text"
-                                class="form-control"
-                                id="angajat_etaj_domiciliu"
-                                placeholder="Etaj"
-                                v-model="angajat_nou.etaj_domiciliu"
-                            >
-                        </div>
-                    </div>
-                    <!-- Apartament -->
-                    <div class="row p-1">
-                        <div class="col-12 col-12-flexed">
-                            <label for="angajat_apartament_domiciliu" class="form-label">Apartament</label>
-                            <input
-                                type="text"
-                                class="form-control"
-                                id="angajat_apartament_domiciliu"
-                                placeholder="Apartament"
-                                v-model="angajat_nou.apartament_domiciliu"
-                            >
-                        </div>
-                    </div>
-                    <!-- Numar de telefon mobil -->
-                    <div class="row p-1">
-                        <div class="col-12 col-12-flexed">
-                            <label for="angajat_mobil_domiciliu" class="form-label">Telefon mobil</label>
-                            <input
-                                type="text"
-                                class="form-control"
-                                id="angajat_mobil_domiciliu"
-                                placeholder="Telefon mobil"
-                                v-model="angajat_nou.telefon_mobil"
-                            >
-                        </div>
-                    </div>
-                    <!-- Numar de telefon fix -->
-                    <div class="row p-1">
-                        <div class="col-12 col-12-flexed">
-                            <label for="angajat_fix_domiciliu" class="form-label">Telefon fix</label>
-                            <input
-                                type="text"
-                                class="form-control"
-                                id="angajat_fix_domiciliu"
-                                placeholder="Telefon fix"
-                                v-model="angajat_nou.telefon_fix"
-                            >
-                        </div>
-                    </div>
-                    <div class="row row-pink mt-2">
-                        <div class="col-12 p-1">
-                            <span>Profile Social Media</span>
-                        </div>
+                    <div class="col-4">
+                        <label for="angajat_strada_domiciliu" class="form-label">Strada</label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="angajat_strada_domiciliu"
+                            placeholder="Numele strazii"
+                            v-model="adresaNoua.strada"
+                        >
                     </div>
                 </div>
-                <div class="row mt-2">
+                <div class="row my-2" v-if="this.showHide.tabel_campuri === true">
+                    <!-- Numarul Strazii -->
+                    <div class="col-4">
+                        <label for="angajat_nr_domiciliu" class="form-label">Numarul</label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="angajat_nr_domiciliu"
+                            placeholder="Numarul"
+                            v-model="adresaNoua.numar"
+                        >
+                    </div>
+                    <!-- Blocul -->
+                    <div class="col-4">
+                        <label for="angajat_bloc_domiciliu" class="form-label">Bloc</label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="angajat_bloc_domiciliu"
+                            placeholder="Bloc"
+                            v-model="adresaNoua.bloc"
+                        >
+                    </div>
+                    <!-- Scara -->
+                    <div class="col-4">
+                        <label for="angajat_scara_domiciliu" class="form-label">Scara</label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="angajat_scara_domiciliu"
+                            placeholder="Scara"
+                            v-model="adresaNoua.scara"
+                        >
+                    </div>
+                </div>
+                <div class="row mt-2" v-if="this.showHide.tabel_campuri === true">
+                    <!-- Etaj -->
+                    <div class="col-4">
+                        <label for="angajat_etaj_domiciliu" class="form-label">Etaj</label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="angajat_etaj_domiciliu"
+                            placeholder="Etaj"
+                            v-model="adresaNoua.etaj"
+                        >
+                    </div>
+                    <!-- Apartament -->
+                    <div class="col-4">
+                        <label for="angajat_apartament_domiciliu" class="form-label">Apartament</label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="angajat_apartament_domiciliu"
+                            placeholder="Apartament"
+                            v-model="adresaNoua.apartament"
+                        >
+                    </div>
+                    <!-- Numar de telefon mobil -->
+                    <div class="col-4">
+                        <label for="angajat_mobil_domiciliu" class="form-label">Telefon mobil</label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="angajat_mobil_domiciliu"
+                            placeholder="Telefon mobil"
+                            v-model="adresaNoua.mobil"
+                        >
+                    </div>
+                    <!-- Numar de telefon fix -->
+                    <div class="col-4">
+                        <label for="angajat_fix_domiciliu" class="form-label">Telefon fix</label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="angajat_fix_domiciliu"
+                            placeholder="Telefon fix"
+                            v-model="adresaNoua.fix"
+                        >
+                    </div>
+
+                    <!-- Profil Facebook -->
+                    <div class="col-4">
+                        <label for="angajat_fix_domiciliu" class="form-label">Profil Facebook</label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="angajat_profil_facebook"
+                            placeholder="Profil Facebook"
+                            v-model="adresaNoua.facebook"
+                        >
+                    </div>
+
+                    <!-- Profil WhatsApp -->
+                    <div class="col-4">
+                        <label for="angajat_fix_domiciliu" class="form-label">Profil WhatsApp</label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="angajat_profil_whatsapp"
+                            placeholder="Profil WhatsApp"
+                            v-model="adresaNoua.whatsapp"
+                        >
+                    </div>
+                </div>
+                <div class="row mt-2" id="row-tabel-adrese" v-if="this.showHide.tabel_adrese === true">
                     <div class="col-12">
                         <table class="table">
                             <thead>
@@ -176,18 +182,22 @@
                             </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                    <td>@mdo</td>
-                                    <td>@mdo</td>
-                                    <td>@mdo</td>
-                                    <td>@mdo</td>
-                                    <td>@mdo</td>
-                                    <td>@mdo</td>
-                                    <td>@mdo</td>
+
+                                <tr v-for="(adr, index) in lista_adrese">
+                                    <th scope="row">{{ index + 1 }}</th>
+                                    <td>{{ adr.aa_judet}}</td>
+                                    <td>{{ adr.aa_localitate}}</td>
+                                    <td>{{ adr.aa_strada}}</td>
+                                    <td>{{ adr.aa_numar}}</td>
+                                    <td>{{ adr.aa_bloc}}</td>
+                                    <td>{{ adr.aa_scara}}</td>
+                                    <td>{{ adr.aa_apartament}}</td>
+                                    <td>{{ adr.aa_telefon_fix}}</td>
+                                    <td>{{ adr.aa_telefon_mobil}}</td>
+                                    <td>
+                                        <span v-if="adr.aa_status == 1" class="adresa_activa">Activa</span>
+                                        <span v-if="adr.aa_status == 0" class="adresa_inactiva">Inactiva</span>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -209,29 +219,92 @@ export default {
             adminData:{
                 email: JSON.parse(localStorage.getItem('user')).email
             },
-            lista_angajati: [],
-            user_id: JSON.parse(localStorage.getItem('user')).id,
-            lista_acces: [],
-            user: JSON.parse(localStorage.getItem('user'))
+            user_id: JSON.parse(localStorage.getItem('user')).user_angajat_id,
+            user: JSON.parse(localStorage.getItem('user')),
+            showHide:{
+                tabel_adrese: false,
+                tabel_campuri: true
+            },
+            judete: null,
+            localitati: null,
+            loading: true,
+            adresaNoua:{
+                judet: 0,
+                localitate: 0,
+                strada: "",
+                numar: "",
+                bloc: "",
+                scara: "",
+                etaj: "",
+                apartament: "",
+                mobil: "",
+                fix: "",
+                facebook: "",
+                whatsapp: "",
+            },
+            lista_adrese: []
         }
     },
     components:{
-        TopNav
+        TopNav,
+        LoadingComponent
     },
     created(){
-        this.preluareAngajati();
+        this.getJudete();
+        this.preluareAdrese();
     },
     methods:{
-        async preluareAngajati(){
-            axios.get(`/api/angajati/${this.user_id}`, {
+        async preluareAdrese(){
+            this.loading = true;
+            axios.get(`/api/angajati/${this.user.user_angajat_id}/adrese`, {
                 headers:{
                     ContentType: 'application/json',
                     Authorization : 'Bearer ' + localStorage.getItem('token')
                 }
             }).then(async (response) => {
-                console.log(response)
-                this.lista_angajati = response.data.data
+                this.lista_adrese = response.data.data
+                this.loading = false;
             })
+        },
+        async salvareAdresaNoua(){
+            this.loading = true;
+            await axios.post(`/api/angajati/adresa_noua`, {
+                adresa: this.adresaNoua,
+                user: this.user_id
+            }, {
+                headers: {
+                    ContentType: 'application/json',
+                    Authorization: 'Bearer ' + this.token
+                }
+            }).then(response => {
+                    this.preluareAdrese();
+                    this.loading = false;
+                    Vue.$toast.open({
+                        message: 'Adresa a fost actualizata!',
+                        type: 'success',
+                        // all of other options may go here
+                    });
+                }
+            )
+        },
+        async preluareLocalitatiByJudet(){
+            this.loading = true;
+            await axios.get(`/api/localitati/${this.adresaNoua.judet}`).then(response => {
+                    this.localitati = response.data
+                    this.loading = false;
+                }
+            )
+        },
+        async getJudete(){
+            await axios.get(`/api/judete`).then(response => {
+                    this.judete = response.data
+                    this.loading = false;
+                }
+            )
+        },
+        showHideAdrese(){
+            this.showHide.tabel_adrese = !this.showHide.tabel_adrese;
+            this.showHide.tabel_campuri = !this.showHide.tabel_campuri;
         }
     }
 }
@@ -244,4 +317,27 @@ span.badge{
     font-size: 16px;
     color: #fff;
 }
+
+.col-flex-space{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+.adresa_activa{
+    padding: 6px;
+    background-color: #55efc4;
+    border-radius: 3px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.adresa_inactiva{
+    padding: 6px;
+    background-color: #ff7675;
+    border-radius: 3px;
+    font-weight: bold;
+    color: #fff;
+}
+
 </style>

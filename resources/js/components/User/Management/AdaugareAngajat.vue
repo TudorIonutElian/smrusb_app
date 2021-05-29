@@ -1,7 +1,7 @@
 <template>
     <div class="container-fluid">
         <top-nav></top-nav>
-        <div class="row" v-show="showLoadingAnimation">
+        <div class="row" v-if="!showLoadingAnimation">
             <div class="container mt-4">
                 <div class="row row-bordered p-2">
                     <div class="col-12 p-1 text-center">
@@ -192,7 +192,7 @@
                             class="form-control form-select"
                             id="angajat_judet_nastere"
                             v-model="angajat_nou.judet_nastere"
-                            @change="filtrareLocalitatiNastere()"
+                            @change="preluareLocalitatiByJudetNastere()"
                         >
                             <option v-for="judet in judete_nastere" :value="judet.judet_id">{{ judet.judet_denumire }}</option>
                         </select>
@@ -207,8 +207,8 @@
                             id="angajat_localitate_nastere"
                             v-model="angajat_nou.localitate_nastere"
                         >
-                            <option v-for="localitate_nastere in localitati_nastere_validate" :value="localitate_nastere.localitate_id">
-                                {{ localitate_nastere.localitate_denumire }}</option>
+                            <option v-for="localitate_nastere in lista_localitati" :value="localitate_nastere.id">
+                                {{ localitate_nastere.denumire }}</option>
                         </select>
                     </div>
                 </div>
@@ -240,7 +240,7 @@
                             class="form-control form-select"
                             id="angajat_judet_domiciliu"
                             v-model="angajat_nou.judet_domiciliu"
-                            @change="filtrareLocalitatiDomiciuliu()"
+                            @change="preluareLocalitatiByJudetDomiciliu()"
                         >
                             <option v-for="judet in this.lista_judete" :value="judet.judet_id">{{ judet.judet_denumire }}</option>
                         </select>
@@ -256,9 +256,9 @@
                             v-model="angajat_nou.localitate_domiciliu"
                         >
                             <option
-                                v-for="localitate_domiciliu in localitati_domiciliu_validate"
-                                :value="localitate_domiciliu.localitate_id"
-                                >{{ localitate_domiciliu.localitate_denumire }}</option>
+                                v-for="localitate_domiciliu in lista_localitati_domiciliu"
+                                :value="localitate_domiciliu.id"
+                                >{{ localitate_domiciliu.denumire }}</option>
                         </select>
                     </div>
                 </div>
@@ -449,7 +449,7 @@
                 <notifications group="angajat" position="bottom right"/>
             </div>
         </div>
-        <loading-component v-show="!showLoadingAnimation"></loading-component>
+        <loading-component v-show="showLoadingAnimation"></loading-component>
     </div>
 </template>
 
@@ -464,6 +464,7 @@ export default {
             user_institutii_acces: [],
             lista_judete: [],
             lista_localitati: [],
+            lista_localitati_domiciliu: [],
             token: localStorage.getItem('token'),
             angajat_nou: {
                 nume: "",
@@ -520,7 +521,7 @@ export default {
             return this.lista_erori.length === 0
         },
         showLoadingAnimation(){
-            return this.lista_judete.length > 0 && this.lista_localitati.length > 0 && this.user_institutii_acces.length > 0
+            return this.lista_judete.length == 0 && this.lista_localitati.length == 0 && this.user_institutii_acces.length == 0
         },
         judete_nastere(){
             return this.lista_judete.sort((a, b)=>{
@@ -550,6 +551,19 @@ export default {
         await this.preluareInstitutiiAcces();
     },
     methods:{
+        async preluareLocalitatiByJudetNastere(){
+            await axios.get(`/api/localitati/${this.angajat_nou.judet_nastere}`).then(response => {
+                    this.lista_localitati = response.data
+                }
+            )
+        },
+        async preluareLocalitatiByJudetDomiciliu(){
+            await axios.get(`/api/localitati/${this.angajat_nou.judet_domiciliu}`).then(response => {
+                    this.lista_localitati_domiciliu = response.data
+                }
+            )
+        },
+
         filtrareLocalitatiNastere(){
             this.localitati_nastere_validate = [];
             for(let i = 0; i < this.lista_localitati.length; i++){

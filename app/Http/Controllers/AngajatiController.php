@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\AdreseResource;
 use App\Http\Resources\DateAngajatiUserDashboard;
 use App\Http\Resources\DateAngajatMutare;
 use App\Http\Resources\DateAngajatNumire;
@@ -10,6 +11,7 @@ use App\Http\Resources\DatePersonaleAngajat;
 use App\Http\Resources\DateSalariiAngajat;
 use App\Http\Resources\MutatiiAngajat;
 use App\Models\Angajat;
+use App\Models\AngajatAdresa;
 use App\Models\Calificativ;
 use App\Models\Contract;
 use App\Models\ContractIstoric;
@@ -27,6 +29,9 @@ use Illuminate\Support\Str;
 
 class AngajatiController extends Controller
 {
+    public function preluareAdrese($id){
+        return AdreseResource::collection(AngajatAdresa::where('aa_angajat', '=',$id)->get());
+    }
     public function preluareInstitutie($id){
         $institutie = Institutii::find($id);
         return $institutie;
@@ -90,11 +95,27 @@ class AngajatiController extends Controller
                 $user->user_type            = 3;
                 $user->user_cod_acces       = $angajat->angajat_cod_acces;
                 $user->user_angajat_id      = $angajat->id;
-                $user->user_added_by      = $request->angajat['user_added_by'];
+                $user->user_added_by        = $request->angajat['user_added_by'];
 
                 if($user->save()){
                     // Salvare contract
                     $this::salvareContract($angajat, 1, $request->angajat['data_aplicare_act_angajare']);
+
+                    $adresa_noua = new AngajatAdresa();
+                    $adresa_noua->aa_angajat            = $angajat->id;
+                    $adresa_noua->aa_judet              = $request->angajat['judet_domiciliu'];
+                    $adresa_noua->aa_localitate         = $request->angajat['localitate_domiciliu'];
+                    $adresa_noua->aa_strada             = $request->angajat['nume_strada'];
+                    $adresa_noua->aa_numar              = $request->angajat['numar_strada'];
+                    $adresa_noua->aa_bloc               = $request->angajat['bloc_domiciliu'];
+                    $adresa_noua->aa_scara              = $request->angajat['scara_domiciliu'];
+                    $adresa_noua->aa_etaj               = $request->angajat['etaj_domiciliu'];
+                    $adresa_noua->aa_apartament         = $request->angajat['apartament_domiciliu'];
+                    $adresa_noua->aa_telefon_fix        = $request->telefon_fix['fix'];
+                    $adresa_noua->aa_telefon_mobil      = $request->angajat['telefon_mobil'];
+                    $adresa_noua->aa_status             = true;
+                    $adresa_noua->save();
+
 
                     return response()->json([
                         'cod'     => '001',
@@ -494,5 +515,36 @@ class AngajatiController extends Controller
 
     public static function salvareIstoricContract(){
 
+    }
+
+    public function salvareAdresaNoua(Request $request){
+
+        $adresa_activa = AngajatAdresa::where(
+            [
+                ['aa_angajat', '=', $request->user],
+                ['aa_status', '=', true]
+            ]
+        )->get();
+
+
+        $adresa_activa[0]->aa_status = false;
+        $adresa_activa[0]->save();
+
+        $adresa_noua = new AngajatAdresa();
+        $adresa_noua->aa_angajat            = $request->user;
+        $adresa_noua->aa_judet              = $request->adresa['judet'];
+        $adresa_noua->aa_localitate         = $request->adresa['localitate'];
+        $adresa_noua->aa_strada             = $request->adresa['strada'];
+        $adresa_noua->aa_numar              = $request->adresa['numar'];
+        $adresa_noua->aa_bloc               = $request->adresa['bloc'];
+        $adresa_noua->aa_scara              = $request->adresa['scara'];
+        $adresa_noua->aa_etaj               = $request->adresa['etaj'];
+        $adresa_noua->aa_apartament         = $request->adresa['apartament'];
+        $adresa_noua->aa_telefon_fix        = $request->adresa['fix'];
+        $adresa_noua->aa_telefon_mobil      = $request->adresa['mobil'];
+        $adresa_noua->aa_status             = true;
+        $adresa_noua->save();
+
+        return $adresa_noua;
     }
 }

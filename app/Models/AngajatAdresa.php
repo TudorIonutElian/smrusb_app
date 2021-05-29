@@ -17,4 +17,12 @@ class AngajatAdresa extends Model
     public function angajat(){
         return $this->belongsTo(Angajat::class, 'id');
     }
+
+    public function judet(){
+        return $this->belongsTo(Judet::class, 'aa_judet', 'id');
+    }
+
+    public function localitate(){
+        return $this->belongsTo(Localitate::class, 'aa_localitate', 'id');
+    }
 }

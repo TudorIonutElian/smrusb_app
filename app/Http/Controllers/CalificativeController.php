@@ -21,6 +21,13 @@ class CalificativeController extends Controller
         ])->get());
     }
 
+    public function preluareNeaprobateSpecialist($institutie_id){
+        return DateCalificativeAngajat::collection(Calificativ::where([
+            ['ca_institutie',       '=', $institutie_id],
+            ['ca_status',           '=', 0]
+        ])->get());
+    }
+
     public function aprobareCalificativ(Request $request){
         $id = $request->idCalificativ;
         $calificativ = Calificativ::find($id);

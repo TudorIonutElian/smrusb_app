@@ -23,25 +23,23 @@
                                 </select>
                             </div>
                             <div class="d-flex-inner m-2">
-                                <label for="institutie">Selectati Anul -+ 10 ani</label>
+                                <label for="institutie">Selectati Semestrul</label>
                                 <select
                                     id="luna"
                                     class="form-control form-select m-2"
                                     aria-label="Default select example"
-                                    v-model="data.trimestru"
+                                    v-model="data.semestru"
                                     :disabled="data.institutie == null"
                                 >
-                                    <option value="01">01 - Trimestrul I</option>
-                                    <option value="02">02 - Trimestrul II</option>
-                                    <option value="03">03 - Trimestrul III</option>
-                                    <option value="04">04 - Trimestrul IV</option>
+                                    <option value="01">01 - Semestrul I</option>
+                                    <option value="02">02 - Semestrul II</option>
                                 </select>
                             </div>
                             <div class="d-flex-inner m-2">
                                 <label>Preluare</label>
                                 <button
                                     class="btn btn-success"
-                                    :disabled="data.trimestru == null"
+                                    :disabled="data.semestru == null"
                                     @click.prevent="preluareSalarii"
                                 >Preluare </button>
                             </div>
@@ -49,7 +47,7 @@
                                 <label>Export PDF</label>
                                 <button
                                     class="btn btn-outline-primary"
-                                    :disabled="data.trimestru == null"
+                                    :disabled="data.semestru == null"
                                     @click.prevent="exportSalarii"
                                 >Export PDF </button>
                             </div>
@@ -98,7 +96,7 @@
                                 <td colspan="5">{{ this.data.sumar }} -lei</td>
                             </tr>
                             <tr v-if="(this.data.salarii == null) || (this.data.salarii != null && this.data.salarii.length == 0) ">
-                                <td colspan="10" class="text-center">Nu exista salarii pentru trimestrul selectat.</td>
+                                <td colspan="10" class="text-center">Nu exista salarii pentru semestrul selectat.</td>
                             </tr>
                             </tbody>
                         </table>
@@ -123,11 +121,11 @@ export default {
                 institutii: null,
                 institutie: null,
                 salarii: null,
-                sumar: null,
                 loaded: false,
                 loading: false,
                 token: localStorage.getItem('token'),
                 anul: null,
+                semestru: null
             }
         }
     },
@@ -159,7 +157,7 @@ export default {
         },
         async preluareSalarii(){
             this.loading = true;
-            await axios.get(`/api/salarizare/${this.data.institutie}/trimestrial/${this.data.trimestru}`, {
+            await axios.get(`/api/salarizare/${this.data.institutie}/semestrial/${this.data.semestru}`, {
                 headers:{
                     ContentType: 'application/json',
                     Authorization : 'Bearer ' + this.data.token
@@ -185,7 +183,7 @@ export default {
                 putOnlyUsedFonts:true,
             });
             doc.setDrawColor(39, 174, 96);
-            doc.text(`SMRUSB - Salarii`, 2, 2);
+            doc.text(`SMRUSB - Salarii ${new Date().getFullYear()} - Semestrul ${this.data.semestru[1]}`, 2, 2);
             doc.autoTable({
                 html: '#salariiGenerate',
                 startY: 3,
@@ -196,7 +194,10 @@ export default {
         },
         sumarSalarii(salarii){
             salarii.forEach(salariu =>{
-                this.data.sumar += salariu.salariu_suma_finala;
+                this.data.sumar = 0;
+                salarii.forEach(salariu =>{
+                    this.data.sumar += salariu.salariu_suma_finala;
+                })
             })
         }
     }
@@ -227,7 +228,7 @@ export default {
 }
 .td-sumar {
     background-color: #55efc4!important;
-    color: #333;
+    color: #ffffff;
 }
 .td-sumar td:nth-child(1){
     text-align: right;

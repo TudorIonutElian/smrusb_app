@@ -18,4 +18,8 @@ class Localitate extends Model
     public function getJudet(){
         return $this->belongsTo('App\Models\Judet', 'judet');
     }
+
+    public function adrese(){
+        return $this->hasMany('App\Models\AngajatAdresa', 'aa_localitate');
+    }
 }

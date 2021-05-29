@@ -188,7 +188,7 @@ export default {
                 putOnlyUsedFonts:true,
             });
             doc.setDrawColor(39, 174, 96);
-            doc.text(`SMRUSB - Salarii ${this.acces_user_institutii[this.generare_institutie_id-1].institutie_denumire}`, 2, 2);
+            doc.text(`SMRUSB - Salarii`, 2, 2);
             doc.autoTable({
                 html: '#my-table',
                 startY: 3,

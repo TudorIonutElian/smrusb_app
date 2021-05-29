@@ -284,4 +284,54 @@ class SalariiController extends Controller
             'sumar'     => 0
         ];
     }
+
+    public function preluareSalariiSemestrial($institutie_id, $semestru){
+        $anul = Carbon::now()->format('Y');
+        $perioada = null;
+        $sumar = 0;
+
+        switch ($semestru){
+            case '01':
+                $perioada = [
+                    'start_date'  => Carbon::createFromFormat('d-m-Y', '01-01-'.$anul),
+                    'end_date'    => Carbon::createFromFormat('d-m-Y', '30-06-'.$anul),
+                ];
+                break;
+            case '02':
+                $perioada = [
+                    'start_date'  => Carbon::createFromFormat('d-m-Y', '01-07-'.$anul),
+                    'end_date'    => Carbon::createFromFormat('d-m-Y', '31-12-'.$anul),
+                ];
+                break;
+        }
+
+        $salarii = Salariu::where([
+            ['s_institutie', '=', $institutie_id,],
+            ['s_start_date', '>=', $perioada['start_date']->format('Y-m-d')],
+            ['s_end_date',   '<=', $perioada['end_date']->format('Y-m-d')],
+        ])->get();
+
+        return [
+            'salarii'   => DateSalariiInstitutie::collection($salarii),
+            'sumar'     => 0
+        ];
+    }
+
+    public function preluareSalariiAnual($institutie_id, $an){
+        $perioada = [
+            'start_date'  => Carbon::createFromFormat('d-m-Y', '01-01-'.$an),
+            'end_date'    => Carbon::createFromFormat('d-m-Y', '31-12-'.$an),
+        ];
+
+        $salarii = Salariu::where([
+            ['s_institutie', '=', $institutie_id,],
+            ['s_start_date', '>=', $perioada['start_date']->format('Y-m-d')],
+            ['s_end_date',   '<=', $perioada['end_date']->format('Y-m-d')],
+        ])->get();
+
+        return [
+            'salarii'   => DateSalariiInstitutie::collection($salarii),
+            'sumar'     => 0
+        ];
+    }
 }

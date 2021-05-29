@@ -15,7 +15,7 @@ class CreateAngajatiProfileSocialTable extends Migration
     {
         Schema::create('angajati_profile_social', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('aps_angajat')->nullable()->unique();
+            $table->unsignedBigInteger('aps_angajat')->nullable();
             $table->string('aps_facebook')->nullable()->unique();
             $table->string('aps_twitter')->nullable()->unique();
             $table->string('aps_google_plus')->nullable()->unique();

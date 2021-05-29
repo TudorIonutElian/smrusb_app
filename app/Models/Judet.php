@@ -21,4 +21,8 @@ class Judet extends Model
     public function get_numar_localitati(){
         return $this->hasMany('App\Models\Localitate', 'judet');
     }
+
+    public function adrese(){
+        return $this->hasMany('App\Models\AngajatAdresa', 'aa_judet');
+    }
 }
