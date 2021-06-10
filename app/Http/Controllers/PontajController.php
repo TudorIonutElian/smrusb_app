@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\PontajStatisticsResource;
 use App\Http\Resources\VizualizarePontajInstitutie;
 use App\Models\Angajat;
 use App\Models\Institutii;
@@ -59,7 +60,8 @@ class PontajController extends Controller
     }
 
     public function preluare($cod){
-        return Pontaj::where('pl_angajat', '=', $cod)->get();
+
+        return PontajStatisticsResource::collection(Pontaj::where('pl_angajat', '=', $cod)->get());
     }
 
     public function preluarePontajInstitutie($institutie_id){

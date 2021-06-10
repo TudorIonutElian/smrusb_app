@@ -7,12 +7,13 @@
                 placeholder="Introduceti numele angajatului ..."
                 aria-label="Search"
                 v-model="search_value"
+                @keyup="sendSearchValue"
             >
             <button
-                class="btn btn-outline-success ml-1"
+                class="btn btn-outline-danger ml-1"
                 type="submit"
-                @click.prevent="sendSearchValue"
-            >Cauta
+                @click.prevent="sendResetEvent"
+            >Reseteaza
             </button>
         </div>
     </div>
@@ -31,6 +32,10 @@ export default {
     methods:{
         sendSearchValue(){
             this.$emit('searched', this.search_value);
+        },
+        sendResetEvent(){
+            this.search_value = 'reseted';
+            this.$emit('resetedClick', this.search_value);
         }
     }
 }

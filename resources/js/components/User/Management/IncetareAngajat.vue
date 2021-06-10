@@ -5,8 +5,19 @@
             <div class="container mt-4 container-angajati">
                 <div class="row">
                     <div class="col-12 d-flex mb-2">
-                        <input class="form-control me-2" type="search" placeholder="Introduceti numele angajatului ..." aria-label="Search">
-                        <button class="btn btn-outline-success ml-1" type="submit">Cauta</button>
+                        <input
+                            class="form-control me-2"
+                            type="search"
+                            placeholder="Introduceti numele angajatului ..."
+                            aria-label="Search"
+                            v-model="filtrare.searchName"
+                            @keyup="getAngajatiByName"
+                        >
+                        <button
+                            class="btn btn-outline-danger ml-1"
+                            type="submit"
+                            @click.prevent="resetFilters"
+                        >Reseteaza</button>
                     </div>
                 </div>
                 <div class="row mt-2">
@@ -54,7 +65,10 @@ export default {
             },
             lista_angajati: [],
             user_id: JSON.parse(localStorage.getItem('user')).id,
-            lista_acces: []
+            lista_acces: [],
+            filtrare: {
+                searchName: ""
+            }
         }
     },
     components:{
@@ -73,6 +87,27 @@ export default {
             }).then(async (response) => {
                 this.lista_angajati = response.data.data
             })
+        },
+        async getAngajatiByName(){
+            const valoareStringNume = this.filtrare.searchName;
+            if(valoareStringNume === ""){
+                await this.preluareAngajati()();
+            }else{
+                const angajatiFiltrat = [];
+                this.lista_angajati.forEach(angajat=>{
+                    let angajatNume     = angajat.angajat_nume.toLowerCase();
+                    let angajatPrenume  = angajat.angajat_prenume.toLowerCase();
+                    if(angajatNume.includes(valoareStringNume.toLowerCase()) || angajatPrenume.includes(valoareStringNume.toLowerCase())){
+                        angajatiFiltrat.push(angajat)
+                    }
+                })
+
+                this.lista_angajati = angajatiFiltrat;
+            }
+        },
+        async resetFilters(){
+            this.filtrare.searchName = "";
+            await this.preluareAngajati();
         }
     }
 }

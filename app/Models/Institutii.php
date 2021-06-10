@@ -45,4 +45,8 @@ class Institutii extends Model
         return $this->hasMany(Pontaj::class, 'pl_institutie', 'id');
     }
 
+    public function cass(){
+        return $this->hasMany(CASS::class, 'sc_angajat', 'id');
+    }
+
 }

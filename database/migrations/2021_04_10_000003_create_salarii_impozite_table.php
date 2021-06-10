@@ -22,6 +22,7 @@ class CreateSalariiImpoziteTable extends Migration
             $table->boolean('si_achitat');
             $table->date('si_data_achitarii');
         });
+
     }
 
     /**

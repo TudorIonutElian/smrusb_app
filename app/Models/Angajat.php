@@ -37,31 +37,43 @@ class Angajat extends Model
         return $this->hasOne(Judet::class, 'id', 'angajat_judet_nastere');
     }
 
+    // returnare institutia curenta a angajatului
     public function institutie_curenta(){
         return $this->hasOne(Institutii::class, 'institutie_cod_acces', 'angajat_cod_acce');
     }
 
+    // returnare functia curenta a angajatului
     public function get_functie_curenta(){
         return $this->hasOne(Functii::class, 'id', 'angajat_functie_curenta');
     }
 
+    // returnare salarii angajat
     public function salarii(){
         return $this->hasMany(Salariu::class, 's_angajat', 'id');
     }
 
+    // returnare pontaje angajat
     public function pontaje(){
         return $this->hasMany(Pontaj::class, 'pl_angajat', 'id');
     }
 
+    // returnare metode de plata angajat
     public function metode_plata(){
         return $this->hasMany(DatePlata::class, 'dp_angajat', 'id');
     }
 
+    // returnare calificative
     public function calificative(){
         return $this->hasMany(Calificativ::class, 'ca_angajat', 'id');
     }
 
+    // returnare mcontract angajat
     public function contract(){
         return $this->hasOne(Contract::class, 'c_angajat', 'id');
+    }
+
+    // returnare cass angajat
+    public function cass(){
+        return $this->hasMany(CASS::class, 'sc_angajat', 'id');
     }
 }

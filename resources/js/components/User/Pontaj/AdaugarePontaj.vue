@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <top-nav></top-nav>
         <div class="row">
-            <div class="container mt-4 container-angajati">
+            <div class="container-fluid mt-4 container-angajati">
                 <div class="row">
                     <div class="col-12 my-2 p-2 bg-success text-center text-white">
                         Adaugare Pontaj Lunar
@@ -32,16 +32,19 @@
                             <thead>
                             <tr>
                                 <th scope="col">#</th>
+                                <th scope="col">Institutie</th>
                                 <th scope="col">Data inceput</th>
                                 <th scope="col">Data sfarsit</th>
                                 <th scope="col">Numar ore</th>
                                 <th scope="col">Status</th>
                                 <th scope="col">Detalii</th>
+                                <th scope="col">Media</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr v-for="(pontaj, index) in pontaje_existente">
                                 <th scope="row">{{ index + 1 }}</th>
+                                <td>{{ pontaj.pl_institutie }}</td>
                                 <td>{{ pontaj.pl_start_date }}</td>
                                 <td>{{ pontaj.pl_end_date }}</td>
                                 <td>
@@ -59,6 +62,11 @@
                                     <span class="pontaj_scazut" v-if="pontaj.pl_numar_ore < 100 ">Pontaj Scazut</span>
                                     <span class="pontaj_suplimentar" v-if="pontaj.pl_numar_ore > 164 && pontaj.pl_numar_ore < 200">Pontaj Suplimentar</span>
                                     <span class="pontaj_verificare" v-if="pontaj.pl_numar_ore > 200">Pontajul necesita verificare</span>
+                                </td>
+                                <td>
+                                    <span v-if="pontaj.pl_diferenta > 100" class="span_diff diff_high">{{ pontaj.pl_diferenta }}% / media lunii</span>
+                                    <span v-if="pontaj.pl_diferenta <= 100" class="span_diff diff_less">{{ pontaj.pl_diferenta }}% / media lunii</span>
+                                    <span v-if="pontaj.pl_diferenta == 0" class="span_diff">0%</span>
                                 </td>
                             </tr>
                             </tbody>
@@ -108,7 +116,7 @@ export default {
                     Authorization : 'Bearer ' + this.token
                 }
             }).then(response => {
-                this.pontaje_existente = response.data;
+                this.pontaje_existente = response.data.data;
             })
         },
         async adaugarePontaj(){
@@ -169,5 +177,11 @@ export default {
 .pontaj_verificare{
     font-weight: bold;
     color: #e74c3c;
+}
+span.diff_high{
+    color: #e74c3c;
+}
+span.diff_less{
+    color: #2ecc71;
 }
 </style>

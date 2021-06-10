@@ -215,8 +215,8 @@ export default {
     width: 600px;
     text-align: center;
     font-size: 30px;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
     text-text-replace: uppercase;
     font-weight: bold;
 }
@@ -230,7 +230,7 @@ export default {
     justify-items: flex-start;
 }
 .col-left{
-    width: 320px;
+    width: 450px;
     margin-left: 30px;
     margin-top: 10px;
     background-color: #273c75;
@@ -255,7 +255,7 @@ export default {
 .col-text-general{
     max-width: 600px;
     margin-right: 30px;
-    padding: 30px;
+    padding: 5px;
     text-align: justify;
 }
 #adeverintaGenerata{

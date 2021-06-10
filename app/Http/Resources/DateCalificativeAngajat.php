@@ -29,7 +29,7 @@ class DateCalificativeAngajat extends JsonResource
             'ca_angajat_prenume'        => $this->angajat['angajat_prenume'],
             'ca_angajat_dataangajarii'  => $this->angajat->contract['c_data_incepere_contract'],
             'ca_angajat_vechimemunca'   => Carbon::createFromDate($this->angajat->contract['c_data_incepere_contract'])->diffInDays(Carbon::now()),
-            'ca_poate_fi_contestat'     => Carbon::createFromDate($this->ca_data_adaugarii)->diffInDays(Carbon::now()) <= 5,
+            'ca_poate_fi_contestat'     => Carbon::createFromDate($this->ca_data_adaugarii)->diffInDays(Carbon::now()) <= 5 && ($this->ca_are_contestatie != 1),
             'ca_data_adaugarii'         => $this->ca_data_adaugarii,
         ];
     }

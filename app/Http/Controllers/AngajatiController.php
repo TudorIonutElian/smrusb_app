@@ -29,6 +29,9 @@ use Illuminate\Support\Str;
 
 class AngajatiController extends Controller
 {
+    public function preluareAngajatiByInstitutie($id){
+        return Angajat::where('angajat_institutie_curenta', '=', $id)->get();
+    }
     public function preluareAdrese($id){
         return AdreseResource::collection(AngajatAdresa::where('aa_angajat', '=',$id)->get());
     }

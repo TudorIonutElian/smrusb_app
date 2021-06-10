@@ -123,7 +123,8 @@ export default {
                 token: localStorage.getItem('token'),
                 anulSelectat: null,
                 anulCurent: parseInt(new Date().getFullYear()),
-                aniCalculati: [parseInt(new Date().getFullYear())]
+                aniCalculati: [parseInt(new Date().getFullYear())],
+                denumire_institutie_titlu: ""
             }
         }
     },
@@ -185,7 +186,7 @@ export default {
                 putOnlyUsedFonts:true,
             });
             doc.setDrawColor(39, 174, 96);
-            doc.text(`SMRUSB - Salarii ${new Date().getFullYear()} - Trimestrul ${this.data.trimestru[1]}`, 2, 2);
+            doc.text(`SMRUSB - Salarii ${this.data.anulSelectat}`, 2, 2);
             doc.autoTable({
                 html: '#salariiGenerate',
                 startY: 3,

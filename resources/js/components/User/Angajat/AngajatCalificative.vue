@@ -37,11 +37,15 @@
                                         <span v-if="ac.ca_are_contestatie == 1">Da</span>
                                     </td>
                                     <td scope="col">{{ ac.ca_calificativ_final }}</td>
-                                    <td scope="col">{{ ac.ca_calificativ_final }}</td>
+                                    <td scope="col">
+                                        <span v-if="ac.ca_status === 'Calificativ Aprobat' " class="califcativ_aprobat">Aprobat</span>
+                                        <span v-if="ac.ca_status === 'Calificativ Neaprobat' " class="califcativ_neaprobat">Neaprobat</span>
+                                    </td>
                                     <td scope="col">
                                         <button
                                             class="btn btn-sm btn-danger"
                                             :disabled="ac.ca_poate_fi_contestat == false"
+                                            @click.prevent="contestaCalificativ(ac.ca_id)"
                                         >Contesta
                                         </button>
                                     </td>
@@ -86,6 +90,20 @@ export default {
         TopNav,
     },
     methods: {
+        async contestaCalificativ(calificativ_id){
+            this.loading = true;
+            await axios.put(`/api/calificative/contesta`, {
+                id:calificativ_id
+            }, {
+                headers:{
+                    ContentType: 'application/json',
+                    Authorization : 'Bearer ' + localStorage.getItem('token')
+                }
+            }).then(async response =>{
+                await this.preluareCalificative();
+                this.loading = false;
+            });
+        },
         async preluareCalificative(){
             this.loading = true;
             await axios.get(`/api/calificative/preluare/${this.user.user_angajat_id}`, {
@@ -103,4 +121,20 @@ export default {
 </script>
 
 <style scoped>
+.califcativ_aprobat,
+.califcativ_neaprobat {
+    font-weight: bold;
+}
+.califcativ_aprobat{
+    color: #2ecc71;
+}
+.califcativ_neaprobat{
+    color: #ae1c17;
+}
+button.btn.btn-sm.btn-danger:disabled{
+    background-color: #333;
+    outline: none;
+    border: none;
+}
+
 </style>

@@ -21,7 +21,8 @@ class CreateSalariiCassTable extends Migration
             $table->integer('sc_suma');
             $table->double('sc_cass', '4', '2');
             $table->boolean('sc_achitat')->default(false);
-            $table->date('sc_data_achitarii')->nullable();
+            $table->date('sc_start_date')->nullable();
+            $table->date('sc_end_date')->nullable();
         });
     }
 

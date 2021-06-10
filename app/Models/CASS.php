@@ -16,6 +16,14 @@ class CASS extends Model
     public $timestamps = false;
 
     public function salariu(){
-        return $this->belongsTo(Salariu::class, 'id');
+        return $this->belongsTo(Salariu::class, 'sc_salariu_id', 'id');
+    }
+
+    public function angajat(){
+        return $this->belongsTo(Angajat::class, 'sc_angajat', 'id');
+    }
+
+    public function institutie(){
+        return $this->belongsTo(Institutii::class, 'sc_institutie', 'id');
     }
 }

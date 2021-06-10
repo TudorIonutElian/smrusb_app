@@ -14,7 +14,7 @@
                 </tr>
                 </thead>
                 <tbody class="angajati">
-                <tr v-for="(angajat, index) in lista_angajati_filtrat">
+                <tr v-for="(angajat, index) in lista_angajati">
                     <th scope="row">{{ index + 1 }}</th>
                     <td>{{ angajat.angajat_nume }}</td>
                     <td>{{ angajat.angajat_prenume }}</td>
@@ -47,11 +47,9 @@ export default {
                 email: JSON.parse(localStorage.getItem('user')).email
             },
             lista_angajati: [],
-            lista_angajati_filtrat: [],
             user_id: JSON.parse(localStorage.getItem('user')).id,
             lista_acces: [],
             user: JSON.parse(localStorage.getItem('user')),
-            searchName: this.setareOptiuneFiltrare
         }
     },
     components:{
@@ -59,11 +57,6 @@ export default {
     },
     created(){
         this.preluareAngajati();
-    },
-    computed:{
-        setareOptiuneFiltrare: function (){
-           return this.optiuneFiltrare || ""
-        }
     },
     methods:{
         async preluareAngajati(){
@@ -73,9 +66,30 @@ export default {
                     Authorization : 'Bearer ' + localStorage.getItem('token')
                 }
             }).then(async (response) => {
-                this.lista_angajati = response.data.data
-                this.lista_angajati_filtrat = response.data.data
+                this.lista_angajati = response.data.data;
+                this.getAngajatiByName();
             })
+        },
+        async getAngajatiByName(){
+            const valoareStringNume = this.optiuneFiltrare;
+            if(valoareStringNume === "" || valoareStringNume === "reseted"){
+                await this.preluareAngajati();
+            }else{
+                const angajatiFiltrat = [];
+                this.lista_angajati.forEach(angajat=>{
+                    let angajatNume     = angajat.angajat_nume.toLowerCase();
+                    let angajatPrenume  = angajat.angajat_prenume.toLowerCase();
+                    if(angajatNume.includes(valoareStringNume.toLowerCase()) || angajatPrenume.includes(valoareStringNume.toLowerCase())){
+                        angajatiFiltrat.push(angajat)
+                    }
+                })
+
+                this.lista_angajati = angajatiFiltrat;
+            }
+        },
+        async resetFilters(){
+            this.filtrare.searchName = "";
+            await this.preluareAngajati();
         }
     }
 }

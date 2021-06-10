@@ -125,9 +125,15 @@
                                         <span>Aprobare</span>
                                     </a>
                                 </li>
+                                <li>
+                                    <a class="dropdown-item dropdown-item-flex" href="/user/evaluare/contestatii">
+                                        <img class="mr-2" src="/images/contestatie.png" alt="">
+                                        <span>Contestatii</span>
+                                    </a>
+                                </li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li>
-                                    <a class="dropdown-item dropdown-item-flex" href="/user/adauga_angajat">
+                                    <a class="dropdown-item dropdown-item-flex" href="/user/recompense/adaugare">
                                         <img class="mr-2" src="/images/evaluare_cautare.png" alt="">
                                         <span style="color: red">Recompense</span>
                                     </a>
@@ -203,8 +209,8 @@
                                 <li><a class="dropdown-item" href="/user/situatii/salarii/semestriale">Situatii salarii semestriale</a></li>
                                 <li><a class="dropdown-item" href="/user/situatii/salarii/anuale">Situatii salarii anuale</a></li>
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="#" style="color: red">Plati CASS</a></li>
-                                <li><a class="dropdown-item" href="#" style="color: red">Plati Impozit venit</a></li>
+                                <li><a class="dropdown-item" href="/user/situatii/cass/neachitat">CASS Neachitat</a></li>
+                                <li><a class="dropdown-item" href="/user/situatii/cass/achitat">CASS Achitat</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown" v-if="user != null && user.user_type === 0">
@@ -222,10 +228,8 @@
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="/user/adeverinte/adeverintaangajat">Adeverinta angajat </a></li>
-                                <li><a class="dropdown-item" href="#" style="color: red">Adeverinta asigurat </a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="#" style="color: red">Adeverinta dosar pensie</a></li>
-                                <li><a class="dropdown-item" href="#" style="color: red">Adeverinta salarii</a></li>
+                                <li><a class="dropdown-item" href="/user/adeverinte/adeverintaasigurat">Adeverinta asigurat </a></li>
+                                <li><a class="dropdown-item" href="/user/adeverinte/adeverintasalarii">Adeverinta salarii</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -278,13 +282,13 @@
                                                 Solicitare Acces
                                             </a>
                                         </li>
-                                        <li>
+                                        <li v-if="user != null && user.user_type === 0">
                                             <a class="dropdown-item" :href="'/user/angajati/aprobare/' + user.id">
                                                 <img src="/images/account.png" alt="">
                                                 Aprobare Angajat
                                             </a>
                                         </li>
-                                        <li>
+                                        <li v-if="user != null && user.user_type === 0">
                                             <a class="dropdown-item" href="/user/pontaj/aprobare">
                                                 <img src="/images/pontaj.png" alt="">
                                                 Aprobare Pontaj

@@ -315,7 +315,10 @@
                                                         <td>{{ e.ca_data_inceput }}</td>
                                                         <td>{{ e.ca_data_sfarsit }}</td>
                                                         <td>{{ e.ca_calificativ_initial }}</td>
-                                                        <td>{{ e.ca_are_contestatie }}</td>
+                                                        <td>
+                                                            <span v-if="e.ca_are_contestatie == 1">Da</span>
+                                                            <span v-if="e.ca_are_contestatie == 0">Nu</span>
+                                                        </td>
                                                         <td>{{ e.ca_calificativ_final }}</td>
                                                         <td>
                                                             <span v-if="e.ca_status === 'Calificativ Neaprobat'" class="ca_neaprobat">Calificativ Neaprobat</span>

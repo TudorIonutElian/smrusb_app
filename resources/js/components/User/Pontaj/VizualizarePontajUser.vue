@@ -118,7 +118,6 @@ export default {
             })
             .then(response =>{
                 this.lista_pontaj = response.data.data;
-                console.log(response.data)
                 this.loading = false;
             })
             .catch(error => console.log(error));

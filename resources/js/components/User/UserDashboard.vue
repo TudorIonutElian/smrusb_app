@@ -3,7 +3,10 @@
         <top-nav></top-nav>
         <div class="row">
             <div class="container-fluid mt-4 container-angajati">
-                <search-component v-on:searched="searchEmitted"></search-component>
+                <search-component
+                    v-on:searched="searchEmitted"
+                    v-on:resetedClick="resetEmitted"
+                ></search-component>
                 <angajat-dashboard v-if="user.user_type === 3"></angajat-dashboard>
                 <specialist-dashboard
                     v-if="user.user_type === 0"
@@ -35,6 +38,9 @@ export default {
     },
     methods:{
         searchEmitted(value){
+            this.optiune_filtrare = value;
+        },
+        resetEmitted(value){
             this.optiune_filtrare = value;
         }
     }

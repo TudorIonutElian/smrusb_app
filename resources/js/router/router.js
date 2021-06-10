@@ -60,9 +60,15 @@ import AngajatCalificative from "../components/User/Angajat/AngajatCalificative"
 import EvaluareAprobare from "../components/User/Evaluare/EvaluareAprobare";
 import SalariiLunare from "../components/User/Situatii/SalariiLunare";
 import AdeverintaAngajat from "../components/User/Adeverinte/AdeverintaAngajat";
+import AdeverintaAsigurat from "../components/User/Adeverinte/AdeverintaAsigurat";
+import AdeverintaSalarii from "../components/User/Adeverinte/AdeverintaSalarii";
 import SalariiSemestriale from "../components/User/Situatii/SalariiSemestriale";
 import SalariiTrimestriale from "../components/User/Situatii/SalariiTrimestriale";
 import SalariiAnuale from "../components/User/Situatii/SalariiAnuale";
+import CassNeachitat from "../components/User/Situatii/CassNeachitat";
+import CassAchitat from "../components/User/Situatii/CassAchitat";
+import EvaluareContestatii from "../components/User/Evaluare/EvaluareContestatii";
+import RecompenseAdaugare from "../components/User/Recompense/RecompenseAdaugare";
 
 const router = new VueRouter({
     mode: 'history',
@@ -117,6 +123,8 @@ const router = new VueRouter({
 
         {path: '/user/dashboard/calificativeangajat/:id', component: AngajatCalificative, name: 'angajat-calificative'},
         {path: '/user/adeverinte/adeverintaangajat', component: AdeverintaAngajat, name: 'adeverinta-angajat'},
+        {path: '/user/adeverinte/adeverintaasigurat', component: AdeverintaAsigurat, name: 'adeverinta-asigurat'},
+        {path: '/user/adeverinte/adeverintasalarii', component: AdeverintaSalarii, name: 'adeverinta-salarii'},
 
 
 
@@ -132,6 +140,9 @@ const router = new VueRouter({
         {path: '/user/evaluare/adaugare', component: EvaluareAdaugare, name: 'evaluare-adaugare'},
         {path: '/user/evaluare/adaugare/:id', component: EvaluareAdaugareSelectat, name: 'evaluare-adaugare-selectat'},
         {path: '/user/evaluare/aprobare', component: EvaluareAprobare, name: 'evaluare-aprobare'},
+        {path: '/user/evaluare/contestatii', component: EvaluareContestatii, name: 'evaluare-contestatii'},
+
+        {path: '/user/recompense/adaugare', component: RecompenseAdaugare, name: 'recompense-adaugare'},
 
 
         {path: '/user/situatii/incetaricontracte', component: IncetariContracte, name: 'incetari-contracte'},
@@ -140,6 +151,8 @@ const router = new VueRouter({
         {path: '/user/situatii/salarii/trimestriale', component: SalariiTrimestriale, name: 'salarii-trimestriale'},
         {path: '/user/situatii/salarii/semestriale', component: SalariiSemestriale, name: 'salarii-semstriale'},
         {path: '/user/situatii/salarii/anuale', component: SalariiAnuale, name: 'salarii-anuale'},
+        {path: '/user/situatii/cass/neachitat', component: CassNeachitat, name: 'cass-neachitat'},
+        {path: '/user/situatii/cass/achitat', component: CassAchitat, name: 'cass-achitat'},
 
 
 

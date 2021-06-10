@@ -84,7 +84,7 @@
                             >Aproba Calificativ</button>
                         </td>
                     </tr>
-                    <tr>
+                    <tr v-if="data.calificative.length == 0 || data.calificative == 'null' ">
                         <td colspan="8" class="text-center">Nu exista calificative neaprobate</td>
                     </tr>
                     </tbody>
@@ -153,10 +153,10 @@ export default {
         // Aprobare calificativ
         async aprobareCalificativ(id){
             this.loading = true;
-            await axios.put(`/api/calificative/aprobare`, {
+            await axios.put(`/api/calificative/aprobare_fara_contestatie`, {
                 idCalificativ: id,
                 user_id: this.user.id,
-                calificativFinal: this.data.calificativ_final
+                calificativ_final: this.data.calificativ_final
             }, {
                 headers:{
                     ContentType: 'application/json',

@@ -32,6 +32,12 @@ class CreateAngajatiTable extends Migration
             $table->unsignedBigInteger('angajat_adaugat_by')->nullable();
             $table->boolean('angajat_status')->default(true);
 
+            $table->foreign('angajat_functie_curenta', 'a_f_curent')->references('id')->on('functii')->onDelete('cascade');
+            $table->foreign('angajat_judet_nastere', 'a_j_nastere')->references('id')->on('judete')->onDelete('cascade');
+            $table->foreign('angajat_institutie_curenta', 'a_i_curent')->references('id')->on('institutii')->onDelete('cascade');
+            $table->foreign('angajat_localitate_nastere', 'a_l_curent')->references('id')->on('localitati')->onDelete('cascade');
+            $table->foreign('angajat_adaugat_by', 'a_uab_curent')->references('id')->on('users')->onDelete('cascade');
+
         });
     }
 

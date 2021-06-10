@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\CassResource;
 use App\Http\Resources\DatePozitiiSalarii;
 use App\Http\Resources\DateSalariiInstitutie;
 use App\Models\Angajat;
@@ -9,6 +10,7 @@ use App\Models\CASS;
 use App\Models\DateBanca;
 use App\Models\DatePlata;
 use App\Models\Institutii;
+use App\Models\PlatiCass;
 use App\Models\Pontaj;
 use App\Models\PozitiiOrganizare;
 use App\Models\Salariu;
@@ -20,6 +22,83 @@ use function PHPUnit\Framework\isEmpty;
 
 class SalariiController extends Controller
 {
+    public function achitareCass(Request $request){
+        $id_cass_neachitat                  = $request->id;
+        $cass_identificat                   = CASS::find($id_cass_neachitat);
+        $cass_identificat->sc_achitat       = 1;
+        if($cass_identificat->save()){
+            $plata_cass                     = new PlatiCass();
+            $plata_cass->pc_salariu         = $cass_identificat->salariu->id;
+            $plata_cass->pc_taxa            = 5.55;
+            $plata_cass->pc_valoare         = $cass_identificat->sc_suma;
+            $plata_cass->pc_numar_zile      = 10;
+            $plata_cass->pc_platit          = 1;
+
+            if($plata_cass->save()){
+                return 'plata_efectuata';
+            }
+        }
+    }
+    public function preluareCassAchitat($institutie, $startdate, $enddate){
+        if($startdate == "null" && $enddate == "null"){
+
+            return CassResource::collection(CASS::where([
+                ['sc_institutie',   '=', $institutie],
+                ['sc_achitat',      '=', 1]
+            ])->get());
+
+        }elseif($startdate !== "null" && $enddate == "null"){
+
+            // returnare doar pe baza startdate
+            return CassResource::collection(CASS::where([
+                ['sc_institutie',   '=', $institutie],
+                ['sc_start_date',   '>=', $startdate],
+                ['sc_achitat',      '=', 1]
+            ])->get());
+
+        }else{
+            // returnare pe baza tuturor elementelor
+            return CassResource::collection(CASS::where([
+                ['sc_institutie',   '=', $institutie],
+                ['sc_start_date',   '>=', $startdate],
+                ['sc_end_date',     '<=', $enddate],
+                ['sc_achitat',      '=', 1]
+            ])->get());
+        }
+    }
+    public function preluareCassNeachitat($institutie, $startdate, $enddate){
+        if($startdate == "null" && $enddate == "null"){
+
+            return CassResource::collection(CASS::where([
+                ['sc_institutie',   '=', $institutie],
+                ['sc_achitat',      '=', 0]
+            ])->get());
+
+        }elseif($startdate !== "null" && $enddate == "null"){
+
+            // returnare doar pe baza startdate
+            return CASS::where([
+                ['sc_institutie',   '=', $institutie],
+                ['sc_start_date',   '>=', $startdate],
+                ['sc_achitat',      '=', 0]
+            ])->get();
+
+        }else{
+            // returnare pe baza tuturor elementelor
+            return CASS::where([
+                ['sc_institutie',   '=', $institutie],
+                ['sc_start_date',   '>=', $startdate],
+                ['sc_end_date',     '<=', $enddate],
+                ['sc_achitat',      '=', 0]
+            ])->get();
+        }
+    }
+    public function preluareSalariiByCNP($codnumericpersonal){
+        $angajat = Angajat::where('angajat_cnp', '=', $codnumericpersonal)->first();
+        $salarii = Salariu::where('s_angajat', '=', $angajat->id)->get();
+
+        return $salarii;
+    }
     public function generare($cod){
         // identificare stat
         $stat_organizare = StatOrganizare::where('so_institutie_id', '=', $cod)->first();
@@ -144,7 +223,9 @@ class SalariiController extends Controller
             $cass->sc_institutie    = $salariu->institutie->id;
             $cass->sc_angajat       = $salariu->angajat->id;
             $cass->sc_cass          = 5.55;
-            $cass->sc_suma          = ($salariu->s_suma_finala * 0.55);
+            $cass->sc_suma          = ($salariu->s_suma_finala * 0.055);
+            $cass->sc_start_date    = ($salariu->s_start_date);
+            $cass->sc_end_date      = ($salariu->s_end_date);
 
             $cass->save();
 

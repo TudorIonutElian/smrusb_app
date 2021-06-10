@@ -23,10 +23,10 @@
                             Salarii
                         </div>
                         <div class="angajat-bloc_numeric my-2">
-                            <span>0</span>
+                            <span>{{ dataCount.countSalarii }}</span>
                         </div>
                         <div class="my-2">
-                            <button class="btn btn-info btn-block text-white">Vezi Adrese</button>
+                            <button class="btn btn-info btn-block text-white">Vezi Salarii</button>
                         </div>
                     </div>
 
@@ -35,10 +35,10 @@
                             Pontaje
                         </div>
                         <div class="angajat-bloc_numeric my-2">
-                            <span>0</span>
+                            <span>{{ dataCount.countPontaje }}</span>
                         </div>
                         <div class="my-2">
-                            <a :href="`/angajat/adrese/${this.user.user_angajat_id}`" class="btn btn-info btn-block text-white">Vezi Adrese</a>
+                            <a :href="`/angajat/pontaje/${this.user.user_angajat_id}`" class="btn btn-info btn-block text-white">Vezi Pontaje</a>
                         </div>
                     </div>
 
@@ -50,7 +50,7 @@
                             Calificative
                         </div>
                         <div class="angajat-bloc_numeric my-2">
-                            <span v-if="angajat.calificative != null">{{ angajat.calificative.length }}</span>
+                            <span>{{ dataCount.countCalificative }}</span>
                         </div>
                         <div class="my-2">
                             <a :href="`/user/dashboard/calificativeangajat/${this.user.user_angajat_id}`" class="btn btn-info btn-block text-white">Vezi Calificative</a>
@@ -109,7 +109,15 @@ export default {
             angajat: {
                 calificative: null
             },
-            lista_adrese: []
+            lista_adrese: [],
+            dataCount: {
+                countAdrese: 0,
+                countSalarii: 0,
+                countPontaje: 0,
+                countCalificative: 0,
+                countMutatii: 0,
+                countSchimbariParole: 0,
+            }
         }
     },
     components:{
@@ -118,8 +126,10 @@ export default {
     },
     created(){
         this.preluareAngajati();
-        this.preluareCalificative();
         this.preluareAdrese();
+        this.preluareSalariiByID();
+        this.preluarePontajeByID();
+        this.preluareCalificativeByID();
     },
     methods:{
         async preluareAngajati(){
@@ -132,18 +142,6 @@ export default {
                 this.lista_angajati = response.data.data
                 this.loading = false;
             })
-        },
-        async preluareCalificative(){
-            this.loading = true;
-            await axios.get(`/api/calificative/preluare/${this.user.user_angajat_id}`, {
-                headers:{
-                    ContentType: 'application/json',
-                    Authorization : 'Bearer ' + localStorage.getItem('token')
-                }
-            }).then(response =>{
-                this.angajat.calificative = response.data.data;
-                this.loading = false;
-            });
         },
         async preluareAdrese(){
             this.loading = true;
@@ -158,6 +156,46 @@ export default {
 
             })
         },
+        async preluareSalariiByID(){
+            const angajat_id = this.user.user_angajat_id;
+            axios.get(`/api/count/${angajat_id}/salarii`, {
+                headers:{
+                    ContentType: 'application/json',
+                    Authorization : 'Bearer ' + localStorage.getItem('token')
+                }
+            }).then(async (response) => {
+                this.dataCount.countSalarii = response.data;
+                this.loading = false;
+
+            })
+        },
+        async preluarePontajeByID(){
+            const angajat_id = this.user.user_angajat_id;
+            axios.get(`/api/count/${angajat_id}/pontaje`, {
+                headers:{
+                    ContentType: 'application/json',
+                    Authorization : 'Bearer ' + localStorage.getItem('token')
+                }
+            }).then(async (response) => {
+                this.dataCount.countPontaje = response.data;
+                this.loading = false;
+
+            })
+        },
+        async preluareCalificativeByID(){
+            const angajat_id = this.user.user_angajat_id;
+            axios.get(`/api/count/${angajat_id}/calificative`, {
+                headers:{
+                    ContentType: 'application/json',
+                    Authorization : 'Bearer ' + localStorage.getItem('token')
+                }
+            }).then(async (response) => {
+                this.dataCount.countCalificative = response.data;
+                this.loading = false;
+
+            })
+        }
+
     }
 }
 </script>
