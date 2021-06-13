@@ -16,7 +16,7 @@ class CreateIstoricLocalitatiTable extends Migration
         Schema::create('istoric_localitati', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('localitate');
-            $table->date('data')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->dateTime('data')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->string('detalii', 100);
             $table->integer('tip');
             $table->string('denumire_istoric', 100)->nullable();

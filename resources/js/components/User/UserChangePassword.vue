@@ -24,7 +24,7 @@
                             <input type="password" class="form-control" id="parolaNouaConfirmare" v-model="parola.parola_confirmare">
                             <div v-show="erori.eroare_parola_noua_confirmare === true" id="eroareConfirmareParola" class="form-text">Parolele introduse nu corespund..</div>
                         </div>
-                        <button type="submit" class="btn bg-change-password btn-block" @click.prevent="schimbareParola">Submit</button>
+                        <button type="submit" class="btn bg-change-password btn-block" @click.prevent="schimbareParola">Actualizeaza Parola Acces</button>
                     </form>
                 </div>
             </div>
@@ -63,7 +63,27 @@ export default {
               }
           }).then(
               response => {
-                  console.log(response);
+                  if(response.data.return_message == 1000){
+                      this.parola.parola_curenta = "";
+                      this.parola.parola_noua = "";
+                      this.parola.parola_confirmare = "";
+
+                      Vue.$toast.open({
+                          message: 'Parola a fost actulalizata cu succes!',
+                          type: 'success',
+                          // all of other options may go here
+                      });
+                  }else{
+                      this.parola.parola_curenta = "";
+                      this.parola.parola_noua = "";
+                      this.parola.parola_confirmare = "";
+
+                      Vue.$toast.open({
+                          message: 'Parola a fost actulalizata cu succes!',
+                          type: 'error',
+                          // all of other options may go here
+                      });
+                  }
               }
           )
       }

@@ -135,11 +135,11 @@
                                 <li>
                                     <a class="dropdown-item dropdown-item-flex" href="/user/recompense/adaugare">
                                         <img class="mr-2" src="/images/evaluare_cautare.png" alt="">
-                                        <span style="color: red">Recompense</span>
+                                        <span>Recompense</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item dropdown-item-flex" href="/user/adauga_angajat">
+                                    <a class="dropdown-item dropdown-item-flex" href="/user/sanctiuni/adaugare">
                                         <img class="mr-2" src="/images/evaluare_cautare.png" alt="">
                                         <span style="color: red">Sanctiuni</span>
                                     </a>

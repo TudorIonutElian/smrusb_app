@@ -13,4 +13,12 @@ class Recompense extends Model
 
     // Anulare coloane created_at si updated_at
     public $timestamps = false;
+
+    public function angajat(){
+        return $this->belongsTo(Angajat::class, 'r_angajat_id');
+    }
+
+    public function dictionar(){
+        return $this->belongsTo(DictionarRecompense::class, 'r_recompensa_id');
+    }
 }

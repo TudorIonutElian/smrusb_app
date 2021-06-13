@@ -49,4 +49,8 @@ class Institutii extends Model
         return $this->hasMany(CASS::class, 'sc_angajat', 'id');
     }
 
+    public function institutieSuperioara(){
+        return $this->belongsTo(Institutii::class, 'institutie_ordonator_id', 'id');
+    }
+
 }

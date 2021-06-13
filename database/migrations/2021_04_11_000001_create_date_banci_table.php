@@ -16,7 +16,7 @@ class CreateDateBanciTable extends Migration
         Schema::create('date_banci', function (Blueprint $table) {
             $table->id();
             $table->string('db_denumire', 100);
-            $table->date('db_daca_creare')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->dateTime('db_daca_creare')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->boolean('db_status');
             $table->date('db_daca_radiere')->nullable();
         });

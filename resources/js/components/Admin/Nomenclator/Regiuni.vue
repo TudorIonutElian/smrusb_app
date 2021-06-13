@@ -5,16 +5,6 @@
             :utilizatori-inactivi="utilizatoriInactivi"
         ></top-nav>
         <div v-if="isAdmin === true || isAdmin === 'true'" class="container pt-4">
-            <div class="row">
-                <div class="col-12">
-                    <div class="input-group flex-nowrap">
-                        <span id="addon-wrapping" class="input-group-text mr-2">Introduceti numele regiunii</span>
-                        <input v-model="regiune_noua.denumire" class="form-control mr-2" placeholder="Introducet numele regiunii"
-                               type="text">
-                        <button class="btn btn-success">Adauga Regiunea</button>
-                    </div>
-                </div>
-            </div>
             <div class="row mt-3">
                 <div class="col-12">
                     <table class="table text-center">
@@ -107,6 +97,11 @@ export default {
                     Authorization: 'Bearer ' + this.token
                 }
             }).then(response => {
+                Vue.$toast.open({
+                    message: 'Regiunea a fost suspendata',
+                    type: 'error',
+                    // all of other options may go here
+                });
                 this.preluareRegiuni();
             })
         },
@@ -119,7 +114,11 @@ export default {
                     Authorization: 'Bearer ' + this.token
                 }
             }).then(response => {
-                console.log(response)
+                Vue.$toast.open({
+                    message: 'Regiunea a fost activata',
+                    type: 'success',
+                    // all of other options may go here
+                });
                 this.preluareRegiuni();
             })
         },
@@ -145,5 +144,13 @@ tr:hover > td button.btn-outline-success{
     background-color: #1dd1a1;
     color: #ffffff;
 }
+.regiune_activa{
+    color: #1dd1a1;
+    font-weight: bolder;
+}
 
+.regiune_inactiva{
+    color: #ee5253;
+    font-weight: bolder;
+}
 </style>

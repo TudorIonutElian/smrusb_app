@@ -76,4 +76,9 @@ class Angajat extends Model
     public function cass(){
         return $this->hasMany(CASS::class, 'sc_angajat', 'id');
     }
+
+    // returnare recompense angajat
+    public function recompense(){
+        return $this->hasMany(Recompense::class, 'r_angajat_id', 'id');
+    }
 }

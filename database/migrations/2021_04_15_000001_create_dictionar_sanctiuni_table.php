@@ -15,7 +15,8 @@ class CreateDictionarSanctiuniTable extends Migration
     {
         Schema::create('dc_sanctiuni', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->string('ds_denumire');
+            $table->boolean('ds_status')->default(true);
         });
     }
 

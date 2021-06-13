@@ -16,7 +16,7 @@ class CreateIstoricInstitutiiTable extends Migration
         Schema::create('istoric_institutii', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('istoric_institutii_institutie');
-            $table->date('data')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->dateTime('data')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->string('detalii', 100);
             $table->integer('tip');
 

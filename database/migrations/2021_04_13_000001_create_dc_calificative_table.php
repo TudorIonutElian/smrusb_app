@@ -17,7 +17,7 @@ class CreateDcCalificativeTable extends Migration
             $table->id();
             $table->string('dc_denumire', 30);
             $table->boolean('dc_status');
-            $table->date('dc_creare')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->dateTime('dc_creare')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->date('dc_radiere')->nullable();
         });
     }

@@ -14,21 +14,21 @@ class DictionarSanctiuniSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('dc_recompense')->insert(
+        DB::table('dc_sanctiuni')->insert(
             array(
-                ['dr_denumire' => 'Scadere salariala 5%'],
-                ['dr_denumire' => 'Scadere salariala 10%'],
-                ['dr_denumire' => 'Scadere salariala 15%'],
-                ['dr_denumire' => 'Scadere salariala 20%'],
-                ['dr_denumire' => 'Scadere salariala 25%'],
-                ['dr_denumire' => 'Scadere salariala 35%'],
-                ['dr_denumire' => 'Scadere salariala 20% - 3 luni'],
-                ['dr_denumire' => 'Scadere salariala 20% - 6 luni'],
-                ['dr_denumire' => 'Scadere salariu 100 lei'],
-                ['dr_denumire' => 'Scadere salariu 200 lei'],
-                ['dr_denumire' => 'Scadere salariu 300 lei'],
-                ['dr_denumire' => 'Scadere salariu 500 lei'],
-                ['dr_denumire' => 'Scadere salariu 1000 lei']
+                ['ds_denumire' => 'Scadere salariala 5%'],
+                ['ds_denumire' => 'Scadere salariala 10%'],
+                ['ds_denumire' => 'Scadere salariala 15%'],
+                ['ds_denumire' => 'Scadere salariala 20%'],
+                ['ds_denumire' => 'Scadere salariala 25%'],
+                ['ds_denumire' => 'Scadere salariala 35%'],
+                ['ds_denumire' => 'Scadere salariala 20% - 3 luni'],
+                ['ds_denumire' => 'Scadere salariala 20% - 6 luni'],
+                ['ds_denumire' => 'Scadere salariu 100 lei'],
+                ['ds_denumire' => 'Scadere salariu 200 lei'],
+                ['ds_denumire' => 'Scadere salariu 300 lei'],
+                ['ds_denumire' => 'Scadere salariu 500 lei'],
+                ['ds_denumire' => 'Scadere salariu 1000 lei']
             )
         );
     }

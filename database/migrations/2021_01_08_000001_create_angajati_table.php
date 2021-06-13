@@ -23,12 +23,12 @@ class CreateAngajatiTable extends Migration
             $table->string('angajat_nume_anterior', 50)->nullable();
             $table->date('angajat_data_nasterii');
             $table->integer('angajat_stare_civila');
-            $table->unsignedInteger('angajat_cod_acces')->nullable();
-            $table->unsignedInteger('angajat_functie_curenta')->nullable();
-            $table->unsignedInteger('angajat_judet_nastere')->nullable();
-            $table->unsignedInteger('angajat_institutie_curenta')->nullable();
-            $table->unsignedInteger('angajat_localitate_nastere')->nullable();
-            $table->unsignedInteger('angajat_pozitie_curenta')->nullable();
+            $table->unsignedBigInteger('angajat_cod_acces')->nullable();
+            $table->unsignedBigInteger('angajat_functie_curenta')->nullable();
+            $table->unsignedBigInteger('angajat_judet_nastere')->nullable();
+            $table->unsignedBigInteger('angajat_institutie_curenta')->nullable();
+            $table->unsignedBigInteger('angajat_localitate_nastere')->nullable();
+            $table->unsignedBigInteger('angajat_pozitie_curenta')->nullable();
             $table->unsignedBigInteger('angajat_adaugat_by')->nullable();
             $table->boolean('angajat_status')->default(true);
 

@@ -18,8 +18,8 @@ class CreateUserAccessTable extends Migration
             $table->unsignedBigInteger('ua_user');
             $table->integer('ua_level');
             $table->string('ua_denumire')->nullable();
-            $table->date('ua_start_date')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->date('ua_end_date')->nullable();
+            $table->dateTime('ua_start_date')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->dateTime('ua_end_date')->nullable();
             $table->boolean('ua_status')->default(false);
 
             $table->foreign('ua_user', 'ua_user')->references('id')->on('users')->onDelete('cascade');

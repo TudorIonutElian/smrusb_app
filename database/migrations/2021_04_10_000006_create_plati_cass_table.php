@@ -18,7 +18,7 @@ class CreatePlatiCassTable extends Migration
             $table->unsignedBigInteger('pc_salariu');
             $table->double('pc_taxa', '4', '2');
             $table->double('pc_valoare', '5', '2');
-            $table->date('pc_data_generarii')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->dateTime('pc_data_generarii')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->date('pc_data_platii')->nullable();
             $table->integer('pc_numar_zile')->nullable();
             $table->boolean('pc_platit');

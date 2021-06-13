@@ -17,7 +17,7 @@ class CreateIstoricJudeteTable extends Migration
         Schema::create('istoric_judete', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('judet');
-            $table->date('data')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->dateTime('data')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->string('detalii', 100);
             $table->string('denumire_istoric', 100)->nullable();
             $table->integer('tip');

@@ -38,7 +38,7 @@
                             <span>{{ dataCount.countPontaje }}</span>
                         </div>
                         <div class="my-2">
-                            <a :href="`/angajat/pontaje/${this.user.user_angajat_id}`" class="btn btn-info btn-block text-white">Vezi Pontaje</a>
+                            <a :href="`/user/angajat/pontaj/creare`" class="btn btn-info btn-block text-white">Vezi Pontaje</a>
                         </div>
                     </div>
 

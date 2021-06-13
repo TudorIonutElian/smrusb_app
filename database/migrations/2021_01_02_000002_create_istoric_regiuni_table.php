@@ -16,7 +16,7 @@ class CreateIstoricRegiuniTable extends Migration
         Schema::create('istoric_regiuni', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('regiune');
-            $table->date('data')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->dateTime('data')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->string('detalii', 100);
             $table->string('denumire_istoric', 100)->nullable();
             $table->string('denumire_actual', 100)->nullable();

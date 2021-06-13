@@ -26,8 +26,6 @@ class CreateUsersTable extends Migration
             $table->unsignedInteger('user_cod_acces')->nullable();
             $table->unsignedInteger('user_angajat_id')->nullable();
             $table->unsignedInteger('user_added_by')->nullable();
-
-            $table->foreign('user_angajat_id', 'u_a_id')->references('id')->on('angajati')->onDelete('cascade');
         });
     }
 

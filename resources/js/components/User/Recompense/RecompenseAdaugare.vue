@@ -34,20 +34,42 @@
                         <button
                             class="btn btn-outline-success btn-block"
                             :disabled="institutie_selectata == 0"
+                            @click.prevent="salvareRecompensaNoua"
                         >Salvare Recompensa</button>
                     </div>
                 </div>
                 <div class="row mt-3">
-                    <div class="col-4">
+                    <div class="col-8">
                         <select
                             class="form-select form-control"
                             aria-label="Default select example"
                             :disabled="angajat_selectat == 0"
+                            v-model="recompensa_selectat"
                         >
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                            <option v-for="r in lista_recompense" :value="r.id">{{ r.dr_denumire }}</option>
                         </select>
+                    </div>
+                </div>
+                <div class="row mt-3" v-if="lista_recompense_angajat.length > 0">
+                    <div class="col-12">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Recompensa</th>
+                                <th scope="col">Data acordarii</th>
+                                <th scope="col">Data expirarii</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr v-for="(lr, index) in lista_recompense_angajat">
+                                <th scope="row">{{ index + 1}}</th>
+                                <td>{{ lr.denumire }}</td>
+                                <td>{{ lr.data_acordarii }}</td>
+                                <td>{{ lr.data_expirarii }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -70,8 +92,10 @@ export default {
             acces_user_institutii: [],
             lista_angajati: [],
             lista_recompense: [],
+            lista_recompense_angajat: [],
             institutie_selectata: 0,
             angajat_selectat: 0,
+            recompensa_selectat: 0,
             loading: false
         }
     },
@@ -104,11 +128,44 @@ export default {
             })
         },
         async preluareRecompense(){
-            await axios.get(`/api/recompense/all`).then(response =>{
+            await axios.get(`/api/recompense/preluare`, {
+                headers:{
+                    ContentType: 'application/json',
+                    Authorization : 'Bearer ' + this.token
+                }
+            }).then(response =>{
                 this.lista_recompense = response.data
+            });
+
+            await axios.get(`/api/recompense/preluare/${this.angajat_selectat}`, {
+                headers:{
+                    ContentType: 'application/json',
+                    Authorization : 'Bearer ' + this.token
+                }
+            }).then(response =>{
+                this.lista_recompense_angajat = response.data.data
+            });
+        },
+        async salvareRecompensaNoua(){
+            await axios.post(`/api/recompense/adaugare`, {
+                id_angajat: this.angajat_selectat,
+                id_recompensa: this.recompensa_selectat
+            }, {
+                headers:{
+                    ContentType: 'application/json',
+                    Authorization : 'Bearer ' + this.token
+                }
+            }).then((response) =>{
+                if(response.data.return_message == 1000){
+                    Vue.$toast.open({
+                        message: 'Recompensa a fost adaugata!',
+                        type: 'success',
+                        // all of other options may go here
+                    });
+                    this.$router.go();
+                }
             })
         }
-
 
     },
 

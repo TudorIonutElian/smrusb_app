@@ -26,10 +26,11 @@ import NumireAngajatSelectat from "../components/User/Management/NumireAngajatSe
 
 import SolicitareAcces from '../components/User/Management/SolicitareAcces';
 
-
-
 import NomenclatorRegiuni from '../components/Admin/Nomenclator/Regiuni';
 import NomenclatorJudete from '../components/Admin/Nomenclator/Judete';
+import NomenclatorLocalitati from '../components/Admin/Nomenclator/Localitati';
+import NomenclatorInstitutii from '../components/Admin/Nomenclator/Institutii';
+
 import Angajat from "../components/User/Angajat/Angajat";
 import IncetareAngajat from "../components/User/Management/IncetareAngajat";
 import VizualizareStat from "../components/User/Stat/VizualizareStat";
@@ -69,6 +70,7 @@ import CassNeachitat from "../components/User/Situatii/CassNeachitat";
 import CassAchitat from "../components/User/Situatii/CassAchitat";
 import EvaluareContestatii from "../components/User/Evaluare/EvaluareContestatii";
 import RecompenseAdaugare from "../components/User/Recompense/RecompenseAdaugare";
+import SanctiuniAdaugare from "../components/User/Sanctiuni/SanctiuniAdaugare";
 
 const router = new VueRouter({
     mode: 'history',
@@ -143,6 +145,7 @@ const router = new VueRouter({
         {path: '/user/evaluare/contestatii', component: EvaluareContestatii, name: 'evaluare-contestatii'},
 
         {path: '/user/recompense/adaugare', component: RecompenseAdaugare, name: 'recompense-adaugare'},
+        {path: '/user/sanctiuni/adaugare', component: SanctiuniAdaugare, name: 'sanctiuni-adaugare'},
 
 
         {path: '/user/situatii/incetaricontracte', component: IncetariContracte, name: 'incetari-contracte'},
@@ -155,10 +158,11 @@ const router = new VueRouter({
         {path: '/user/situatii/cass/achitat', component: CassAchitat, name: 'cass-achitat'},
 
 
-
         // Rute pentru admin nomenclator
         {path: '/admin/nomenclator/regiuni', component: NomenclatorRegiuni, name: 'nomenclator-regiuni'},
         {path: '/admin/nomenclator/judete', component: NomenclatorJudete, name: 'nomenclator-judete'},
+        {path: '/admin/nomenclator/localitati', component: NomenclatorLocalitati, name: 'nomenclator-localitati'},
+        {path: '/admin/nomenclator/institutii', component: NomenclatorInstitutii, name: 'nomenclator-institutii'},
 
 
 

@@ -18,7 +18,7 @@ class CreateJudeteTable extends Migration
             $table->string('denumire', 30);
             $table->unsignedBigInteger('regiune');
             $table->boolean('stare')->default(true);
-            $table->date('data_creare')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->dateTime('data_creare')->default(DB::raw('CURRENT_TIMESTAMP'));
 
             $table->foreign('regiune')->references('id')->on('regiuni')->onDelete('cascade');
         });

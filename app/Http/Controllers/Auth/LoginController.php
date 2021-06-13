@@ -67,10 +67,14 @@ class LoginController extends Controller
         if(Hash::check($request->user_password, $user->user_password)){
             $user->user_password = Hash::make($request->user_password_new);
             $user->save();
-            return 'parola actualizata';
+            return response()->json([
+                'return_message' => 1000
+            ]);
 
         }else{
-            return 'parola eronata';
+            return response()->json([
+                'return_message' => 0000
+            ]);
         }
     }
 

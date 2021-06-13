@@ -64,6 +64,7 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapSituatiiRoutes();
         $this->mapCalificativeRoutes();
         $this->mapCountRoutes();
+        $this->mapRecompenseRoutes();
     }
 
     /**
@@ -171,6 +172,18 @@ class RouteServiceProvider extends ServiceProvider
     {
         Route::prefix('/api/')
             ->group(base_path('routes/count.php'));
+    }
+
+    private function mapRecompenseRoutes()
+    {
+        Route::prefix('/api/')
+            ->group(base_path('routes/recompense.php'));
+    }
+
+    private function mapSanctiuniRoutes()
+    {
+        Route::prefix('/api/')
+            ->group(base_path('routes/sanctiuni.php'));
     }
 
 

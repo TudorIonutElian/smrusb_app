@@ -11,19 +11,19 @@
                                 <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Home</button>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Profile</button>
+                                <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Roluri</button>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="messages-tab" data-bs-toggle="tab" data-bs-target="#messages" type="button" role="tab" aria-controls="messages" aria-selected="false">Messages</button>
+                                <button class="nav-link" id="messages-tab" data-bs-toggle="tab" data-bs-target="#messages" type="button" role="tab" aria-controls="messages" aria-selected="false">Facilitati</button>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="settings-tab" data-bs-toggle="tab" data-bs-target="#settings" type="button" role="tab" aria-controls="settings" aria-selected="false">Settings</button>
+                                <button class="nav-link" id="settings-tab" data-bs-toggle="tab" data-bs-target="#settings" type="button" role="tab" aria-controls="settings" aria-selected="false">Demo</button>
                             </li>
                         </ul>
 
                         <!-- Tab panes -->
                         <div class="tab-content">
-                            <div class="tab-pane active" id="home" role="tabpanel" aria-labelledby="home-tab">Home Tab Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa, odio!</div>
+                            <div class="tab-pane active" id="home" role="tabpanel" aria-labelledby="home-tab">Aplicatia Web reprezinta un Sistem Informatic dezvoltat de Tudor Ionut Elian in cadrul lucrarii de licenta din cadrul Facultatii de Cibernetic, Statistica si Informatica Economica.</div>
                             <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi cumque fuga, ipsam odio soluta temporibus? Animi assumenda consectetur cum ea excepturi fuga, fugiat neque velit vero! Alias aliquam aperiam beatae cum dignissimos dolore error harum, illo illum ipsa iure laudantium libero, maxime nobis nulla perferendis, quos rerum sapiente velit veniam!</div>
                             <div class="tab-pane" id="messages" role="tabpanel" aria-labelledby="messages-tab">...</div>
                             <div class="tab-pane" id="settings" role="tabpanel" aria-labelledby="settings-tab">...</div>

@@ -17,7 +17,7 @@ class CreateIstoricMinistereTable extends Migration
         Schema::create('istoric_ministere', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('istoric_ministere_minister');
-            $table->date('data')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->dateTime('data')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->string('detalii', 100);
             $table->integer('tip');
 

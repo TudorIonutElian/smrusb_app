@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\InstitutiiController;
 use App\Http\Controllers\StatOrganizare\StatOrganizareController;
 use App\Http\Controllers\UserController;

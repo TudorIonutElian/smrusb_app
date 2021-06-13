@@ -5,45 +5,35 @@
             :utilizatori-inactivi="utilizatoriInactivi"
         ></top-nav>
         <div v-if="isAdmin === true || isAdmin === 'true'" class="container pt-4">
-            <div class="row">
-                <div class="col-12">
-                    <div class="input-group flex-nowrap">
-                        <span id="addon-wrapping" class="input-group-text mr-2">Introduceti numele judetului</span>
-                        <input v-model="judet_nou.denumire" class="form-control mr-2" placeholder="Introducet numele regiunii"
-                               type="text">
-                        <button class="btn btn-success">Adauga Regiunea</button>
-                    </div>
-                </div>
-            </div>
             <div class="row mt-3">
                 <div class="col-12">
                     <table class="table text-center">
                         <thead>
                         <tr class="bg-success-head-row">
                             <th scope="col">#</th>
-                            <th class="text-right" scope="col">Regiune</th>
+                            <th class="text-right" scope="col">Judet</th>
                             <th scope="col">Data Creare</th>
                             <th scope="col">Stare</th>
-                            <th scope="col">Numar Judete</th>
+                            <th scope="col">Numar Localitati</th>
                             <th scope="col">Actiune</th>
                             <th scope="col">Vezi Istoric</th>
                         </tr>
                         </thead>
                         <tbody class="angajati">
-                        <tr v-for="regiuni in regiuni" :key="regiuni.id">
-                            <th scope="row">{{ regiuni.regiune_id }}</th>
-                            <td class="text-right">{{ regiuni.regiune_denumire }}</td>
-                            <td>{{ regiuni.regiune_data_creare }}</td>
-                            <td v-if="regiuni.regiune_stare === 1" class="regiune_activa">Activa</td>
-                            <td v-if="regiuni.regiune_stare === 0" class="regiune_inactiva">Inactiva</td>
-                            <td class="regiune_numar_judete">{{ regiuni.regiune_numar_judete }}</td>
-                            <td v-if="regiuni.regiune_stare === 0">
-                                <button class="btn btn-outline-success btn-sm" @click="activeazaRegiune(regiuni.regiune_id)">Activeaza Regiune</button>
+                        <tr v-for="judet in judete" :key="judet.judet_id">
+                            <th scope="row">{{ judet.judet_id }}</th>
+                            <td>{{ judet.judet_denumire }}</td>
+                            <td>{{ judet.judet_data_creare }}</td>
+                            <td v-if="judet.judet_stare === 1" class="judet_activ">Activ</td>
+                            <td v-if="judet.judet_stare === 0" class="judet_inactiv">Inactiv</td>
+                            <td class="regiune_numar_judete">{{ judet.judet_numar_localitati }}</td>
+                            <td v-if="judet.judet_stare === 0">
+                                <button class="btn btn-outline-success btn-sm" @click="activeazaJudet(judet.judet_id)">Activeaza Judet</button>
                             </td>
-                            <td v-if="regiuni.regiune_stare === 1">
-                                <button class="btn btn-outline-danger btn-sm" @click="suspendaRegiune(regiuni.regiune_id)">Suspenda Regiune</button>
+                            <td v-if="judet.judet_stare === 1">
+                                <button class="btn btn-outline-danger btn-sm" @click="suspendaJudet(judet.judet_id)">Suspenda Judet</button>
                             </td>
-                            <td><a :href="'/admin/nomenclator/regiuni/' + regiuni.regiune_id + '/istoric'"
+                            <td><a :href="'/admin/nomenclator/judet/' + judet.judet_id + '/istoric'"
                                    class="btn btn-outline-primary btn-sm btn-block">Istoric</a></td>
                         </tr>
                         </tbody>
@@ -89,7 +79,7 @@ export default {
             })
         },
         async preluareJudete() {
-            await axios.get('/api/admin/nomenclator/judete', {
+            await axios.get('/api/admin/nomenclator/judet', {
                 headers: {
                     ContentType: 'application/json',
                     Authorization: 'Bearer ' + this.token
@@ -107,7 +97,12 @@ export default {
                     Authorization: 'Bearer ' + this.token
                 }
             }).then(response => {
-                this.preluareRegiuni();
+                Vue.$toast.open({
+                    message: 'Judetul a fost suspendat',
+                    type: 'error',
+                    // all of other options may go here
+                });
+                this.preluareJudete();
             })
         },
         async activeazaJudet(id) {
@@ -119,10 +114,24 @@ export default {
                     Authorization: 'Bearer ' + this.token
                 }
             }).then(response => {
-                console.log(response)
+                Vue.$toast.open({
+                    message: 'Judetul a fost activat',
+                    type: 'success',
+                    // all of other options may go here
+                });
                 this.preluareJudete();
             })
         },
+        filtrareJudet(event){
+            const valoareStringNume = event.target.value;
+            const judeteFiltrate = [];
+            this.judete.forEach(judet=>{
+                let judetLower = judet.judet_denumire.toLowerCase();
+                if(judetLower.includes(valoareStringNume.toLowerCase())){
+                    salariiFiltrate.push(salariu)
+                }
+            })
+        }
 
 
     },
@@ -144,6 +153,16 @@ tr:hover > td button.btn-outline-danger{
 tr:hover > td button.btn-outline-success{
     background-color: #1dd1a1;
     color: #ffffff;
+}
+
+.judet_activ{
+    color: #1dd1a1;
+    font-weight: bolder;
+}
+
+.judet_inactiv{
+    color: #ee5253;
+    font-weight: bolder;
 }
 
 </style>

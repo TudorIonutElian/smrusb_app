@@ -21,7 +21,7 @@ class CreateDatePlataTable extends Migration
             $table->string('dp_iban', 24);
             $table->string('dp_moneda', 10);
             $table->string('dp_titular', 100);
-            $table->date('dp_start_date')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->dateTime('dp_start_date')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->date('dp_end_date')->nullable();
             $table->boolean('dp_status')->default(true);
         });

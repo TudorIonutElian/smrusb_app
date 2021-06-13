@@ -17,7 +17,7 @@ class CreateRegiuniTable extends Migration
             $table->id();
             $table->string('denumire', 40);
             $table->boolean('stare')->default(true);
-            $table->date('data_creare')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->dateTime('data_creare')->default(DB::raw('CURRENT_TIMESTAMP'));
         });
     }
 

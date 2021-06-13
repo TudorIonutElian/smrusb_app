@@ -17,7 +17,7 @@ class CreateIstoricUsersTable extends Migration
         Schema::create('istoric_users', function (Blueprint $table) {
             $table->id('id');
             $table->unsignedBigInteger('iu_user');
-            $table->date('iu_data')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->dateTime('iu_data')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->string('iu_detalii', 100);
             $table->integer('iu_tip');
 

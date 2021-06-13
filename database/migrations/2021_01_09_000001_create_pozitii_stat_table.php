@@ -23,7 +23,7 @@ class CreatePozitiiStatTable extends Migration
             $table->date('ps_data_numire')->nullable();
             $table->string('ps_numar_act')->nullable();
             $table->date('ps_data_emitere')->nullable();
-            $table->date('ps_data_creare')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->dateTime('ps_data_creare')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->date('ps_data_radiere')->nullable();
             $table->boolean('ps_status')->default(true);
 
