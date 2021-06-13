@@ -36,3 +36,7 @@ Route::get('/admin/institutii/creare_stat', [AdminController::class, 'institutii
 
 Route::get('/admin/solicitari_acces', [AdminController::class, 'solicitariAcces'])->middleware('auth:sanctum');
 Route::post('/admin/aprobare_acces', [AdminController::class, 'aprobareAcces'])->middleware('auth:sanctum');
+
+Route::get('/admin/institutii/posturi', [InstitutiiController::class, 'preluareInstitutiiPosturi'])->middleware('auth:sanctum');
+Route::get('/admin/institutii/posturi/{id}', [InstitutiiController::class, 'preluareInstitutiiPosturiByID'])->middleware('auth:sanctum');
+Route::post('/admin/institutii/posturi/actualizare', [InstitutiiController::class, 'actualizarePosturi'])->middleware('auth:sanctum');

@@ -58,8 +58,6 @@
                                 <li><a class="dropdown-item" href="/admin/nomenclator/judete">Judete</a></li>
                                 <li><a class="dropdown-item" href="/admin/nomenclator/localitati">Localitati</a></li>
                                 <li><a class="dropdown-item" href="/admin/nomenclator/institutii">Institutii</a></li>
-                                <li><a class="dropdown-item" href="/admin/nomenclator/angajati">Angajati</a></li>
-                                <li><a class="dropdown-item" href="/admin/nomenclator/functii">Functii</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown" v-if="user != null && user.user_type === 1">

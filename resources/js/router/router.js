@@ -6,6 +6,8 @@ import VueRouter from 'vue-router';
 
 import Admin from '../components/Admin/AdminDashboard';
 import CreareStat from "../components/Admin/Stat/CreareStat";
+import ModificareStat from "../components/Admin/Stat/ModificareStat";
+import ModificareStatSelectat from "../components/Admin/Stat/ModificareStatSelectat";
 
 
 import Home from '../components/Home.vue';
@@ -82,6 +84,8 @@ const router = new VueRouter({
         // Route Admin Dashboard
         {path: '/admin/dashboard', component: Admin, name: 'admin-dashboard'},
         {path: '/admin/stat/creare', component: CreareStat, name: 'creare-stat'},
+        {path: '/admin/stat/modificare', component: ModificareStat, name: 'modificare-stat'},
+        {path: '/admin/stat/modificare/:id', component: ModificareStatSelectat, name: 'modificare-stat-selectat'},
 
 
 

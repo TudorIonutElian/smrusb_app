@@ -20,7 +20,7 @@
                 </div>
                 <div class="row row-bordered-red" v-if="institutia_are_stat_aprobat">
                     <div class="col-12 p-2 text-center">Institutia are deja un stat aprobat, il puteti modifica
-                        <span><a href="/admin/stat/modificare">aici </a></span>
+                        <span><a :href="'/admin/stat/modificare/' + institutie_id">aici </a></span>
                     </div>
                 </div>
                 <div class="row" v-if="!institutia_are_stat_aprobat">

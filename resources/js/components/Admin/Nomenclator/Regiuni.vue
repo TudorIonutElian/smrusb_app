@@ -5,7 +5,7 @@
             :utilizatori-inactivi="utilizatoriInactivi"
         ></top-nav>
         <div v-if="isAdmin === true || isAdmin === 'true'" class="container pt-4">
-            <div class="row mt-3">
+            <div class="row mt-3" v-if="loading == false">
                 <div class="col-12">
                     <table class="table text-center">
                         <thead>
@@ -44,12 +44,18 @@
         <div v-else class="container">
             <no-acces></no-acces>
         </div>
+        <div class="container" v-if="loading == true">
+            <div class="row">
+                <loading-component></loading-component>
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
 import TopNav from '../../Menus/TopNav';
 import NoAcces from '../NoAcces';
+import LoadingComponent from "../../HelperComponents/LoadingComponent";
 
 export default {
     data() {
@@ -58,9 +64,7 @@ export default {
             utilizatoriInactivi: [],
             token: localStorage.getItem('token'),
             regiuni: [],
-            regiune_noua: {
-                denumire: ""
-            }
+            loading: false
         }
     },
     created() {
@@ -79,13 +83,15 @@ export default {
             })
         },
         async preluareRegiuni() {
+            this.loading = true;
             await axios.get('/api/admin/nomenclator/regiuni', {
                 headers: {
                     ContentType: 'application/json',
                     Authorization: 'Bearer ' + this.token
                 }
             }).then(response => {
-                this.regiuni = response.data.data
+                this.regiuni = response.data.data;
+                this.loading = false;
             })
         },
         async suspendaRegiune(id) {
@@ -126,6 +132,7 @@ export default {
 
     },
     components: {
+        LoadingComponent,
         TopNav,
         NoAcces
     }

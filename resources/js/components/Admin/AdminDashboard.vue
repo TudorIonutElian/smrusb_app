@@ -40,11 +40,6 @@ export default {
     data(){
         return{
             generalData:{
-                users: [],
-                regiuni: [],
-                judete: [],
-                localitati: [],
-                utilizatoriInactivi: []
             },
             adminData:{
                 email: getUserEmail(),
