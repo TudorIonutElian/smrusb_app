@@ -50,7 +50,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="row mt-3" v-if="lista_recompense_angajat.length > 0">
+                <div class="row mt-3">
                     <div class="col-12">
                         <table class="table">
                             <thead>
@@ -62,11 +62,16 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr v-for="(lr, index) in lista_recompense_angajat">
+                            <tr
+                                v-if="lista_recompense_angajat.length > 0 && lista_recompense_angajat_preluate == true"
+                                v-for="(lr, index) in lista_recompense_angajat">
                                 <th scope="row">{{ index + 1}}</th>
                                 <td>{{ lr.denumire }}</td>
                                 <td>{{ lr.data_acordarii }}</td>
                                 <td>{{ lr.data_expirarii }}</td>
+                            </tr>
+                            <tr v-if="lista_recompense_angajat.length == 0 && lista_recompense_angajat_preluate == true">
+                                <td colspan="4" class="text-center bg-warning text-bold"> Angajatul nu are recompense</td>
                             </tr>
                             </tbody>
                         </table>
@@ -93,6 +98,7 @@ export default {
             lista_angajati: [],
             lista_recompense: [],
             lista_recompense_angajat: [],
+            lista_recompense_angajat_preluate: false,
             institutie_selectata: 0,
             angajat_selectat: 0,
             recompensa_selectat: 0,
@@ -143,7 +149,8 @@ export default {
                     Authorization : 'Bearer ' + this.token
                 }
             }).then(response =>{
-                this.lista_recompense_angajat = response.data.data
+                this.lista_recompense_angajat = response.data.data;
+                this.lista_recompense_angajat_preluate = true;
             });
         },
         async salvareRecompensaNoua(){

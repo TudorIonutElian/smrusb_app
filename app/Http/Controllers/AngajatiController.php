@@ -114,7 +114,7 @@ class AngajatiController extends Controller
                     $adresa_noua->aa_scara              = $request->angajat['scara_domiciliu'];
                     $adresa_noua->aa_etaj               = $request->angajat['etaj_domiciliu'];
                     $adresa_noua->aa_apartament         = $request->angajat['apartament_domiciliu'];
-                    $adresa_noua->aa_telefon_fix        = $request->telefon_fix['fix'];
+                    $adresa_noua->aa_telefon_fix        = $request->angajat['telefon_fix'];
                     $adresa_noua->aa_telefon_mobil      = $request->angajat['telefon_mobil'];
                     $adresa_noua->aa_status             = true;
                     $adresa_noua->save();

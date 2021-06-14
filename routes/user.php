@@ -25,3 +25,6 @@ Route::get('/users/institutii/{id}/stat/', [StatOrganizareController::class, 'pr
 
 Route::get('/users/angajati/aprobare/{user_id}', [UserController::class, 'aprobareConturiAngajat'])->middleware('auth:sanctum');
 Route::post('/users/angajataccount/{angajat_id}/aprobare', [UserController::class, 'aprobareContRUAngajat'])->middleware('auth:sanctum');
+
+
+Route::get('/user/angajati/salarii/{id}', [UserController::class, 'preluareListaSalariiAngajat'])->middleware('auth:sanctum');

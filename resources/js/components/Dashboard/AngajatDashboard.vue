@@ -26,7 +26,7 @@
                             <span>{{ dataCount.countSalarii }}</span>
                         </div>
                         <div class="my-2">
-                            <button class="btn btn-info btn-block text-white">Vezi Salarii</button>
+                            <a :href="'/user/angajat/salarii/' + user.user_angajat_id" class="btn btn-info btn-block text-white">Lista Salarii</a>
                         </div>
                     </div>
 
@@ -46,7 +46,7 @@
 
                 <div class="row my-3 row-flex">
                     <div class="col-3 p-3 angajat-block">
-                        <div class="angajat-bloc_adresa my-2">
+                        <div class="angajat-bloc_recompense my-2">
                             Calificative
                         </div>
                         <div class="angajat-bloc_numeric my-2">
@@ -58,11 +58,11 @@
                     </div>
 
                     <div class="col-3 offset-1 p-3 angajat-block">
-                        <div class="angajat-bloc_adresa my-2 working">
+                        <div class="angajat-bloc_recompense my-2 working">
                             Mutatii
                         </div>
                         <div class="angajat-bloc_numeric my-2">
-                            <span>0</span>
+                            <span>{{ dataCount.countMutatii }}</span>
                         </div>
                         <div class="my-2">
                             <button class="btn btn-info btn-block text-white">Vezi Adrese</button>
@@ -70,14 +70,14 @@
                     </div>
 
                     <div class="col-3 offset-1 p-3 angajat-block">
-                        <div class="angajat-bloc_adresa my-2 working">
-                            Schimbari Parole
+                        <div class="angajat-bloc_recompense my-2 working">
+                            Recompense
                         </div>
                         <div class="angajat-bloc_numeric my-2">
-                            <span>0</span>
+                            <span>{{ dataCount.countRecompense }}</span>
                         </div>
                         <div class="my-2">
-                            <button class="btn btn-info btn-block text-white">Vezi Adrese</button>
+                            <a :href="`/user/dashboard/recompense/${this.user.user_angajat_id}`" class="btn btn-info btn-block text-white">Vezi Recompense</a>
                         </div>
                     </div>
 
@@ -117,6 +117,7 @@ export default {
                 countCalificative: 0,
                 countMutatii: 0,
                 countSchimbariParole: 0,
+                countRecompense: 0,
             }
         }
     },
@@ -125,13 +126,18 @@ export default {
         TopNav
     },
     created(){
-        this.preluareAngajati();
-        this.preluareAdrese();
-        this.preluareSalariiByID();
-        this.preluarePontajeByID();
-        this.preluareCalificativeByID();
+        this.setupComponent();
     },
     methods:{
+        async setupComponent(){
+            await this.preluareAngajati();
+            await this.preluareAdrese();
+            await this.preluareSalariiByID();
+            await this.preluarePontajeByID();
+            await this.preluareCalificativeByID();
+            await this.preluareRecompenseByID();
+            await this.preluareMutatiiByID();
+        },
         async preluareAngajati(){
             axios.get(`/api/angajati/${this.user_id}`, {
                 headers:{
@@ -194,7 +200,35 @@ export default {
                 this.loading = false;
 
             })
-        }
+        },
+        async preluareRecompenseByID(){
+            const angajat_id = this.user.user_angajat_id;
+            axios.get(`/api/count/${angajat_id}/recompense`, {
+                headers:{
+                    ContentType: 'application/json',
+                    Authorization : 'Bearer ' + localStorage.getItem('token')
+                }
+            }).then(async (response) => {
+                this.dataCount.countRecompense = response.data;
+                this.loading = false;
+
+            })
+        },
+        async preluareMutatiiByID(){
+            const angajat_id = this.user.user_angajat_id;
+            axios.get(`/api/count/${angajat_id}/mutatii`, {
+                headers:{
+                    ContentType: 'application/json',
+                    Authorization : 'Bearer ' + localStorage.getItem('token')
+                }
+            }).then(async (response) => {
+                this.dataCount.countMutatii = response.data;
+                this.loading = false;
+
+            })
+        },
+
+
 
     }
 }
@@ -238,7 +272,13 @@ export default {
     font-weight: bold;
 }
 
-.working{
-    background-color: red;
+.angajat-bloc_recompense{
+    background-color: #00cec9;
+    font-weight: bold;
+    padding: 5px;
+    color: #fff;
+    width: 60%;
+    text-align: center;
 }
+
 </style>

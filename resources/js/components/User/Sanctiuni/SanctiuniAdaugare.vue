@@ -35,7 +35,7 @@
                             class="btn btn-outline-success btn-block"
                             :disabled="institutie_selectata == 0"
                             @click.prevent="salvareRecompensaNoua"
-                        >Salvare Recompensa</button>
+                        >Adaugare Sanctiune</button>
                     </div>
                 </div>
                 <div class="row mt-3">
@@ -44,13 +44,13 @@
                             class="form-select form-control"
                             aria-label="Default select example"
                             :disabled="angajat_selectat == 0"
-                            v-model="recompensa_selectat"
+                            v-model="sanctiune_selectat"
                         >
-                            <option v-for="r in lista_recompense" :value="r.id">{{ r.dr_denumire }}</option>
+                            <option v-for="s in lista_sanctiuni" :value="s.id">{{ s.ds_denumire }}</option>
                         </select>
                     </div>
                 </div>
-                <div class="row mt-3" v-if="lista_recompense_angajat.length > 0">
+                <div class="row mt-3" v-if="lista_sanctiuni_angajat.length > 0">
                     <div class="col-12">
                         <table class="table">
                             <thead>
@@ -62,7 +62,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr v-for="(lr, index) in lista_recompense_angajat">
+                            <tr v-for="(lr, index) in lista_sanctiuni_angajat">
                                 <th scope="row">{{ index + 1}}</th>
                                 <td>{{ lr.denumire }}</td>
                                 <td>{{ lr.data_acordarii }}</td>
@@ -91,11 +91,11 @@ export default {
             token: localStorage.getItem('token'),
             acces_user_institutii: [],
             lista_angajati: [],
-            lista_recompense: [],
-            lista_recompense_angajat: [],
+            lista_sanctiuni: [],
+            lista_sanctiuni_angajat: [],
             institutie_selectata: 0,
             angajat_selectat: 0,
-            recompensa_selectat: 0,
+            sanctiune_selectat: 0,
             loading: false
         }
     },
@@ -128,44 +128,45 @@ export default {
             })
         },
         async preluareSanctiuni(){
-            await axios.get(`/api/sanctiuni/preluare`, {
+            await axios.get('/api/sanctiuni/preluare', {
                 headers:{
                     ContentType: 'application/json',
                     Authorization : 'Bearer ' + this.token
                 }
-            }).then(response =>{
-                this.lista_recompense = response.data
+            }).then(async (response) =>{
+                this.lista_sanctiuni = response.data;
+                await axios.get(`/api/sanctiuni/preluare/${this.angajat_selectat}`, {
+                    headers:{
+                        ContentType: 'application/json',
+                        Authorization : 'Bearer ' + this.token
+                    }
+                }).then(response =>{
+                    this.lista_sanctiuni_angajat = response.data.data
+                });
             });
 
-            await axios.get(`/api/sanctiuni/preluare/${this.angajat_selectat}`, {
-                headers:{
-                    ContentType: 'application/json',
-                    Authorization : 'Bearer ' + this.token
-                }
-            }).then(response =>{
-                this.lista_recompense_angajat = response.data.data
-            });
+
         },
-        async salvareRecompensaNoua(){
-            await axios.post(`/api/sanctiuni/adaugare`, {
-                id_angajat: this.angajat_selectat,
-                id_recompensa: this.recompensa_selectat
-            }, {
-                headers:{
-                    ContentType: 'application/json',
-                    Authorization : 'Bearer ' + this.token
-                }
-            }).then((response) =>{
-                if(response.data.return_message == 1000){
-                    Vue.$toast.open({
-                        message: 'Sanctiunea a fost adaugata!',
-                        type: 'success',
-                        // all of other options may go here
-                    });
-                    this.$router.go();
-                }
-            })
-        }
+        // async salvareRecompensaNoua(){
+        //     await axios.post(`/api/sanctiuni/adaugare`, {
+        //         id_angajat: this.angajat_selectat,
+        //         id_recompensa: this.recompensa_selectat
+        //     }, {
+        //         headers:{
+        //             ContentType: 'application/json',
+        //             Authorization : 'Bearer ' + this.token
+        //         }
+        //     }).then((response) =>{
+        //         if(response.data.return_message == 1000){
+        //             Vue.$toast.open({
+        //                 message: 'Sanctiunea a fost adaugata!',
+        //                 type: 'success',
+        //                 // all of other options may go here
+        //             });
+        //             this.$router.go();
+        //         }
+        //     })
+        // }
 
     },
 

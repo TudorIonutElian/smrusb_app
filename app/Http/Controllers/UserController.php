@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 use App\Http\Resources\DateAngajatiAprobareConturi;
+use App\Http\Resources\ListaSalariiAngajatResource;
 use App\Models\Institutii;
+use App\Models\Salariu;
 use App\Models\User;
 use App\Models\UserAccessLevel;
 use Illuminate\Http\Request;
@@ -10,6 +12,10 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+    public function preluareListaSalariiAngajat($id){
+        return ListaSalariiAngajatResource::collection(Salariu::where('s_angajat', '=', $id)->get());
+    }
+
     public function pannel($id){
         $user           = User::find($id);
         $user_acces     = $user->get_user_acces;

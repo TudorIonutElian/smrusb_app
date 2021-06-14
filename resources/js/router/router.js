@@ -73,6 +73,7 @@ import CassAchitat from "../components/User/Situatii/CassAchitat";
 import EvaluareContestatii from "../components/User/Evaluare/EvaluareContestatii";
 import RecompenseAdaugare from "../components/User/Recompense/RecompenseAdaugare";
 import SanctiuniAdaugare from "../components/User/Sanctiuni/SanctiuniAdaugare";
+import AngajatListaSalarii from "../components/User/Angajat/AngajatListaSalarii";
 
 const router = new VueRouter({
     mode: 'history',
@@ -111,6 +112,9 @@ const router = new VueRouter({
         {path: '/user/angajat/incetare_angajat', component: IncetareAngajat, name: 'incetare-angajat'},
         {path: '/user/angajat/incetare_angajat/:id', component: IncetareAngajatSelectat, name: 'incetare-angajat-selectat'},
         {path: '/user/angajati/aprobare/:id', component: AngajatiAprobareContUser, name: 'user-angajat-aprobare'},
+
+
+        {path: '/user/angajat/salarii/:id', component: AngajatListaSalarii, name: 'user-angajat-salarii'},
 
 
         {path: '/user/numire_angajat', component: NumireAngajat, name: 'numire-angajat'},
