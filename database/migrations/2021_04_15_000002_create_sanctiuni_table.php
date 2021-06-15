@@ -16,7 +16,7 @@ class CreateSanctiuniTable extends Migration
         Schema::create('sanctiuni', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('s_angajat_id');
-            $table->unsignedBigInteger('s_recompensa_id');
+            $table->unsignedBigInteger('s_sanctiune_id');
             $table->date('s_data_acordarii');
             $table->date('s_data_expirarii')->nullable();
             $table->boolean('s_status')->nullable()->default(true);

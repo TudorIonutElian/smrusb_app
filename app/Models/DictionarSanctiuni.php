@@ -12,4 +12,8 @@ class DictionarSanctiuni extends Model
     protected $table="dc_sanctiuni";
     // Anulare coloane created_at si updated_at
     public $timestamps = false;
+
+    public function sanctiuni(){
+        return $this->hasMany(Sanctiuni::class, 's_sanctiune_id', 'id');
+    }
 }

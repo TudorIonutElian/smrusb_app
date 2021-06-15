@@ -13,4 +13,8 @@ class Sanctiuni extends Model
 
     // Anulare coloane created_at si updated_at
     public $timestamps = false;
+
+    public function dictionar(){
+        return $this->belongsTo(DictionarSanctiuni::class, 's_sanctiune_id', 'id');
+    }
 }

@@ -65,6 +65,7 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapCalificativeRoutes();
         $this->mapCountRoutes();
         $this->mapRecompenseRoutes();
+        $this->mapSanctiuniRoutes();
     }
 
     /**

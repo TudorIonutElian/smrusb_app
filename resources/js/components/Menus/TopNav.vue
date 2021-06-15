@@ -139,7 +139,7 @@
                                 <li>
                                     <a class="dropdown-item dropdown-item-flex" href="/user/sanctiuni/adaugare">
                                         <img class="mr-2" src="/images/evaluare_cautare.png" alt="">
-                                        <span style="color: red">Sanctiuni</span>
+                                        <span>Sanctiuni</span>
                                     </a>
                                 </li>
                             </ul>
