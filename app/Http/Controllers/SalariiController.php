@@ -77,20 +77,20 @@ class SalariiController extends Controller
         }elseif($startdate !== "null" && $enddate == "null"){
 
             // returnare doar pe baza startdate
-            return CASS::where([
+            return CassResource::collection(CASS::where([
                 ['sc_institutie',   '=', $institutie],
                 ['sc_start_date',   '>=', $startdate],
                 ['sc_achitat',      '=', 0]
-            ])->get();
+            ])->get());
 
         }else{
             // returnare pe baza tuturor elementelor
-            return CASS::where([
+            return CassResource::collection(CASS::where([
                 ['sc_institutie',   '=', $institutie],
                 ['sc_start_date',   '>=', $startdate],
                 ['sc_end_date',     '<=', $enddate],
                 ['sc_achitat',      '=', 0]
-            ])->get();
+            ])->get());
         }
     }
     public function preluareSalariiByCNP($codnumericpersonal){

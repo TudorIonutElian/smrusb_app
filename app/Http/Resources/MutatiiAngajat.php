@@ -22,10 +22,27 @@ class MutatiiAngajat extends JsonResource
             'mutatie_act_data_emitere'                  => $this->mp_act_data_emitere,
             'mutatie_act_data_aplicare'                 => $this->mp_act_data_aplicare,
             'mutatie_institutie'                        => $this->institutie->institutie_denumire,
-            'mutatie_cuprins'                           => Cuprins::where('id', '=', $this->mp_cuprins_id)->first()['sc_denumire'],
+            'mutatie_cuprins'                           => $this::returnareCuprins($this->mp_cuprins_id),
             'mutatie_fel_mutatie'                       => $this->mp_fel_numire_id,
-            'mutatie_pozitie'                           => $this->pozitie['ps_pozitie'],
+            'mutatie_pozitie'                           => $this::returnarePozitie($this->pozitie),
+//            'mutatie_pozitie'                           => 0,
             'mutatie_functie'                           => $this->functie,
         ];
+    }
+
+    private function returnareCuprins($cuprins){
+        if($cuprins == null){
+            return '';
+        }else{
+            return Cuprins::where('id', '=', $cuprins)->first()['sc_denumire'];
+        }
+    }
+
+    private function returnarePozitie($pozitie){
+        if($pozitie == null){
+            return 0;
+        }else{
+            return $pozitie->ps_pozitie;
+        }
     }
 }
