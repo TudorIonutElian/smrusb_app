@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\sanctiuniController;
+use App\Http\Controllers\SanctiuniController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +16,4 @@ use Illuminate\Support\Facades\Route;
 Route::get('/sanctiuni/preluare', [SanctiuniController::class, 'preluareSanctiuni']);
 Route::get('/sanctiuni/preluare/{id}', [SanctiuniController::class, 'preluareSanctiuniAngajat'])->middleware('auth:sanctum');
 Route::post('/sanctiuni/adaugare', [SanctiuniController::class, 'adaugareSanctiune'])->middleware('auth:sanctum');
+Route::post('/sanctiuni/radiere', [SanctiuniController::class, 'radiereSanctiune'])->middleware('auth:sanctum');

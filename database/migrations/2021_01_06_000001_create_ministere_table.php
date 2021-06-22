@@ -17,6 +17,7 @@ class CreateMinistereTable extends Migration
         Schema::create('ministere', function (Blueprint $table) {
             $table->id();
             $table->string('minister_denumire', 100);
+            $table->string('minister_prescurtare', 15)->nullable();
             $table->dateTime('minister_data_creare')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->boolean('minister_is_active')->default(true);
         });

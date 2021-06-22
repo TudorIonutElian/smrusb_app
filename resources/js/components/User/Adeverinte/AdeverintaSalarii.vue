@@ -89,12 +89,15 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    <tr v-for="(salariu, index) in lista_salarii" v-if="lista_salarii.length >0">
-                                        <th scope="row">{{ index + 1}}</th>
-                                        <td>{{salariu.s_start_date}}</td>
-                                        <td>{{salariu.s_end_date}}</td>
-                                        <td>{{salariu.s_suma_finala}} lei</td>
-                                    </tr>
+                                        <tr v-for="(salariu, index) in lista_salarii" v-if="lista_salarii.length >0">
+                                            <th scope="row">{{ index + 1}}</th>
+                                            <td>{{salariu.s_start_date}}</td>
+                                            <td>{{salariu.s_end_date}}</td>
+                                            <td>{{salariu.s_suma_finala}} lei</td>
+                                        </tr>
+                                        <tr v-if="lista_salarii.length == 0">
+                                            <td colspan="4" class="text-center text-bold">Angajatul nu are salarii.</td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>

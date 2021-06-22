@@ -66,6 +66,7 @@
                                 <th scope="col">Data expirarii</th>
                                 <th scope="col">Status</th>
                                 <th scope="col">Radiere Automata</th>
+                                <th scope="col">Radiaza</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -83,6 +84,13 @@
                                     <td>
                                         <span v-if="isNaN(ls.radiere_in) ">{{ ls.radiere_in }}</span>
                                         <span v-if="!isNaN(ls.radiere_in) ">{{ ls.radiere_in }} zile</span>
+                                    </td>
+                                    <td>
+                                        <button
+                                            @click="radiazaSanctiune(ls.id)"
+                                            class="btn btn-sm btn-outline-success"
+                                            :disabled="ls.status == 0"
+                                        >Radiaza</button>
                                     </td>
                                 </tr>
                                 <tr v-if="lista_sanctiuni_angajat_preluate == true && lista_sanctiuni_angajat.length == 0">
@@ -179,17 +187,37 @@ export default {
                     ContentType: 'application/json',
                     Authorization: 'Bearer ' + this.token
                 }
-            }).then((response) => {
+            }).then(async (response) => {
                 if (response.data.return_message == 1000) {
                     Vue.$toast.open({
                         message: 'Sanctiunea a fost adaugata!',
                         type: 'success',
                         // all of other options may go here
                     });
-                    this.$router.go();
+                    await this.preluareSanctiuni();
+                }
+            });
+        },
+        async radiazaSanctiune(id) {
+            await axios.post(`/api/sanctiuni/radiere`, {
+                id_sanctiune    : id
+            }, {
+                headers: {
+                    ContentType: 'application/json',
+                    Authorization: 'Bearer ' + this.token
+                }
+            }).then(async (response) => {
+                if (response.data.return_message == 1000) {
+                    Vue.$toast.open({
+                        message: 'Sanctiunea a fost radiata!',
+                        type: 'success',
+                        // all of other options may go here
+                    });
+                    await this.preluareSanctiuni();
                 }
             })
         }
+
 
 
     },

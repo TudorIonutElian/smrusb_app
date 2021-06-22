@@ -31,4 +31,14 @@ class RecompenseController extends Controller
             ]);
         }
     }
+
+    public function stergereRecompensa(Request $request){
+        $recompensa                 = Recompense::find($request->id_recompensa);
+
+        if($recompensa->delete()){
+            return response()->json([
+                'return_message' => 1000
+            ]);
+        }
+    }
 }

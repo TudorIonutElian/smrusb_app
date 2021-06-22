@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/recompense/preluare', [RecompenseController::class, 'preluareRecompense'])->middleware('auth:sanctum');
 Route::get('/recompense/preluare/{id}', [RecompenseController::class, 'preluareRecompenseAngajat'])->middleware('auth:sanctum');
 Route::post('/recompense/adaugare', [RecompenseController::class, 'adaugareRecompensa'])->middleware('auth:sanctum');
+Route::post('/recompense/stergere', [RecompenseController::class, 'stergereRecompensa'])->middleware('auth:sanctum');
 
 
 

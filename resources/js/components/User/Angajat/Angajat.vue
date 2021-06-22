@@ -80,9 +80,9 @@
                                     <button @click.prevent="goToIncetareContract" class="btn btn-primary">Incetare Contract</button>
                                     <button @click.prevent="goToAdaugareCalificativ" class="btn btn-primary">Adaugare Calificativ</button>
                                     <button class="btn btn-primary">Adaugare Recompense</button>
-                                    <button class="btn btn-success">Adeverinta Angajat</button>
-                                    <button class="btn btn-success">Adeverinta Asigurat</button>
-                                    <button class="btn btn-success">Adeverinta Salarii</button>
+                                    <button @click.prevent="goToAdeverintaAngajat" class="btn btn-success">Adeverinta Angajat</button>
+                                    <button @click.prevent="goToAdeverintaAsigurat" class="btn btn-success">Adeverinta Asigurat</button>
+                                    <button @click.prevent="goToAdeverintaSalarii" class="btn btn-success">Adeverinta Salarii</button>
                                 </div>
                             </div>
                             <div class="col-12">
@@ -333,7 +333,7 @@
                                                 </table>
                                             </div>
                                         </div>
-                                        <!-- evaluari angajat -->
+                                        <!-- adrese angajat -->
                                         <div class="tab-pane" id="domicilii" role="tabpanel" aria-labelledby="domicilii-tab">
                                             <div class="col-12 p-2 col-table">
                                                 <table class="table">
@@ -371,6 +371,7 @@
                                                 </table>
                                             </div>
                                         </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -407,6 +408,7 @@ export default {
     created() {
         this.preluareDateAngajat();
         this.preluareAdrese();
+        this.preluareRecompense();
     },
     methods: {
         async preluareAdrese(){
@@ -467,6 +469,17 @@ export default {
                 }
             )
         },
+        async preluareRecompense(){
+            await axios.get(`/api/recompense/preluare/${this.angajat.id}`, {
+                headers:{
+                    ContentType: 'application/json',
+                    Authorization : 'Bearer ' + this.token
+                }
+            }).then(response =>{
+                this.date_fisa.recompense = response.data.data;
+                this.date_fisa.recompense_angajat_preluate = true;
+            });
+        },
         stareCivila(stare) {
             switch (stare) {
                 case 0:
@@ -497,9 +510,15 @@ export default {
             router.push({ name: 'evaluare-adaugare-selectat', params: { id: this.angajat.id } })
         },
         goToAdaugareRecompense(){},
-        goToAdeverintaAngajat(){},
-        goToAdeverintaAsigurat(){},
-        goToAdeverintaSalarii(){},
+        goToAdeverintaAngajat(){
+            router.push({name: 'adeverinta-angajat'});
+        },
+        goToAdeverintaAsigurat(){
+            router.push({name: 'adeverinta-asigurat'});
+        },
+        goToAdeverintaSalarii(){
+            router.push({name: 'adeverinta-salarii'});
+        },
         prelucrareSalariiPentruChart(salarii){
 
         }

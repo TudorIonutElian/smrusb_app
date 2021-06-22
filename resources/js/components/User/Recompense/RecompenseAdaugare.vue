@@ -59,6 +59,8 @@
                                 <th scope="col">Recompensa</th>
                                 <th scope="col">Data acordarii</th>
                                 <th scope="col">Data expirarii</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Sterge</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -69,6 +71,18 @@
                                 <td>{{ lr.denumire }}</td>
                                 <td>{{ lr.data_acordarii }}</td>
                                 <td>{{ lr.data_expirarii }}</td>
+                                <td>
+                                    <span v-if="lr.status == 1" class="recompensa-activa">Activa</span>
+                                    <span v-if="lr.status == 0" class="recompensa-inactiva">Inactiva</span>
+                                </td>
+                                <td>
+                                    <button
+                                        @click.prevent="stergeRecompensa(lr.id)"
+                                        class="btn btn-sm btn-outline-dark"
+                                    >
+                                        Sterge
+                                    </button>
+                                </td>
                             </tr>
                             <tr v-if="lista_recompense_angajat.length == 0 && lista_recompense_angajat_preluate == true">
                                 <td colspan="4" class="text-center bg-warning text-bold"> Angajatul nu are recompense</td>
@@ -114,13 +128,15 @@ export default {
     },
     methods:{
         async preluareUserAcces(){
+            this.loading = true;
             await axios.get(`/api/users/institutii/acces/${this.user.id}`, {
                 headers:{
                     ContentType: 'application/json',
                     Authorization : 'Bearer ' + this.token
                 }
             }).then(response =>{
-                this.acces_user_institutii = response.data
+                this.acces_user_institutii = response.data;
+                this.loading = false;
             })
         },
         async preluareAngajatiByInstitutie(){
@@ -134,13 +150,15 @@ export default {
             })
         },
         async preluareRecompense(){
+            this.loading = true;
             await axios.get(`/api/recompense/preluare`, {
                 headers:{
                     ContentType: 'application/json',
                     Authorization : 'Bearer ' + this.token
                 }
             }).then(response =>{
-                this.lista_recompense = response.data
+                this.lista_recompense = response.data;
+                this.loading = false;
             });
 
             await axios.get(`/api/recompense/preluare/${this.angajat_selectat}`, {
@@ -154,6 +172,7 @@ export default {
             });
         },
         async salvareRecompensaNoua(){
+            this.loading = true;
             await axios.post(`/api/recompense/adaugare`, {
                 id_angajat: this.angajat_selectat,
                 id_recompensa: this.recompensa_selectat
@@ -162,14 +181,34 @@ export default {
                     ContentType: 'application/json',
                     Authorization : 'Bearer ' + this.token
                 }
-            }).then((response) =>{
+            }).then(async (response) =>{
                 if(response.data.return_message == 1000){
                     Vue.$toast.open({
                         message: 'Recompensa a fost adaugata!',
                         type: 'success',
                         // all of other options may go here
                     });
-                    this.$router.go();
+                    await this.preluareRecompense();
+                    this.loading = false;
+                }
+            })
+        },
+        async stergeRecompensa(id){
+            await axios.post(`/api/recompense/stergere`, {
+                id_recompensa: id
+            }, {
+                headers:{
+                    ContentType: 'application/json',
+                    Authorization : 'Bearer ' + this.token
+                }
+            }).then(async (response) =>{
+                if(response.data.return_message == 1000){
+                    Vue.$toast.open({
+                        message: 'Recompensa a fost stearsa!',
+                        type: 'error',
+                        // all of other options may go here
+                    });
+                    await this.preluareRecompense();
                 }
             })
         }
@@ -193,5 +232,21 @@ button.btn-outline-success{
     color: #fff;
     border: none;
     outline: none;
+}
+
+.recompensa-activa{
+    padding: 8px;
+    border-radius: 3px;
+    background-color: #2ecc71;
+    font-weight: bold;
+    color: #fff;
+}
+
+.recompensa-inactiva{
+    padding: 8px;
+    border-radius: 3px;
+    background-color: #e74c3c;
+    font-weight: bold;
+    color: #fff;
 }
 </style>

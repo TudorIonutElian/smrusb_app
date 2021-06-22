@@ -31,4 +31,16 @@ class SanctiuniController extends Controller
             ]);
         }
     }
+
+    public function radiereSanctiune(Request $request){
+        $sanctiune                      = Sanctiuni::find($request->id_sanctiune);
+        $sanctiune->s_data_expirarii    = Carbon::now();
+        $sanctiune->s_status            = 0;
+
+        if($sanctiune->save()){
+            return response()->json([
+                'return_message' => 1000
+            ]);
+        }
+    }
 }

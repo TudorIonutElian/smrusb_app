@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\InstitutiiInregistrareResource;
 use App\Http\Resources\InstitutiiNomenclatorResource;
 use App\Http\Resources\InstitutiiPosturiResource;
 use App\Http\Resources\InstitutiiStateSelect;
@@ -39,7 +40,7 @@ class InstitutiiController extends Controller
        ]);
     }
     public function preluareToateInstitutiile(){
-        return Institutii::all();
+        return InstitutiiInregistrareResource::collection(Institutii::orderby('institutie_minister_id')->get());
     }
 
     public function institutiiMutare(){
