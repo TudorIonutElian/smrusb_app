@@ -20,8 +20,8 @@
                         </tr>
                         </thead>
                         <tbody class="angajati">
-                        <tr v-for="judet in judete" :key="judet.judet_id">
-                            <th scope="row">{{ judet.judet_id }}</th>
+                        <tr v-for="(judet, index) in judete" :key="judet.judet_id">
+                            <th scope="row">{{ index + 1 }}</th>
                             <td>{{ judet.judet_denumire }}</td>
                             <td>{{ judet.judet_data_creare }}</td>
                             <td v-if="judet.judet_stare === 1" class="judet_activ">Activ</td>

@@ -18,6 +18,7 @@ class InstitutiiInregistrareResource extends JsonResource
             'institutie_id'                 => $this->id,
             'institutie_denumire'           => $this->institutie_denumire,
             'institutie_minister'           => $this->showMinister->minister_prescurtare,
+            'institutie_cod_acces'          => $this->institutie_cod_acces,
         ];
     }
 }

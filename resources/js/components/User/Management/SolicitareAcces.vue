@@ -72,7 +72,7 @@ export default {
     methods:{
         async preluareInstitutii(){
             await axios.get('/api/users/inregistrare/institutii').then(response =>{
-                this.institutii = response.data;
+                this.institutii = response.data.data;
             })
         },
         async preluareAccesUser(){

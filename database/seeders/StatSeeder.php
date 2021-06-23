@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Institutii;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -14,6 +15,7 @@ class StatSeeder extends Seeder
      */
     public function run()
     {
+
         DB::table('stat_organizare')->insert(
             array(
                 ['so_institutie_id'  => 1, 'so_numar_posturi_aprobate' => 1000, 'so_status' => true],
@@ -63,6 +65,60 @@ class StatSeeder extends Seeder
                 ['so_institutie_id'  => 45, 'so_numar_posturi_aprobate' => 1000, 'so_status' => true],
                 ['so_institutie_id'  => 46, 'so_numar_posturi_aprobate' => 1000, 'so_status' => true],
                 ['so_institutie_id'  => 47, 'so_numar_posturi_aprobate' => 1000, 'so_status' => true],
+                ['so_institutie_id'  => 48, 'so_numar_posturi_aprobate' => 1000, 'so_status' => true],
+                ['so_institutie_id'  => 49, 'so_numar_posturi_aprobate' => 1000, 'so_status' => true],
+                ['so_institutie_id'  => 50, 'so_numar_posturi_aprobate' => 1000, 'so_status' => true],
+                ['so_institutie_id'  => 51, 'so_numar_posturi_aprobate' => 1000, 'so_status' => true],
+                ['so_institutie_id'  => 52, 'so_numar_posturi_aprobate' => 1000, 'so_status' => true],
+                ['so_institutie_id'  => 53, 'so_numar_posturi_aprobate' => 1000, 'so_status' => true],
+                ['so_institutie_id'  => 54, 'so_numar_posturi_aprobate' => 1000, 'so_status' => true],
+                ['so_institutie_id'  => 55, 'so_numar_posturi_aprobate' => 1000, 'so_status' => true],
+                ['so_institutie_id'  => 56, 'so_numar_posturi_aprobate' => 1000, 'so_status' => true],
+                ['so_institutie_id'  => 57, 'so_numar_posturi_aprobate' => 1000, 'so_status' => true],
+                ['so_institutie_id'  => 58, 'so_numar_posturi_aprobate' => 1000, 'so_status' => true],
+                ['so_institutie_id'  => 59, 'so_numar_posturi_aprobate' => 1000, 'so_status' => true],
+                ['so_institutie_id'  => 60, 'so_numar_posturi_aprobate' => 1000, 'so_status' => true],
+                ['so_institutie_id'  => 61, 'so_numar_posturi_aprobate' => 1000, 'so_status' => true],
+                ['so_institutie_id'  => 62, 'so_numar_posturi_aprobate' => 1000, 'so_status' => true],
+                ['so_institutie_id'  => 63, 'so_numar_posturi_aprobate' => 1000, 'so_status' => true],
+                ['so_institutie_id'  => 64, 'so_numar_posturi_aprobate' => 1000, 'so_status' => true],
+                ['so_institutie_id'  => 65, 'so_numar_posturi_aprobate' => 1000, 'so_status' => true],
+                ['so_institutie_id'  => 66, 'so_numar_posturi_aprobate' => 1000, 'so_status' => true],
+                ['so_institutie_id'  => 67, 'so_numar_posturi_aprobate' => 1000, 'so_status' => true],
+                ['so_institutie_id'  => 68, 'so_numar_posturi_aprobate' => 1000, 'so_status' => true],
+                ['so_institutie_id'  => 69, 'so_numar_posturi_aprobate' => 1000, 'so_status' => true],
+                ['so_institutie_id'  => 70, 'so_numar_posturi_aprobate' => 1000, 'so_status' => true],
+                ['so_institutie_id'  => 71, 'so_numar_posturi_aprobate' => 1000, 'so_status' => true],
+                ['so_institutie_id'  => 72, 'so_numar_posturi_aprobate' => 1000, 'so_status' => true],
+                ['so_institutie_id'  => 73, 'so_numar_posturi_aprobate' => 1000, 'so_status' => true],
+                ['so_institutie_id'  => 74, 'so_numar_posturi_aprobate' => 1000, 'so_status' => true],
+                ['so_institutie_id'  => 75, 'so_numar_posturi_aprobate' => 1000, 'so_status' => true],
+                ['so_institutie_id'  => 76, 'so_numar_posturi_aprobate' => 1000, 'so_status' => true],
+                ['so_institutie_id'  => 77, 'so_numar_posturi_aprobate' => 1000, 'so_status' => true],
+                ['so_institutie_id'  => 78, 'so_numar_posturi_aprobate' => 1000, 'so_status' => true],
+                ['so_institutie_id'  => 79, 'so_numar_posturi_aprobate' => 1000, 'so_status' => true],
+                ['so_institutie_id'  => 80, 'so_numar_posturi_aprobate' => 1000, 'so_status' => true],
+                ['so_institutie_id'  => 81, 'so_numar_posturi_aprobate' => 1000, 'so_status' => true],
+                ['so_institutie_id'  => 82, 'so_numar_posturi_aprobate' => 1000, 'so_status' => true],
+                ['so_institutie_id'  => 83, 'so_numar_posturi_aprobate' => 1000, 'so_status' => true],
+                ['so_institutie_id'  => 84, 'so_numar_posturi_aprobate' => 1000, 'so_status' => true],
+                ['so_institutie_id'  => 85, 'so_numar_posturi_aprobate' => 1000, 'so_status' => true],
+                ['so_institutie_id'  => 86, 'so_numar_posturi_aprobate' => 1000, 'so_status' => true],
+                ['so_institutie_id'  => 87, 'so_numar_posturi_aprobate' => 1000, 'so_status' => true],
+                ['so_institutie_id'  => 88, 'so_numar_posturi_aprobate' => 1000, 'so_status' => true],
+                ['so_institutie_id'  => 89, 'so_numar_posturi_aprobate' => 1000, 'so_status' => true],
+                ['so_institutie_id'  => 90, 'so_numar_posturi_aprobate' => 1000, 'so_status' => true],
+                ['so_institutie_id'  => 91, 'so_numar_posturi_aprobate' => 1000, 'so_status' => true],
+                ['so_institutie_id'  => 92, 'so_numar_posturi_aprobate' => 1000, 'so_status' => true],
+                ['so_institutie_id'  => 93, 'so_numar_posturi_aprobate' => 1000, 'so_status' => true],
+                ['so_institutie_id'  => 94, 'so_numar_posturi_aprobate' => 1000, 'so_status' => true],
+                ['so_institutie_id'  => 95, 'so_numar_posturi_aprobate' => 1000, 'so_status' => true],
+                ['so_institutie_id'  => 96, 'so_numar_posturi_aprobate' => 1000, 'so_status' => true],
+                ['so_institutie_id'  => 97, 'so_numar_posturi_aprobate' => 1000, 'so_status' => true],
+                ['so_institutie_id'  => 98, 'so_numar_posturi_aprobate' => 1000, 'so_status' => true],
+                ['so_institutie_id'  => 99, 'so_numar_posturi_aprobate' => 1000, 'so_status' => true],
+                ['so_institutie_id'  => 100, 'so_numar_posturi_aprobate' => 1000, 'so_status' => true],
+                ['so_institutie_id'  => 101, 'so_numar_posturi_aprobate' => 1000, 'so_status' => true],
             )
         );
     }

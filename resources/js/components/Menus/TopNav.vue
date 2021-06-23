@@ -21,7 +21,7 @@
                         <li class="nav-item">
                             <a
                                 class="nav-link active"
-                                aria-current="page" href="/"
+                                aria-current="page" href="/module"
                                 v-if="user === null"
                             >Module</a>
                         </li>

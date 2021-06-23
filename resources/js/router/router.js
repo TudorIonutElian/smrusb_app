@@ -74,6 +74,7 @@ import EvaluareContestatii from "../components/User/Evaluare/EvaluareContestatii
 import RecompenseAdaugare from "../components/User/Recompense/RecompenseAdaugare";
 import SanctiuniAdaugare from "../components/User/Sanctiuni/SanctiuniAdaugare";
 import AngajatListaSalarii from "../components/User/Angajat/AngajatListaSalarii";
+import ModuleComponent from "../components/ModuleComponent";
 
 const router = new VueRouter({
     mode: 'history',
@@ -81,6 +82,7 @@ const router = new VueRouter({
         // Route Home
         {path: '/', component: Home, name: 'home'},
         {path: '/despre', component: DespreComponent, name: 'despre'},
+        {path: '/module', component: ModuleComponent, name: 'module'},
 
         // Route Admin Dashboard
         {path: '/admin/dashboard', component: Admin, name: 'admin-dashboard'},
