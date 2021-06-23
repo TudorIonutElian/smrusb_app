@@ -36,6 +36,7 @@
                                     <button
                                         class="btn btn-sm btn-primary"
                                         @click.prevent="eliberareAdeverinta(index)"
+                                        :disabled="angajat.angajat_status == 0"
                                     >
                                         Eliberare Adeverinta
                                     </button>
@@ -285,5 +286,9 @@ export default {
 .col-text-general_functie{
     font-weight: bolder;
     font-style: italic;
+}
+.contract_incetat{
+    color: #e74c3c;
+    font-weight: bold;
 }
 </style>

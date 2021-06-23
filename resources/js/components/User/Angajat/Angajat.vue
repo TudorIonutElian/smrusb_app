@@ -75,14 +75,50 @@
                         <div class="row">
                             <div class="col-12 mb-3">
                                 <div class="btn-group">
-                                    <button @click.prevent="goToNumireAngajat" class="btn btn-primary">Numire Angajat</button>
-                                    <button @click.prevent="goToMutareAngajat" class="btn btn-primary">Mutare Angajat</button>
-                                    <button @click.prevent="goToIncetareContract" class="btn btn-primary">Incetare Contract</button>
-                                    <button @click.prevent="goToAdaugareCalificativ" class="btn btn-primary">Adaugare Calificativ</button>
-                                    <button class="btn btn-primary">Adaugare Recompense</button>
-                                    <button @click.prevent="goToAdeverintaAngajat" class="btn btn-success">Adeverinta Angajat</button>
-                                    <button @click.prevent="goToAdeverintaAsigurat" class="btn btn-success">Adeverinta Asigurat</button>
-                                    <button @click.prevent="goToAdeverintaSalarii" class="btn btn-success">Adeverinta Salarii</button>
+                                    <button
+                                        @click.prevent="goToNumireAngajat"
+                                        class="btn btn-primary"
+                                        :disabled="date_fisa.stare_contract == 0"
+                                        :class="date_fisa.stare_contract == 0 ? 'btn-disabled' : '' "
+                                    >
+                                        Numire Angajat</button>
+                                    <button
+                                        @click.prevent="goToMutareAngajat"
+                                        class="btn btn-primary"
+                                        :disabled="date_fisa.stare_contract == 0"
+                                        :class="date_fisa.stare_contract == 0 ? 'btn-disabled' : '' "
+                                    >Mutare Angajat</button>
+
+                                    <button
+                                        @click.prevent="goToIncetareContract"
+                                        class="btn btn-primary"
+                                        :disabled="date_fisa.stare_contract == 0"
+                                        :class="date_fisa.stare_contract == 0 ? 'btn-disabled' : '' "
+                                    >Incetare Contract</button>
+
+                                    <button
+                                        @click.prevent="goToAdaugareCalificativ"
+                                        class="btn btn-primary"
+                                        :disabled="date_fisa.stare_contract == 0"
+                                        :class="date_fisa.stare_contract == 0 ? 'btn-disabled' : '' "
+                                    >Adaugare Calificativ</button>
+                                    <button
+                                        class="btn btn-primary"
+                                        :disabled="date_fisa.stare_contract == 0"
+                                        :class="date_fisa.stare_contract == 0 ? 'btn-disabled' : '' "
+                                    >Adaugare Recompense</button>
+                                    <button
+                                        @click.prevent="goToAdeverintaAngajat"
+                                        class="btn btn-success"
+                                    >Adeverinta Angajat</button>
+                                    <button
+                                        @click.prevent="goToAdeverintaAsigurat"
+                                        class="btn btn-success"
+                                    >Adeverinta Asigurat</button>
+                                    <button
+                                        @click.prevent="goToAdeverintaSalarii"
+                                        class="btn btn-success"
+                                    >Adeverinta Salarii</button>
                                 </div>
                             </div>
                             <div class="col-12">
@@ -674,5 +710,10 @@ tr.bg-secondary{
     border-radius: 3px;
     font-weight: bold;
     color: #fff;
+}
+.btn-disabled{
+    background-color: #e74c3c;
+    border: none;
+    outline: none;
 }
 </style>

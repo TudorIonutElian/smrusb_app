@@ -30,8 +30,15 @@
                                 <td>{{ angajat.angajat_prenume }}</td>
                                 <td>{{ angajat.angajat_cnp }}</td>
                                 <td>{{ angajat.angajat_institutie}}</td>
-                                <td>{{ angajat.angajat_functie }}</td>
-                                <td><a :href="'/user/mutare_angajat/' + angajat.angajat_id" class="btn btn-sm btn-secondary btn-show">Muta Angajat</a></td>
+                                <td>
+                                    <span v-if="angajat.angajat_status == 1">{{ angajat.angajat_functie ? angajat.angajat_functie: 'Nu este numit.' }}</span>
+                                    <span v-if="angajat.angajat_status == 0" class="contract-incetat">Contract incetat</span>
+                                </td>
+                                <td><a
+                                    :href="'/user/mutare_angajat/' + angajat.angajat_id"
+                                    class="btn btn-sm btn-secondary btn-show"
+                                    :class="angajat.angajat_status == 0 ? 'btn-disabled disabled' : ''"
+                                >Muta Angajat</a></td>
                             </tr>
                             </tbody>
                         </table>
@@ -92,5 +99,15 @@ export default {
     font-weight: bolder;
     color: #38c172;
     background-color: #fff;
+}
+
+.btn-disabled{
+    background-color: #e74c3c;
+    border: none;
+    outline: none;
+}
+.contract-incetat{
+    color: #e74c3c;
+    font-weight: bold;
 }
 </style>
