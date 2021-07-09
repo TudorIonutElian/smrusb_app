@@ -609,7 +609,401 @@ class FunctiiSeeder extends Seeder
                     'functie_coeficient'  => 1.44,
                     'functie_suma'  => 3610,
                     'functie_status'  => true
-                ]
+                ],
+
+                //  Salarii de bază pentru personalul clerical încadrat în unităţile bugetare
+                [
+                    'functie_denumire'  => 'Preot - gradul I',
+                    'functie_nivel_studii'  => 'S',
+                    'functie_nivel_vechime' => NULL,
+                    'functie_grad_prevazut' => NULL,
+                    'functie_coeficient'  => 1.60,
+                    'functie_suma'  => 4000,
+                    'functie_status'  => true
+                ],
+                [
+                    'functie_denumire'  => 'Preot - gradul II',
+                    'functie_nivel_studii'  => 'S',
+                    'functie_nivel_vechime' => NULL,
+                    'functie_grad_prevazut' => NULL,
+                    'functie_coeficient'  => 1.56,
+                    'functie_suma'  => 3900,
+                    'functie_status'  => true
+                ],
+                [
+                    'functie_denumire'  => 'Preot definitiv',
+                    'functie_nivel_studii'  => 'S',
+                    'functie_nivel_vechime' => NULL,
+                    'functie_grad_prevazut' => NULL,
+                    'functie_coeficient'  => 1.54,
+                    'functie_suma'  => 3850,
+                    'functie_status'  => true
+                ],
+                [
+                    'functie_denumire'  => 'Preot debutant',
+                    'functie_nivel_studii'  => 'S',
+                    'functie_nivel_vechime' => NULL,
+                    'functie_grad_prevazut' => NULL,
+                    'functie_coeficient'  => 1.44,
+                    'functie_suma'  => 3700,
+                    'functie_status'  => true
+                ],
+                [
+                    'functie_denumire'  => 'Preot gradul I',
+                    'functie_nivel_studii'  => 'M',
+                    'functie_nivel_vechime' => NULL,
+                    'functie_grad_prevazut' => NULL,
+                    'functie_coeficient'  => 1.48,
+                    'functie_suma'  => 3700,
+                    'functie_status'  => true
+                ],
+                [
+                    'functie_denumire'  => 'Preot definitiv',
+                    'functie_nivel_studii'  => 'S',
+                    'functie_nivel_vechime' => NULL,
+                    'functie_grad_prevazut' => NULL,
+                    'functie_coeficient'  => 1.46,
+                    'functie_suma'  => 3650,
+                    'functie_status'  => true
+                ],
+                [
+                    'functie_denumire'  => 'Preot debutant',
+                    'functie_nivel_studii'  => 'M',
+                    'functie_nivel_vechime' => NULL,
+                    'functie_grad_prevazut' => NULL,
+                    'functie_coeficient'  => 1.42,
+                    'functie_suma'  => 3550,
+                    'functie_status'  => true
+                ],
+                // Unităţi sanitare, de asistenţă socială şi de asistenţă medico-socială
+                [
+                    'functie_denumire'  => 'Manager spital 400+ paturi gradul I',
+                    'functie_nivel_studii'  => 'S',
+                    'functie_nivel_vechime' => NULL,
+                    'functie_grad_prevazut' => NULL,
+                    'functie_coeficient'  => 5.70,
+                    'functie_suma'  => 14257,
+                    'functie_status'  => true
+                ],
+                [
+                    'functie_denumire'  => 'Manager spital 400+ paturi gradul II',
+                    'functie_nivel_studii'  => 'S',
+                    'functie_nivel_vechime' => NULL,
+                    'functie_grad_prevazut' => NULL,
+                    'functie_coeficient'  => 5.99,
+                    'functie_suma'  => 14975,
+                    'functie_status'  => true
+                ],
+                [
+                    'functie_denumire'  => 'Manager spital 400- paturi gradul I',
+                    'functie_nivel_studii'  => 'S',
+                    'functie_nivel_vechime' => NULL,
+                    'functie_grad_prevazut' => NULL,
+                    'functie_coeficient'  => 5.54,
+                    'functie_suma'  => 13849,
+                    'functie_status'  => true
+                ],
+                [
+                    'functie_denumire'  => 'Manager spital 400- paturi gradul I',
+                    'functie_nivel_studii'  => 'S',
+                    'functie_nivel_vechime' => NULL,
+                    'functie_grad_prevazut' => NULL,
+                    'functie_coeficient'  => 5.87,
+                    'functie_suma'  => 14664,
+                    'functie_status'  => true
+                ],
+                [
+                    'functie_denumire'  => 'Manager General - Servicii de ambulanta - Gradul I',
+                    'functie_nivel_studii'  => 'S',
+                    'functie_nivel_vechime' => NULL,
+                    'functie_grad_prevazut' => NULL,
+                    'functie_coeficient'  => 5.70,
+                    'functie_suma'  => 14257,
+                    'functie_status'  => true
+                ],
+                [
+                    'functie_denumire'  => 'Manager General - Servicii de ambulanta - Gradul II',
+                    'functie_nivel_studii'  => 'S',
+                    'functie_nivel_vechime' => NULL,
+                    'functie_grad_prevazut' => NULL,
+                    'functie_coeficient'  => 5.99,
+                    'functie_suma'  => 14975,
+                    'functie_status'  => true
+                ],
+                [
+                    'functie_denumire'  => 'Director de Cercetare - gradul I',
+                    'functie_nivel_studii'  => 'S',
+                    'functie_nivel_vechime' => NULL,
+                    'functie_grad_prevazut' => NULL,
+                    'functie_coeficient'  => 3.71,
+                    'functie_suma'  => 9287,
+                    'functie_status'  => true
+                ],
+                [
+                    'functie_denumire'  => 'Director de Cercetare - gradul II',
+                    'functie_nivel_studii'  => 'S',
+                    'functie_nivel_vechime' => NULL,
+                    'functie_grad_prevazut' => NULL,
+                    'functie_coeficient'  => 4.24,
+                    'functie_suma'  => 10591,
+                    'functie_status'  => true
+                ],
+                [
+                    'functie_denumire'  => 'Director Financiar Contabil / Administrativ - gradul I',
+                    'functie_nivel_studii'  => 'S',
+                    'functie_nivel_vechime' => NULL,
+                    'functie_grad_prevazut' => NULL,
+                    'functie_coeficient'  => 3.32,
+                    'functie_suma'  => 8310,
+                    'functie_status'  => true
+                ],
+                [
+                    'functie_denumire'  => 'Director Financiar Contabil / Administrativ - gradul II',
+                    'functie_nivel_studii'  => 'S',
+                    'functie_nivel_vechime' => NULL,
+                    'functie_grad_prevazut' => NULL,
+                    'functie_coeficient'  => 3.52,
+                    'functie_suma'  => 8798,
+                    'functie_status'  => true
+                ],
+                [
+                    'functie_denumire'  => 'Director Economic - gradul I',
+                    'functie_nivel_studii'  => 'S',
+                    'functie_nivel_vechime' => NULL,
+                    'functie_grad_prevazut' => NULL,
+                    'functie_coeficient'  => 2.70,
+                    'functie_suma'  => 6762,
+                    'functie_status'  => true
+                ],
+                [
+                    'functie_denumire'  => 'Director Economic - gradul II',
+                    'functie_nivel_studii'  => 'S',
+                    'functie_nivel_vechime' => NULL,
+                    'functie_grad_prevazut' => NULL,
+                    'functie_coeficient'  => 3.06,
+                    'functie_suma'  => 7658,
+                    'functie_status'  => true
+                ],
+                [
+                    'functie_denumire'  => 'Director Tehnic - gradul I',
+                    'functie_nivel_studii'  => 'S',
+                    'functie_nivel_vechime' => NULL,
+                    'functie_grad_prevazut' => NULL,
+                    'functie_coeficient'  => 2.87,
+                    'functie_suma'  => 7169,
+                    'functie_status'  => true
+                ],
+                [
+                    'functie_denumire'  => 'Director Tehnic - gradul II',
+                    'functie_nivel_studii'  => 'S',
+                    'functie_nivel_vechime' => NULL,
+                    'functie_grad_prevazut' => NULL,
+                    'functie_coeficient'  => 3.26,
+                    'functie_suma'  => 8147,
+                    'functie_status'  => true
+                ],
+                /*      Institutul Naţional de Hematologie Transfuzională "Prof. Dr. C.T. Nicolau", 
+                        Centrul de Transfuzie Sanguină al municipiului Bucureşti, centre de transfuzie
+                        sanguină regionale şi centre de transfuzie sanguină judeţene 
+                */
+                [
+                    'functie_denumire'  => 'Director General - gradul I',
+                    'functie_nivel_studii'  => 'S',
+                    'functie_nivel_vechime' => NULL,
+                    'functie_grad_prevazut' => NULL,
+                    'functie_coeficient'  => 4.63,
+                    'functie_suma'  => 11568,
+                    'functie_status'  => true
+                ],
+                [
+                    'functie_denumire'  => 'Director General - gradul II',
+                    'functie_nivel_studii'  => 'S',
+                    'functie_nivel_vechime' => NULL,
+                    'functie_grad_prevazut' => NULL,
+                    'functie_coeficient'  => 4.82,
+                    'functie_suma'  => 12057,
+                    'functie_status'  => true
+                ],
+                [
+                    'functie_denumire'  => 'Director general adjunct',
+                    'functie_nivel_studii'  => 'S',
+                    'functie_nivel_vechime' => NULL,
+                    'functie_grad_prevazut' => NULL,
+                    'functie_coeficient'  => 4.04,
+                    'functie_suma'  => 10102,
+                    'functie_status'  => true
+                ],
+                [
+                    'functie_denumire'  => 'Director general adjunct',
+                    'functie_nivel_studii'  => 'S',
+                    'functie_nivel_vechime' => NULL,
+                    'functie_grad_prevazut' => NULL,
+                    'functie_coeficient'  => 4.24,
+                    'functie_suma'  => 10591,
+                    'functie_status'  => true
+                ],
+                [
+                    'functie_denumire'  => 'Director Stiintific',
+                    'functie_nivel_studii'  => 'S',
+                    'functie_nivel_vechime' => NULL,
+                    'functie_grad_prevazut' => NULL,
+                    'functie_coeficient'  => 3.78,
+                    'functie_suma'  => 9450,
+                    'functie_status'  => true
+                ],
+                [
+                    'functie_denumire'  => 'Director Stiintific',
+                    'functie_nivel_studii'  => 'S',
+                    'functie_nivel_vechime' => NULL,
+                    'functie_grad_prevazut' => NULL,
+                    'functie_coeficient'  => 4.04,
+                    'functie_suma'  => 10102,
+                    'functie_status'  => true
+                ],
+                [
+                    'functie_denumire'  => 'Director adjunct financiar',
+                    'functie_nivel_studii'  => 'S',
+                    'functie_nivel_vechime' => NULL,
+                    'functie_grad_prevazut' => NULL,
+                    'functie_coeficient'  => 3.00,
+                    'functie_suma'  => 7495,
+                    'functie_status'  => true
+                ],
+                [
+                    'functie_denumire'  => 'Director adjunct financiar',
+                    'functie_nivel_studii'  => 'S',
+                    'functie_nivel_vechime' => NULL,
+                    'functie_grad_prevazut' => NULL,
+                    'functie_coeficient'  => 3.32,
+                    'functie_suma'  => 8310,
+                    'functie_status'  => true
+                ],
+                [
+                    'functie_denumire'  => 'Director Resurse Umane',
+                    'functie_nivel_studii'  => 'S',
+                    'functie_nivel_vechime' => NULL,
+                    'functie_grad_prevazut' => NULL,
+                    'functie_coeficient'  => 3.00,
+                    'functie_suma'  => 7495,
+                    'functie_status'  => true
+                ],
+                [
+                    'functie_denumire'  => 'Director Resurse Umane',
+                    'functie_nivel_studii'  => 'S',
+                    'functie_nivel_vechime' => NULL,
+                    'functie_grad_prevazut' => NULL,
+                    'functie_coeficient'  => 3.32,
+                    'functie_suma'  => 8310,
+                    'functie_status'  => true
+                ],
+                [
+                    'functie_denumire'  => 'Asistent stagiar',
+                    'functie_nivel_studii'  => 'S',
+                    'functie_nivel_vechime' => NULL,
+                    'functie_grad_prevazut' => NULL,
+                    'functie_coeficient'  => 1.44,
+                    'functie_suma'  => 3610,
+                    'functie_status'  => true
+                ],
+                [
+                    'functie_denumire'  => 'Asistent stagiar',
+                    'functie_nivel_studii'  => 'S',
+                    'functie_nivel_vechime' => NULL,
+                    'functie_grad_prevazut' => NULL,
+                    'functie_coeficient'  => 1.44,
+                    'functie_suma'  => 3610,
+                    'functie_status'  => true
+                ],
+                [
+                    'functie_denumire'  => 'Asistent stagiar',
+                    'functie_nivel_studii'  => 'S',
+                    'functie_nivel_vechime' => NULL,
+                    'functie_grad_prevazut' => NULL,
+                    'functie_coeficient'  => 1.44,
+                    'functie_suma'  => 3610,
+                    'functie_status'  => true
+                ],
+                [
+                    'functie_denumire'  => 'Asistent stagiar',
+                    'functie_nivel_studii'  => 'S',
+                    'functie_nivel_vechime' => NULL,
+                    'functie_grad_prevazut' => NULL,
+                    'functie_coeficient'  => 1.44,
+                    'functie_suma'  => 3610,
+                    'functie_status'  => true
+                ],
+                [
+                    'functie_denumire'  => 'Asistent stagiar',
+                    'functie_nivel_studii'  => 'S',
+                    'functie_nivel_vechime' => NULL,
+                    'functie_grad_prevazut' => NULL,
+                    'functie_coeficient'  => 1.44,
+                    'functie_suma'  => 3610,
+                    'functie_status'  => true
+                ],
+                [
+                    'functie_denumire'  => 'Asistent stagiar',
+                    'functie_nivel_studii'  => 'S',
+                    'functie_nivel_vechime' => NULL,
+                    'functie_grad_prevazut' => NULL,
+                    'functie_coeficient'  => 1.44,
+                    'functie_suma'  => 3610,
+                    'functie_status'  => true
+                ],
+                [
+                    'functie_denumire'  => 'Asistent stagiar',
+                    'functie_nivel_studii'  => 'S',
+                    'functie_nivel_vechime' => NULL,
+                    'functie_grad_prevazut' => NULL,
+                    'functie_coeficient'  => 1.44,
+                    'functie_suma'  => 3610,
+                    'functie_status'  => true
+                ],
+                [
+                    'functie_denumire'  => 'Asistent stagiar',
+                    'functie_nivel_studii'  => 'S',
+                    'functie_nivel_vechime' => NULL,
+                    'functie_grad_prevazut' => NULL,
+                    'functie_coeficient'  => 1.44,
+                    'functie_suma'  => 3610,
+                    'functie_status'  => true
+                ],
+                [
+                    'functie_denumire'  => 'Asistent stagiar',
+                    'functie_nivel_studii'  => 'S',
+                    'functie_nivel_vechime' => NULL,
+                    'functie_grad_prevazut' => NULL,
+                    'functie_coeficient'  => 1.44,
+                    'functie_suma'  => 3610,
+                    'functie_status'  => true
+                ],
+                [
+                    'functie_denumire'  => 'Asistent stagiar',
+                    'functie_nivel_studii'  => 'S',
+                    'functie_nivel_vechime' => NULL,
+                    'functie_grad_prevazut' => NULL,
+                    'functie_coeficient'  => 1.44,
+                    'functie_suma'  => 3610,
+                    'functie_status'  => true
+                ],
+                [
+                    'functie_denumire'  => 'Asistent stagiar',
+                    'functie_nivel_studii'  => 'S',
+                    'functie_nivel_vechime' => NULL,
+                    'functie_grad_prevazut' => NULL,
+                    'functie_coeficient'  => 1.44,
+                    'functie_suma'  => 3610,
+                    'functie_status'  => true
+                ],
+                [
+                    'functie_denumire'  => 'Asistent stagiar',
+                    'functie_nivel_studii'  => 'S',
+                    'functie_nivel_vechime' => NULL,
+                    'functie_grad_prevazut' => NULL,
+                    'functie_coeficient'  => 1.44,
+                    'functie_suma'  => 3610,
+                    'functie_status'  => true
+                ],
 
             )
         );
