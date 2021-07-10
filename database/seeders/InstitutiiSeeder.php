@@ -216,7 +216,7 @@ class InstitutiiSeeder extends Seeder
                 [
                     'institutie_minister_id'                => 1,
                     'institutie_denumire'                   => 'Agentia Judeteana de Administrare Fiscala Maramures',
-                    'institutie_cod_acces'                  => 10018,
+                    'institutie_cod_acces'                  => 10028,
                     'institutie_este_ordonator'             => true,
                     'institutie_ordonator_id'               => 1
                 ],
