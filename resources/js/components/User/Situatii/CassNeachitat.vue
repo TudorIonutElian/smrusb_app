@@ -10,15 +10,6 @@
                         </span>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-12">
-                        <div class="input-group flex-nowrap">
-                            <span class="input-group-text" id="addon-wrapping">Cautare angajat</span>
-                            <input type="text" class="form-control mx-3" placeholder="Introduceti numele sau prenumele angajatului" aria-label="Username" aria-describedby="addon-wrapping">
-                            <button class="btn btn-success">Cauta</button>
-                        </div>
-                    </div>
-                </div>
                 <div class="row mt-2">
                     <div class="col-3">
                         <label for="selectare_institutie">Selectat Institutia</label>

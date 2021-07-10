@@ -77,7 +77,7 @@
                             <span>{{ dataCount.countRecompense }}</span>
                         </div>
                         <div class="my-2">
-                            <a :href="`/user/dashboard/recompense/${this.user.user_angajat_id}`" class="btn btn-info btn-block text-white">Vezi Recompense</a>
+                            <a :href="`/angajat/recompense/${this.user.user_angajat_id}`" class="btn btn-info btn-block text-white">Vezi Recompense</a>
                         </div>
                     </div>
 

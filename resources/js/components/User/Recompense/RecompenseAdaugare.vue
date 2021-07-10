@@ -85,7 +85,7 @@
                                 </td>
                             </tr>
                             <tr v-if="lista_recompense_angajat.length == 0 && lista_recompense_angajat_preluate == true">
-                                <td colspan="4" class="text-center bg-warning text-bold"> Angajatul nu are recompense</td>
+                                <td colspan="6" class="text-center bg-warning text-bold"> Angajatul nu are recompense</td>
                             </tr>
                             </tbody>
                         </table>

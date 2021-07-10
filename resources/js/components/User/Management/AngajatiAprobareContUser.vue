@@ -10,12 +10,6 @@
                         </span>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-12 d-flex mb-2">
-                        <input class="form-control me-2" type="search" placeholder="Introduceti numele angajatului ..." aria-label="Search">
-                        <button class="btn btn-badge ml-1" type="submit">Cauta</button>
-                    </div>
-                </div>
                 <div class="row mt-3">
                     <div class="col-12">
                         <table class="table">

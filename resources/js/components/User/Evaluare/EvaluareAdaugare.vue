@@ -3,12 +3,6 @@
         <top-nav></top-nav>
         <div class="row">
             <div class="container-fluid mt-4 container-angajati">
-                <div class="row">
-                    <div class="col-12 d-flex mb-2">
-                        <input class="form-control me-2" type="search" placeholder="Introduceti numele angajatului ..." aria-label="Search">
-                        <button class="btn btn-outline-success ml-1" type="submit">Cauta</button>
-                    </div>
-                </div>
                 <div class="row mt-2">
                     <div class="col-12">
                         <table class="table">

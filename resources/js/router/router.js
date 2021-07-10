@@ -75,6 +75,7 @@ import RecompenseAdaugare from "../components/User/Recompense/RecompenseAdaugare
 import SanctiuniAdaugare from "../components/User/Sanctiuni/SanctiuniAdaugare";
 import AngajatListaSalarii from "../components/User/Angajat/AngajatListaSalarii";
 import ModuleComponent from "../components/ModuleComponent";
+import RecompenseAngajat from "../components/User/Recompense/RecompenseAngajat";
 
 const router = new VueRouter({
     mode: 'history',
@@ -183,6 +184,7 @@ const router = new VueRouter({
         {path: '/angajat/:id', component: Angajat, name: 'angajat'},
         {path: '/angajat/dateplata/:id', component: DatePlata, name: 'angajat-date-plata'},
         {path: '/angajat/adrese/:id', component: AdreseAngajat, name: 'angajat-adrese'},
+        {path: '/angajat/recompense/:id', component: RecompenseAngajat, name: 'angajat-recompense'},
     ]
 });
 
