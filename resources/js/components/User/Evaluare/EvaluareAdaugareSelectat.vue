@@ -211,6 +211,11 @@ export default {
                                 // all of other options may go here
                             });
                         }
+                        Vue.$toast.open({
+                            message: 'Date Evaluare Salvate!',
+                            type: 'success',
+                            // all of other options may go here
+                        });
                         this.preluareDateAngajat();
                         this.loading = false;
                     })

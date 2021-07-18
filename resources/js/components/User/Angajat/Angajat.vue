@@ -104,6 +104,7 @@
                                     >Adaugare Calificativ</button>
                                     <button
                                         class="btn btn-primary"
+                                        @click.prevent="goToAdaugareRecompense"
                                         :disabled="date_fisa.stare_contract == 0"
                                         :class="date_fisa.stare_contract == 0 ? 'btn-disabled' : '' "
                                     >Adaugare Recompense</button>
@@ -545,7 +546,9 @@ export default {
         goToAdaugareCalificativ(){
             router.push({ name: 'evaluare-adaugare-selectat', params: { id: this.angajat.id } })
         },
-        goToAdaugareRecompense(){},
+        goToAdaugareRecompense(){
+            router.push({name: 'recompense-adaugare'});
+        },
         goToAdeverintaAngajat(){
             router.push({name: 'adeverinta-angajat'});
         },
