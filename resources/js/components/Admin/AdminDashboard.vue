@@ -17,10 +17,10 @@
         </div>
         <div class="container-fluid" v-if="adminData.isAdmin === 'false'">
             <div class="row">
-                <div class="container mt-2">
+                <div class="container mt-4">
                     <div class="row">
                         <div class="col-12 bg-warning p-4">
-                            Ne pare rau! Nu aveti acces la panoul de administrare. Puteti solicita acces <a href="#">aici</a>.
+                            Ne pare rau! Nu aveti acces la panoul de administrare.
                         </div>
                     </div>
                 </div>

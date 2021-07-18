@@ -166,12 +166,24 @@ class AngajatiController extends Controller
 
     // Preluare date angajat pentru fisa de evidenta
     public function fisaEvidenta($id){
+        $salarii = Salariu::where([
+            ['s_angajat', '=', $id],
+            ['s_achitat', '=', 1],
+        ])->get();
+        $suma_salarii = 0;
+
+        foreach ($salarii as &$salariu) {
+            $suma_salarii += $salariu->s_suma_finala;
+        }
+
+
         return [
             'date_personale'        => DatePersonaleAngajat::make(Angajat::find($id)),
             'date_mutatii'          => MutatiiAngajat::collection(MutatiiProfesionale::where('mp_angajat_id', '=', $id)->orderBy('mp_act_data_aplicare')->get()),
-            'date_salarii'          => DateSalariiAngajat::collection(Salariu::where('s_angajat', '=', Angajat::find($id)->id)->orderBy('s_end_date', 'DESC')->limit(12)->get()),
+            'date_salarii'          => DateSalariiAngajat::collection(Salariu::where('s_angajat', '=', Angajat::find($id)->id)->orderBy('s_end_date', 'ASC')->limit(12)->get()),
             'adresa'                => Angajat::find($id)->adresa,
             'evaluari'              => DateCalificativeAngajat::collection(Calificativ::where('ca_angajat', '=', Angajat::find($id)->id)->get()),
+            'salarii_incasate'      => $suma_salarii,
             'stare_contract'        => Angajat::find($id)->contract->c_stare_contract
         ];
     }

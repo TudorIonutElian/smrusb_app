@@ -61,11 +61,11 @@ class PontajController extends Controller
 
     public function preluare($cod){
 
-        return PontajStatisticsResource::collection(Pontaj::where('pl_angajat', '=', $cod)->get());
+        return PontajStatisticsResource::collection(Pontaj::where('pl_angajat', '=', $cod)->orderBy('pl_start_date')->get());
     }
 
     public function preluarePontajInstitutie($institutie_id){
-        return VizualizarePontajInstitutie::collection(Pontaj::where('pl_institutie', '=', $institutie_id)->get());
+        return VizualizarePontajInstitutie::collection(Pontaj::where('pl_institutie', '=', $institutie_id)->orderBy('pl_start_date')->get());
     }
 
     public function preluarePontajInstitutieNeaprobat($institutie_id){

@@ -65,6 +65,10 @@
                         <div class="row-profile-template">Nivel Acces</div>
                         <div class="row-profile-info"> {{ date_fisa.date_personale.angajat_nivel_acces }}</div>
                     </div>
+                    <div class="row-profile">
+                        <div class="row-profile-template">Salarii incasate</div>
+                        <div class="row-profile-info"> <span class="info-salarii">{{ date_fisa.salarii_incasate }}</span> lei</div>
+                    </div>
                 </div>
                 <div class="col-10 p-3">
                     <div class="container-fluid">
@@ -714,5 +718,9 @@ tr.bg-secondary{
     background-color: #e74c3c;
     border: none;
     outline: none;
+}
+.info-salarii{
+    font-weight: bold;
+    color: #2ecc71;
 }
 </style>

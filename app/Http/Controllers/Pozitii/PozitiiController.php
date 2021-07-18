@@ -64,14 +64,20 @@ class PozitiiController extends Controller
 
         // Preluare stat de organizare pe baza id-ului institutiei
         $stat_organizare = StatOrganizare::where('so_institutie_id', '=', $institutie_id)->first();
-        $lista_pozitii_vacante = [];
+
 
         if($stat_organizare){
-            foreach ($stat_organizare->pozitii as $pozitie){
-                if($pozitie['ps_angajat'] === null){
-                    array_push($lista_pozitii_vacante, $pozitie);
-                }
-            }
+            $lista_pozitii_vacante = PozitiiOrganizare::where([
+                ['ps_stat', '=', $stat_organizare->id],
+                ['ps_status', '=', 1],
+                ['ps_angajat', '=', null]
+            ])->orderBy('ps_pozitie')->get();
+
+//            foreach ($stat_organizare->pozitii as $pozitie){
+//                if($pozitie['ps_angajat'] === null){
+//                    array_push($lista_pozitii_vacante, $pozitie);
+//                }
+//            }
             return $lista_pozitii_vacante;
         }
     }
