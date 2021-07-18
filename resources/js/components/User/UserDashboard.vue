@@ -42,6 +42,8 @@ export default {
         },
         resetEmitted(value){
             this.optiune_filtrare = value;
+            this.$router.go();
+
         }
     }
 }
