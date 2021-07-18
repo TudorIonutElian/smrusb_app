@@ -82,7 +82,7 @@
                         </td>
                     </tr>
                     <tr v-if="data.calificative.length == 0 || data.calificative == 'null'">
-                        <td colspan="8" class="text-center">Nu exista calificative neaprobate</td>
+                        <td colspan="8" class="text-center">Nu exista contestatii pentru aceasta unitate</td>
                     </tr>
                     </tbody>
                 </table>

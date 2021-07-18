@@ -59,14 +59,11 @@
                     <div class="col-12 text-center text-center-info">
                         <img src="/images/info-icon.png" alt="">
                         <span>
-                            Se afiseaza persoanele mutate in cadrul
-                            {{ this.institutii[helperVariables.filtrare.institutie-1].institutie_denumire }}
-                            de la data de {{ this.helperVariables.filtrare.dela}}
-                            pana la {{ this.helperVariables.filtrare.panala}}
+                            Se afiseaza persoanele mutate in cadrul institutiei selectate.
                         </span>
                     </div>
                 </div>
-                <div class="row" v-if="loading === false">
+                <div class="row" v-if="helperVariables.loading === false">
                     <div class="col-12">
                         <table class="table table-striped table-hover">
                             <thead>
@@ -90,7 +87,7 @@
                                 <td>{{ m.smp_data_aplicare }}</td>
                                 <td>{{ m.smp_numar_act }}</td>
                             </tr>
-                            <tr v-show="(mutatii == null || mutatii.length == 0) && loading === false">
+                            <tr v-if="(mutatii == null || mutatii.length == 0)">
                                 <td colspan="9" class="faraIncetari">Nu exista mutari de personal sau nu ati selectat filtre!</td>
                             </tr>
                             </tbody>
@@ -98,7 +95,7 @@
                     </div>
                 </div>
             </div>
-            <div v-if="loading === true">
+            <div v-if="helperVariables.loading === true">
                 <loading-component></loading-component>
             </div>
         </div>
@@ -149,8 +146,8 @@ export default {
                     Authorization : 'Bearer ' + this.helperVariables.token
                 }
             }).then(response => {
-                    this.institutii = response.data
-                    this.loading = false
+                    this.institutii = response.data;
+                    this.helperVariables.loading = false;
                 }
             )
         },
@@ -165,7 +162,7 @@ export default {
                 }
             }).then(response => {
                     this.mutatii = response.data.data;
-                    this.loading = false
+                    this.helperVariables.loading = false;
                 }
             )
         }

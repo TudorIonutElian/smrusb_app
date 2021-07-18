@@ -65,10 +65,6 @@
                         <div class="row-profile-template">Nivel Acces</div>
                         <div class="row-profile-info"> {{ date_fisa.date_personale.angajat_nivel_acces }}</div>
                     </div>
-                    <div class="row-profile">
-                        <div class="row-profile-template">Email</div>
-                        <div class="row-profile-info">popescuadrian@gmail.com</div>
-                    </div>
                 </div>
                 <div class="col-10 p-3">
                     <div class="container-fluid">

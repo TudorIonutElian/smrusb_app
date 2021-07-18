@@ -7,7 +7,7 @@
                 placeholder="Introduceti numele angajatului ..."
                 aria-label="Search"
                 v-model="search_value"
-                @keyup="sendSearchValue"
+                @keypress="sendSearchValue"
             >
             <button
                 class="btn btn-outline-danger ml-1"
