@@ -21,7 +21,7 @@ class PozitiiController extends Controller
             ['ps_stat',     '=', $id],
             ['ps_status',   '=', true]
 
-        ])->get();
+        ])->orderBy('ps_pozitie')->get();
         return PozitiiOrganizareDetail::collection($pozitii_stat);
     }
 
